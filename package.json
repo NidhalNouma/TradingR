@@ -8,7 +8,7 @@
     "server": "nodemon app.js",
     "client": "cd ./fronreact && npm start",
     "client-i": "cd ./fronreact && npm i",
-    "build": "rm -rf html/* && cd ./fronreact && npm run build",
+    "build": "rm -rf html && mkdir html && cd ./fronreact && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],

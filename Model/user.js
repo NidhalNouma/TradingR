@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+  active: { type: Boolean, default: false },
   email: {
     type: String,
     required: [true, "Email is requierd"],
@@ -13,6 +14,9 @@ const userSchema = new mongoose.Schema({
   },
   username: { type: String, required: [true, "username is requierd"] },
   password: { type: String, required: [true, "password is requierd"] },
+  userPicture: { type: String },
+  products: [{ type: mongoose.Schema.Types.ObjectId }],
+  card: [{ type: mongoose.Schema.Types.ObjectId }],
 });
 
 const User = mongoose.model("User", userSchema);
@@ -84,8 +88,11 @@ const findOne = function (email, password, callback) {
         console.log("find user ...", user.username);
         ans.results = {
           id: user._id,
+          active: user.active,
           username: user.username,
           email: user.email,
+          products: user.products,
+          card: user.card,
         };
         ans.findUser = true;
         callback(ans);

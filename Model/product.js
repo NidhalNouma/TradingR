@@ -63,19 +63,18 @@ const findAll = function (callback) {
     error: null,
     results: null,
   };
-  product
-    .find(function (err, results) {
-      if (err) {
-        console.log("Find" + type + "Products Error ...", err);
-        ans.error = err;
-        callback(ans);
-      } else {
-        ans.find = true;
-        ans.results = results;
-        callback(ans);
-      }
-    })
-    .select("_id title description price media img type");
+  product.find(function (err, results) {
+    if (err) {
+      console.log("Find" + type + "Products Error ...", err);
+      ans.error = err;
+      callback(ans);
+    } else {
+      ans.find = true;
+      ans.results = results;
+      callback(ans);
+    }
+  });
+  // .select("_id title description price media img type");
 };
 
 const findAllType = function (type) {

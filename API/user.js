@@ -24,7 +24,7 @@ router.post("/add", function (req, res) {
       response: rep,
     };
     if (rep.add) {
-      res.cookie("_SSD", rep.results.username, { maxAge: 30000 });
+      res.cookie("_SSD", rep.results.username, { maxAge: 300000 });
     }
     res.json(body);
     model.close();

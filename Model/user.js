@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
+  joinAt: { type: Date, default: Date.now },
   active: { type: Boolean, default: false },
+  score: { type: Number, default: 0 },
   email: {
     type: String,
     required: [true, "Email is requierd"],
@@ -15,6 +17,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: [true, "username is requierd"] },
   password: { type: String, required: [true, "password is requierd"] },
   userPicture: { type: String },
+  improvements: [{ type: mongoose.Schema.Types.ObjectId }],
+  questions: [{ type: mongoose.Schema.Types.ObjectId }],
   products: [{ type: mongoose.Schema.Types.ObjectId }],
   card: [{ type: mongoose.Schema.Types.ObjectId }],
 });
@@ -91,8 +95,12 @@ const findOne = function (email, password, callback) {
           active: user.active,
           username: user.username,
           email: user.email,
+          score: user.score,
+          improvements: user.improvements,
+          questions: user.questions,
           products: user.products,
           card: user.card,
+          joinAt: user.joinAt,
         };
         ans.findUser = true;
         callback(ans);

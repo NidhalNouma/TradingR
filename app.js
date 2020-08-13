@@ -1,10 +1,13 @@
 const express = require("express");
+const http = require("http");
 const user = require("./API/user");
 const done = require("./API/done");
 const product = require("./API/product");
+const run = require("./socket/index");
 const cors = require("cors");
 
 const app = express();
+
 app.use(express.static("./html"));
 app.use(cors());
 
@@ -18,4 +21,8 @@ app.get("*", (req, res) => {
 
 const port = process.env.PORT || 8080;
 
-app.listen(port, () => console.log(`listening at port ${port}`));
+const server = http.createServer(app);
+const io = require("socket.io")(server);
+run(io);
+
+server.listen(port, () => console.log(`listening at port ${port}`));

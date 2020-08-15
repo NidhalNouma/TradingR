@@ -1,5 +1,46 @@
 const mongoose = require("mongoose");
 
+const cardSchema = new mongoose.Schema({
+  timestamp: { type: Date, default: Date.now },
+  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  productTitle: { type: String, required: true },
+  productDesc: { type: String, required: true },
+  productPrice: { type: String, required: true },
+  productImg: { type: String, required: true },
+  show: { type: Boolean, default: true },
+});
+
+const pSchema = new mongoose.Schema({
+  timestamp: { type: Date, default: Date.now },
+  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  productType: { type: String, required: true },
+  productTitle: { type: String, required: true },
+  productDesc: { type: String, required: true },
+  productPrice: { type: String, required: true },
+  productImg: { type: String, required: true },
+  show: { type: Boolean, default: true },
+});
+
+const userImpro = new mongoose.Schema({
+  timestamp: { type: Date, default: Date.now },
+  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  productTitle: { type: String, required: true },
+  productDesc: { type: String, required: true },
+  productImg: { type: String, required: true },
+  improvement: { type: String, required: true },
+  show: { type: Boolean, default: true },
+});
+
+const userQuestion = new mongoose.Schema({
+  timestamp: { type: Date, default: Date.now },
+  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  productTitle: { type: String, required: true },
+  productDesc: { type: String, required: true },
+  productImg: { type: String, required: true },
+  question: { type: String, required: true },
+  show: { type: Boolean, default: true },
+});
+
 const userSchema = new mongoose.Schema({
   joinAt: { type: Date, default: Date.now },
   active: { type: Boolean, default: false },
@@ -19,11 +60,15 @@ const userSchema = new mongoose.Schema({
   userPicture: { type: String },
   improvements: [{ type: mongoose.Schema.Types.ObjectId }],
   questions: [{ type: mongoose.Schema.Types.ObjectId }],
-  products: [{ type: mongoose.Schema.Types.ObjectId }],
-  card: [{ type: mongoose.Schema.Types.ObjectId }],
+  products: [{ type: pSchema }],
+  card: [{ type: cardSchema }],
 });
 
 const User = mongoose.model("User", userSchema);
+const Card = mongoose.model("Card", cardSchema);
+const P = mongoose.model("Puser", pSchema);
+const impro = mongoose.model("UsrImpro", userImpro);
+const ques = mongoose.model("UsrQuestion", userQuestion);
 
 const addnew = function (email, username, password, callback) {
   const user = new User({
@@ -42,13 +87,21 @@ const addnew = function (email, username, password, callback) {
     if (!res.emailExist) {
       findUserName(username, function (ress) {
         if (!ress.userExist) {
-          user.save(function (err) {
+          user.save(function (err, res) {
             if (!err) {
               console.log("User saved ...");
               ans.add = true;
               ans.results = {
-                username,
-                email,
+                _id: res._id,
+                username: res.username,
+                email: res.email,
+                score: res.score,
+                improvements: res.improvements,
+                questions: res.questions,
+                products: res.products,
+                card: res.card,
+                joinAt: res.joinAt,
+                active: res.active,
               };
               callback(ans);
             } else {
@@ -164,8 +217,176 @@ const findUserName = function (username, callback) {
   });
 };
 
+// --------------------------------------------------------------------------------------------
+
+const addToCard = function (
+  userId,
+  productId,
+  productTitle,
+  productDesc,
+  productPrice,
+  productImg,
+  callback
+) {
+  const ans = {
+    added: false,
+    error: null,
+  };
+
+  const card = new Card({
+    productId,
+    productTitle,
+    productDesc,
+    productPrice,
+    productImg,
+    show: true,
+  });
+
+  User.updateOne({ _id: userId }, { $push: { card: card } }, function (
+    err,
+    res
+  ) {
+    if (err) {
+      console.log("error with adding the card to userId", userId, productId);
+      ans.error = err;
+      callback(ans);
+    } else {
+      ans.added = true;
+      callback(ans);
+    }
+  });
+};
+
+// --------------------------------------------------------------------------------------------
+
+const addImpro = function (
+  userId,
+  productId,
+  productTitle,
+  productDesc,
+  productImg,
+  improvement,
+  callback
+) {
+  const ans = {
+    added: false,
+    error: null,
+  };
+
+  const im = new impro({
+    productId,
+    productTitle,
+    productDesc,
+    productImg,
+    improvement,
+  });
+
+  User.updateOne({ _id: userId }, { $push: { improvements: im } }, function (
+    err,
+    res
+  ) {
+    if (err) {
+      console.log(
+        "error with adding the improvement to userId",
+        userId,
+        improvement
+      );
+      ans.error = err;
+      callback(ans);
+    } else {
+      ans.added = true;
+      callback(ans);
+    }
+  });
+};
+
+// --------------------------------------------------------------------------------------------
+
+const addQuestion = function (
+  userId,
+  productId,
+  productTitle,
+  productDesc,
+  productImg,
+  question,
+  callback
+) {
+  const ans = {
+    added: false,
+    error: null,
+  };
+
+  const qe = new ques({
+    productId,
+    productTitle,
+    productDesc,
+    productImg,
+    question,
+  });
+
+  User.updateOne({ _id: userId }, { $push: { questions: qe } }, function (
+    err,
+    res
+  ) {
+    if (err) {
+      console.log("error with adding the question to userId", userId, question);
+      ans.error = err;
+      callback(ans);
+    } else {
+      ans.added = true;
+      callback(ans);
+    }
+  });
+};
+
+// --------------------------------------------------------------------------------------------
+
+const addToProduct = function (
+  userId,
+  productId,
+  productType,
+  productTitle,
+  productDesc,
+  productPrice,
+  productImg,
+  callback
+) {
+  const ans = {
+    added: false,
+    error: null,
+  };
+
+  const p = new P({
+    productId,
+    productType,
+    productTitle,
+    productDesc,
+    productPrice,
+    productImg,
+    show: true,
+  });
+
+  User.updateOne({ _id: userId }, { $push: { products: p } }, function (
+    err,
+    res
+  ) {
+    if (err) {
+      console.log("error with adding the product to userId", userId, productId);
+      ans.error = err;
+      callback(ans);
+    } else {
+      ans.added = true;
+      callback(ans);
+    }
+  });
+};
+
 module.exports = {
   userSchema,
   addnew,
   findOne,
+  addToCard,
+  addToProduct,
+  addImpro,
+  addQuestion,
 };

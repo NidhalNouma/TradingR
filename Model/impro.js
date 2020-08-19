@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
+const user = require("../Model/user");
 const { productSchema } = require("./product");
 
 const answerSchema = new mongoose.Schema({
   imprId: { type: mongoose.Types.ObjectId, required: true },
-  userName: { type: String, required: [true, "UserName is requierd"] },
+  userId: { type: mongoose.Types.ObjectId, required: true },
+  userName: { type: String, required: true },
+  userImg: { type: String },
   answer: { type: String, required: [true, "Question is requierd"] },
   timestamp: { type: Date, default: Date.now },
 });
@@ -11,6 +14,9 @@ const answerSchema = new mongoose.Schema({
 const improSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   productId: { type: mongoose.Types.ObjectId, required: true },
+  userId: { type: String, required: true },
+  userName: { type: String, required: true },
+  userImg: { type: String },
   improvement: { type: String, required: [true, "Improvement is requierd"] },
   plus: { type: Number, min: 0, default: 0 },
   minus: { type: Number, min: 0, default: 0 },
@@ -20,7 +26,7 @@ const improSchema = new mongoose.Schema({
 const Impro = mongoose.model("Impro", improSchema);
 const Answer = mongoose.model("Answer", answerSchema);
 
-const addImpro = function (_id, impro, callback) {
+const addImpro = function (_id, userId, userName, userImg, impro, callback) {
   const product = mongoose.model("Product", productSchema);
 
   const ans = {
@@ -28,9 +34,21 @@ const addImpro = function (_id, impro, callback) {
     error: null,
   };
 
-  const imp = new Impro({ productId: _id, improvement: impro });
+  const iid = mongoose.Types.ObjectId();
 
-  product.updateOne({ _id }, { $push: { improvements: imp } }, function (err) {
+  const imp = new Impro({
+    _id: iid,
+    productId: _id,
+    userId,
+    userName,
+    userImg,
+    improvement: impro,
+  });
+
+  product.findOneAndUpdate({ _id }, { $push: { improvements: imp } }, function (
+    err,
+    raw
+  ) {
     if (err) {
       console.log(
         "Add new improvement Product with ID" + _id + " Error ...",
@@ -39,21 +57,28 @@ const addImpro = function (_id, impro, callback) {
       ans.error = err;
       callback(ans);
     } else {
-      // imp.save(function (err) {
-      //   if (err) {
-      //     console.log("New Improvement Error with save ...", err);
-      //     ans.error = err;
-      //     callback(ans);
-      //   } else {
-      ans.added = true;
-      callback(ans);
-      //   }
-      // });
+      console.log(raw.improvements);
+      console.log(iid);
+      user.addImpro(
+        userId,
+        _id,
+        iid,
+        raw.title,
+        raw.description,
+        raw.img,
+        impro,
+        function (res) {
+          if (res.added) {
+            ans.added = true;
+            callback(ans);
+          }
+        }
+      );
     }
   });
 };
 
-const addImproAns = function (id, userName, answer, callback) {
+const addImproAns = function (id, userId, userName, userImg, answer, callback) {
   const product = mongoose.model("Product", productSchema);
 
   const ans = {
@@ -61,14 +86,8 @@ const addImproAns = function (id, userName, answer, callback) {
     error: null,
   };
 
-  const answ = new Answer({ improId: id, userName, answer });
+  const answ = new Answer({ improId: id, userId, userName, userImg, answer });
 
-  // Impro.updateOne({ _id: id }, { $push: { answers: answ } }, function (err) {
-  //   if (err) {
-  //     console.log("Add new Ansower to Impro with ID" + id + " Error ...", err);
-  //     ans.error = err;
-  //     callback(ans);
-  //   } else {
   product.updateOne(
     { improvements: { $elemMatch: { _id: id } } },
     { $push: { "improvements.$.answers": answ } },
@@ -86,8 +105,58 @@ const addImproAns = function (id, userName, answer, callback) {
       }
     }
   );
-  //   }
-  // });
+};
+
+const improPlus = function (_id, id, userId, callback) {
+  const product = mongoose.model("Product", productSchema);
+
+  const ans = {
+    added: false,
+    error: null,
+  };
+
+  product.findOneAndUpdate(
+    { _id, improvements: { $elemMatch: { _id: id } } },
+    { $inc: { "improvements.$.plus": 1 } },
+    function (err, raw) {
+      if (err) {
+        console.log("Add new Plus to Impro with ID" + id + " Error ...", err);
+        ans.error = err;
+        callback(ans);
+      } else {
+        user.improPlus(userId, id, function (res) {
+          if (res.added) {
+            ans.added = true;
+            callback(ans);
+          }
+        });
+      }
+    }
+  );
+};
+
+const improMin = function (id, userId, callback) {
+  const product = mongoose.model("Product", productSchema);
+
+  const ans = {
+    added: false,
+    error: null,
+  };
+
+  product.updateOne(
+    { improvements: { $elemMatch: { _id: id } } },
+    { $inc: { "improvements.$.minus": 1 } },
+    function (err) {
+      if (err) {
+        console.log("Add new Plus to Impro with ID" + id + " Error ...", err);
+        ans.error = err;
+        callback(ans);
+      } else {
+        ans.added = true;
+        callback(ans);
+      }
+    }
+  );
 };
 
 const findProdByImproId = function (id, callback) {
@@ -111,4 +180,11 @@ const findProdByImproId = function (id, callback) {
   });
 };
 
-module.exports = { improSchema, addImpro, addImproAns, findProdByImproId };
+module.exports = {
+  improSchema,
+  addImpro,
+  improPlus,
+  improMin,
+  addImproAns,
+  findProdByImproId,
+};

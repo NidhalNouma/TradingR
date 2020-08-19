@@ -24,20 +24,26 @@ const pSchema = new mongoose.Schema({
 const userImpro = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   productId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  improId: { type: mongoose.Schema.Types.ObjectId, required: true },
   productTitle: { type: String, required: true },
   productDesc: { type: String, required: true },
   productImg: { type: String, required: true },
   improvement: { type: String, required: true },
+  plus: { type: Number, min: 0, default: 0 },
+  minus: { type: Number, min: 0, default: 0 },
+  answers: { type: Number, default: 0 },
   show: { type: Boolean, default: true },
 });
 
 const userQuestion = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   productId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  quesId: { type: mongoose.Schema.Types.ObjectId, required: true },
   productTitle: { type: String, required: true },
   productDesc: { type: String, required: true },
   productImg: { type: String, required: true },
   question: { type: String, required: true },
+  answers: { type: Number, default: 0 },
   show: { type: Boolean, default: true },
 });
 
@@ -58,8 +64,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: [true, "username is requierd"] },
   password: { type: String, required: [true, "password is requierd"] },
   userPicture: { type: String },
-  improvements: [{ type: mongoose.Schema.Types.ObjectId }],
-  questions: [{ type: mongoose.Schema.Types.ObjectId }],
+  improvements: [{ type: userImpro }],
+  questions: [{ type: userQuestion }],
   products: [{ type: pSchema }],
   card: [{ type: cardSchema }],
 });
@@ -262,6 +268,7 @@ const addToCard = function (
 const addImpro = function (
   userId,
   productId,
+  improId,
   productTitle,
   productDesc,
   productImg,
@@ -275,6 +282,7 @@ const addImpro = function (
 
   const im = new impro({
     productId,
+    improId,
     productTitle,
     productDesc,
     productImg,
@@ -300,11 +308,37 @@ const addImpro = function (
   });
 };
 
+const improPlus = function (userId, improId, callback) {
+  const ans = {
+    added: false,
+    error: null,
+  };
+  User.updateOne(
+    { _id: userId, improvements: { $elemMatch: { _id: improId } } },
+    { $inc: { "improvements.$.plus": 1 } },
+    function (err, res) {
+      if (err) {
+        console.log(
+          "error with adding the improvement to userId",
+          userId,
+          improvement
+        );
+        ans.error = err;
+        callback(ans);
+      } else {
+        ans.added = true;
+        callback(ans);
+      }
+    }
+  );
+};
+
 // --------------------------------------------------------------------------------------------
 
 const addQuestion = function (
   userId,
   productId,
+  quesId,
   productTitle,
   productDesc,
   productImg,
@@ -318,6 +352,7 @@ const addQuestion = function (
 
   const qe = new ques({
     productId,
+    quesId,
     productTitle,
     productDesc,
     productImg,
@@ -388,5 +423,6 @@ module.exports = {
   addToCard,
   addToProduct,
   addImpro,
+  improPlus,
   addQuestion,
 };

@@ -6,19 +6,24 @@ const conn = function () {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   });
-
-  const db = mongoose.connection;
-  db.on("error", console.error.bind(console, "connection error:"));
-  db.once("open", function () {
+  mongoose.connection.on(
+    "error",
+    console.error.bind(console, "connection error:")
+  );
+  mongoose.connection.once("open", function () {
     console.log("mongodb connect ...");
+  });
+  mongoose.connection.once("close", function () {
+    console.log("mongodb connecttion closed ...");
   });
 };
 
 const close = function () {
   mongoose.connection.close(function (err) {
-    if (!err) {
-      console.log("mongodb connection close ...");
+    if (err) {
+      console.log("mongodb close connection error ", err);
     }
   });
 };

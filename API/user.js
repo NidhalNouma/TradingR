@@ -9,7 +9,9 @@ router.use(bodyParser.json());
 
 router.use(function (req, res, next) {
   model.connect();
-  //   console.log("Time: ", Date.now());
+  res.on("finish", function () {
+    model.close();
+  });
   next();
 });
 
@@ -23,10 +25,13 @@ router.post("/add", function (req, res) {
       response: rep,
     };
     if (rep.add) {
-      res.cookie("_SSD", rep.results.username, { maxAge: 300000 });
+      var expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + 1);
+      res.cookie("_SSD", JSON.stringify(rep.results), {
+        Expires: expiryDate,
+      });
     }
     res.json(body);
-    model.close();
   });
 });
 
@@ -35,11 +40,14 @@ router.post("/find", function (req, res) {
   const password = req.body.password;
   user.findOne(email, password, function (rep) {
     const body = { response: rep };
-    if (rep.findUser) {
-      res.cookie("_SSD", rep.results.username, { maxAge: 30000 });
-    }
+    // if (rep.findUser) {
+    //   var expiryDate = new Date();
+    //   expiryDate.setMonth(expiryDate.getMonth() + 1);
+    //   res.cookie("_SSD", JSON.stringify(rep.results), {
+    //     Expires: expiryDate,
+    //   });
+    // }
     res.json(body);
-    model.close();
   });
 });
 

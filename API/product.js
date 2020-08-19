@@ -4,16 +4,20 @@ var bodyParser = require("body-parser");
 
 const model = require("../Model/model");
 const product = require("../Model/product");
-const { addImpro, addImproAns, findProdByImproId } = require("../Model/impro");
+const {
+  addImpro,
+  addImproAns,
+  findProdByImproId,
+  improPlus,
+  improMin,
+} = require("../Model/impro");
 const { addQuestion, addQuestionAns } = require("../Model/QandA");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-// middleware that is specific to this router
 router.use(function (req, res, next) {
   model.connect();
-  //   console.log("Time: ", Date.now());
   res.on("finish", function () {
     model.close();
   });
@@ -52,8 +56,30 @@ router.post("/add", function (req, res) {
 router.post("/add/impro", function (req, res) {
   const id = req.body.id;
   const impro = req.body.impro;
+  const userId = req.body.userId;
+  const userName = req.body.userName;
+  const userImg = req.body.userImg;
 
-  addImpro(id, impro, function (ans) {
+  addImpro(id, userId, userName, userImg, impro, function (ans) {
+    res.json(ans);
+  });
+});
+
+router.post("/add/impro/plus", function (req, res) {
+  const _id = req.body.productId;
+  const id = req.body.id;
+  const userId = req.body.userId;
+
+  improPlus(_id, id, userId, function (ans) {
+    res.json(ans);
+  });
+});
+
+router.post("/add/impro/minus", function (req, res) {
+  const id = req.body.id;
+  const userId = req.body.userId;
+
+  improMin(id, userId, function (ans) {
     res.json(ans);
   });
 });
@@ -61,9 +87,11 @@ router.post("/add/impro", function (req, res) {
 router.post("/add/impro/answer", function (req, res) {
   const id = req.body.id;
   const answer = req.body.answer;
+  const userId = req.body.userId;
   const userName = req.body.userName;
+  const userImg = req.body.userImg;
 
-  addImproAns(id, userName, answer, function (ans) {
+  addImproAns(id, userId, userName, userImg, answer, function (ans) {
     res.json(ans);
   });
 });
@@ -78,9 +106,12 @@ router.get("/find/impro", function (req, res) {
 
 router.post("/add/question", function (req, res) {
   const id = req.body.id;
+  const userId = req.body.userId;
+  const userName = req.body.userName;
+  const userImg = req.body.userImg;
   const question = req.body.question;
 
-  addQuestion(id, question, function (ans) {
+  addQuestion(id, userId, userName, userImg, question, function (ans) {
     res.json(ans);
   });
 });
@@ -88,9 +119,11 @@ router.post("/add/question", function (req, res) {
 router.post("/add/question/answer", function (req, res) {
   const id = req.body.id;
   const answer = req.body.answer;
+  const userId = req.body.userId;
   const userName = req.body.userName;
+  const userImg = req.body.userImg;
 
-  addQuestionAns(id, userName, answer, function (ans) {
+  addQuestionAns(id, userId, userName, userImg, answer, function (ans) {
     res.json(ans);
   });
 });

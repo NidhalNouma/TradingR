@@ -40,13 +40,25 @@ router.post("/find", function (req, res) {
   const password = req.body.password;
   user.findOne(email, password, function (rep) {
     const body = { response: rep };
-    // if (rep.findUser) {
-    //   var expiryDate = new Date();
-    //   expiryDate.setMonth(expiryDate.getMonth() + 1);
-    //   res.cookie("_SSD", JSON.stringify(rep.results), {
-    //     Expires: expiryDate,
-    //   });
-    // }
+    if (rep.findUser) {
+      var expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + 1);
+      const re = {
+        id: rep.results.id,
+        active: rep.results.active,
+        username: rep.results.username,
+        score: rep.results.score,
+        joinAt: rep.results.joinAt,
+        cardL: rep.results.card.length,
+      };
+      // res.cookie("_SSD", JSON.stringify(re), {
+      //   Expires: expiryDate,
+      // });
+      // console.log(rep.results.card);
+      // res.cookie("_SSDc", JSON.stringify(rep.results.card), {
+      //   Expires: expiryDate,
+      // });
+    }
     res.json(body);
   });
 });

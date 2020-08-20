@@ -314,14 +314,39 @@ const improPlus = function (userId, improId, callback) {
     error: null,
   };
   User.updateOne(
-    { _id: userId, improvements: { $elemMatch: { _id: improId } } },
+    { _id: userId, improvements: { $elemMatch: { improId: improId } } },
     { $inc: { "improvements.$.plus": 1 } },
     function (err, res) {
       if (err) {
         console.log(
-          "error with adding the improvement to userId",
+          "error with adding the plus impro to userId",
           userId,
-          improvement
+          improId
+        );
+        ans.error = err;
+        callback(ans);
+      } else {
+        ans.added = true;
+        callback(ans);
+      }
+    }
+  );
+};
+
+const improMinus = function (userId, improId, callback) {
+  const ans = {
+    added: false,
+    error: null,
+  };
+  User.updateOne(
+    { _id: userId, improvements: { $elemMatch: { improId: improId } } },
+    { $inc: { "improvements.$.minus": 1 } },
+    function (err, res) {
+      if (err) {
+        console.log(
+          "error with adding the minus impro to userId",
+          userId,
+          improId
         );
         ans.error = err;
         callback(ans);
@@ -424,5 +449,6 @@ module.exports = {
   addToProduct,
   addImpro,
   improPlus,
+  improMinus,
   addQuestion,
 };

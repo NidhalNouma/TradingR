@@ -7,7 +7,6 @@ const product = require("../Model/product");
 const {
   addImpro,
   addImproAns,
-  findProdByImproId,
   improPlus,
   improMin,
 } = require("../Model/impro");
@@ -92,14 +91,6 @@ router.post("/add/impro/answer", function (req, res) {
   const userImg = req.body.userImg;
 
   addImproAns(id, userId, userName, userImg, answer, function (ans) {
-    res.json(ans);
-  });
-});
-
-router.get("/find/impro", function (req, res) {
-  const id = req.body.id;
-
-  findProdByImproId(id, function (ans) {
     res.json(ans);
   });
 });

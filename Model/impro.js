@@ -18,8 +18,8 @@ const improSchema = new mongoose.Schema({
   userName: { type: String, required: true },
   userImg: { type: String },
   improvement: { type: String, required: [true, "Improvement is requierd"] },
-  plus: { type: Number, min: 0, default: 0 },
-  minus: { type: Number, min: 0, default: 0 },
+  plus: [{ type: mongoose.Types.ObjectId }],
+  minus: [{ type: mongoose.Types.ObjectId }],
   answers: { type: [answerSchema] },
 });
 
@@ -117,7 +117,7 @@ const improPlus = function (_id, id, userId, callback) {
 
   product.findOneAndUpdate(
     { _id, improvements: { $elemMatch: { _id: id } } },
-    { $inc: { "improvements.$.plus": 1 } },
+    { $push: { "improvements.$.plus": userId } },
     function (err, raw) {
       if (err) {
         console.log("Add new Plus to Impro with ID" + id + " Error ...", err);
@@ -145,39 +145,22 @@ const improMin = function (id, userId, callback) {
 
   product.updateOne(
     { improvements: { $elemMatch: { _id: id } } },
-    { $inc: { "improvements.$.minus": 1 } },
+    { $push: { "improvements.$.minus": userId } },
     function (err) {
       if (err) {
-        console.log("Add new Plus to Impro with ID" + id + " Error ...", err);
+        console.log("Add new minus to Impro with ID" + id + " Error ...", err);
         ans.error = err;
         callback(ans);
       } else {
-        ans.added = true;
-        callback(ans);
+        user.improMinus(userId, id, function (res) {
+          if (res.added) {
+            ans.added = true;
+            callback(ans);
+          }
+        });
       }
     }
   );
-};
-
-const findProdByImproId = function (id, callback) {
-  const product = mongoose.model("Product", productSchema);
-
-  const ans = {
-    find: false,
-    error: null,
-    result: null,
-  };
-
-  product.findOne({ "improvements._id": id }, function (err, res) {
-    if (err) {
-      ans.error = err;
-      callback(ans);
-    } else {
-      ans.find = true;
-      ans.result = res;
-      callback(ans);
-    }
-  });
 };
 
 module.exports = {
@@ -186,5 +169,4 @@ module.exports = {
   improPlus,
   improMin,
   addImproAns,
-  findProdByImproId,
 };

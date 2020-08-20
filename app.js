@@ -17,17 +17,17 @@ app.use("/api/done", done);
 app.use("/api/product", product);
 
 app.get("*", (req, res) => {
-  const rawCookies = req.headers.cookie.split("; ");
-  const parsedCookies = {};
-  rawCookies.forEach((rawCookie) => {
-    const parsedCookie = rawCookie.split("=");
-    parsedCookies[parsedCookie[0]] = parsedCookie[1];
-  });
-  if (parsedCookies._SSD) {
-    const q = JSON.parse(decodeURIComponent(parsedCookies._SSD));
+  // const rawCookies = req.headers.cookie.split("; ");
+  // const parsedCookies = {};
+  // rawCookies.forEach((rawCookie) => {
+  //   const parsedCookie = rawCookie.split("=");
+  //   parsedCookies[parsedCookie[0]] = parsedCookie[1];
+  // });
+  // if (parsedCookies._SSD) {
+  //   const q = JSON.parse(decodeURIComponent(parsedCookies._SSD));
 
-    console.log(q.id);
-  }
+  //   console.log(q.id);
+  // }
 
   res.sendFile("index.html", { root: __dirname + "/html" });
 });

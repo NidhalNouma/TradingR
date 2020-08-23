@@ -74,7 +74,6 @@ const findAll = function (callback) {
       callback(ans);
     }
   });
-  // .select("_id title description price media img type");
 };
 
 const findAllType = function (type) {

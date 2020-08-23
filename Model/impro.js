@@ -31,13 +31,11 @@ const addImpro = function (_id, userId, userName, userImg, impro, callback) {
 
   const ans = {
     added: false,
+    improId: null,
     error: null,
   };
 
-  const iid = mongoose.Types.ObjectId();
-
   const imp = new Impro({
-    _id: iid,
     productId: _id,
     userId,
     userName,
@@ -51,14 +49,12 @@ const addImpro = function (_id, userId, userName, userImg, impro, callback) {
   ) {
     if (err) {
       console.log(
-        "Add new improvement Product with ID" + _id + " Error ...",
-        err
+        `"Add new improvement Product with ID ${_id} Error ==> ${err}`
       );
       ans.error = err;
       callback(ans);
     } else {
-      console.log(raw.improvements);
-      console.log(iid);
+      const iid = raw.improvements.length;
       user.addImpro(
         userId,
         _id,
@@ -70,6 +66,7 @@ const addImpro = function (_id, userId, userName, userImg, impro, callback) {
         function (res) {
           if (res.added) {
             ans.added = true;
+            ans.improId = iid;
             callback(ans);
           }
         }
@@ -107,7 +104,7 @@ const addImproAns = function (id, userId, userName, userImg, answer, callback) {
   );
 };
 
-const improPlus = function (_id, id, userId, callback) {
+const improPlus = function (_id, id, userId, i, callback) {
   const product = mongoose.model("Product", productSchema);
 
   const ans = {
@@ -120,14 +117,17 @@ const improPlus = function (_id, id, userId, callback) {
     { $push: { "improvements.$.plus": userId } },
     function (err, raw) {
       if (err) {
-        console.log("Add new Plus to Impro with ID" + id + " Error ...", err);
+        console.log("Add new Plus to Impro with ID" + id + " Error ==>", err);
         ans.error = err;
         callback(ans);
       } else {
-        user.improPlus(userId, id, function (res) {
+        const iid = raw.improvements.find((i) => i._id == id);
+        user.improPlus(userId, raw.improvements.indexOf(iid), function (res) {
           if (res.added) {
             ans.added = true;
             callback(ans);
+          } else {
+            callback(res.ans);
           }
         });
       }
@@ -148,14 +148,17 @@ const improMin = function (id, userId, callback) {
     { $push: { "improvements.$.minus": userId } },
     function (err) {
       if (err) {
-        console.log("Add new minus to Impro with ID" + id + " Error ...", err);
+        console.log("Add new minus to Impro with ID" + id + " Error ==> ", err);
         ans.error = err;
         callback(ans);
       } else {
-        user.improMinus(userId, id, function (res) {
+        const iid = raw.improvements.find((i) => i._id == id);
+        user.improMinus(userId, raw.improvements.indexOf(iid), function (res) {
           if (res.added) {
             ans.added = true;
             callback(ans);
+          } else {
+            callback(res.ans);
           }
         });
       }

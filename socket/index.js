@@ -3,11 +3,13 @@ function run(io) {
     console.log("a user connected", socket.id);
 
     socket.on("qa", function (msg) {
-      console.log(msg);
+      console.log("qa", msg);
+      io.emit("qa", msg);
     });
 
     socket.on("impro", function (msg) {
-      console.log(msg);
+      console.log("impro", msg);
+      io.emit("impro", msg);
     });
 
     socket.on("disconnect", function () {

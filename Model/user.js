@@ -24,7 +24,7 @@ const pSchema = new mongoose.Schema({
 const userImpro = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  improId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  improId: { type: Number, required: true },
   productTitle: { type: String, required: true },
   productDesc: { type: String, required: true },
   productImg: { type: String, required: true },
@@ -38,7 +38,7 @@ const userImpro = new mongoose.Schema({
 const userQuestion = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  quesId: { type: mongoose.Schema.Types.ObjectId, required: true },
+  quesId: { type: Number, required: true },
   productTitle: { type: String, required: true },
   productDesc: { type: String, required: true },
   productImg: { type: String, required: true },
@@ -295,9 +295,7 @@ const addImpro = function (
   ) {
     if (err) {
       console.log(
-        "error with adding the improvement to userId",
-        userId,
-        improvement
+        `error with adding the improvement ${improvement} to userId ${userId} ==>${err}`
       );
       ans.error = err;
       callback(ans);
@@ -313,15 +311,14 @@ const improPlus = function (userId, improId, callback) {
     added: false,
     error: null,
   };
+  console.log(improId);
   User.updateOne(
     { _id: userId, improvements: { $elemMatch: { improId: improId } } },
     { $inc: { "improvements.$.plus": 1 } },
     function (err, res) {
       if (err) {
         console.log(
-          "error with adding the plus impro to userId",
-          userId,
-          improId
+          `error with adding the impro Plus ${improId} to userId ${userId} ==>${err}`
         );
         ans.error = err;
         callback(ans);
@@ -344,9 +341,7 @@ const improMinus = function (userId, improId, callback) {
     function (err, res) {
       if (err) {
         console.log(
-          "error with adding the minus impro to userId",
-          userId,
-          improId
+          `error with adding the impro Minus ${improId} to userId ${userId} ==>${err}`
         );
         ans.error = err;
         callback(ans);

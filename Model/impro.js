@@ -27,6 +27,10 @@ const Impro = mongoose.model("Impro", improSchema);
 const Answer = mongoose.model("Answer", answerSchema);
 
 const addImpro = function (_id, userId, userName, userImg, impro, callback) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding new improvement for product ID ${_id} userID ${userId} ...`
+  );
   const product = mongoose.model("Product", productSchema);
 
   const ans = {
@@ -34,8 +38,10 @@ const addImpro = function (_id, userId, userName, userImg, impro, callback) {
     improId: null,
     error: null,
   };
+  const id = mongoose.Types.ObjectId();
 
   const imp = new Impro({
+    _id: id,
     productId: _id,
     userId,
     userName,
@@ -49,16 +55,20 @@ const addImpro = function (_id, userId, userName, userImg, impro, callback) {
   ) {
     if (err) {
       console.log(
+        "\x1b[31m%s\x1b[0m",
         `"Add new improvement Product with ID ${_id} Error ==> ${err}`
       );
       ans.error = err;
       callback(ans);
     } else {
-      const iid = raw.improvements.length;
+      console.log(
+        "\x1b[35m%s\x1b[0m",
+        `"New Improvement Added for Product with ID ${_id} ... `
+      );
       user.addImpro(
         userId,
         _id,
-        iid,
+        id,
         raw.title,
         raw.description,
         raw.img,
@@ -66,7 +76,7 @@ const addImpro = function (_id, userId, userName, userImg, impro, callback) {
         function (res) {
           if (res.added) {
             ans.added = true;
-            ans.improId = iid;
+            ans.improId = id;
             callback(ans);
           }
         }
@@ -104,7 +114,12 @@ const addImproAns = function (id, userId, userName, userImg, answer, callback) {
   );
 };
 
-const improPlus = function (_id, id, userId, i, callback) {
+const improPlus = function (_id, id, userId, callback) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding Plus to improvementID ${id} for product ID ${_id} userID ${userId} ...`
+  );
+
   const product = mongoose.model("Product", productSchema);
 
   const ans = {
@@ -113,14 +128,21 @@ const improPlus = function (_id, id, userId, i, callback) {
   };
 
   product.findOneAndUpdate(
-    { _id, improvements: { $elemMatch: { _id: id } } },
+    { _id, "improvements._id": id },
     { $push: { "improvements.$.plus": userId } },
     function (err, raw) {
       if (err) {
-        console.log("Add new Plus to Impro with ID" + id + " Error ==>", err);
+        console.log(
+          "\x1b[31m%s\x1b[0m",
+          `"Add new Plus to Impro with ID ${id} Error ==> ${err}`
+        );
         ans.error = err;
         callback(ans);
-      } else {
+      } else if (raw) {
+        console.log(
+          "\x1b[35m%s\x1b[0m",
+          `Plus Added to improvementID ${id} for product ID ${_id} userID ${userId} ...`
+        );
         const iid = raw.improvements.find((i) => i._id == id);
         user.improPlus(userId, raw.improvements.indexOf(iid), function (res) {
           if (res.added) {
@@ -130,12 +152,20 @@ const improPlus = function (_id, id, userId, i, callback) {
             callback(res.ans);
           }
         });
+      } else {
+        console.log("\x1b[33m%s\x1b[0m", `"Not found Impro with ID ${id} ...`);
+        ans.error = "no impro with this ID ";
+        callback(ans);
       }
     }
   );
 };
 
-const improMin = function (id, userId, callback) {
+const improMin = function (_id, id, userId, callback) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding Minus to improvementID ${id} for product ID ${_id} userID ${userId} ...`
+  );
   const product = mongoose.model("Product", productSchema);
 
   const ans = {
@@ -144,14 +174,21 @@ const improMin = function (id, userId, callback) {
   };
 
   product.updateOne(
-    { improvements: { $elemMatch: { _id: id } } },
+    { _id, improvements: { $elemMatch: { _id: id } } },
     { $push: { "improvements.$.minus": userId } },
-    function (err) {
+    function (err, raw) {
       if (err) {
-        console.log("Add new minus to Impro with ID" + id + " Error ==> ", err);
+        console.log(
+          "\x1b[31m%s\x1b[0m",
+          `Add new minus to Impro with ID ${id} Error ==> ${err}`
+        );
         ans.error = err;
         callback(ans);
-      } else {
+      } else if (raw) {
+        console.log(
+          "\x1b[35m%s\x1b[0m",
+          `Minus Added to improvementID ${id} for product ID ${_id} userID ${userId} ...`
+        );
         const iid = raw.improvements.find((i) => i._id == id);
         user.improMinus(userId, raw.improvements.indexOf(iid), function (res) {
           if (res.added) {
@@ -161,6 +198,10 @@ const improMin = function (id, userId, callback) {
             callback(res.ans);
           }
         });
+      } else {
+        console.log("\x1b[33m%s\x1b[0m", `"Not found Impro with ID ${id} ...`);
+        ans.error = "no impro with this ID ";
+        callback(ans);
       }
     }
   );

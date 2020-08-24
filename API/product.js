@@ -69,9 +69,8 @@ router.post("/add/impro/plus", function (req, res) {
   const _id = req.body.productId;
   const id = req.body.id;
   const userId = req.body.userId;
-  const i = req.body.i;
 
-  improPlus(_id, id, userId, i, function (ans) {
+  improPlus(_id, id, userId, function (ans) {
     res.json(ans);
   });
 });

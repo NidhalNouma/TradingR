@@ -51,9 +51,9 @@ router.post("/find", function (req, res) {
         joinAt: rep.results.joinAt,
         cardL: rep.results.card.length,
       };
-      // res.cookie("_SSD", JSON.stringify(re), {
-      //   Expires: expiryDate,
-      // });
+      res.cookie("_SSD", JSON.stringify(re), {
+        Expires: expiryDate,
+      });
       // console.log(rep.results.card);
       // res.cookie("_SSDc", JSON.stringify(rep.results.card), {
       //   Expires: expiryDate,

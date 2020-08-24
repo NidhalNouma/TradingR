@@ -13,17 +13,17 @@ const conn = function () {
     console.error.bind(console, "connection error:")
   );
   mongoose.connection.once("open", function () {
-    console.log("mongodb connect ...");
+    console.log("\x1b[32m%s\x1b[0m", "mongodb connect ...");
   });
   mongoose.connection.once("close", function () {
-    console.log("mongodb connecttion closed ...");
+    console.log("\x1b[32m%s\x1b[0m", "mongodb connecttion closed ||<==");
   });
 };
 
 const close = function () {
   mongoose.connection.close(function (err) {
     if (err) {
-      console.log("mongodb close connection error ", err);
+      console.log("\x1b[41m%s\x1b[0m", "mongodb close connection error ", err);
     }
   });
 };

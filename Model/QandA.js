@@ -31,6 +31,10 @@ const addQuestion = function (
   question,
   callback
 ) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding new Question for product ID ${_id} userID ${userId} ...`
+  );
   const product = mongoose.model("Product", productSchema);
 
   const ans = {
@@ -51,10 +55,17 @@ const addQuestion = function (
     raw
   ) {
     if (err) {
-      console.log("Add new question Product with ID" + _id + " Error ...", err);
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        `Add new question Product with ID ${_id} Error ==> ${err}`
+      );
       ans.error = err;
       callback(ans);
-    } else {
+    } else if (raw) {
+      console.log(
+        "\x1b[35m%s\x1b[0m",
+        "New question Added for Product with ID" + _id + " ... "
+      );
       user.addQuestion(
         userId,
         _id,
@@ -65,12 +76,15 @@ const addQuestion = function (
         question,
         function (res) {
           if (res.added) {
-            console.log(res);
             ans.added = true;
             callback(ans);
           }
         }
       );
+    } else {
+      console.log("\x1b[33m%s\x1b[0m", `"Not found Question with ID ...`);
+      ans.error = "no Question with this ID ";
+      callback(ans);
     }
   });
 };

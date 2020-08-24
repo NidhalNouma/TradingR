@@ -1,52 +1,5 @@
 const mongoose = require("mongoose");
 
-const cardSchema = new mongoose.Schema({
-  timestamp: { type: Date, default: Date.now },
-  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  productTitle: { type: String, required: true },
-  productDesc: { type: String, required: true },
-  productPrice: { type: String, required: true },
-  productImg: { type: String, required: true },
-  show: { type: Boolean, default: true },
-});
-
-const pSchema = new mongoose.Schema({
-  timestamp: { type: Date, default: Date.now },
-  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  productType: { type: String, required: true },
-  productTitle: { type: String, required: true },
-  productDesc: { type: String, required: true },
-  productPrice: { type: String, required: true },
-  productImg: { type: String, required: true },
-  show: { type: Boolean, default: true },
-});
-
-const userImpro = new mongoose.Schema({
-  timestamp: { type: Date, default: Date.now },
-  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  improId: { type: Number, required: true },
-  productTitle: { type: String, required: true },
-  productDesc: { type: String, required: true },
-  productImg: { type: String, required: true },
-  improvement: { type: String, required: true },
-  plus: { type: Number, min: 0, default: 0 },
-  minus: { type: Number, min: 0, default: 0 },
-  answers: { type: Number, default: 0 },
-  show: { type: Boolean, default: true },
-});
-
-const userQuestion = new mongoose.Schema({
-  timestamp: { type: Date, default: Date.now },
-  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  quesId: { type: Number, required: true },
-  productTitle: { type: String, required: true },
-  productDesc: { type: String, required: true },
-  productImg: { type: String, required: true },
-  question: { type: String, required: true },
-  answers: { type: Number, default: 0 },
-  show: { type: Boolean, default: true },
-});
-
 const userSchema = new mongoose.Schema({
   joinAt: { type: Date, default: Date.now },
   active: { type: Boolean, default: false },
@@ -64,19 +17,20 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: [true, "username is requierd"] },
   password: { type: String, required: [true, "password is requierd"] },
   userPicture: { type: String },
-  improvements: [{ type: userImpro }],
-  questions: [{ type: userQuestion }],
-  products: [{ type: pSchema }],
-  card: [{ type: cardSchema }],
+  improvements: [{ type: Object }],
+  questions: [{ type: Object }],
+  products: [{ type: Object }],
+  card: [{ type: Object }],
 });
 
 const User = mongoose.model("User", userSchema);
-const Card = mongoose.model("Card", cardSchema);
-const P = mongoose.model("Puser", pSchema);
-const impro = mongoose.model("UsrImpro", userImpro);
-const ques = mongoose.model("UsrQuestion", userQuestion);
 
 const addnew = function (email, username, password, callback) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding New User ${username} with email ${email} ...`
+  );
+
   const user = new User({
     email,
     username,
@@ -95,23 +49,26 @@ const addnew = function (email, username, password, callback) {
         if (!ress.userExist) {
           user.save(function (err, res) {
             if (!err) {
-              console.log("User saved ...");
+              console.log("\x1b[35m%s\x1b[0m", "User saved ...");
               ans.add = true;
               ans.results = {
                 _id: res._id,
                 username: res.username,
                 email: res.email,
                 score: res.score,
-                improvements: res.improvements,
-                questions: res.questions,
-                products: res.products,
-                card: res.card,
+                // improvements: res.improvements,
+                // questions: res.questions,
+                // products: res.products,
+                // card: res.card,
                 joinAt: res.joinAt,
                 active: res.active,
               };
               callback(ans);
             } else {
-              console.log("Error with saving new User ...", err);
+              console.log(
+                "\x1b[31m%s\x1b[0m",
+                `Error with Adding new User ==> ${err}`
+              );
               ans.errors = err;
               callback(ans);
             }
@@ -135,6 +92,7 @@ const addnew = function (email, username, password, callback) {
 };
 
 const findOne = function (email, password, callback) {
+  console.log("\x1b[36m%s\x1b[0m", `Finding User with email ${email} ...`);
   const ans = {
     findUser: false,
     results: {},
@@ -143,12 +101,12 @@ const findOne = function (email, password, callback) {
 
   User.findOne({ email, password }, function (err, user) {
     if (err) {
-      console.log("Error with finding User ...", err);
+      console.log("\x1b[31m%s\x1b[0m", `Error with finding User ==> ${err}`);
       ans.errors = err;
       callback(ans);
     } else {
       if (user) {
-        console.log("find user ...", user.username);
+        console.log("\x1b[35m%s\x1b[0m", "Find User ==> ", user.username);
         ans.results = {
           id: user._id,
           active: user.active,
@@ -164,7 +122,10 @@ const findOne = function (email, password, callback) {
         ans.findUser = true;
         callback(ans);
       } else {
-        console.log("cannot found user ... (username/password Incorrect)");
+        console.log(
+          "\x1b[31m%s\x1b[0m",
+          `Cannot found user with email ${email} ... (email/password Incorrect)`
+        );
         callback(ans);
       }
     }
@@ -172,6 +133,7 @@ const findOne = function (email, password, callback) {
 };
 
 const findEmail = function (email, callback) {
+  console.log("\x1b[35m%s\x1b[0m", `Find an Email ${email} ...`);
   const ans = {
     emailExist: false,
     message: "",
@@ -179,17 +141,17 @@ const findEmail = function (email, callback) {
   };
   User.findOne({ email }, function (err, user) {
     if (err) {
-      console.log("Error with finding email ...", err);
+      console.log("\x1b[31m%s\x1b[0m", `Error with finding email ==> ${err}`);
       ans.errors = err;
       callback(ans);
     } else {
       if (user) {
-        console.log("Email found ...", user.email);
+        console.log("Email found ==> ", user.email);
         ans.emailExist = true;
         ans.message = "Email already Exist";
         callback(ans);
       } else {
-        console.log("Email not found ...");
+        console.log("Email not found ... ");
         ans.message = "Email not found";
         callback(ans);
       }
@@ -198,6 +160,7 @@ const findEmail = function (email, callback) {
 };
 
 const findUserName = function (username, callback) {
+  console.log("\x1b[36m%s\x1b[0m", `Find a UserName ${username} ...`);
   const ans = {
     userExist: false,
     message: "",
@@ -205,12 +168,15 @@ const findUserName = function (username, callback) {
   };
   User.findOne({ username }, function (err, user) {
     if (err) {
-      console.log("Error with finding username ...", err);
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        `Error with finding username ==> ${err}`
+      );
       ans.errors = err;
       callback(ans);
     } else {
       if (user) {
-        console.log("UserName found ...", user.username);
+        console.log("UserName found ==> ", user.username);
         ans.userExist = true;
         ans.message = "User name Already Exist";
         callback(ans);
@@ -234,29 +200,40 @@ const addToCard = function (
   productImg,
   callback
 ) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding Product_ID ${productId} to Card for User ${userId} ...`
+  );
   const ans = {
     added: false,
     error: null,
   };
 
-  const card = new Card({
+  const card = {
     productId,
     productTitle,
     productDesc,
     productPrice,
     productImg,
     show: true,
-  });
+  };
 
   User.updateOne({ _id: userId }, { $push: { card: card } }, function (
     err,
     res
   ) {
     if (err) {
-      console.log("error with adding the card to userId", userId, productId);
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        `Error with adding Product_ID ${productId} the card to userId ${userId} ==> ${err}`
+      );
       ans.error = err;
       callback(ans);
     } else {
+      console.log(
+        "\x1b[35m%s\x1b[0m",
+        `Product_ID ${productId} Added To Card For User_ID ${userId} ...`
+      );
       ans.added = true;
       callback(ans);
     }
@@ -280,14 +257,14 @@ const addImpro = function (
     error: null,
   };
 
-  const im = new impro({
+  const im = {
     productId,
     improId,
     productTitle,
     productDesc,
     productImg,
     improvement,
-  });
+  };
 
   User.updateOne({ _id: userId }, { $push: { improvements: im } }, function (
     err,
@@ -295,6 +272,7 @@ const addImpro = function (
   ) {
     if (err) {
       console.log(
+        "\x1b[31m%s\x1b[0m",
         `error with adding the improvement ${improvement} to userId ${userId} ==>${err}`
       );
       ans.error = err;
@@ -307,22 +285,30 @@ const addImpro = function (
 };
 
 const improPlus = function (userId, improId, callback) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding Plus to User ${userId} Improvement_Index ${improId} ...`
+  );
   const ans = {
     added: false,
     error: null,
   };
-  console.log(improId);
   User.updateOne(
     { _id: userId, improvements: { $elemMatch: { improId: improId } } },
     { $inc: { "improvements.$.plus": 1 } },
     function (err, res) {
       if (err) {
         console.log(
-          `error with adding the impro Plus ${improId} to userId ${userId} ==>${err}`
+          "\x1b[31m%s\x1b[0m",
+          `Error with adding the impro Plus ${improId} to userId ${userId} ==> ${err}`
         );
         ans.error = err;
         callback(ans);
       } else {
+        console.log(
+          "\x1b[35m%s\x1b[0m",
+          `Plus Added to User ${userId} Improvement_Index ${improId} ...`
+        );
         ans.added = true;
         callback(ans);
       }
@@ -331,6 +317,10 @@ const improPlus = function (userId, improId, callback) {
 };
 
 const improMinus = function (userId, improId, callback) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding Minus to User ${userId} Improvement_Index ${improId} ...`
+  );
   const ans = {
     added: false,
     error: null,
@@ -341,11 +331,16 @@ const improMinus = function (userId, improId, callback) {
     function (err, res) {
       if (err) {
         console.log(
-          `error with adding the impro Minus ${improId} to userId ${userId} ==>${err}`
+          "\x1b[31m%s\x1b[0m",
+          `Error with adding the impro Minus ${improId} to userId ${userId} ==>${err}`
         );
         ans.error = err;
         callback(ans);
       } else {
+        console.log(
+          "\x1b[35m%s\x1b[0m",
+          `Minus Added to User ${userId} Improvement_Index ${improId} ...`
+        );
         ans.added = true;
         callback(ans);
       }
@@ -370,21 +365,26 @@ const addQuestion = function (
     error: null,
   };
 
-  const qe = new ques({
+  const qe = {
     productId,
     quesId,
     productTitle,
     productDesc,
     productImg,
     question,
-  });
+  };
 
   User.updateOne({ _id: userId }, { $push: { questions: qe } }, function (
     err,
     res
   ) {
     if (err) {
-      console.log("error with adding the question to userId", userId, question);
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        "error with adding the question to userId",
+        userId,
+        question
+      );
       ans.error = err;
       callback(ans);
     } else {
@@ -406,12 +406,16 @@ const addToProduct = function (
   productImg,
   callback
 ) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding Product_ID ${productId} to User_ID ${userId} ...`
+  );
   const ans = {
     added: false,
     error: null,
   };
 
-  const p = new P({
+  const p = {
     productId,
     productType,
     productTitle,
@@ -419,17 +423,24 @@ const addToProduct = function (
     productPrice,
     productImg,
     show: true,
-  });
+  };
 
   User.updateOne({ _id: userId }, { $push: { products: p } }, function (
     err,
     res
   ) {
     if (err) {
-      console.log("error with adding the product to userId", userId, productId);
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        `Error with adding the Product_ID ${productId} to User_Id ${userId} ==> ${err}`
+      );
       ans.error = err;
       callback(ans);
     } else {
+      console.log(
+        "\x1b[35m%s\x1b[0m",
+        `Product_ID ${productId} Added to User_ID ${userId} ...`
+      );
       ans.added = true;
       callback(ans);
     }

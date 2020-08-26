@@ -20,14 +20,13 @@ const productSchema = new mongoose.Schema({
 
 const product = mongoose.model("Product", productSchema);
 
-const newProduct = function (
+const newProduct = async function (
   type,
   title,
   description,
   media,
   img,
-  price,
-  callback
+  price
 ) {
   console.log("\x1b[36m%s\x1b[0m", `Adding New Product ${title} ...`);
   const p = new product({
@@ -38,75 +37,45 @@ const newProduct = function (
     img,
     price,
   });
+  let r = { res: null, err: null };
 
-  const ans = {
-    added: false,
-    message: null,
-  };
+  try {
+    r.res = await p.save();
+  } catch (e) {
+    console.log("\x1b[31m%s\x1b[0m", "Add New product Error ==>", e);
+    r.err = e;
+  }
 
-  p.save(function (err) {
-    if (!err) {
-      console.log("\x1b[35m%s\x1b[0m", "New Product added ...");
-      ans.added = true;
-      ans.message = "Product added ...";
-      callback(ans);
-    } else {
-      console.log("\x1b[31m%s\x1b[0m", "New product Error with add ==>", err);
-      ans.message = err;
-      callback(ans);
-    }
-  });
+  return r;
 };
 
-const findAll = function (callback) {
+const findAll = async function () {
   console.log("\x1b[36m%s\x1b[0m", `Finding all products ...`);
-  const ans = {
-    find: false,
-    error: null,
-    results: null,
-  };
-  product.find(function (err, results) {
-    if (err) {
-      console.log(
-        "\x1b[31m%s\x1b[0m",
-        "Find" + type + "Products Error ==> ",
-        err
-      );
-      ans.error = err;
-      callback(ans);
-    } else {
-      console.log("\x1b[35m%s\x1b[0m", `All products found ...`);
-      ans.find = true;
-      ans.results = results;
-      callback(ans);
-    }
-  });
+  let r = { res: null, err: null };
+  try {
+    r.res = await product.find();
+  } catch (e) {
+    console.log("\x1b[31m%s\x1b[0m", `Find All Products Error ==> ${e}`);
+    r.err = e;
+  }
+
+  return r;
 };
 
-const findId = function (_id, callback) {
+const findId = async function (_id) {
   console.log("\x1b[36m%s\x1b[0m", `Find Product by ID ${_id} ...`);
-  const ans = {
-    find: false,
-    error: null,
-    result: null,
-  };
+  let r = { res: null, err: null };
 
-  product.findOne({ _id }, function (err, result) {
-    if (err) {
-      console.log(
-        "\x1b[31m%s\x1b[0m",
-        "Find Product with ID" + _id + " Error ==> ",
-        err
-      );
-      ans.error = err;
-      callback(ans);
-    } else {
-      console.log("\x1b[35m%s\x1b[0m", `Product_ID ${_id} Found ...`);
-      ans.find = true;
-      ans.result = result;
-      callback(ans);
-    }
-  });
+  try {
+    r.res = await product.findOne({ _id });
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Find Product with ID ${_id} Error ==> ${e}`
+    );
+    r.err = e;
+  }
+  return r;
 };
 
 module.exports = {

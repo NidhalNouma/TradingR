@@ -52,9 +52,7 @@ app.get("*", (req, res) => {
 });
 
 const port = process.env.PORT || 8080;
-
 const server = http.createServer(app);
 const io = require("socket.io")(server);
 run(io);
-
 server.listen(port, () => console.log(`listening at port ${port}`));

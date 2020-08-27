@@ -15,29 +15,34 @@ router.use(function (req, res, next) {
   next();
 });
 
-router.post("/add", function (req, res) {
+router.post("/add", async function (req, res) {
   const email = req.body.email;
   const password = req.body.password;
   const username = req.body.username;
 
-  // const ans = {
-  //   add: false,
-  //   results: null,
-  //   errors: null,
-  // };
-  user.addnew(email, username, password, function (rep) {
-    const body = {
-      response: rep,
-    };
-    if (rep.add) {
-      var expiryDate = new Date();
-      expiryDate.setMonth(expiryDate.getMonth() + 1);
-      res.cookie("_SSD", JSON.stringify(rep.results), {
-        Expires: expiryDate,
-      });
-    }
-    res.json(body);
-  });
+  const ans = {
+    add: false,
+    results: null,
+    errors: null,
+  };
+
+  const r = await user.addnew(email, username, password);
+  if (r.found) {
+    ans.results = r.res;
+  } else if (r.res) {
+    ans.add = true;
+    console.log("\x1b[35m%s\x1b[0m", `User saved ${username} ...`);
+    // var expiryDate = new Date();
+    // expiryDate.setMonth(expiryDate.getMonth() + 1);
+    // res.cookie("_SSD", JSON.stringify(rep.results), {
+    //   Expires: expiryDate,
+    // });
+    ans.results = r.res;
+  } else if (r.err) {
+    ans.errors = r.err;
+  }
+
+  res.json(ans);
 });
 
 router.post("/find", async function (req, res) {

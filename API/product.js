@@ -22,7 +22,6 @@ router.use(function (req, res, next) {
   res.on("finish", function () {
     model.close();
   });
-
   next();
 });
 

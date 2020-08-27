@@ -63,47 +63,31 @@ const addnew = async function (email, username, password) {
     username,
     password,
   });
-  let r = { res: null, err: null };
+  let r = { res: null, err: null, found: true };
 
   const r0 = await findEmail(email);
-
-  // if (!res.emailExist) {
-  //   findUserName(username, function (ress) {
-
-  //     if (!ress.userExist) {
-
-  //       user.save(function (err, res) {
-
-  //           if (!err) {
-  //             console.log("\x1b[35m%s\x1b[0m", "User saved ...");
-  //             ans.add = true;
-  //             ans.results = res;
-  //             callback(ans);
-  //           } else {
-  //             console.log(
-  //               "\x1b[31m%s\x1b[0m",
-  //               `Error with Adding new User ==> ${err}`
-  //             );
-  //             ans.errors = err;
-  //             callback(ans);
-  //           }
-  //         });
-  //       } else {
-  //         ans.errors = {
-  //           message: ress.message,
-  //           error: ress.errors,
-  //         };
-  //         callback(ans);
-  //       }
-  //     });
-  //   } else {
-  //     ans.errors = {
-  //       message: res.message,
-  //       error: res.errors,
-  //     };
-  //     callback(ans);
-  //   }
-  // });
+  if (r0.res) {
+    r.res = "Email already Exist";
+    console.log("\x1b[33m%s\x1b[0m", `Email found ==> ${user.email}`);
+  } else if (r0.err) {
+    r.err = r0.err;
+  } else {
+    const r1 = await findUserName(username);
+    if (r1.res) {
+      r.res = "User name already Exist";
+      console.log("\x1b[33m%s\x1b[0m", `UserName found ==> ${user.username}`);
+    } else if (r1.err) {
+      r.err = r1.err;
+    } else {
+      r.found = false;
+      try {
+        r.res = await user.save();
+      } catch (e) {
+        r.err = e;
+        console.log("\x1b[31m%s\x1b[0m", `Error with Adding new User ==> ${e}`);
+      }
+    }
+  }
 
   return r;
 };
@@ -121,97 +105,63 @@ const findOne = async function (email, password) {
   return r;
 };
 
-const findEmail = function (email, callback) {
+const findEmail = async function (email) {
   console.log("\x1b[35m%s\x1b[0m", `Find an Email ${email} ...`);
-  const ans = {
-    emailExist: false,
-    message: "",
-    errors: {},
+  const r = {
+    res: null,
+    err: null,
   };
-  User.findOne({ email }, function (err, user) {
-    if (err) {
-      console.log("\x1b[31m%s\x1b[0m", `Error with finding email ==> ${err}`);
-      ans.errors = err;
-      callback(ans);
-    } else {
-      if (user) {
-        console.log("Email found ==> ", user.email);
-        ans.emailExist = true;
-        ans.message = "Email already Exist";
-        callback(ans);
-      } else {
-        console.log("Email not found ... ");
-        ans.message = "Email not found";
-        callback(ans);
-      }
-    }
-  });
+  try {
+    r.res = await User.findOne({ email });
+  } catch (e) {
+    r.err = e;
+    console.log("\x1b[31m%s\x1b[0m", `Error with finding email ==> ${err}`);
+  }
+
+  return r;
 };
 
-const findUserName = function (username, callback) {
+const findUserName = async function (username) {
   console.log("\x1b[36m%s\x1b[0m", `Find a UserName ${username} ...`);
-  const ans = {
-    userExist: false,
-    message: "",
-    errors: {},
-  };
-  User.findOne({ username }, function (err, user) {
-    if (err) {
-      console.log(
-        "\x1b[31m%s\x1b[0m",
-        `Error with finding username ==> ${err}`
-      );
-      ans.errors = err;
-      callback(ans);
-    } else {
-      if (user) {
-        console.log("UserName found ==> ", user.username);
-        ans.userExist = true;
-        ans.message = "User name Already Exist";
-        callback(ans);
-      } else {
-        console.log("UserName not found ...");
-        ans.message = "User name not fund";
-        callback(ans);
-      }
-    }
-  });
+  const r = { res: null, err: null };
+  try {
+    r.res = await User.findOne({ username });
+  } catch (e) {
+    r.err = e;
+    console.log("\x1b[31m%s\x1b[0m", `Error with finding username ==> ${err}`);
+  }
+
+  return r;
 };
 
-const findById = function (_id, callback) {
+const findById = async function (_id) {
   console.log("\x1b[36m%s\x1b[0m", `Find user user by ID ${_id} ...`);
-  const ans = {
-    find: false,
-    result: null,
-    errors: null,
-  };
-  User.findOne({ _id }, function (err, user) {
-    if (err) {
-      console.log(
-        "\x1b[31m%s\x1b[0m",
-        `Error with finding user by ID ${_id}  ==> ${err}`
-      );
-      ans.errors = err;
-      callback(ans);
-    } else {
-      if (user) {
-        console.log("\x1b[35m%s\x1b[0m", `Found user user by ID ${_id}  ...`);
-        ans.find = true;
-        ans.result = user;
-        callback(ans);
-      } else {
-        console.log(
-          "\x1b[31m%s\x1b[0m",
-          `User not found with this ID ${_id} ...`
-        );
-        ans.result = "User not fund";
-        callback(ans);
-      }
-    }
-  });
+  const r = { res: null, err: null };
+  try {
+    r.res = await User.findOne({ _id });
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with finding user by ID ${_id}  ==> ${err}`
+    );
+  }
+
+  return r;
+  //     if (user) {
+  //       console.log("\x1b[35m%s\x1b[0m", `Found user user by ID ${_id}  ...`);
+  //       ans.find = true;
+  //       ans.result = user;
+  //       callback(ans);
+  //     } else {
+  //       console.log(
+  //         "\x1b[31m%s\x1b[0m",
+  //         `User not found with this ID ${_id} ...`
+  //       );
+  //       ans.result = "User not fund";
 };
 
-const getImprQa = async function (_id, callback) {
+const getImprQa = async function (_id) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Find Impro & Questions for user ID ${_id} ...`

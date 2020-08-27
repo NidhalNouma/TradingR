@@ -2,16 +2,18 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const conn = function () {
-  mongoose.connect(process.env.DB_HOST, {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  });
+  if (mongoose.connection.readyState === 0)
+    mongoose.connect(process.env.DB_HOST, {
+      useCreateIndex: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    });
   mongoose.connection.on(
     "error",
     console.error.bind(console, "connection error:")
   );
+
   mongoose.connection.once("open", function () {
     console.log("\x1b[32m%s\x1b[0m", "mongodb connect ...");
   });

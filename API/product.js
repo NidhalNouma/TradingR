@@ -223,7 +223,7 @@ router.post("/add/impro/answer", async function (req, res) {
     added: false,
     error: null,
   };
-  const r = await addImproAns(id, userId, userName, userImg, answer);
+  const r = await addImproAns(pId, id, userId, userName, userImg, answer);
   if (r.res) {
     ans.added = true;
     console.log(

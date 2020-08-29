@@ -6,8 +6,24 @@ function run(io) {
       socket.broadcast.emit("qa", msg);
     });
 
+    socket.on("qaAns", function (msg) {
+      socket.broadcast.emit("qaAns", msg);
+    });
+
     socket.on("impro", function (msg) {
       socket.broadcast.emit("impro", msg);
+    });
+
+    socket.on("improAns", function (msg) {
+      socket.broadcast.emit("improAns", msg);
+    });
+
+    socket.on("1", function (msg) {
+      socket.broadcast.emit("1", msg);
+    });
+
+    socket.on("-1", function (msg) {
+      socket.broadcast.emit("-1", msg);
     });
 
     socket.on("disconnect", function () {

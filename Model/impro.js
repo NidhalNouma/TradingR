@@ -3,9 +3,7 @@ const { productSchema } = require("./product");
 
 const answerSchema = new mongoose.Schema({
   imprId: { type: mongoose.Types.ObjectId, required: true },
-  userId: { type: mongoose.Types.ObjectId, required: true },
-  userName: { type: String, required: true },
-  userImg: { type: String },
+  userId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   answer: { type: String, required: [true, "Question is requierd"] },
   timestamp: { type: Date, default: Date.now },
 });
@@ -13,9 +11,7 @@ const answerSchema = new mongoose.Schema({
 const improSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   productId: { type: mongoose.Types.ObjectId, required: true },
-  userId: { type: String, required: true },
-  userName: { type: String, required: true },
-  userImg: { type: String },
+  userId: { type: String, required: true, ref: "User" },
   improvement: { type: String, required: [true, "Improvement is requierd"] },
   plus: [{ type: mongoose.Types.ObjectId }],
   minus: [{ type: mongoose.Types.ObjectId }],
@@ -25,7 +21,7 @@ const improSchema = new mongoose.Schema({
 const Impro = mongoose.model("Impro", improSchema);
 const Answer = mongoose.model("Answer", answerSchema);
 
-const addImpro = async function (_id, userId, userName, userImg, impro) {
+const addImpro = async function (_id, userId, impro) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding new improvement for product ID ${_id} userID ${userId} ...`
@@ -34,8 +30,6 @@ const addImpro = async function (_id, userId, userName, userImg, impro) {
   const imp = new Impro({
     productId: _id,
     userId,
-    userName,
-    userImg,
     improvement: impro,
   });
 
@@ -55,24 +49,17 @@ const addImpro = async function (_id, userId, userName, userImg, impro) {
   return qu;
 };
 
-const addImproAns = async function (
-  pId,
-  id,
-  userId,
-  userName,
-  userImg,
-  answer
-) {
+const addImproAns = async function (pId, id, userId, answer) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding new Answer for Improvement Id ${id} for product ID ${pId} userID ${userId} ...`
   );
   const product = mongoose.model("Product", productSchema);
-  const answ = new Answer({ improId: id, userId, userName, userImg, answer });
+  const answ = new Answer({ improId: id, userId, answer });
 
   let r = { res: null, err: null };
   try {
-    r.res = await product.updateOne(
+    r.res = await product.findOneAndUpdate(
       { _id: pId, "improvements._id": id },
       { $push: { "improvements.$.answers": answ } }
     );

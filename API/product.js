@@ -13,6 +13,7 @@ const {
 } = require("../Model/impro");
 
 const { addQuestion, addQuestionAns } = require("../Model/QandA");
+const { use } = require("./user");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
@@ -94,8 +95,6 @@ router.post("/add", async function (req, res) {
 router.post("/add/impro", async function (req, res) {
   const id = req.body.id;
   const userId = req.body.userId;
-  const userName = req.body.userName;
-  const userImg = req.body.userImg;
   const impro = req.body.impro;
 
   const ans = {
@@ -104,7 +103,7 @@ router.post("/add/impro", async function (req, res) {
     error: null,
   };
 
-  const rsp = await addImpro(id, userId, userName, userImg, impro);
+  const rsp = await addImpro(id, userId, impro);
   if (rsp.res) {
     const p = await product.findId(id);
     const raw = p.res.improvements[p.res.improvements.length - 1];
@@ -113,21 +112,13 @@ router.post("/add/impro", async function (req, res) {
       `New Improvement with Id ${raw._id} Added for Product with ID ${id} ... `
     );
     ans.improId = raw._id;
-    const urs = await user.addImpro(
-      userId,
-      id,
-      raw._id,
-      raw.title,
-      raw.description,
-      raw.img,
-      impro
-    );
+    const urs = await user.addImpro(userId, id, raw._id);
     if (urs) {
       console.log(
         "\x1b[35m%s\x1b[0m",
         `Impro Added to User ${userId} Improvement_ID ${raw._id} ...`
       );
-      res.added = true;
+      ans.added = true;
     }
   } else {
     ans.error = rsp.err;
@@ -152,20 +143,12 @@ router.post("/add/impro/plus", async function (req, res) {
       "\x1b[35m%s\x1b[0m",
       `Plus Added to improvementID ${id} for product ID ${_id} userID ${userId} ...`
     );
-    const r1 = await user.improPlus(userId, id);
+    const r1 = await user.addScore(userId, 1);
     if (r1.res) {
       console.log(
         "\x1b[35m%s\x1b[0m",
-        `Plus Added to User ${userId} Improvement_ID ${id} ...`
+        `Plus Added to score for userID ${userId} ...`
       );
-    } else if (r1.err) {
-      ans.error = err;
-    } else {
-      console.log(
-        "\x1b[33m%s\x1b[0m",
-        `Error (Not Found) Plus Added to User ${userId} Improvement_ID ${id} ...`
-      );
-      ans.error = "Not Found";
     }
   } else if (r.err) {
     ans.error = r.err;
@@ -190,20 +173,12 @@ router.post("/add/impro/minus", async function (req, res) {
       "\x1b[35m%s\x1b[0m",
       `Minus Added to improvementID ${id} for product ID ${_id} userID ${userId} ...`
     );
-    const r1 = await user.improMinus(userId, id);
+    const r1 = await user.addScore(userId, -1);
     if (r1.res) {
       console.log(
         "\x1b[35m%s\x1b[0m",
-        `Minus Added to User ${userId} Improvement_ID ${id} ...`
+        `Minus Added to score for userID ${userId} ...`
       );
-    } else if (r1.err) {
-      ans.error = err;
-    } else {
-      console.log(
-        "\x1b[33m%s\x1b[0m",
-        `Error (Not Found) Minus Added to User ${userId} Improvement_ID ${id} ...`
-      );
-      ans.error = "Not Found";
     }
   } else if (r.err) {
     ans.error = r.err;
@@ -217,13 +192,11 @@ router.post("/add/impro/answer", async function (req, res) {
   const id = req.body.id;
   const answer = req.body.answer;
   const userId = req.body.userId;
-  const userName = req.body.userName;
-  const userImg = req.body.userImg;
   const ans = {
     added: false,
     error: null,
   };
-  const r = await addImproAns(pId, id, userId, userName, userImg, answer);
+  const r = await addImproAns(pId, id, userId, answer);
   if (r.res) {
     ans.added = true;
     console.log(
@@ -240,21 +213,29 @@ router.post("/add/impro/answer", async function (req, res) {
 router.post("/add/question", async function (req, res) {
   const id = req.body.id;
   const userId = req.body.userId;
-  const userName = req.body.userName;
-  const userImg = req.body.userImg;
   const question = req.body.question;
 
   const ans = {
     added: false,
     error: null,
   };
-  const r = await addQuestion(id, userId, userName, userImg, question);
+  const r = await addQuestion(id, userId, question);
   if (r.res) {
-    r.added = true;
+    ans.added = true;
+    const p = await product.findId(id);
+    console.log(p.res);
+    const raw = p.res.qandas[p.res.qandas.length - 1];
     console.log(
       "\x1b[35m%s\x1b[0m",
       `New Question Added for product ID ${id} userID ${userId} ...`
     );
+    const usr = await user.addQuestion(userId, id, raw._id);
+    if (usr) {
+      console.log(
+        "\x1b[35m%s\x1b[0m",
+        `Question Added to User ${userId} Question_ID ${raw._id} ...`
+      );
+    }
   } else if (r.err) {
     r.error = r.err;
   }
@@ -267,14 +248,12 @@ router.post("/add/question/answer", async function (req, res) {
   const id = req.body.id;
   const answer = req.body.answer;
   const userId = req.body.userId;
-  const userName = req.body.userName;
-  const userImg = req.body.userImg;
 
   const ans = {
     added: false,
     error: null,
   };
-  const r = await addQuestionAns(pId, id, userId, userName, userImg, answer);
+  const r = await addQuestionAns(pId, id, userId, answer);
   if (r.res) {
     ans.added = true;
     console.log(

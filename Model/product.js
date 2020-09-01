@@ -53,7 +53,21 @@ const findAll = async function () {
   console.log("\x1b[36m%s\x1b[0m", `Finding all products ...`);
   let r = { res: null, err: null };
   try {
-    r.res = await product.find();
+    r.res = await product
+      .find()
+      .populate({
+        path: "improvements.userId",
+        select: "username score userPicture",
+      })
+      .populate({ path: "qandas.userId", select: "username score userPicture" })
+      .populate({
+        path: "improvements.answers.userId",
+        select: "username score userPicture",
+      })
+      .populate({
+        path: "qandas.answers.userId",
+        select: "username score userPicture",
+      });
   } catch (e) {
     console.log("\x1b[31m%s\x1b[0m", `Find All Products Error ==> ${e}`);
     r.err = e;
@@ -67,7 +81,21 @@ const findId = async function (_id) {
   let r = { res: null, err: null };
 
   try {
-    r.res = await product.findOne({ _id });
+    r.res = await product
+      .findOne({ _id })
+      .populate({
+        path: "improvements.userId",
+        select: "username score userPicture",
+      })
+      .populate({ path: "qandas.userId", select: "username score userPicture" })
+      .populate({
+        path: "improvements.answers.userId",
+        select: "username score userPicture",
+      })
+      .populate({
+        path: "qandas.answers.userId",
+        select: "username score userPicture",
+      });
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",

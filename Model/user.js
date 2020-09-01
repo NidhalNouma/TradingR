@@ -1,31 +1,5 @@
 const mongoose = require("mongoose");
 
-const userImpro = new mongoose.Schema({
-  timestamp: { type: Date, default: Date.now },
-  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  improId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  productTitle: { type: String, required: true },
-  productDesc: { type: String, required: true },
-  productImg: { type: String, required: true },
-  improvement: { type: String, required: true },
-  plus: { type: Number, min: 0, default: 0 },
-  minus: { type: Number, min: 0, default: 0 },
-  answers: { type: Number, default: 0 },
-  show: { type: Boolean, default: true },
-});
-
-const userQuestion = new mongoose.Schema({
-  timestamp: { type: Date, default: Date.now },
-  productId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  quesId: { type: mongoose.Schema.Types.ObjectId, required: true },
-  productTitle: { type: String, required: true },
-  productDesc: { type: String, required: true },
-  productImg: { type: String, required: true },
-  question: { type: String, required: true },
-  answers: { type: Number, default: 0 },
-  show: { type: Boolean, default: true },
-});
-
 const userSchema = new mongoose.Schema({
   joinAt: { type: Date, default: Date.now },
   active: { type: Boolean, default: false },
@@ -33,6 +7,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Email is requierd"],
+    unique: [true, "Email Exist"],
     validate: {
       validator: function (v) {
         return /(\w*\@\w*\.\w*)/.test(v);
@@ -40,18 +15,30 @@ const userSchema = new mongoose.Schema({
       message: (props) => `${props.value} is not a valid email!`,
     },
   },
-  username: { type: String, required: [true, "username is requierd"] },
+  username: {
+    type: String,
+    required: [true, "username is requierd"],
+    unique: [true, "username exist"],
+  },
   password: { type: String, required: [true, "password is requierd"] },
-  userPicture: { type: String },
-  improvements: [{ type: userImpro }],
-  questions: [{ type: userQuestion }],
-  products: [{ type: Object }],
-  card: [{ type: Object }],
+  userPicture: { type: String, default: "noimg" },
+  improvements: [
+    {
+      pId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      impId: { type: mongoose.Schema.Types.ObjectId },
+    },
+  ],
+  questions: [
+    {
+      pId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      quesId: { type: mongoose.Schema.Types.ObjectId },
+    },
+  ],
+  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  card: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
 });
 
 const User = mongoose.model("User", userSchema);
-const UserImp = mongoose.model("UserImpro", userImpro);
-const UserQue = mongoose.model("UserQuestion", userQuestion);
 
 const addnew = async function (email, username, password) {
   console.log(
@@ -64,29 +51,12 @@ const addnew = async function (email, username, password) {
     password,
   });
   let r = { res: null, err: null, found: true };
-
-  const r0 = await findEmail(email);
-  if (r0.res) {
-    r.res = "Email already Exist";
-    console.log("\x1b[33m%s\x1b[0m", `Email found ==> ${user.email}`);
-  } else if (r0.err) {
-    r.err = r0.err;
-  } else {
-    const r1 = await findUserName(username);
-    if (r1.res) {
-      r.res = "User name already Exist";
-      console.log("\x1b[33m%s\x1b[0m", `UserName found ==> ${user.username}`);
-    } else if (r1.err) {
-      r.err = r1.err;
-    } else {
-      r.found = false;
-      try {
-        r.res = await user.save();
-      } catch (e) {
-        r.err = e;
-        console.log("\x1b[31m%s\x1b[0m", `Error with Adding new User ==> ${e}`);
-      }
-    }
+  try {
+    r.res = await user.save();
+    r.found = false;
+  } catch (e) {
+    r.err = e;
+    console.log("\x1b[31m%s\x1b[0m", `Error with Adding new User ==> ${e}`);
   }
 
   return r;
@@ -100,35 +70,6 @@ const findOne = async function (email, password) {
   } catch (e) {
     console.log("\x1b[31m%s\x1b[0m", `Error with finding User ==> ${e}`);
     r.err = e;
-  }
-
-  return r;
-};
-
-const findEmail = async function (email) {
-  console.log("\x1b[35m%s\x1b[0m", `Find an Email ${email} ...`);
-  const r = {
-    res: null,
-    err: null,
-  };
-  try {
-    r.res = await User.findOne({ email });
-  } catch (e) {
-    r.err = e;
-    console.log("\x1b[31m%s\x1b[0m", `Error with finding email ==> ${err}`);
-  }
-
-  return r;
-};
-
-const findUserName = async function (username) {
-  console.log("\x1b[36m%s\x1b[0m", `Find a UserName ${username} ...`);
-  const r = { res: null, err: null };
-  try {
-    r.res = await User.findOne({ username });
-  } catch (e) {
-    r.err = e;
-    console.log("\x1b[31m%s\x1b[0m", `Error with finding username ==> ${err}`);
   }
 
   return r;
@@ -148,17 +89,6 @@ const findById = async function (_id) {
   }
 
   return r;
-  //     if (user) {
-  //       console.log("\x1b[35m%s\x1b[0m", `Found user user by ID ${_id}  ...`);
-  //       ans.find = true;
-  //       ans.result = user;
-  //       callback(ans);
-  //     } else {
-  //       console.log(
-  //         "\x1b[31m%s\x1b[0m",
-  //         `User not found with this ID ${_id} ...`
-  //       );
-  //       ans.result = "User not fund";
 };
 
 const getImprQa = async function (_id) {
@@ -169,13 +99,44 @@ const getImprQa = async function (_id) {
 
   const r = { res: null, err: null };
   try {
-    r.res = await User.findOne({ _id }).select("_id improvements questions");
+    r.res = await User.findOne({ _id })
+      .populate({
+        path: "improvements.pId",
+        select: "improvements img  title timestamp ",
+      })
+      .populate({
+        path: "questions.pId",
+        select: "qandas img  title timestamp ",
+      })
+      .select("_id improvements questions");
   } catch (e) {
     r.err = e;
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Error with finding Impro & Questions for user ID ${_id}  ==> ${err}`
+      `Error with finding Impro & Questions for user ID ${_id}  ==> ${e}`
     );
+  }
+
+  return r;
+};
+
+const getUserCard = async function (userId) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Finding Cards items for User_ID ${userId} ...`
+  );
+  let r = { res: null, err: null };
+  try {
+    r.res = await User.findById(userId).populate({
+      path: "card",
+      select: "_id title description",
+    });
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Finding the Cards items for User_Id ${userId} ==> ${err}`
+    );
+    r.err = e;
   }
 
   return r;
@@ -183,30 +144,18 @@ const getImprQa = async function (_id) {
 
 // --------------------------------------------------------------------------------------------
 
-const addToCard = async function (
-  userId,
-  productId,
-  productTitle,
-  productDesc,
-  productPrice,
-  productImg
-) {
+const addToCard = async function (userId, productId) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding Product_ID ${productId} to Card for User ${userId} ...`
   );
-  const card = {
-    productId,
-    productTitle,
-    productDesc,
-    productPrice,
-    productImg,
-    show: true,
-  };
 
   const r = { res: null, err: null };
   try {
-    r.res = await User.updateOne({ _id: userId }, { $push: { card: card } });
+    r.res = await User.updateOne(
+      { _id: userId },
+      { $push: { card: productId } }
+    );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
@@ -218,34 +167,41 @@ const addToCard = async function (
   return r;
 };
 
+const addToProduct = async function (userId, productId) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding Product_ID ${productId} to User_ID ${userId} ...`
+  );
+  let r = { res: null, err: null };
+
+  try {
+    r.res = await User.updateOne(
+      { _id: userId },
+      { $push: { products: productId } }
+    );
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with adding the Product_ID ${productId} to User_Id ${userId} ==> ${err}`
+    );
+    r.err = e;
+  }
+
+  return r;
+};
+
 // --------------------------------------------------------------------------------------------
 
-const addImpro = async function (
-  userId,
-  productId,
-  improId,
-  productTitle,
-  productDesc,
-  productImg,
-  improvement
-) {
+const addImpro = async function (userId, productId, improId) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding Impro to User ${userId} Improvement_ID ${improId} ...`
   );
-  const im = new UserImp({
-    productId,
-    improId,
-    productTitle,
-    productDesc,
-    productImg,
-    improvement,
-  });
   let r = { res: null, err: null };
   try {
     r.res = await User.updateOne(
       { _id: userId },
-      { $push: { improvements: im } }
+      { $push: { improvements: { pId: productId, impId: improId } } }
     );
   } catch (e) {
     console.log(
@@ -258,43 +214,23 @@ const addImpro = async function (
   return r;
 };
 
-const improPlus = async function (userId, improId) {
+// --------------------------------------------------------------------------------------------
+
+const addQuestion = async function (userId, productId, quesId) {
   console.log(
     "\x1b[36m%s\x1b[0m",
-    `Adding Plus to User ${userId} Improvement_ID ${improId} ...`
+    `Adding Question to User ${userId} Question_ID ${quesId} ...`
   );
   let r = { res: null, err: null };
   try {
     r.res = await User.updateOne(
-      { _id: userId, "improvements.improId": improId },
-      { $inc: { "improvements.$.plus": 1, score: 1 } }
+      { _id: userId },
+      { $push: { questions: { pId: productId, quesId } } }
     );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Error with adding the impro Plus ${improId} to userId ${userId} ==> ${e}`
-    );
-    r.err = e;
-  }
-
-  return r;
-};
-
-const improMinus = async function (userId, improId) {
-  console.log(
-    "\x1b[36m%s\x1b[0m",
-    `Adding Minus to User ${userId} Improvement_ID ${improId} ...`
-  );
-  let r = { res: null, err: null };
-  try {
-    r.res = await User.updateOne(
-      { _id: userId, "improvements.improId": improId },
-      { $inc: { "improvements.$.minus": 1, score: -1 } }
-    );
-  } catch (e) {
-    console.log(
-      "\x1b[31m%s\x1b[0m",
-      `Error with adding the impro Minus ${improId} to userId ${userId} ==>${e}`
+      `error with adding the question ID ${quesId} to userId ${userId} ==> ${e}`
     );
     r.err = e;
   }
@@ -304,30 +240,18 @@ const improMinus = async function (userId, improId) {
 
 // --------------------------------------------------------------------------------------------
 
-const addQuestion = async function (
-  userId,
-  productId,
-  quesId,
-  productTitle,
-  productDesc,
-  productImg,
-  question
-) {
-  const qe = new UserQue({
-    productId,
-    quesId,
-    productTitle,
-    productDesc,
-    productImg,
-    question,
-  });
+const addScore = async function (userId, pn) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding ${pn} score to userID ${userId} ...`
+  );
   let r = { res: null, err: null };
   try {
-    r.res = await User.updateOne({ _id: userId }, { $push: { questions: qe } });
+    r.res = await User.updateOne({ _id: userId }, { $inc: { score: pn } });
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `error with adding the question ID ${quesId} to userId ${userId}`
+      `error with adding ${pn} to userID ${userId} ==> ${e}`
     );
     r.err = e;
   }
@@ -336,54 +260,17 @@ const addQuestion = async function (
 };
 
 // --------------------------------------------------------------------------------------------
-
-const addToProduct = async function (
-  userId,
-  productId,
-  productType,
-  productTitle,
-  productDesc,
-  productPrice,
-  productImg
-) {
-  console.log(
-    "\x1b[36m%s\x1b[0m",
-    `Adding Product_ID ${productId} to User_ID ${userId} ...`
-  );
-  const p = {
-    productId,
-    productType,
-    productTitle,
-    productDesc,
-    productPrice,
-    productImg,
-    show: true,
-  };
-  let r = { res: null, err: null };
-
-  try {
-    r.res = await User.updateOne({ _id: userId }, { $push: { products: p } });
-  } catch (e) {
-    console.log(
-      "\x1b[31m%s\x1b[0m",
-      `Error with adding the Product_ID ${productId} to User_Id ${userId} ==> ${err}`
-    );
-    r.err = e;
-  }
-
-  return r;
-};
 
 module.exports = {
   userSchema,
   findById,
   addnew,
   getImprQa,
+  getUserCard,
   findOne,
   addToCard,
   addToProduct,
   addImpro,
-  improPlus,
-  improMinus,
   addQuestion,
+  addScore,
 };

@@ -60,6 +60,7 @@ router.post("/find", async function (req, res) {
       id: r.res.id,
       active: r.res.active,
       username: r.res.username,
+      userPicture: r.res.userPicture,
       score: r.res.score,
       joinAt: r.res.joinAt,
       cardL: r.res.card.length,
@@ -91,23 +92,12 @@ router.post("/find", async function (req, res) {
 router.post("/card/add", async function (req, res) {
   const userId = req.body._id;
   const productId = req.body.productId;
-  const productTitle = req.body.productTitle;
-  const productDesc = req.body.productDesc;
-  const productPrice = req.body.productPrice;
-  const productImg = req.body.productImg;
 
   const ans = {
     added: false,
     error: null,
   };
-  const r = await user.addToCard(
-    userId,
-    productId,
-    productTitle,
-    productDesc,
-    productPrice,
-    productImg
-  );
+  const r = await user.addToCard(userId, productId);
   if (r.res) {
     ans.added = true;
     console.log(
@@ -121,28 +111,36 @@ router.post("/card/add", async function (req, res) {
   res.json(ans);
 });
 
+router.post("/card/find", async function (req, res) {
+  const userId = req.body._id;
+
+  const ans = {
+    result: false,
+    error: null,
+  };
+  const r = await user.getUserCard(userId);
+  if (r.res) {
+    ans.result = r.res;
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Fond Card Items for User_ID ${userId} ...`
+    );
+  } else if (r.err) {
+    ans.error = r.err;
+  }
+
+  res.json(ans);
+});
+
 router.post("/product/add", async function (req, res) {
   const userId = req.body._id;
   const productId = req.body.productId;
-  const productType = req.body.productType;
-  const productTitle = req.body.productTitle;
-  const productDesc = req.body.productDesc;
-  const productPrice = req.body.productPrice;
-  const productImg = req.body.productImg;
 
   const ans = {
     added: false,
     error: null,
   };
-  const r = await user.addToProduct(
-    userId,
-    productId,
-    productType,
-    productTitle,
-    productDesc,
-    productPrice,
-    productImg
-  );
+  const r = await user.addToProduct(userId, productId);
   if (r.res) {
     ans.added = true;
     console.log(

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 var bodyParser = require("body-parser");
 
-const model = require("../Model/model");
 const user = require("../Model/user");
 const product = require("../Model/product");
 const {
@@ -13,18 +12,9 @@ const {
 } = require("../Model/impro");
 
 const { addQuestion, addQuestionAns } = require("../Model/QandA");
-const { use } = require("./user");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-
-router.use(function (req, res, next) {
-  model.connect();
-  res.on("finish", function () {
-    model.close();
-  });
-  next();
-});
 
 router.get("/findbyid/:id", async function (req, res) {
   const id = req.params.id;
@@ -223,7 +213,6 @@ router.post("/add/question", async function (req, res) {
   if (r.res) {
     ans.added = true;
     const p = await product.findId(id);
-    console.log(p.res);
     const raw = p.res.qandas[p.res.qandas.length - 1];
     console.log(
       "\x1b[35m%s\x1b[0m",
@@ -244,7 +233,7 @@ router.post("/add/question", async function (req, res) {
 });
 
 router.post("/add/question/answer", async function (req, res) {
-  const pId = req.body.pId;
+  const pId = req.body.productId;
   const id = req.body.id;
   const answer = req.body.answer;
   const userId = req.body.userId;

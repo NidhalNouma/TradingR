@@ -1,19 +1,10 @@
 const express = require("express");
 const router = express.Router();
 var bodyParser = require("body-parser");
-const model = require("../Model/model");
 const user = require("../Model/user");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
-
-router.use(function (req, res, next) {
-  model.connect();
-  res.on("finish", function () {
-    model.close();
-  });
-  next();
-});
 
 router.post("/add", async function (req, res) {
   const email = req.body.email;
@@ -67,6 +58,9 @@ router.post("/find", async function (req, res) {
     };
     var expiryDate = new Date();
     expiryDate.setMonth(expiryDate.getMonth() + 1);
+    res.cookie("_SSDI", r.res.id, {
+      Expires: expiryDate,
+    });
     res.cookie("_SSD", JSON.stringify(re), {
       Expires: expiryDate,
     });

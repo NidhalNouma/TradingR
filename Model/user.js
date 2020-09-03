@@ -79,12 +79,12 @@ const findById = async function (_id) {
   console.log("\x1b[36m%s\x1b[0m", `Find user user by ID ${_id} ...`);
   const r = { res: null, err: null };
   try {
-    r.res = await User.findOne({ _id });
+    r.res = await User.findOne({ _id }).select("-improvements -questions");
   } catch (e) {
     r.err = e;
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Error with finding user by ID ${_id}  ==> ${err}`
+      `Error with finding user by ID ${_id}  ==> ${e}`
     );
   }
 

@@ -28,6 +28,7 @@ app.get(
     "/product/:i",
     "/profile",
     "/profile/*",
+    "/welcome",
   ],
   checkUser,
   (req, res) => {

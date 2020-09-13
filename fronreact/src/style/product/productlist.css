@@ -1,0 +1,163 @@
+.content-list {
+  text-align: center;
+  width: 100%;
+}
+
+.product-list {
+  margin: 5em 10%;
+  display: grid;
+  grid-template-columns: 48% 46%;
+  justify-content: space-between;
+  padding: 1.2em;
+  /* border: 2px solid #f4f2f0; */
+  border-radius: 20px;
+}
+
+.product-list .media-left-card {
+  display: none;
+}
+
+.left-card iframe {
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+  border: none;
+}
+
+.left-card img {
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+}
+
+.right-card h2 {
+  margin: 0;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--pcolor);
+}
+
+.right-card a {
+  display: block;
+  margin-top: 0;
+  color: var(--pcolor);
+  margin-bottom: 0.5em;
+  font-size: 0.86em;
+}
+
+.right-card h4 {
+  color: var(--pricecolor);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.9em;
+  margin: 0;
+}
+
+.right-card p {
+  text-align: justify;
+  font-size: 0.9em;
+  margin: 1.5em 0;
+}
+
+.right-card .btn-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.right-card .btn-card a {
+  display: flex;
+  font-size: 1.1rem;
+  padding: auto;
+  height: 30px;
+  width: 140px;
+  background-color: var(--scolor);
+  color: var(--pcolor);
+  transition: width 0.4s ease-out;
+  transition: transform 0.4s ease-out;
+}
+
+.right-card .buy-btn {
+  background-color: var(--pcolor) !important;
+  color: var(--scolor) !important;
+}
+
+.btn-card a:hover {
+  transform: scale(1.06);
+}
+
+@media screen and (max-width: 1200px) {
+  .product-list {
+    margin: 4em 4%;
+    padding: 0.8em;
+  }
+
+  .right-card a {
+    font-size: 0.8em;
+  }
+
+  .right-card h4 {
+    font-size: 0.85em;
+  }
+
+  .right-card p {
+    font-size: 0.85em;
+    margin: 1.2em 0;
+  }
+
+  .btn-card a {
+    font-size: 0.9em;
+    padding: 0.4em 0em;
+    width: 120px;
+  }
+
+  .btn-card a:hover {
+    width: 130px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .product-list {
+    display: block;
+    margin: 2em 4%;
+    padding: 0.8em;
+    border: 2px solid var(--scolor);
+  }
+
+  .product-list .media-left-card {
+    display: block;
+    padding: 0.6em 0;
+  }
+
+  .product-list .media-left-card img {
+    width: 100%;
+    border-radius: 12px;
+  }
+
+  .product-list .left-card {
+    display: none;
+  }
+
+  .right-card h3 {
+    font-size: 1.1em;
+  }
+
+  .right-card h4 {
+    font-size: 0.78em;
+  }
+
+  .right-card p {
+    font-size: 0.77em;
+    margin: 1em 0;
+  }
+
+  .btn-card a {
+    font-size: 0.78em;
+    padding: 0.4em 0em;
+    width: 100px;
+  }
+
+  .btn-card a:hover {
+    width: 110px;
+  }
+}

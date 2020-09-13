@@ -256,4 +256,82 @@ router.post("/add/question/answer", async function (req, res) {
   res.json(ans);
 });
 
+// --------------------------------------------------------------------------------------
+
+router.post("/add/productversion", async function (req, res) {
+  const type = req.body.type;
+  const ans = {
+    added: false,
+    error: null,
+  };
+  const r = await product.newProductVersion(type);
+  if (r.res) {
+    ans.added = true;
+    console.log("\x1b[35m%s\x1b[0m", `Product Version Added ...`);
+  } else if (r.err) {
+    r.error = r.err;
+  }
+
+  res.json(ans);
+});
+
+router.post("/add/productversion/add", async function (req, res) {
+  const pId = req.body.pId;
+  const pvId = req.body.pvId;
+  const version = req.body.version;
+  const ans = {
+    added: false,
+    error: null,
+  };
+  const r = await product.addProductToProductVersion(pId, pvId, version);
+  if (r.res) {
+    ans.added = true;
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Product ${pId} Added to product Version ${pvId} ......`
+    );
+  } else if (r.err) {
+    r.error = r.err;
+  }
+
+  res.json(ans);
+});
+
+router.get("/findall/productversion", async function (req, res) {
+  const ans = {
+    find: false,
+    results: null,
+    error: null,
+  };
+  const r = await product.findAllProductVersion();
+  if (r.res) {
+    ans.find = true;
+    ans.results = r.res;
+    console.log("\x1b[35m%s\x1b[0m", `Products Versions Found ...`);
+  } else if (r.err) {
+    r.error = r.err;
+  }
+
+  res.json(ans);
+});
+
+router.get("/find/productversion/:id", async function (req, res) {
+  const id = req.params.id;
+  const ans = {
+    find: false,
+    result: null,
+    error: null,
+  };
+  const r = await product.findProductVersionById(id);
+  if (r.res) {
+    ans.find = true;
+    ans.result = r.res;
+    console.log("\x1b[35m%s\x1b[0m", `Product Version ${id} found ...`);
+  } else if (r.err) {
+    r.error = r.err;
+  }
+
+  res.json(ans);
+});
+
 module.exports = router;

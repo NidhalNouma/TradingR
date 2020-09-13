@@ -1,0 +1,109 @@
+.containP {
+  position: relative;
+  top: 90px;
+  margin: 2.5em 7%;
+  text-align: start;
+}
+
+.containP .first {
+  display: grid;
+  grid-template-columns: 77% 20%;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.containP #qa,
+.containP #im {
+  width: 85%;
+}
+
+@media screen and (max-width: 1200px) {
+  .containP {
+    top: 70px;
+    margin: 2.5em 5%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .containP {
+    top: 40px;
+    margin: 2.5em 5%;
+  }
+
+  .containP .first {
+    display: block;
+  }
+}
+
+/* Product details */
+
+.pdetails {
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+.pdetails img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.pdetails h4 {
+  margin: 2em 0 1em;
+  font-weight: normal;
+  color: var(--pcolor);
+  font-family: "Times New Roman", Times, serif;
+}
+
+.pdetails p {
+  text-align: justify;
+  font-weight: 50;
+  font-size: 0.78em;
+  line-height: 150%;
+  overflow: hidden;
+}
+
+.pdetails h5 {
+  font-weight: 200;
+  font-size: 0.9em;
+  color: #388825;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.pdetails iframe {
+  width: 100%;
+  height: 450px;
+  border-radius: 12px;
+  border: none;
+}
+
+.pdetails ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1em 40% 0;
+}
+
+.pdetails ul li {
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.pdetails ul li#select {
+  opacity: 1;
+}
+
+.pdetails ul li:hover {
+  opacity: 1;
+}
+
+/* Contact us */
+
+.contactus {
+  margin: 5rem 6%;
+  min-height: 53vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

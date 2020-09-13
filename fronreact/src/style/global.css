@@ -1,0 +1,618 @@
+.readmore {
+  color: var(--pcolor);
+  background-color: var(--shcolor);
+  font-size: 0.85em;
+  padding: 0.3em 0.7em;
+  width: 100px;
+  margin: 0 auto 2em;
+}
+
+/* Author */
+.au-in {
+  margin: 1em 0;
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.au-in .auther {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.au-in .auther img {
+  height: 50px !important;
+  border-radius: 50% !important;
+  padding-right: 0.5em;
+}
+
+.au-in .auther h4 {
+  margin: 0;
+  font-size: 0.8em !important;
+  color: var(--pcolor);
+}
+
+.int {
+  display: flex;
+  align-items: center;
+}
+
+.int svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.5px;
+}
+
+.int span {
+  font-size: 0.75em;
+  color: var(--pcolor);
+  margin-right: 0.6rem;
+  margin-left: 0.3rem;
+}
+
+/* Add Comment */
+.r-section {
+  margin-left: 10% !important;
+  margin-bottom: 0 !important;
+  margin-top: 0.6rem !important;
+}
+
+.comment {
+  top: 71.5px;
+  background-color: var(--bgcolor);
+  padding: 0.3em;
+  margin: 0;
+  margin-bottom: 1.2rem;
+  border-radius: 0px;
+}
+
+.comment h6 {
+  display: inline-block;
+  margin: 0;
+  color: var(--pcolor);
+  cursor: pointer;
+  background-color: var(--shcolor);
+  padding: 0 0.5rem;
+  border-radius: 8px;
+  transition: transform 0.25s linear;
+}
+
+.comment h6:hover {
+  transform: scale(1.04);
+}
+
+.comment .hcancel {
+  color: rgb(170, 160, 32);
+  background-color: var(--bgcolor);
+}
+
+.comment svg {
+  width: 34px;
+  height: 12px;
+  stroke-width: 0px;
+}
+
+.comment form {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border: 1px solid var(--tcolor);
+  border-radius: 8px;
+  width: 100%;
+}
+
+.comment div {
+  font-size: 0.7em;
+  display: inline-block;
+  text-align: justify;
+  padding: 0.7em 1em;
+  min-height: 3em;
+  width: 90%;
+  color: var(--textcolor);
+}
+
+.comment div:focus {
+  outline: none;
+  border: 0px;
+}
+
+.comment textarea {
+  font-size: 0.7em;
+  display: inline-block;
+  text-align: justify;
+  padding: 0.4em 0.5em;
+  min-height: 3em;
+  width: 90%;
+  border-radius: inherit;
+  border: none;
+  color: var(--textcolor);
+  resize: none;
+}
+
+.comment textarea::placeholder {
+  font-size: inherit;
+}
+
+.comment textarea:focus {
+  outline: none;
+  border: 0px;
+}
+
+[data-placeholder]:empty:before {
+  content: attr(data-placeholder);
+  color: #888;
+}
+
+.comment button {
+  font-size: 0.8em;
+  display: inline-flex;
+  padding: 0.3em;
+  margin: 0.3em;
+  border-radius: 50%;
+  background-color: var(--scolor);
+  color: var(--pcolor);
+  border: none;
+  height: 26px;
+  width: 26px;
+  transition: transform 0.3s linear;
+}
+
+.comment .allow {
+  transform: rotate(90deg);
+  background-color: var(--shcolor);
+}
+
+.comment button::selection {
+  border: none;
+}
+
+.comment a svg {
+  width: 18px;
+  height: 28px;
+  stroke-width: 1px;
+
+  /* fill: rgb(255, 255, 255); */
+}
+
+/* Q&A */
+.question .top {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.question .top .det {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.question .top .det img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.question .top .det svg {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.question .top .det h4 {
+  margin: 0;
+  margin-left: 0.7em;
+  font-size: 0.65em;
+  color: var(--pcolor);
+}
+
+.question .txt .view-all {
+  display: block;
+  margin-left: 10%;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--pcolor);
+  cursor: pointer;
+  user-select: none;
+}
+
+.question .txt hr {
+  margin: 0.8rem 0 0.4em 10%;
+  border-top: 1px dashed var(--scolor);
+}
+
+.question .txt p {
+  font-size: 0.75em;
+  text-align: justify;
+  margin: 0;
+  margin-left: 50px;
+  overflow: hidden;
+}
+
+.question .txt .reply-section {
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question .txt .reply-section i {
+  font-size: 0.85rem;
+  margin-left: 30px;
+  color: #a0b0a0;
+}
+
+.question .txt .reply-section span {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--pcolor);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s linear;
+}
+
+.question .txt .reply-section span:hover {
+  transform: scale(1.05);
+}
+
+.question .ans {
+  margin: 0.6em 0 0 9%;
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--scolor);
+}
+
+.question .ans div {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.question .ans div img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  margin: 0;
+}
+
+.question .ans div svg {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  margin: 0;
+}
+
+.question .ans div h4 {
+  margin: 0;
+  margin-left: 1em;
+  font-size: 0.64em;
+  color: var(--pcolor);
+}
+
+.question .ans p {
+  margin: 0.2em 0 0.2em 40px;
+  font-size: 0.66em;
+}
+
+.question .ans i {
+  font-size: 0.8rem;
+  margin-left: 30px;
+  color: #a0b0a0;
+}
+
+/* sticky */
+.conmis {
+  position: sticky;
+  top: 70px;
+  padding: 1rem 0 0.1rem;
+  border-radius: 0 0 12px 12px;
+  margin-bottom: 1em;
+  background-color: var(--bgcolor);
+}
+
+.mis {
+  background-color: var(--scolor);
+  border-radius: 12px;
+  margin: 0.5em 0;
+  padding: 0.6em;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.mis a {
+  color: var(--pcolor);
+  font-size: 1.1rem;
+  background-color: var(--scolor);
+  padding: 0.2rem 0.4rem;
+  box-shadow: 0 0 1px var(--pcolor);
+}
+
+.mis span {
+  font-size: 0.84em;
+  color: var(--pcolor);
+}
+
+@media screen and (max-width: 1200px) {
+  .conmis {
+    top: 50px;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .conmis {
+    top: 35px;
+  }
+}
+
+/* Buy Now */
+.cost {
+  text-align: center;
+  padding: 1rem;
+  background-color: var(--bgcolor);
+  position: sticky;
+  top: 14vh;
+  border-radius: 12px;
+  box-shadow: 0 0 6px var(--shcolor);
+  background: linear-gradient(
+    150deg,
+    var(--bgcolor) 0%,
+    var(--bgcolor) 50%,
+    var(--scolor) 80%
+  );
+}
+
+.cost a {
+  font-size: 1rem;
+  height: 30px;
+  width: 120px;
+  background-color: var(--scolor);
+  color: var(--pcolor);
+  margin: 0 auto 1rem;
+  transition: transform 0.3s ease-out;
+}
+
+.cost .buy-btn {
+  padding-left: 0;
+  background-color: var(--pcolor) !important;
+  color: var(--scolor) !important;
+}
+
+.cost a:hover {
+  transform: scale(1.03);
+  background-color: var(--shcolor);
+}
+
+.cost h4 {
+  font-weight: 400;
+  margin: 0.4em auto;
+  color: var(--pricecolor);
+}
+
+.cost span {
+  display: block;
+  font-size: 0.97rem;
+  font-weight: 400;
+  margin: 1rem auto 0;
+  width: 60%;
+  color: var(--pcolor);
+  border-radius: 8px;
+  border: 1px solid var(--scolor);
+}
+
+.cost div {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cost div div {
+  margin: 0 0.2rem;
+}
+
+.cost div .span {
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--pcolor);
+  margin: 0;
+  padding-left: 0.2rem;
+  border: none;
+  width: auto;
+}
+
+.cost div svg {
+  cursor: pointer;
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.3s linear;
+}
+
+.cost div svg:hover {
+  transform: scale(1.1);
+}
+
+.cost span div {
+  margin: 0 0.3rem;
+  display: inline;
+}
+
+.cost select {
+  color: var(--pcolor);
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  border: 1px solid var(--tcolor);
+  margin: 0 auto;
+  transition: width 0.3s ease-out;
+  background-color: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.cost select:focus {
+  outline: none;
+}
+
+.cost select:hover {
+  transform: scale(1.02);
+}
+
+/* Vote */
+.vote {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vote svg {
+  height: 15px;
+  width: 15px;
+}
+
+.vote button {
+  transition: transform 0.3s ease-in-out;
+}
+
+.vote button:hover {
+  transform: scale(1.15);
+}
+
+.vote span {
+  font-size: 18px;
+  color: var(--pcolor);
+  margin: 0 0.3rem;
+}
+
+.vote button {
+  background-color: var(--bgcolor);
+  margin: 0;
+  padding: 0;
+}
+
+/* chartarea */
+
+.chart {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 1em;
+  position: relative;
+}
+
+.chart .full {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.chart .full svg {
+  border-radius: 50%;
+  padding: 0.2rem 0;
+  background-color: var(--scolor);
+  width: 26px;
+  height: 12px;
+  transition: transform 0.2s ease-out;
+}
+.chart .full svg:hover {
+  transform: scale(1.1);
+}
+
+#de ul {
+  color: var(--pcolor);
+  list-style: none;
+  font-size: 3em;
+  margin-top: 0;
+}
+
+/* Card show */
+
+.MuiToolbar-root {
+  background-color: var(--pcolor);
+}
+
+.MuiToolbar-root button {
+  color: var(--scolor);
+}
+
+.MuiToolbar-root h6 {
+  color: var(--scolor);
+}
+
+.MuiDialog-paperFullScreen {
+  background-color: var(--bgcolor) !important;
+}
+
+.MuiSkeleton-root {
+  background-color: var(--pcolor) !important;
+  border-radius: 12px;
+}
+
+.skelton-me {
+  height: 100% !important;
+}
+
+.skel-img {
+  height: 140px !important;
+}
+
+/* try now */
+.MuiDialog-paperWidthSm {
+  max-width: 80vw !important;
+  border-radius: 10px !important;
+  background-color: var(--bgcolor) !important;
+  padding: 2rem;
+  cursor: auto;
+  /* height: 70vh; */
+}
+
+.trynow {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.trynow > div {
+  width: 250px;
+  margin: 0.7rem;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--pcolor);
+}
+
+.trynow div h5 {
+  color: var(--pcolor);
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.trynow div p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.trynow div span {
+  font-size: 1rem;
+  margin-left: 0.6rem;
+  color: var(--pricecolor);
+}
+
+.trynow div strong {
+  font-size: 1rem;
+  color: var(--pcolor);
+}
+
+.trynow div a {
+  font-size: 1rem;
+  color: var(--pcolor);
+  margin-top: 0.5rem;
+  font-weight: bold;
+  width: 140px;
+  border-radius: 7px;
+  border: 1px solid var(--tcolor);
+  padding: 0.3rem 0.2rem;
+}
+
+.trynow div a:hover {
+  background-color: var(--tcolor);
+}

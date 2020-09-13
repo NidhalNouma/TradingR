@@ -1,0 +1,112 @@
+.containh {
+  margin: 6em 7% 0;
+}
+
+.containh h4 {
+  font-family: "Times New Roman 400", serif;
+  margin: 0.6em 0;
+  font-size: 0.8em;
+  color: var(--pcolor);
+}
+
+.containh .gridlist {
+  display: grid;
+  grid-template-columns: 23% 23% 23% 23%;
+  justify-content: space-between;
+}
+
+.containh .griditem {
+  margin-bottom: 1.5em;
+  padding: 0.5em;
+  border: 3px solid var(--scolor);
+  border-radius: 10px;
+}
+
+.containh .griditem img {
+  width: 100%;
+  height: 150px;
+  border-radius: 10px;
+}
+
+.containh .griditem h5 {
+  font-size: 0.75em;
+  margin: 0.2em 0;
+  color: var(--pcolor);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.containh .griditem h5 a {
+  font-size: 1rem;
+  font-weight: bold;
+  margin: 0.2em 0;
+  color: var(--pcolor);
+}
+
+.containh .griditem p {
+  font-size: 0.7em;
+  margin: 0;
+  margin-bottom: 0.9em;
+  max-height: 3em;
+  overflow: hidden;
+}
+
+.containh .btm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.4em;
+}
+
+.containh .int {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.containh .int svg {
+  width: 18px;
+  height: 20px;
+  border-radius: 0;
+}
+
+.containh .int span {
+  font-size: 0.7em;
+  color: var(--pcolor);
+  margin-right: 0.4em;
+  margin-left: 0.3em;
+}
+
+.containh .int h6 {
+  font-size: 0.7em;
+  color: var(--pricecolor);
+  margin: 0;
+}
+
+.containh .griditem .btm a {
+  font-size: 0.8em;
+  padding: 0.15em 0.6em;
+  height: 20px;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+}
+
+@media screen and (max-width: 1250px) {
+  .containh .gridlist {
+    grid-template-columns: 30% 30% 30%;
+  }
+}
+
+@media screen and (max-width: 880px) {
+  .containh .gridlist {
+    grid-template-columns: 45% 45%;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .containh .gridlist {
+    grid-template-columns: 100%;
+    justify-content: space-around;
+  }
+}

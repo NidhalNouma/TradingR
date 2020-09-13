@@ -1,0 +1,285 @@
+.containProfile {
+  display: grid;
+  grid-template-columns: 1fr 8fr;
+  grid-column-gap: 3rem;
+  justify-content: space-between;
+  margin: 5em 4%;
+  min-height: 57vh;
+}
+.containProfile .left ul {
+  position: fixed;
+}
+
+.containProfile .left li {
+  margin: 1.2rem 0;
+  list-style-type: none;
+}
+
+.containProfile .left li a {
+  color: var(--pcolor);
+  opacity: 0.5;
+  font-size: 1.1rem;
+  border-radius: 0em;
+  justify-content: start;
+}
+
+.containProfile .left li a:hover {
+  opacity: 1;
+}
+
+.containProfile .left li .profileActive {
+  opacity: 1;
+}
+
+.containProfile .right {
+  position: relative;
+  width: 100%;
+}
+
+.containProfile .right .profile {
+  width: 50%;
+  align-items: center;
+  display: flex;
+  justify-content: start;
+  margin: 2rem auto 0;
+}
+
+.containProfile .right .profile img,
+.containProfile .right .profile svg {
+  border-radius: 50%;
+  margin-right: 1.5rem;
+  width: 80px;
+  height: 80px;
+}
+
+.containProfile .right .profile h4 {
+  font-size: 1.05rem;
+  color: var(--pcolor);
+  margin: 0.5rem 0;
+}
+
+.containProfile .right .profile h5 {
+  font-size: 0.9rem;
+  margin: 0;
+  color: var(--pcolor);
+}
+
+.containProfile .right .profile h6 {
+  font-size: 0.85rem;
+  margin: 0;
+  color: var(--pcolor);
+}
+
+.containProfile .right .noimqa {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containProfile .right .noimqa svg {
+  stroke: var(--textcolor);
+  fill: var(--textcolor);
+  stroke-width: 0;
+}
+
+.containProfile .right .noimqa h5 {
+  color: var(--textcolor);
+}
+
+.containProfile .right .qaim {
+  width: 80%;
+  margin: 3rem auto;
+}
+
+.containProfile .right .qaim hr {
+  margin: 0 auto;
+}
+
+.containProfile .right .qaim > div:first-of-type {
+  position: sticky;
+  top: 70px;
+  background-color: var(--scolor);
+  border-radius: 10px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.containProfile .right .qaim h6 {
+  margin: 0.8rem 0;
+  cursor: pointer;
+  color: var(--pcolor);
+  font-size: 1.07rem;
+  opacity: 0.5;
+}
+
+.containProfile .right .qaim h6.active {
+  opacity: 1;
+}
+
+.containProfile .profileproduct h5.active {
+  opacity: 1;
+}
+
+.containProfile .right .nonotif {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.containProfile .right .nonotif h5 {
+  color: var(--pcolor);
+}
+
+.containProfile .right .templ {
+  cursor: pointer;
+  margin-bottom: 1rem;
+  padding: 1rem 1rem 0.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  border: 2px solid var(--scolor);
+}
+
+/* .containProfile .right .templ:hover {
+    background-color: var(--scolor);
+  } */
+
+.containProfile .right .templ img {
+  width: 100px;
+  height: 80px;
+  border-radius: 8px;
+}
+
+.containProfile .right .templ > div {
+  margin-left: 1rem;
+  min-width: 86%;
+}
+
+.containProfile .right .templ div h5 {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.containProfile .right .templ div p {
+  margin: 0;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.containProfile .right .templ div .inter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.containProfile .right .templ div .inter i {
+  font-size: 0.9rem;
+}
+
+.containProfile .right .templ div .inter svg {
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
+.containProfile .right .templ div .inter span {
+  color: var(--pcolor);
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-left: 0.5rem;
+}
+
+.containProfile .profileproduct {
+  position: sticky;
+  top: 70px;
+  border-radius: 10px;
+  background-color: var(--scolor);
+  /* width: 80%; */
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.containProfile .profileproduct h5 {
+  font-size: 1rem;
+  margin: 0.9rem 0;
+  color: var(--pcolor);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.containProfile .right .contprod {
+  margin-bottom: 2rem;
+  padding: 0.6rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  border-radius: 10px;
+  border: 2px solid var(--scolor);
+}
+
+.containProfile .right .contprod img {
+  height: 140px;
+  width: 230px;
+  border-radius: 10px;
+  margin-right: 0.7rem;
+}
+
+.containProfile .right .contprod h5 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.containProfile .right .contprod p {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+}
+
+.containProfile .right .contprod div div {
+  margin-top: 2rem;
+}
+
+.containProfile .right .contprod div div a {
+  display: inline;
+  font-size: 1rem;
+  margin-right: 1rem;
+  padding: 0.2rem 0.5rem;
+  color: var(--scolor);
+  background-color: var(--pcolor);
+}
+
+.containProfile .right .noproduct {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+}
+
+.containProfile .right .noproduct svg {
+  width: 320px;
+  height: 320px;
+  margin-right: 3rem;
+}
+
+.containProfile .right .noproduct h5 {
+  font-size: 1rem;
+  margin: 1.5rem 0;
+  color: var(--pcolor);
+}
+
+.containProfile .right .noproduct a {
+  color: var(--scolor);
+  background-color: var(--pcolor);
+  margin: 0 auto;
+  width: 180px;
+  padding: 0.4rem 0;
+  font-size: 1.15rem;
+}

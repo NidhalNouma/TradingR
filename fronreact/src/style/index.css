@@ -1,0 +1,224 @@
+@import url("/asset/fonts/Times_New_Roma/Times\ New\ Roman\ 400.ttf");
+
+* {
+  transition: background-color 0.4s ease-out;
+}
+html {
+  /* scroll-behavior: smooth; */
+  scroll-padding-top: 160px;
+}
+
+body {
+  position: relative;
+  background-color: var(--bgcolor);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Avenir", "Arial", sans-serif;
+  font-weight: lighter;
+  font-size: 1.3rem;
+}
+
+button,
+h2,
+h3,
+a,
+::placeholder {
+  font-family: "Times New Roman 400", serif;
+  font-weight: lighter;
+  user-select: none;
+}
+
+a,
+img {
+  user-select: none;
+}
+
+a,
+button {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
+
+::placeholder {
+  font-size: 17px;
+  font-family: "Avenir", "Arial", sans-serif;
+}
+
+p,
+textarea,
+input {
+  color: var(--textcolor);
+  font-family: "Avenir", "Arial", sans-serif;
+  background-color: inherit;
+}
+
+svg {
+  fill: var(--pcolor);
+  stroke: var(--pcolor);
+  stroke-width: 1px;
+}
+
+h3 {
+  font-size: 1.4rem;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(var(--pcolor)),
+    to(var(--scolor))
+  );
+  background: linear-gradient(to right, var(--pcolor) 0%, var(--tcolor) 10%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: var(--pcolor);
+  margin: 0.2rem 0 !important;
+  font-weight: bold !important;
+}
+
+scroll-container {
+  scroll-behavior: smooth;
+  scroll-padding-top: 180px;
+}
+
+/* Scroll Bar  */
+
+/* ::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(255, 253, 253);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f4f2f0;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #616e3c;
+} */
+
+/* :root {
+  --pcolor: #616e3c;
+  --scolor: #f4f2f0;
+  --tcolor: #a8cf3b;
+  --pricecolor: #f27a02;
+  --bgcolor: white;
+  --shcolor: #a8cf3b59;
+  --textcolor: black;
+} */
+
+/* :root {
+  --scolor: #616e3c;
+  --pcolor: #ddf5cf;
+  --tcolor: #acc270;
+  --bgcolor: #030c06;
+  --shcolor: #a8cf3b59;
+  --pricecolor: #f27a02;
+  --textcolor: white;
+} */
+
+.notfound {
+  width: 100wh;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.notfound svg {
+  /* position: absolute;
+  left: 30%;
+  right: 30%; */
+  width: 40%;
+  height: 40%;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.notfound div {
+  text-align: center;
+}
+
+.notfound h4 {
+  color: var(--tcolor);
+  text-align: center;
+  font-size: 5em;
+  margin: 0em 0;
+}
+
+.notfound p {
+  color: var(--textcolor);
+  font-size: 3em;
+  margin: 0;
+  margin-top: 0.5em;
+}
+
+.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
+  .alanBtn-bg-default,
+.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
+  .alanBtn-bg-listening,
+.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
+  .alanBtn-bg-intermediate,
+.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
+  .alanBtn-bg-understood,
+.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
+  .alanBtn-oval-bg-default,
+.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
+  .alanBtn:hover
+  .alanBtn-oval-bg-listening:not(.super-hidden) {
+  background-image: linear-gradient(122deg, #616e3c, #a8cf3b) !important;
+}
+
+.alanBtn {
+  box-shadow: 0px 4px 8px #a8cf3b59 !important;
+}
+
+.cart-not {
+  background-color: var(--tcolor) !important;
+  color: var(--pcolor) !important;
+  border-radius: 33px !important;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.type-product {
+  position: relative;
+  /* margin: 0 0.5rem; */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: default;
+}
+
+.type-product svg {
+  height: 12px;
+  width: 12px;
+  margin: 0 0.2rem;
+}
+
+.type-product span {
+  position: absolute;
+  display: none;
+  top: -20px;
+  left: 0;
+  padding: 0.1rem 0.3rem;
+  background-color: var(--scolor);
+  color: var(--pcolor);
+  border-radius: 8px;
+  font-size: 0.75rem;
+  text-transform: capitalize;
+}
+
+.type-product:hover span {
+  display: block;
+}

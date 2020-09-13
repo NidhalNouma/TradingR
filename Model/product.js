@@ -6,6 +6,7 @@ const productSchema = new mongoose.Schema({
   createAt: { type: Date, default: Date.now },
   type: { type: String, required: [true, "Type is requierd"] },
   title: { type: String, required: [true, "Title is requierd"] },
+  version: { type: Number, required: true },
   description: { type: String, required: [true, "Description is requierd"] },
   media: { type: String, required: [true, "Media is requierd"] },
   img: { type: String, required: [true, "Image is requierd"] },
@@ -18,7 +19,114 @@ const productSchema = new mongoose.Schema({
   numberOfVisitor: { type: Number },
 });
 
+const productVersionSchema = new mongoose.Schema({
+  createAt: { type: Date, default: Date.now },
+  type: { type: String, required: [true, "Type is requierd"] },
+  product: [
+    {
+      version: { type: Number, required: true },
+      product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+    },
+  ],
+});
+
 const product = mongoose.model("Product", productSchema);
+const productVersion = mongoose.model("ProductVersion", productVersionSchema);
+
+const newProductVersion = async function (type) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding New Product Version with type ${type} ...`
+  );
+  const p = new productVersion({ type });
+  let r = { res: null, err: null };
+  try {
+    r.res = await p.save();
+  } catch (e) {
+    console.log("\x1b[31m%s\x1b[0m", `Add New product Version Error ==> ${e}`);
+    r.err = e;
+  }
+
+  return r;
+};
+
+const addProductToProductVersion = async function (pId, pvId, version) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding New Product ${pId} to product Version ${pvId} ...`
+  );
+  let r = { res: null, err: null };
+  try {
+    r.res = await productVersion.updateOne(
+      { _id: pvId },
+      { $push: { product: { version, product: pId } } }
+    );
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Add new Product ${pId} to product Version ${pvId} Error ==> ${e}`
+    );
+    r.err = e;
+  }
+
+  return r;
+};
+
+const findAllProductVersion = async function () {
+  console.log("\x1b[36m%s\x1b[0m", `Find All Product Versions ...`);
+  let r = { res: null, err: null };
+  try {
+    r.res = await productVersion.find().populate({
+      path: "product.product",
+      populate: [
+        { path: "qandas.userId", select: "username score userPicture" },
+        { path: "qandas.answers.userId", select: "username score userPicture" },
+        { path: "improvements.userId", select: "username score userPicture" },
+        {
+          path: "improvements.answers.userId",
+          select: "username score userPicture",
+        },
+      ],
+    });
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Finfing ALl Product Versions Error ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+const findProductVersionById = async function (_id) {
+  console.log("\x1b[36m%s\x1b[0m", `Find  Product Version By Id ${_id} ...`);
+  let r = { res: null, err: null };
+  try {
+    r.res = await productVersion.findById({ _id }).populate({
+      path: "product.product",
+      populate: [
+        { path: "qandas.userId", select: "username score userPicture" },
+        { path: "qandas.answers.userId", select: "username score userPicture" },
+        { path: "improvements.userId", select: "username score userPicture" },
+        {
+          path: "improvements.answers.userId",
+          select: "username score userPicture",
+        },
+      ],
+    });
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Finfing ALl Product Version By Id ${_id} Error ==> ${e}`
+    );
+  }
+
+  return r;
+};
 
 const newProduct = async function (
   type,
@@ -107,6 +215,10 @@ const findId = async function (_id) {
 };
 
 module.exports = {
+  newProductVersion,
+  addProductToProductVersion,
+  findAllProductVersion,
+  findProductVersionById,
   product,
   productSchema,
   newProduct,

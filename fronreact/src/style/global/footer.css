@@ -1,0 +1,73 @@
+.containFooter {
+  position: absolute;
+  /* bottom: 0; */
+  left: 0;
+  right: 0;
+}
+
+br + hr {
+  width: 90%;
+  color: var(--scolor);
+  border: 1px solid var(--scolor);
+}
+
+.footer {
+  position: relative;
+  display: flex;
+  padding: 0em 10%;
+  margin: 0 0 0.5em;
+  justify-content: space-around;
+}
+
+.footer a {
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--pcolor);
+}
+
+.footer div {
+  display: flex;
+  justify-content: center;
+}
+
+.footer .MuiSwitch-switchBase {
+  color: var(--pcolor) !important;
+}
+
+.footer .MuiSwitch-track {
+  background-color: var(--pcolor) !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .footer {
+    display: grid;
+    grid-template-columns: 30% 30% 30%;
+    justify-content: space-around;
+    margin-bottom: 0.6em;
+  }
+
+  .footer a {
+    font-size: 0.68em;
+    margin-bottom: 2em;
+  }
+
+  .footer .MuiSwitch-root {
+    margin: auto;
+    margin-bottom: 1.5em;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .footer {
+    grid-template-columns: 50% 50%;
+  }
+
+  .footer a {
+    font-size: 0.64em;
+    margin-bottom: 1.5em;
+  }
+  .footer .MuiSwitch-root {
+    margin: auto;
+    margin-bottom: 1em;
+  }
+}

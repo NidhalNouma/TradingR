@@ -1,0 +1,146 @@
+.nav-fil {
+  position: sticky;
+  display: flex;
+  top: 0;
+  height: 55px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bgcolor);
+  border-radius: 0 0 1.2rem 1.2rem;
+  box-shadow: 0px 2px 4px var(--scolor);
+  z-index: 2;
+}
+
+.menu-fil {
+  display: flex;
+  width: 60%;
+  margin: auto 5em 0.4rem;
+  justify-content: space-around;
+}
+
+.menu-fil a {
+  font-size: 0.8em;
+  height: 30px;
+  width: 100px;
+  background-color: var(--bgcolor);
+  color: var(--pcolor);
+  transition: background-color 0.4s ease-out;
+}
+
+.menu-fil a:hover {
+  background-color: var(--tcolor);
+}
+
+.menu-fil button {
+  font-size: 0.8em;
+  height: 28px;
+  width: 100px;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: var(--bgcolor);
+  color: var(--pcolor);
+  transition: background-color 0.4s ease-out;
+}
+
+.menu-fil button:hover {
+  background-color: var(--tcolor);
+}
+
+.menu-fil button:active {
+  border: none;
+  background-color: var(--tcolor);
+}
+
+/* .search-fil input {
+  font-size: 0.6em;
+  width: 13em;
+  height: 30px;
+  margin: 0.5rem;
+  padding-left: 1rem;
+  border: 1px solid var(--tcolor);
+  border-radius: 12px;
+  background-color: var(--bgcolor);
+  transition: width 0.6s ease-in-out;
+}
+
+.search-fil input::placeholder {
+  font-size: 1.1em;
+}
+
+.search-fil input:focus {
+  outline: none;
+  border: 1px solid var(--pcolor);
+  width: 80%;
+} */
+
+@media screen and (max-width: 1200px) {
+  .nav-fil {
+    height: 3.7rem;
+  }
+
+  .search-fil,
+  .menu-fil {
+    margin: 1.5rem 2.2rem 1rem;
+  }
+
+  .menu-fil a {
+    font-size: 0.78em;
+    width: 85px;
+    height: 27px;
+  }
+
+  .search-fil input {
+    font-size: 0.6em;
+    height: 30px;
+    margin: 0.4rem;
+    padding-left: 0.8rem;
+  }
+
+  .search-fil input::placeholder {
+    font-size: 1em;
+  }
+
+  .search-fil input:focus {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .nav-fil {
+    /* position: relative; */
+    height: auto;
+    width: 100%;
+    padding: 0.2em 0;
+    text-align: center;
+    display: inline-block;
+  }
+
+  .search-fil,
+  .menu-fil {
+    margin: 0.4rem 1rem 0.2rem;
+    width: 90%;
+  }
+
+  .menu-fil a {
+    font-size: 0.7em;
+    width: 70px;
+    height: 23px;
+  }
+
+  .search-fil input {
+    font-size: 12px;
+    width: 80%;
+    height: 23px;
+    margin: 0.2rem;
+    padding-left: 0.4rem;
+    border-radius: 10px;
+    border-width: 1px;
+  }
+
+  .search-fil input:focus {
+    width: 80%;
+  }
+}

@@ -35,6 +35,15 @@ const userSchema = new mongoose.Schema({
     },
   ],
   products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  notifications: [
+    {
+      message: {
+        type: String,
+        required: true,
+        product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+      },
+    },
+  ],
   card: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
 });
 

@@ -27,7 +27,6 @@ export default function Nav(props) {
   const user = useSelector((state) => state.user);
 
   const [search, setSearch] = useState(props.search);
-  const [show, setShow] = useState(false);
   const [showCard, setShowCard] = useState(false);
   const [showFace, setShowFace] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -36,7 +35,7 @@ export default function Nav(props) {
 
   return (
     <>
-      <nav className="fixed" style={props.here ? fix : rel}>
+      <nav style={props.here ? fix : rel}>
         <div className="logo">
           <Link to="/">
             <Logoi />
@@ -148,12 +147,6 @@ export default function Nav(props) {
         </div>
 
         <div className="media">
-          <a onClick={() => setShowCard(true)}>
-            <Cardi />
-            {user && user.card && user.card.length > 0 && (
-              <div className="num-card">{user.card.length}</div>
-            )}
-          </a>
           <a onClick={() => setShowMenu(true)}>
             <Menui />
           </a>
@@ -164,7 +157,7 @@ export default function Nav(props) {
       {sign.show ? <Signin close={sign.cshow} show={sign.show} /> : <></>}
       {showFace ? <Face close={() => setShowFace(false)} /> : <></>}
       {showMenu ? (
-        <Menu close={() => setShowMenu(false)} sign={() => setShow(true)} />
+        <Menu close={() => setShowMenu(false)} sign={sign.sshow} user={user} />
       ) : (
         <></>
       )}

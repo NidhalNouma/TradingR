@@ -1,4 +1,6 @@
 nav {
+  top: 0;
+  width: 100%;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -8,18 +10,9 @@ nav {
   z-index: 1;
 }
 
-nav .search {
-  display: none;
-}
-
-.fixed {
-  top: 0;
-  width: 100%;
-}
-
 .logo {
   width: 20%;
-  margin: 2em 0 1.5em 4em;
+  margin: 2rem 0 1.5rem 4rem;
   display: inline-flex;
   align-items: center;
 }
@@ -36,11 +29,15 @@ nav .search {
 
 .logo svg {
   margin: 0;
-  width: 63px;
+  width: 100px;
   height: 30px;
   fill: none;
   stroke: none;
   stroke-width: 0px;
+}
+
+nav .search {
+  display: none;
 }
 
 nav ul .search {
@@ -52,17 +49,6 @@ nav ul .search {
   display: grid;
   justify-content: center;
   grid-template-columns: 8% 92%;
-}
-
-.MuiFormControl-marginNormal {
-  margin: 0 !important;
-}
-.MuiAutocomplete-endAdornment {
-  display: none !important;
-}
-
-.MuiInput-underline {
-  border: none !important;
 }
 
 .search input {
@@ -93,7 +79,7 @@ nav ul .search {
 
 .menu {
   width: 80%;
-  margin: 2em 4em 1.5em 0;
+  margin: 2rem 4rem 1.5rem 0;
 }
 
 nav div ul {
@@ -132,29 +118,17 @@ nav svg {
 }
 
 .signin {
-  /* color: var(--scolor); */
-  background-color: var(--scolor);
+  box-sizing: border-box;
+  color: var(--pcolor);
+  background-color: var(--shcolor);
   border: 1px solid var(--tcolor);
-}
-
-.num-card {
-  position: absolute;
-  bottom: 33px;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0em 0.4em;
-  border-radius: 40%;
-  background-color: var(--tcolor);
-  color: var(--scolor);
-  font-size: 0.8em;
 }
 
 nav .media {
   display: none;
 }
 
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1200px) {
   nav {
     height: 65px;
   }
@@ -164,6 +138,10 @@ nav .media {
     margin: 2rem 1.5rem 1.5rem;
   }
 
+  .logo svg {
+    width: 80px;
+  }
+
   .menu {
     width: 80%;
     margin: 2rem 1.5rem 1.5rem;
@@ -171,7 +149,7 @@ nav .media {
 
   nav div ul li a {
     font-size: 0.78em;
-    width: 80px;
+    width: 100px;
   }
 
   .num-card {
@@ -203,12 +181,12 @@ nav .media {
   }
 
   nav .logo svg {
-    height: 28px;
+    width: 70px;
   }
 
   nav .search {
     display: contents;
-    width: 70%;
+    width: 80%;
     height: 28px;
     border: solid 1px var(--scolor);
     border-radius: 10px;
@@ -219,6 +197,12 @@ nav .media {
     margin: 0 0.5em;
   }
 
+  .search svg {
+    margin: auto 0.4rem;
+    height: 18px;
+    width: 18px;
+  }
+
   nav .media a {
     align-items: center;
     width: 60px;
@@ -227,14 +211,53 @@ nav .media {
     margin-right: 0.4em;
   }
 
-  nav .num-card {
-    bottom: 28px;
-    margin-left: 11px;
-    font-size: 0.74em;
-  }
-
   nav svg {
     width: 18px;
     height: 18px;
   }
+}
+
+.menu-nav {
+  position: fixed;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  top: 52px;
+  border-radius: 10px;
+  background-color: var(--bgcolor);
+  z-index: 401;
+}
+
+.menu-nav ul {
+  display: block;
+  padding: 0;
+  margin: 0 5rem;
+}
+
+.menu-nav ul li {
+  text-align: right;
+  list-style: none;
+  font-size: 0.8em;
+  margin: 1.2rem 0 0;
+  width: 100%;
+}
+
+.menu-nav ul li a {
+  font-size: 1.1rem;
+  text-decoration: none;
+  height: 28px;
+  background-color: var(--scolor);
+  color: var(--pcolor);
+  transition: background-color 0.4s ease-out;
+}
+
+.menu-nav ul li a:hover {
+  background-color: var(--tcolor);
+  color: var(--pcolor);
+}
+
+.menu-nav ul li img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }

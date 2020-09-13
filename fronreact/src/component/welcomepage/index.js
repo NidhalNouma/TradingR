@@ -40,7 +40,7 @@ function Welcome() {
           </div>
         </div>
         <div className="div" data-aos="fade-up">
-          <div className="img-r" data-aos="fade-up-right" data-aos-delay="100">
+          <div className="img-r" data-aos="fade-up-right">
             <Ai />
           </div>
           <Desc

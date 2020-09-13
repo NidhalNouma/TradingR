@@ -20,22 +20,28 @@ export default function Menu(props) {
 
   return (
     <>
-      <div className="profile-nav" id="menu-nav">
+      <div className="menu-nav" id="menu-nav">
         <ul>
           <li>
-            <Link to="/ideas">Ideas</Link>
+            <Link to="/strategys">Robots</Link>
           </li>
           <li>
             <Link to="/indicators">Indicators</Link>
           </li>
           <li>
-            <Link to="/strategys">Strategys</Link>
+            <Link to="/source">Source</Link>
           </li>
           <li>
-            {login ? (
-              <Link to="/">Profile</Link>
+            {props.user ? (
+              <>
+                <Link to="/">Profile</Link>
+                <li>
+                  <Link to="/">Notifications</Link>
+                </li>
+              </>
             ) : (
               <a
+                className="signin"
                 onClick={() => {
                   document.removeEventListener("click", handleClick);
                   props.close();

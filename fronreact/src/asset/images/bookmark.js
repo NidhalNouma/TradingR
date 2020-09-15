@@ -11,7 +11,7 @@ export default function Bookmark(props) {
         id="bookmark_1_"
         data-name="bookmark (1)"
         transform="translate(-79.334 1)"
-        stroke-width="2.5"
+        strokeWidth="2.5"
       >
         <g id="Group_1821" data-name="Group 1821" transform="translate(80.334)">
           <path

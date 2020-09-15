@@ -11,7 +11,12 @@ function Qanda({ data, id, pId }) {
   return (
     <div className="qanda">
       <div>
-        <Addcom placeholder="Ask any Question ..." type="qa" id={id} />
+        <Addcom
+          placeholder="Ask any Question ..."
+          type="qa"
+          id={id}
+          pId={pId}
+        />
         <div className="commentsection">
           <div className="comments">
             {data

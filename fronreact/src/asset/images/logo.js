@@ -19,10 +19,10 @@ export default function Logo() {
                 id="Rev"
                 transform="translate(19.771 19.768)"
                 fill="var(--pcolor)"
-                font-size="20"
-                font-family="TimesNewRomanPS-BoldMT, Times New Roman"
-                font-weight="700"
-                letter-spacing="-0.007em"
+                fontSize="20"
+                fontFamily="TimesNewRomanPS-BoldMT, Times New Roman"
+                fontWeight="700"
+                letterSpacing="-0.007em"
               >
                 <tspan x="0" y="0">
                   Rev
@@ -32,10 +32,10 @@ export default function Logo() {
                 id="Trading"
                 transform="translate(-47.229 10.768)"
                 fill="var(--pcolor)"
-                font-size="20"
-                font-family="TimesNewRomanPS-BoldMT, Times New Roman"
-                font-weight="700"
-                letter-spacing="-0.007em"
+                fontSize="20"
+                fontFamily="TimesNewRomanPS-BoldMT, Times New Roman"
+                fontWeight="700"
+                letterSpacing="-0.007em"
               >
                 <tspan x="0" y="0">
                   Trading
@@ -48,8 +48,8 @@ export default function Logo() {
               d="M378.073,1976.973c.015,0,24.477,1.3,36.448-1.592s6.65-6.219,11.434-9.964a10.645,10.645,0,0,1,5.736-2.349s.172,1.61.465.27-.919-4.222.707-5.63,2.065.657,5.8,0,3.327-1.049,5.391-2.5,4.086-10.024,4.086-10.024"
               fill="none"
               stroke="var(--tcolor)"
-              stroke-linecap="round"
-              stroke-width="1"
+              strokeLinecap="round"
+              strokeWidth="1"
             />
           </g>
         </g>

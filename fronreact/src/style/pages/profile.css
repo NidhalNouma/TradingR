@@ -266,6 +266,7 @@
 .containProfile .right .noproduct svg {
   width: 320px;
   height: 320px;
+  fill: var(--bgcolor);
   margin-right: 3rem;
 }
 

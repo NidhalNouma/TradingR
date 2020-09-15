@@ -40,11 +40,11 @@ const userSchema = new mongoose.Schema({
       message: {
         type: String,
         required: true,
-        product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
       },
+      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
     },
   ],
-  card: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  subscribers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
 });
 
 const User = mongoose.model("User", userSchema);
@@ -75,7 +75,9 @@ const findOne = async function (email, password) {
   console.log("\x1b[36m%s\x1b[0m", `Finding User with email ${email} ...`);
   let r = { res: null, err: null };
   try {
-    r.res = await User.findOne({ email, password });
+    r.res = await User.findOne({ email, password }).select(
+      "-improvements -questions"
+    );
   } catch (e) {
     console.log("\x1b[31m%s\x1b[0m", `Error with finding User ==> ${e}`);
     r.err = e;

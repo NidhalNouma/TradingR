@@ -178,7 +178,7 @@ router.post("/add/impro/minus", async function (req, res) {
 });
 
 router.post("/add/impro/answer", async function (req, res) {
-  const pId = req.body.pId;
+  const pId = req.body.productId;
   const id = req.body.id;
   const answer = req.body.answer;
   const userId = req.body.userId;

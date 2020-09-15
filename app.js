@@ -7,7 +7,7 @@ const { checkUser, connect } = require("./log");
 const product = require("./API/product");
 const run = require("./socket/index");
 const cors = require("cors");
-// require("events").EventEmitter.defaultMaxListeners = 15;
+require("events").EventEmitter.defaultMaxListeners = 10;
 
 const app = express();
 

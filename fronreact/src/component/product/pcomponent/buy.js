@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { SnackbarProvider, useSnackbar } from "notistack";
 
-import { AddtoCard } from "../../../Actions";
 import Show from "../../show";
 import Signin from "../../signIn";
 import Trynow from "./Trynow";
 
 import Thumpsup from "../../../asset/images/thumpUp";
-import Star from "../../../asset/images/star";
+import Share from "../../../asset/images/Share";
 import Bookmark from "../../../asset/images/bookmark";
 
 function MyApp({ price, sch, product, version, sel, setSel }) {
@@ -34,10 +32,6 @@ function MyApp({ price, sch, product, version, sel, setSel }) {
         <form action="/api/done/payment" method="POST" id="payment">
           <a
             onClick={() => {
-              if (card === null) {
-                sign.sshow();
-                return;
-              }
               setTrynow(true);
             }}
             className="buy-btn"
@@ -56,16 +50,15 @@ function MyApp({ price, sch, product, version, sel, setSel }) {
               <span className="span">33</span>
             </div>
             <div>
-              <Star
-                fill={int.Star}
-                onClick={() => setInt({ ...int, Star: !int.Star })}
-              />
-              <span className="span">33</span>
-            </div>
-            <div>
               <Bookmark
                 fill={int.Bookmark}
                 onClick={() => setInt({ ...int, Bookmark: !int.Bookmark })}
+              />
+            </div>
+            <div>
+              <Share
+                fill={int.Star}
+                onClick={() => setInt({ ...int, Star: !int.Star })}
               />
             </div>
           </div>
@@ -76,7 +69,11 @@ function MyApp({ price, sch, product, version, sel, setSel }) {
                 {version &&
                   version
                     .sort((a, b) => b - a)
-                    .map((i) => <option value={i}>{i.toFixed(1)}</option>)}
+                    .map((i) => (
+                      <option key={i} value={i}>
+                        {i.toFixed(1)}
+                      </option>
+                    ))}
               </select>
             </span>
           </div>

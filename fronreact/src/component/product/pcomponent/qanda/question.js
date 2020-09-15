@@ -64,7 +64,7 @@ function Question({ data, vote, pId, id }) {
             )}
           </div>
 
-          {r && <Reply data={data} close={() => setR(false)} />}
+          {r && <Reply data={data} pvId={pId} close={() => setR(false)} />}
 
           {data.answers && answ.length > 0 && <hr />}
           {s && data

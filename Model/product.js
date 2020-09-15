@@ -6,14 +6,13 @@ const productSchema = new mongoose.Schema({
   createAt: { type: Date, default: Date.now },
   type: { type: String, required: [true, "Type is requierd"] },
   title: { type: String, required: [true, "Title is requierd"] },
-  version: { type: Number, required: true },
   description: { type: String, required: [true, "Description is requierd"] },
   media: { type: String, required: [true, "Media is requierd"] },
   img: { type: String, required: [true, "Image is requierd"] },
   price: { type: String, required: [true, "Price is requierd"] },
   chartDetails: [{ type: Number }],
-  qandas: { type: [qaSchema] },
-  improvements: { type: [improSchema] },
+  qandas: { type: [qaSchema], default: [] },
+  improvements: { type: [improSchema], default: [] },
   numberOfDownload: { type: Number },
   numberOfBuyers: { type: Number },
   numberOfVisitor: { type: Number },
@@ -22,16 +21,49 @@ const productSchema = new mongoose.Schema({
 const productVersionSchema = new mongoose.Schema({
   createAt: { type: Date, default: Date.now },
   type: { type: String, required: [true, "Type is requierd"] },
-  product: [
-    {
-      version: { type: Number, required: true },
-      product: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-        required: true,
+  price: {
+    type: [
+      {
+        title: { type: String, required: true },
+        desc: { type: String, required: true },
+        price: { type: Number, required: true },
       },
-    },
-  ],
+    ],
+    required: true,
+  },
+  product: {
+    type: [
+      {
+        version: { type: Number, required: true },
+        product: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
+        },
+      },
+    ],
+    required: true,
+  },
+  subscribers: {
+    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    default: [],
+  },
+  likes: {
+    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    default: [],
+  },
+  numberOfDownload: {
+    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    default: [],
+  },
+  numberOfBuyers: {
+    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    default: [],
+  },
+  numberOfVisitor: {
+    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    default: [],
+  },
 });
 
 const product = mongoose.model("Product", productSchema);

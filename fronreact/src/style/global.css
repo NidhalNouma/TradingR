@@ -354,12 +354,6 @@
   top: 14vh;
   border-radius: 12px;
   box-shadow: 0 0 6px var(--shcolor);
-  background: linear-gradient(
-    150deg,
-    var(--bgcolor) 0%,
-    var(--bgcolor) 50%,
-    var(--scolor) 80%
-  );
 }
 
 .cost a {
@@ -408,15 +402,15 @@
 }
 
 .cost div div {
-  margin: 0 0.2rem;
+  margin: 0 0.3rem;
 }
 
 .cost div .span {
   font-size: 0.9rem;
-  font-weight: 400;
   color: var(--pcolor);
   margin: 0;
-  padding-left: 0.2rem;
+  box-sizing: border-box;
+  padding-left: 0.15rem;
   border: none;
   width: auto;
 }
@@ -442,9 +436,8 @@
   border: none;
   border-radius: 6px;
   font-size: 1rem;
-  border: 1px solid var(--tcolor);
-  margin: 0 auto;
-  transition: width 0.3s ease-out;
+  /* border: 1px solid var(--tcolor); */
+  margin: 0;
   background-color: transparent;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;

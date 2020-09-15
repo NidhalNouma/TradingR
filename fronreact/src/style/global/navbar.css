@@ -20,7 +20,7 @@ nav {
 .logo a {
   display: block;
   margin: 0;
-  transition: transform 0.3s cubic-bezier(0, 0.8, 1, 2);
+  transition: transform 0.2s ease-in;
 }
 
 .logo a:hover {

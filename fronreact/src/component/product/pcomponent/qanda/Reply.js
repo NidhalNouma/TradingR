@@ -9,7 +9,7 @@ import { AddImproAns, AddQaAns, Inc, Emit } from "../../../../Actions";
 import { TextareaAutosize } from "@material-ui/core";
 import RightArrow from "../../../../asset/images/rightArrow";
 
-function Reply({ data, close }) {
+function Reply({ data, close, pvId }) {
   const comL = 20;
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -43,6 +43,7 @@ function Reply({ data, close }) {
           AddQaAns({
             id: data.productId,
             iid: data._id,
+            pvId: pvId,
             data: {
               _id: date,
               userId: {
@@ -59,6 +60,7 @@ function Reply({ data, close }) {
           AddImproAns({
             id: data.productId,
             iid: data._id,
+            pvId: pvId,
             data: {
               _id: date,
               userId: {
@@ -80,7 +82,7 @@ function Reply({ data, close }) {
 
     const dat = qs.stringify({
       id: data._id,
-      pId: data.productId,
+      productId: data.productId,
       userId: user._id,
       userName: user.username,
       userImg: "noImg",
@@ -101,6 +103,7 @@ function Reply({ data, close }) {
                 sub: {
                   id: data.productId,
                   iid: data._id,
+                  pvId: pvId,
                   data: {
                     _id: date,
                     userId: {
@@ -120,6 +123,7 @@ function Reply({ data, close }) {
                 sub: {
                   id: data.productId,
                   iid: data._id,
+                  pvId: pvId,
                   data: {
                     _id: date,
                     userId: {

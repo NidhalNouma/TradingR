@@ -43,6 +43,7 @@ function Addcom(props) {
     props.type === "qa"
       ? dispatch(
           AddQa({
+            pId: props.pId,
             id: props.id,
             data: {
               _id: date,
@@ -59,6 +60,7 @@ function Addcom(props) {
         )
       : dispatch(
           AddImpro({
+            pId: props.pId,
             id: props.id,
             data: {
               _id: date,
@@ -108,7 +110,14 @@ function Addcom(props) {
       .then(function (response) {
         const imId = response.data.improId;
         if (props.type !== "qa") {
-          dispatch(ChImproId({ id: props.id, dId: date, improId: imId }));
+          dispatch(
+            ChImproId({
+              pId: props.pId,
+              id: props.id,
+              dId: date,
+              improId: imId,
+            })
+          );
           dispatch(Inc());
         }
         props.type === "qa"
@@ -116,6 +125,7 @@ function Addcom(props) {
               Emit({
                 type: props.type,
                 sub: {
+                  pId: props.pId,
                   id: props.id,
                   type: props.type,
                   data: {
@@ -136,6 +146,7 @@ function Addcom(props) {
               Emit({
                 type: props.type,
                 sub: {
+                  pId: props.pId,
                   id: props.id,
                   type: props.type,
                   data: {

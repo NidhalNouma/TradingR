@@ -34,10 +34,11 @@ function Vote({ up, dn, improId, productId, id }) {
       const data = qs.stringify({
         id: improId,
         userId: user._id,
-        productId,
+        productId: id,
       });
-      if (type === "1") dispatch(Plus({ userId: user.id, productId, improId }));
-      else dispatch(Minus({ userId: user.id, productId, improId }));
+      if (type === "1")
+        dispatch(Plus({ userId: user.id, productId, improId, id }));
+      else dispatch(Minus({ userId: user.id, productId, improId, id }));
 
       axios
         .post(endpoint, data, {
@@ -51,7 +52,7 @@ function Vote({ up, dn, improId, productId, id }) {
             dispatch(
               Emit({
                 type: type,
-                sub: { userId: user.id, productId, improId },
+                sub: { userId: user.id, productId, improId, id },
               })
             );
           }

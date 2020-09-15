@@ -6,7 +6,12 @@ function Impro({ data, id, pId }) {
   return (
     <div className="qanda">
       <div>
-        <Addcom placeholder="Add your improvement ..." id={id} type="impro" />
+        <Addcom
+          placeholder="Add your improvement ..."
+          id={id}
+          type="impro"
+          pId={pId}
+        />
         <div className="commentsection">
           <div className="comments">
             {data

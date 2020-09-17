@@ -160,6 +160,9 @@ export default function App() {
             <Route exact path="/profile/notifications">
               {user ? <Notification /> : <Redirect to="/" />}
             </Route>
+            <Route exact path="/profile/subscription">
+              {user ? <Notification /> : <Redirect to="/" />}
+            </Route>
             <Route exact path="/profile/settings">
               {user ? <Setting /> : <Redirect to="/" />}
             </Route>

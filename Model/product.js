@@ -13,9 +13,6 @@ const productSchema = new mongoose.Schema({
   chartDetails: [{ type: Number }],
   qandas: { type: [qaSchema], default: [] },
   improvements: { type: [improSchema], default: [] },
-  numberOfDownload: { type: Number },
-  numberOfBuyers: { type: Number },
-  numberOfVisitor: { type: Number },
 });
 
 const productVersionSchema = new mongoose.Schema({
@@ -45,7 +42,12 @@ const productVersionSchema = new mongoose.Schema({
     required: true,
   },
   subscribers: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    type: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     default: [],
   },
   likes: {
@@ -82,7 +84,6 @@ const newProductVersion = async function (type) {
     console.log("\x1b[31m%s\x1b[0m", `Add New product Version Error ==> ${e}`);
     r.err = e;
   }
-
   return r;
 };
 
@@ -104,7 +105,6 @@ const addProductToProductVersion = async function (pId, pvId, version) {
     );
     r.err = e;
   }
-
   return r;
 };
 
@@ -116,7 +116,10 @@ const findAllProductVersion = async function () {
       path: "product.product",
       populate: [
         { path: "qandas.userId", select: "username score userPicture" },
-        { path: "qandas.answers.userId", select: "username score userPicture" },
+        {
+          path: "qandas.answers.userId",
+          select: "username score userPicture",
+        },
         { path: "improvements.userId", select: "username score userPicture" },
         {
           path: "improvements.answers.userId",
@@ -130,7 +133,6 @@ const findAllProductVersion = async function () {
       `Finfing ALl Product Versions Error ==> ${e}`
     );
   }
-
   return r;
 };
 
@@ -156,9 +158,60 @@ const findProductVersionById = async function (_id) {
       `Finfing ALl Product Version By Id ${_id} Error ==> ${e}`
     );
   }
-
   return r;
 };
+
+const addSubscriber = async (pvId, userId) =>
+  await productVersionPlus(pvId, userId, { subscribers: userId });
+
+const desSubscriber = async (pvId, userId) =>
+  await productVersionMinus(pvId, userId, { subscribers: userId });
+
+const addLike = async (pvId, userId) =>
+  await productVersionPlus(pvId, userId, { likes: userId });
+
+const desLike = async (pvId, userId) =>
+  await productVersionMinus(pvId, userId, { likes: userId });
+
+const productVersionPlus = async function (pvId, userId, data) {
+  const key = Object.keys(data)[0];
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `New user ${key} userId${userId} for ProductVersion ${pvId} ...`
+  );
+  let r = { res: null, err: null };
+  try {
+    r.res = await productVersion.updateOne({ _id: pvId }, { $push: data });
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Errer with adding user ${key} userId${userId} for ProductVersion ${pvId} ==> ${e}`
+    );
+    r.err = e;
+  }
+  return r;
+};
+
+const productVersionMinus = async function (pvId, userId, data) {
+  const key = Object.keys(data)[0];
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Remove user ${key} userId${userId} for ProductVersion ${pvId} ...`
+  );
+  let r = { res: null, err: null };
+  try {
+    r.res = await productVersion.updateOne({ _id: pvId }, { $pull: data });
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Errer with Removing user ${key} userId${userId} for ProductVersion ${pvId} ==> ${e}`
+    );
+    r.err = e;
+  }
+  return r;
+};
+
+//-------------------------------------------------------------------------------------------
 
 const newProduct = async function (
   type,
@@ -185,7 +238,6 @@ const newProduct = async function (
     console.log("\x1b[31m%s\x1b[0m", "Add New product Error ==>", e);
     r.err = e;
   }
-
   return r;
 };
 
@@ -212,7 +264,6 @@ const findAll = async function () {
     console.log("\x1b[31m%s\x1b[0m", `Find All Products Error ==> ${e}`);
     r.err = e;
   }
-
   return r;
 };
 
@@ -256,4 +307,8 @@ module.exports = {
   newProduct,
   findAll,
   findId,
+  addSubscriber,
+  desSubscriber,
+  addLike,
+  desLike,
 };

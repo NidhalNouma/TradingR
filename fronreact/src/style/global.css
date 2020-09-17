@@ -366,6 +366,23 @@
   transition: transform 0.3s ease-out;
 }
 
+.cost .unsb,
+.cost .unsb:hover {
+  background-color: var(--bgcolor);
+  margin-bottom: 0.2rem;
+}
+
+.cost .desub {
+  margin: 0 auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  font-size: 0.85rem;
+  color: rgb(170, 160, 32);
+  cursor: pointer;
+  border-bottom: 1px solid var(--scolor);
+}
+
 .cost .buy-btn {
   padding-left: 0;
   background-color: var(--pcolor) !important;

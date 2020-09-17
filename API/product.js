@@ -330,7 +330,86 @@ router.get("/find/productversion/:id", async function (req, res) {
   } else if (r.err) {
     r.error = r.err;
   }
+  res.json(ans);
+});
 
+router.post("/productversion/subscriber", async function (req, res) {
+  const pvId = req.body.pvId;
+  const userId = req.body.userId;
+  const ans = {
+    added: false,
+    error: null,
+  };
+  const r = await product.addSubscriber(pvId, userId);
+  if (r.res) {
+    ans.added = true;
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `New user subscriber userId${userId} for ProductVersion ${pvId} Added ...`
+    );
+  } else if (r.err) {
+    r.error = r.err;
+  }
+  res.json(ans);
+});
+
+router.post("/productversion/dessubscriber", async function (req, res) {
+  const pvId = req.body.pvId;
+  const userId = req.body.userId;
+  const ans = {
+    added: false,
+    error: null,
+  };
+  const r = await product.desSubscriber(pvId, userId);
+  if (r.res) {
+    ans.added = true;
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Removed user subscriber userId${userId} for ProductVersion ${pvId} ...`
+    );
+  } else if (r.err) {
+    r.error = r.err;
+  }
+  res.json(ans);
+});
+
+router.post("/productversion/like", async function (req, res) {
+  const pvId = req.body.pvId;
+  const userId = req.body.userId;
+  const ans = {
+    added: false,
+    error: null,
+  };
+  const r = await product.addLike(pvId, userId);
+  if (r.res) {
+    ans.added = true;
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `New user Like userId${userId} for ProductVersion ${pvId} ...`
+    );
+  } else if (r.err) {
+    r.error = r.err;
+  }
+  res.json(ans);
+});
+
+router.post("/productversion/deslike", async function (req, res) {
+  const pvId = req.body.pvId;
+  const userId = req.body.userId;
+  const ans = {
+    added: false,
+    error: null,
+  };
+  const r = await product.desLike(pvId, userId);
+  if (r.res) {
+    ans.added = true;
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `New user Like userId${userId} for ProductVersion ${pvId} ...`
+    );
+  } else if (r.err) {
+    r.error = r.err;
+  }
   res.json(ans);
 });
 

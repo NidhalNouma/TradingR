@@ -20,6 +20,14 @@ function Menup({ link }) {
         </li>
         <li>
           <Link
+            to="/profile/subscription"
+            className={link === 5 ? "profileActive" : ""}
+          >
+            Subscriptions
+          </Link>
+        </li>
+        <li>
+          <Link
             to="/profile/notifications"
             className={link === 3 ? "profileActive" : ""}
           >

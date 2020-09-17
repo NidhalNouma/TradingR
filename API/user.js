@@ -54,7 +54,6 @@ router.post("/find", async function (req, res) {
       userPicture: r.res.userPicture,
       score: r.res.score,
       joinAt: r.res.joinAt,
-      cardL: r.res.card.length,
     };
     var expiryDate = new Date();
     expiryDate.setMonth(expiryDate.getMonth() + 1);

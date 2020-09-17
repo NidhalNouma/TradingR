@@ -82,9 +82,9 @@ export default function Product_({ sch }) {
           )}
           {data ? (
             <Buy
-              price={data.price}
               sch={sch}
               product={product}
+              id={data._id}
               version={ver}
               sel={sel}
               setSel={setSel}

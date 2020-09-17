@@ -13,8 +13,8 @@ const improSchema = new mongoose.Schema({
   productId: { type: mongoose.Types.ObjectId, required: true },
   userId: { type: String, required: true, ref: "User" },
   improvement: { type: String, required: [true, "Improvement is requierd"] },
-  plus: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-  minus: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+  plus: [{ type: mongoose.Types.ObjectId, ref: "User", unique: true }],
+  minus: [{ type: mongoose.Types.ObjectId, ref: "User", unique: true }],
   answers: { type: [answerSchema] },
 });
 

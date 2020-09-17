@@ -93,3 +93,11 @@ export const OnA = (payload) => {
 export const Inc = (payload) => {
   return { type: "INC", payload };
 };
+
+export const Subscribe = (payload) => {
+  return { type: "SUBSCRIBE", payload };
+};
+
+export const Desubscribe = (payload) => {
+  return { type: "UNSUBSCRIBE", payload };
+};

@@ -93,6 +93,25 @@ const products = (state = null, action) => {
       p.minus.push(userId);
       return state;
     }
+    case "SUBSCRIBE": {
+      const userId = action.payload.userId;
+      const productId = action.payload.productId;
+      const prr = state.find((i) => i._id === productId);
+      if (!prr) return state;
+      prr.subscribers.push(userId);
+      return state;
+    }
+    case "UNSUBSCRIBE": {
+      const userId = action.payload.userId;
+      const productId = action.payload.productId;
+      const prr = state.find((i) => i._id === productId);
+      if (!prr) return state;
+      const pl = prr.subscribers.filter((i) => {
+        if (i !== userId) return i;
+      });
+      prr.subscribers = pl;
+      return state;
+    }
     default:
       return state;
   }

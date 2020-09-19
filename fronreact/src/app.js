@@ -79,6 +79,7 @@ html {
 export default function App() {
   const user = useSelector((state) => state.user);
   const dark = useSelector((state) => state.Dark);
+  const [first, setFirst] = React.useState(localStorage.getItem("visit"));
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -120,6 +121,13 @@ export default function App() {
       })
     );
   }, [user]);
+
+  React.useEffect(() => {
+    if (first !== "true") {
+      localStorage.setItem("visit", "true");
+      setFirst("true");
+    }
+  }, []);
 
   return (
     <>
@@ -167,11 +175,7 @@ export default function App() {
               {user ? <Setting /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/">
-              {localStorage.getItem("visit") === "true" ? (
-                <Home />
-              ) : (
-                <Redirect to="/welcome" />
-              )}
+              {first === "true" ? <Home /> : <Redirect to="/welcome" />}
             </Route>
             <Route exact path="/search/:query">
               <Products type="SEARCH" />

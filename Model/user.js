@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   joinAt: { type: Date, default: Date.now },
   active: { type: Boolean, default: false },
+  from: { type: String, enum: ["_", "FACEBOOK", "GOOGLE"], default: "_" },
   score: { type: Number, default: 0 },
   email: {
     type: String,
@@ -58,6 +59,36 @@ const addnew = async function (email, username, password) {
     email,
     username,
     password,
+  });
+  let r = { res: null, err: null, found: true };
+  try {
+    r.res = await user.save();
+    r.found = false;
+  } catch (e) {
+    r.err = e;
+    console.log("\x1b[31m%s\x1b[0m", `Error with Adding new User ==> ${e}`);
+  }
+
+  return r;
+};
+
+const addnewThird = async function (
+  email,
+  username,
+  password,
+  from,
+  userPicture
+) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Adding New User ${username} with email ${email} ...`
+  );
+  const user = new User({
+    email,
+    username,
+    password,
+    from,
+    userPicture,
   });
   let r = { res: null, err: null, found: true };
   try {
@@ -276,6 +307,7 @@ module.exports = {
   userSchema,
   findById,
   addnew,
+  addnewThird,
   getImprQa,
   getUserCard,
   findOne,

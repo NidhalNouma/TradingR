@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
+import Google from "../../asset/images/Google";
+import Facebook from "../../asset/images/Facebook";
 
 import { User } from "../../Actions";
 
@@ -85,7 +87,6 @@ export default function CreateAccount(props) {
         placeholder="Email"
         value={email}
         onChange={setemail}
-        autoFocus
       />
       <input
         type="password"
@@ -120,9 +121,14 @@ export default function CreateAccount(props) {
         </button>
       </div>
       <div className="btn-g">
-        <button className="btn-gg" href="">
+        <a className="btn-gg" href="http://localhost:8080/auth/google">
+          <Google />
           Continue with google
-        </button>
+        </a>
+        {/* <a className="btn-gg" href="http://localhost:8080/auth/facebook">
+          <Facebook />
+          Continue with facebook
+        </a> */}
       </div>
     </div>
   );

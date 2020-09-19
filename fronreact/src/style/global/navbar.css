@@ -222,10 +222,11 @@ nav .media {
   right: 0px;
   left: 0px;
   bottom: 0px;
-  top: 52px;
+  top: 51px;
   border-radius: 10px;
   background-color: var(--bgcolor);
-  z-index: 401;
+  z-index: 122;
+  /* overflow: hidden; */
 }
 
 .menu-nav ul {

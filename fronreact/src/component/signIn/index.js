@@ -3,6 +3,8 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { Dialog } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
+import Google from "../../asset/images/Google";
+import Facebook from "../../asset/images/Facebook";
 
 import { User } from "../../Actions";
 import CreateAccount from "../createAccount";
@@ -96,7 +98,6 @@ export default function Signin(props) {
               placeholder="Email"
               onChange={setemail}
               value={email}
-              autoFocus
             />
 
             <input
@@ -118,9 +119,14 @@ export default function Signin(props) {
               </button>
             </div>
             <div className="btn-g">
-              <button className="btn-gg" href="/">
+              <a className="btn-gg" href="http://localhost:8080/auth/google">
+                <Google />
                 Continue with google
-              </button>
+              </a>
+              {/* <a className="btn-gg" href="http://localhost:8080/auth/facebook">
+                <Facebook />
+                Continue with facebook
+              </a> */}
             </div>
           </div>
         )}

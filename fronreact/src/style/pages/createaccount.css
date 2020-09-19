@@ -51,25 +51,28 @@
   border-radius: 12px;
 }
 
-.contain-createaccount button {
+.contain-createaccount button,
+.contain-createaccount a {
   font-size: 0.84em;
-  display: inline-block;
+  display: inline-flex;
   text-decoration: none;
   margin: 0.6em;
-  padding: 0.6rem 0rem;
+  height: 35px;
   width: 25%;
   background-color: var(--scolor);
   color: var(--pcolor);
-  transition: padding 0.4s ease-out;
+  transition: transform 0.3s ease-out;
   border: none;
 }
-
+/* 
 .btn-gg {
   display: block;
+  justify-content: center;
+  gap: 10px;
   width: 50% !important;
   background-color: var(--bgcolor) !important;
   box-shadow: 0px 0px 4px var(--pcolor);
-}
+} */
 
 .btn-login {
   background-color: var(--pcolor) !important;
@@ -82,9 +85,9 @@
   margin: 1rem;
 }
 
-.contain-createaccount button:hover {
-  /* box-shadow: 0px 0px 11px rgba(0, 0, 0, 0.247); */
-  padding: 0.6rem 0.2em;
+.contain-createaccount button:hover,
+.contain-createaccount a:hover {
+  transform: scale(1.02);
 }
 
 .contain-createaccount .aclick {

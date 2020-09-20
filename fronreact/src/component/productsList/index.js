@@ -35,7 +35,7 @@ function Products_(props) {
     if (products === null || products.length === 1) {
       setLoad(true);
       axios
-        .get("/api/product/findall")
+        .get("/api/product/findall/productversion")
         .then(function (response) {
           dispatch(Products(response.data.results));
 
@@ -61,6 +61,7 @@ function Products_(props) {
       {products !== null && products.length > 1
         ? products
             .filter((product) => {
+              product = product.product[product.product.length - 1].product;
               if (props.type === "SEARCH")
                 return product.title
                   .toLowerCase()
@@ -71,7 +72,10 @@ function Products_(props) {
               <Productlist
                 key={product._id}
                 load={load}
-                product={product}
+                id={product._id}
+                subscribers={product.subscribers}
+                downloads={product.numberOfDownload}
+                product={product.product[product.product.length - 1].product}
                 sch={change}
               />
             ))

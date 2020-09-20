@@ -148,7 +148,7 @@ export default function Nav(props) {
 
         <div className="media">
           <a onClick={() => setShowMenu(true)}>
-            <Menui />
+            <Menui click={showMenu} />
           </a>
         </div>
       </nav>

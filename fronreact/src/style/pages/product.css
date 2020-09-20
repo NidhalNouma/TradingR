@@ -18,22 +18,8 @@
   width: 85%;
 }
 
-@media screen and (max-width: 1200px) {
-  .containP {
-    top: 70px;
-    margin: 2.5em 5%;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .containP {
-    top: 40px;
-    margin: 2.5em 5%;
-  }
-
-  .containP .first {
-    display: block;
-  }
+.wcost {
+  display: none;
 }
 
 /* Product details */
@@ -106,4 +92,78 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .containP {
+    top: 70px;
+    margin: 2.5em 5%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .containP {
+    top: 40px;
+    margin: 2em 3%;
+  }
+
+  .containP .first {
+    display: block;
+  }
+
+  .containP #qa,
+  .containP #im {
+    width: 100%;
+  }
+
+  .pdetails iframe {
+    height: 280px;
+  }
+
+  .pdetails h4 {
+    margin: 0.4em 0 0.3rem;
+    font-weight: normal;
+    font-size: 1.05rem;
+  }
+
+  .pdetails p {
+    font-size: 0.94rem;
+    margin: 0.3rem 0;
+  }
+
+  .cost {
+    display: none;
+  }
+
+  .wcost {
+    position: sticky;
+    top: 50px;
+    background-color: var(--bgcolor);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .wcost a {
+    font-size: 0.9rem;
+    border-radius: 7px;
+    box-sizing: border-box;
+    padding: 0.2rem 0.4rem;
+    background-color: var(--scolor);
+    color: var(--pcolor);
+    transition: transform 0.3s ease-out;
+  }
+
+  .wcost span {
+    font-size: 0.95rem;
+    background-color: var(--shcolor);
+    color: var(--pcolor);
+    transition: transform 0.3s ease-out;
+  }
+
+  .wcost .buy-btn {
+    background-color: var(--pcolor) !important;
+    color: var(--scolor) !important;
+  }
 }

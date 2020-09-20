@@ -121,7 +121,7 @@ export default function CreateAccount(props) {
         </button>
       </div>
       <div className="btn-g">
-        <a className="btn-gg" href="http://localhost:8080/auth/google">
+        <a className="btn-gg" href="/auth/google">
           <Google />
           Continue with google
         </a>

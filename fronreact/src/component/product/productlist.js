@@ -26,7 +26,14 @@ function Alert(props) {
   );
 }
 
-export default function Productlist({ load, product, sch }) {
+export default function Productlist({
+  load,
+  product,
+  sch,
+  id,
+  subscribers,
+  downloads,
+}) {
   const [am, setam] = React.useState(false);
   const [trynow, setTrynow] = React.useState(false);
   const sign = Show();
@@ -45,7 +52,7 @@ export default function Productlist({ load, product, sch }) {
           {load ? (
             <Skeleton variant="text" />
           ) : (
-            <Link to={"/product/" + product._id}>
+            <Link to={"/product/" + id}>
               <h2>{product.title}</h2>
             </Link>
           )}
@@ -61,7 +68,12 @@ export default function Productlist({ load, product, sch }) {
           {load ? (
             <Skeleton variant="text" width="20%" />
           ) : (
-            <h4>${product.price}</h4>
+            <>
+              <div>
+                <span>MT4</span>
+                <span>MT5</span>
+              </div>
+            </>
           )}
           {load ? (
             <Skeleton variant="rect" height={230} />
@@ -73,31 +85,37 @@ export default function Productlist({ load, product, sch }) {
             <Skeleton variant="text" />
           ) : (
             <div className="btn-card">
-              <Link to={"/product/" + product._id}>Read More</Link>
-              <a onClick={() => setTrynow(true)} className="buy-btn">
-                Try Now
-              </a>
-              <Snackbar
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
-                open={am}
-                autoHideDuration={3000}
-                onClose={() => setam(false)}
-              >
-                <Alert
-                  onClose={() => setam(false)}
-                  severity="success"
-                  style={{
-                    backgroundColor: "var(--scolor)",
-                    color: "var(--pcolor)",
-                    borderRadius: "7px",
+              <div>
+                <h4>{subscribers && subscribers.length} Subscribers</h4>
+                <h4>{downloads && downloads.length} Downloads</h4>
+              </div>
+              <div>
+                <Link to={"/product/" + id}>Read More</Link>
+                <a onClick={() => setTrynow(true)} className="buy-btn">
+                  Try Now
+                </a>
+                <Snackbar
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
                   }}
+                  open={am}
+                  autoHideDuration={3000}
+                  onClose={() => setam(false)}
                 >
-                  This is a success message!
-                </Alert>
-              </Snackbar>
+                  <Alert
+                    onClose={() => setam(false)}
+                    severity="success"
+                    style={{
+                      backgroundColor: "var(--scolor)",
+                      color: "var(--pcolor)",
+                      borderRadius: "7px",
+                    }}
+                  >
+                    This is a success message!
+                  </Alert>
+                </Snackbar>
+              </div>
             </div>
           )}
         </div>

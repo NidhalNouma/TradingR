@@ -210,11 +210,6 @@ nav .media {
     background-color: var(--scolor);
     margin-right: 0.4em;
   }
-
-  nav svg {
-    width: 18px;
-    height: 18px;
-  }
 }
 
 .menu-nav {

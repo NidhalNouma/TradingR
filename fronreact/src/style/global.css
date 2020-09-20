@@ -341,7 +341,12 @@
 
 @media screen and (max-width: 1050px) {
   .conmis {
-    top: 35px;
+    display: none;
+  }
+
+  .containP #qa,
+  .containP #im {
+    width: 100%;
   }
 }
 
@@ -418,11 +423,24 @@
   align-items: center;
 }
 
+.cost .exist span {
+  margin: 0;
+  width: auto;
+  font-size: 0.75rem;
+  margin-left: 0.3rem;
+  font-weight: 400;
+  padding: 0.1rem 0.3rem;
+  border-radius: 6px;
+  cursor: default;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+}
+
 .cost div div {
   margin: 0 0.3rem;
 }
 
-.cost div .span {
+.cost .div span {
   font-size: 0.9rem;
   color: var(--pcolor);
   margin: 0;
@@ -432,14 +450,14 @@
   width: auto;
 }
 
-.cost div svg {
+.cost .div svg {
   cursor: pointer;
   width: 1rem;
   height: 1rem;
   transition: transform 0.3s linear;
 }
 
-.cost div svg:hover {
+.cost .div svg:hover {
   transform: scale(1.1);
 }
 
@@ -507,6 +525,7 @@
   border-radius: 10px;
   padding: 1em;
   position: relative;
+  min-height: 300px;
 }
 
 .chart .full {

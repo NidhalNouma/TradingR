@@ -1,10 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 export default function Menu(props) {
-  const login = useSelector((state) => state.login);
-
   const handleClick = (e) => {
     if (document.getElementById("menu-nav")) {
       if (!document.getElementById("menu-nav").contains(e.target)) {
@@ -23,20 +20,33 @@ export default function Menu(props) {
       <div className="menu-nav" id="menu-nav">
         <ul>
           <li>
-            <Link to="/strategys">Robots</Link>
+            <Link onClick={() => props.close()} to="/strategys">
+              Robots
+            </Link>
           </li>
           <li>
-            <Link to="/indicators">Indicators</Link>
+            <Link onClick={() => props.close()} to="/indicators">
+              Indicators
+            </Link>
           </li>
           <li>
-            <Link to="/source">Source</Link>
+            <Link onClick={() => props.close()} to="/source">
+              Source
+            </Link>
           </li>
           <li>
             {props.user ? (
               <>
-                <Link to="/">Profile</Link>
+                <Link onClick={() => props.close()} to="/profile">
+                  Profile
+                </Link>
                 <li>
-                  <Link to="/">Notifications</Link>
+                  <Link
+                    onClick={() => props.close()}
+                    to="/profile/notifications"
+                  >
+                    Notifications
+                  </Link>
                 </li>
               </>
             ) : (

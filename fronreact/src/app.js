@@ -26,7 +26,6 @@ import {
 
 import "./style/index.css";
 import "./style/global.css";
-import "./style/page.css";
 import "./style/global/card.css";
 import "./style/global/face.css";
 import "./style/global/navbar.css";
@@ -38,6 +37,7 @@ import "./style/pages/signin.css";
 import "./style/pages/home.css";
 import "./style/pages/profile.css";
 import "./style/pages/wpage.css";
+import "./style/pages/product.css";
 import "./style/product/productlist.css";
 
 import Welcome from "./component/welcomepage";

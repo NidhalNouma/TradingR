@@ -4,6 +4,7 @@ import { Skeleton } from "@material-ui/lab";
 import Typep from "../Typep";
 
 export default function Product({ load, product }) {
+  const mainp = product;
   const to = product._id;
   product = product.product
     ? product.product[product.product.length - 1]
@@ -16,7 +17,9 @@ export default function Product({ load, product }) {
       {load ? (
         <Skeleton className="skel-img" variant="rect" />
       ) : (
-        <img src={product.img} alt="Product_Image" />
+        <Link to={"/product/" + to}>
+          <img src={product.img} alt="Product_Image" />
+        </Link>
       )}
 
       {load ? (
@@ -40,9 +43,15 @@ export default function Product({ load, product }) {
       ) : (
         <div className="btm">
           <div className="int">
-            <h6>${product.price} </h6>
+            <h6>
+              {mainp.numberOfDownload && mainp.numberOfDownload.length}{" "}
+              Downloads
+            </h6>
           </div>
-          <Link to={"/product/" + to}>See more ...</Link>
+          <div>
+            <span>MT4</span>
+            <span>MT5</span>
+          </div>
         </div>
       )}
     </div>

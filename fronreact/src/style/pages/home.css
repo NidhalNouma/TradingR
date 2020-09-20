@@ -1,5 +1,5 @@
 .containh {
-  margin: 6em 7% 0;
+  margin: 5.5em 5% 0;
 }
 
 .containh h4 {
@@ -24,13 +24,14 @@
 
 .containh .griditem img {
   width: 100%;
-  height: 150px;
+  min-height: 160px;
+  max-height: 160px;
   border-radius: 10px;
 }
 
 .containh .griditem h5 {
   font-size: 0.75em;
-  margin: 0.2em 0;
+  margin: 0.6rem 0 0.3rem;
   color: var(--pcolor);
   display: flex;
   align-items: center;
@@ -38,16 +39,15 @@
 }
 
 .containh .griditem h5 a {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
-  margin: 0.2em 0;
   color: var(--pcolor);
 }
 
 .containh .griditem p {
   font-size: 0.7em;
   margin: 0;
-  margin-bottom: 0.9em;
+  margin-bottom: 0.2rem;
   max-height: 3em;
   overflow: hidden;
 }
@@ -56,7 +56,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 0.4em;
+  margin: 0;
 }
 
 .containh .int {
@@ -79,32 +79,54 @@
 }
 
 .containh .int h6 {
-  font-size: 0.7em;
-  color: var(--pricecolor);
+  display: block;
+  font-size: 0.76rem;
+  color: var(--pcolor);
+  cursor: default;
   margin: 0;
 }
 
 .containh .griditem .btm a {
-  font-size: 0.8em;
-  padding: 0.15em 0.6em;
-  height: 20px;
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.1rem 0.6em;
+  border-radius: 6px;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+}
+
+.containh .griditem .btm span {
+  font-size: 0.75rem;
+  margin-left: 0.3rem;
+  font-weight: 400;
+  padding: 0.1rem 0.3rem;
+  border-radius: 6px;
+  cursor: default;
   color: var(--pcolor);
   background-color: var(--scolor);
 }
 
 @media screen and (max-width: 1250px) {
+  .containh {
+    margin: 4em 4% 0;
+  }
+
   .containh .gridlist {
-    grid-template-columns: 30% 30% 30%;
+    grid-template-columns: 32% 32% 32%;
   }
 }
 
 @media screen and (max-width: 880px) {
+  .containh {
+    margin: 4em 3% 0;
+  }
+
   .containh .gridlist {
-    grid-template-columns: 45% 45%;
+    grid-template-columns: 48% 48%;
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 500px) {
   .containh .gridlist {
     grid-template-columns: 100%;
     justify-content: space-around;

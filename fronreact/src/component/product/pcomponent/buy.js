@@ -7,7 +7,16 @@ import Signin from "../../signIn";
 import Trynow from "./Trynow";
 import Subscriber from "./spcom/Subscribe";
 
-function MyApp({ price, sch, product, version, sel, setSel, id }) {
+function MyApp({
+  price,
+  sch,
+  product,
+  version,
+  sel,
+  setSel,
+  id,
+  classn = "cost",
+}) {
   const sign = Show();
   // const { enqueueSnackbar } = useSnackbar();
   const dispatch = useDispatch();
@@ -16,7 +25,7 @@ function MyApp({ price, sch, product, version, sel, setSel, id }) {
   const user = useSelector((state) => state.user);
   return (
     <>
-      <div className="cost">
+      <div className={classn}>
         <a
           onClick={() => {
             setTrynow(true);
@@ -33,7 +42,11 @@ function MyApp({ price, sch, product, version, sel, setSel, id }) {
         />
         <span>{product.subscribers.length} Subscriber</span>
         <span>{product.numberOfDownload.length} Downloads</span>
-        <div>
+        <div className="exist">
+          <span>MT4</span>
+          <span>MT5</span>
+        </div>
+        <div className="div">
           <span>
             <div>Version</div>
             <select onChange={(e) => setSel(e.target.value)}>

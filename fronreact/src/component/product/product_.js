@@ -59,6 +59,15 @@ export default function Product_({ sch }) {
           {data ? (
             <div>
               <Productdes data={data} />
+              <Buy
+                classn="wcost"
+                sch={sch}
+                product={product}
+                id={data._id}
+                version={ver}
+                sel={sel}
+                setSel={setSel}
+              />
               <Comis qa={data.qandas.length} im={data.improvements.length} />
               <div id="im">
                 <h3>Improvement</h3>

@@ -14,6 +14,10 @@ export const User = (payload) => {
   return { type: "GET_USER", payload };
 };
 
+export const Logout = (payload) => {
+  return { type: "LOGOUT", payload };
+};
+
 export const AddImpro = (payload) => {
   return { type: "ADD_IMPRO", payload };
 };

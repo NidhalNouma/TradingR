@@ -144,11 +144,11 @@ const getImprQa = async function (_id) {
     r.res = await User.findOne({ _id })
       .populate({
         path: "improvements.pId",
-        select: "improvements img  title timestamp ",
+        select: "improvements img  title timestamp",
       })
       .populate({
         path: "questions.pId",
-        select: "qandas img  title timestamp ",
+        select: "qandas img  title timestamp",
       })
       .select("_id improvements questions");
   } catch (e) {

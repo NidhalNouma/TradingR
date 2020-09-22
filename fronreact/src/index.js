@@ -1,12 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import App from "./app";
+import Index from "./notifapp";
 import root from "./Reducers";
 
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-// import store from './store'
 
 let store = createStore(root);
 if (process.env.NODE_ENV !== "production") {
@@ -18,7 +17,7 @@ if (process.env.NODE_ENV !== "production") {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Index />
   </Provider>,
   document.getElementById("main")
 );

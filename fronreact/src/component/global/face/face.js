@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Logout } from "../../../Actions";
+import { useDispatch } from "react-redux";
 
 export default function Face(props) {
+  const dispatch = useDispatch();
   const handleClick = (e) => {
     if (document.getElementById("face")) {
       if (!document.getElementById("face").contains(e.target)) {
@@ -38,13 +41,25 @@ export default function Face(props) {
             <Link to="/profile/products">My Products</Link>
           </li>
           <li>
+            <Link to="/profile/subscription">Subscriptions</Link>
+          </li>
+          <li>
             <Link to="/profile/notifications">Notifications</Link>
           </li>
           <li>
             <Link to="/profile/settings">Settings</Link>
           </li>
           <li>
-            <a href="/">Log Out</a>
+            <a
+              onClick={() => {
+                dispatch(Logout());
+                document.cookie =
+                  "_SSDI=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+              }}
+              style={{ color: "rgb(170, 160, 32)" }}
+            >
+              Log Out
+            </a>
           </li>
         </ul>
       </div>

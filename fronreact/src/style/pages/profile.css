@@ -6,6 +6,7 @@
   margin: 5em 4%;
   min-height: 57vh;
 }
+
 .containProfile .left ul {
   position: fixed;
 }
@@ -33,7 +34,6 @@
 
 .containProfile .right {
   position: relative;
-  width: 100%;
 }
 
 .containProfile .right .profile {
@@ -101,7 +101,6 @@
   top: 70px;
   background-color: var(--scolor);
   border-radius: 10px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -138,17 +137,12 @@
 .containProfile .right .templ {
   cursor: pointer;
   margin-bottom: 1rem;
-  padding: 1rem 1rem 0.5rem;
+  padding: 0.6rem 1rem;
   display: flex;
-  justify-content: space-around;
   align-items: center;
   border-radius: 10px;
   border: 2px solid var(--scolor);
 }
-
-/* .containProfile .right .templ:hover {
-    background-color: var(--scolor);
-  } */
 
 .containProfile .right .templ img {
   width: 100px;
@@ -158,7 +152,7 @@
 
 .containProfile .right .templ > div {
   margin-left: 1rem;
-  min-width: 86%;
+  flex-grow: 1;
 }
 
 .containProfile .right .templ div h5 {
@@ -170,6 +164,7 @@
   margin: 0;
   margin-bottom: 0.5rem;
   font-size: 0.85rem;
+  overflow: scroll;
 }
 
 .containProfile .right .templ div .inter {
@@ -261,11 +256,12 @@
   justify-content: center;
   align-items: center;
   margin-top: 5rem;
+  gap: 2rem;
 }
 
 .containProfile .right .noproduct svg {
-  width: 320px;
-  height: 320px;
+  width: 100%;
+  height: 100%;
   fill: var(--bgcolor);
   margin-right: 3rem;
 }
@@ -283,4 +279,113 @@
   width: 180px;
   padding: 0.4rem 0;
   font-size: 1.15rem;
+}
+
+@media (max-width: 1200px) {
+  .containProfile {
+    margin: 3em 2%;
+    grid-template-columns: 20% 76%;
+    grid-column-gap: 0;
+  }
+
+  .containProfile .left ul {
+    padding: 1rem;
+  }
+
+  .containProfile .left li {
+    margin: 1rem 0;
+  }
+
+  .containProfile .left li a {
+    font-size: 1.05rem;
+  }
+
+  .containProfile .right {
+    box-sizing: border-box;
+    padding: 0 0.6rem;
+  }
+
+  .containProfile .right .contprod {
+    box-sizing: border-box;
+    margin-bottom: 2rem;
+    padding: 0.3rem;
+  }
+
+  .containProfile .right .qaim {
+    box-sizing: border-box;
+    margin: 1rem;
+  }
+
+  .containProfile .right .qaim > div:first-of-type,
+  .containProfile .profileproduct {
+    top: 65px;
+  }
+
+  .containProfile .right .qaim h6 {
+    margin: 0.8rem 0;
+    font-size: 0.95rem;
+  }
+
+  .containProfile .profileproduct h5 {
+    font-size: 0.95rem;
+    margin: 0.7rem 0;
+  }
+}
+
+@media (max-width: 1050px) {
+  .containProfile {
+    margin: 3em 0;
+  }
+
+  .containProfile .left li {
+    margin: 0.9rem 0;
+  }
+
+  .containProfile .left li a {
+    font-size: 0.9rem;
+  }
+
+  .containProfile .right .profile {
+    width: 80%;
+
+    align-items: center;
+    display: flex;
+    justify-content: start;
+    margin: 2rem auto;
+  }
+
+  .containProfile .right .qaim {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .containProfile .right .qaim > div:first-of-type,
+  .containProfile .profileproduct {
+    top: 50px;
+  }
+
+  .containProfile .right .templ > div {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .containProfile .right .templ img {
+    display: none;
+  }
+
+  .containProfile .right .templ {
+    box-sizing: border-box;
+    padding: 0.5rem 0.5rem 0.2rem;
+  }
+
+  .containProfile .right .qaim h6 {
+    margin: 0.6rem 0;
+    font-size: 0.9rem;
+  }
+
+  .containProfile .profileproduct h5 {
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
 }

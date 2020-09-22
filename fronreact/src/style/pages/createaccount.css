@@ -123,14 +123,11 @@
     height: 30px;
   }
 
-  .contain-createaccount a {
+  .contain-createaccount a,
+  .contain-createaccount button {
     width: 30%;
     font-size: 0.8em;
     padding: 0.5rem 0rem;
-  }
-
-  .contain-createaccount a:hover {
-    padding: 0.5rem 0.2em;
   }
 
   .contain-createaccount .perror {
@@ -153,14 +150,11 @@
     height: 28px;
   }
 
-  .contain-createaccount a {
+  .contain-createaccount a,
+  .contain-createaccount button {
     width: 35%;
     font-size: 0.77em;
     padding: 0.4rem 0rem;
-  }
-
-  .contain-createaccount a:hover {
-    padding: 0.4rem 0.2em;
   }
 
   .contain-createaccount .perror {

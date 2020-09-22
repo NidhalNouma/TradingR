@@ -1,28 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SnackbarProvider, useSnackbar } from "notistack";
+import React, { useState } from "react";
 
 import Show from "../../show";
 import Signin from "../../signIn";
 import Trynow from "./Trynow";
 import Subscriber from "./spcom/Subscribe";
 
-function MyApp({
-  price,
-  sch,
-  product,
-  version,
-  sel,
-  setSel,
-  id,
-  classn = "cost",
-}) {
+function MyApp({ product, version, setSel, id, classn = "cost" }) {
   const sign = Show();
-  // const { enqueueSnackbar } = useSnackbar();
-  const dispatch = useDispatch();
   const [trynow, setTrynow] = React.useState(false);
   const [reff, setReff] = useState(0);
-  const user = useSelector((state) => state.user);
   return (
     <>
       <div className={classn}>
@@ -73,19 +59,4 @@ function MyApp({
   );
 }
 
-//function Buy({ price, sch, product, version, sel, setSel, id }) {
-//   return (
-//     <SnackbarProvider maxSnack={4}>
-//       <MyApp
-//         price={price}
-//         sch={sch}
-//         product={product}
-//         version={version}
-//         sel={sel}
-//         setSel={setSel}
-//         id={id}
-//       />
-//     </SnackbarProvider>
-//   );
-// }
 export default MyApp;

@@ -2,6 +2,8 @@ const user = (state = getUser(), action) => {
   switch (action.type) {
     case "GET_USER":
       return action.payload;
+    case "LOGOUT":
+      return null;
     case "ADD_TO_CARD": {
       if (state === null) return state;
       else {

@@ -136,34 +136,84 @@
   }
 
   .wcost {
-    position: sticky;
-    top: 50px;
-    background-color: var(--bgcolor);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    box-shadow: 0 0 6px var(--shcolor);
+    display: block;
+    width: 300px;
+    margin: auto;
+    text-align: center;
     margin-bottom: 1rem;
+    padding: 0.3rem;
+    border-radius: 8px;
   }
 
   .wcost a {
-    font-size: 0.9rem;
+    display: block;
+    margin: 0.5rem auto;
+    font-size: 1rem;
+    width: 100px;
     border-radius: 7px;
     box-sizing: border-box;
     padding: 0.2rem 0.4rem;
     background-color: var(--scolor);
     color: var(--pcolor);
-    transition: transform 0.3s ease-out;
   }
 
   .wcost span {
-    font-size: 0.95rem;
-    background-color: var(--shcolor);
+    /* display: block;
+    width: 120px; */
+    margin: 0.4rem auto;
+
+    font-size: 0.9rem;
+    border: 1px solid var(--shcolor);
     color: var(--pcolor);
-    transition: transform 0.3s ease-out;
+    padding: 0rem 0.3rem;
+    border-radius: 7px;
   }
 
   .wcost .buy-btn {
     background-color: var(--pcolor) !important;
     color: var(--scolor) !important;
+  }
+
+  .wcost .exist {
+    margin: 0.5rem 0;
+  }
+
+  .wcost .exist span {
+    background-color: var(--shcolor);
+    margin-left: 0.3rem;
+    display: inline-flex;
+    width: auto;
+  }
+
+  .wcost .div span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    gap: 5px;
+  }
+
+  .wcost .div span select {
+    color: var(--pcolor);
+    background-color: transparent;
+    border: none;
+  }
+
+  .wcost .unsb,
+  .wcost .unsb:hover {
+    background-color: var(--bgcolor);
+    margin-bottom: 0.2rem;
+  }
+
+  .wcost .desub {
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-size: 0.85rem;
+    color: rgb(170, 160, 32);
+    cursor: pointer;
+    border-bottom: 1px solid var(--scolor);
   }
 }

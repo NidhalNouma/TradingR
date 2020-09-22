@@ -5,7 +5,7 @@ function Notifempty() {
     <>
       <svg
         id="Capa_1"
-        enable-background="new 0 0 512 512"
+        enableBackground="new 0 0 512 512"
         height="312"
         width="312"
         viewBox="0 0 512 512"
@@ -19,8 +19,8 @@ function Notifempty() {
           y1="482"
           y2="60"
         >
-          <stop offset="0" stop-color="var(--pcolor)" />
-          <stop offset="1" stop-color="var(--tcolor)" />
+          <stop offset="0" stopColor="var(--pcolor)" />
+          <stop offset="1" stopColor="var(--tcolor)" />
         </linearGradient>
         <linearGradient
           id="SVGID_2_"
@@ -30,8 +30,8 @@ function Notifempty() {
           y1="512"
           y2="0"
         >
-          <stop offset="0" stop-color="#ffe59a" />
-          <stop offset="1" stop-color="#ffffd5" />
+          <stop offset="0" stopColor="#ffe59a" />
+          <stop offset="1" stopColor="#ffffd5" />
         </linearGradient>
         <g>
           <g>

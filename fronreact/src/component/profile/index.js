@@ -38,10 +38,14 @@ function Profile() {
         </div>
         <div className="right">
           <div className="profile">
-            {user.userPicture ? <img src={user.userPicture} /> : <UserImg />}
+            {user.userPicture !== "noimg" ? (
+              <img src={user.userPicture} />
+            ) : (
+              <UserImg />
+            )}
             <div>
               <h4>{user.username ? user.username : "N/A"}</h4>
-              <h5>Score: {user.score ? user.score : "N/A"}</h5>
+              <h5>Score: {user.score ? user.score : "0"}</h5>
               <h6>
                 Join at:{"  "}
                 <i>

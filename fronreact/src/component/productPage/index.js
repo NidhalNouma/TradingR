@@ -1,24 +1,78 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import Navbar from "../global/navbar";
 import Product from "../product/product_";
 import Footer from "../global/footer";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { Products } from "../../Actions";
 
 import Change from "../change";
+import Loadp from "../product/Loadp";
 
 export default function Producte(props) {
   const { change, vchange } = Change();
-
+  const [data, setData] = useState(null);
+  const [sel, setSel] = useState(null);
+  let ver = null;
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  const { id } = useParams();
+
+  const product = useSelector((state) => {
+    if (state.products === null || state.products[0] === undefined) {
+      return null;
+    } else {
+      const p = state.products.find((item) => item._id === id);
+      ver = p.product.map((i) => i.version);
+      if (sel === null) setSel(ver[ver.length - 1]);
+      return p;
+    }
+  });
+
+  useEffect(() => {
+    if (product === null || product === undefined) {
+      axios
+        .get("/api/product/find/productversion/" + id)
+        .then(function (response) {
+          dispatch(Products([response.data.result]));
+          setData(
+            product.product.find((i) => i.version === parseFloat(sel)).product
+          );
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
+        .then(function () {});
+    } else {
+      setData(
+        product.product.find((i) => i.version === parseFloat(sel)).product
+      );
+    }
+  }, [product, sel]);
+
   return (
     <>
       <Navbar here={true} ch={vchange} />
-      <Product sch={change} />
+      {data ? (
+        <Product
+          sch={change}
+          product={product}
+          data={data}
+          ver={ver}
+          id={id}
+          sel={sel}
+          setSel={setSel}
+        />
+      ) : (
+        <Loadp />
+      )}
       <Footer />
     </>
   );

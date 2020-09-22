@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Skeleton } from "@material-ui/lab";
 import Typep from "../Typep";
 
-export default function Product({ load, product }) {
+export default function Product({ product }) {
   const mainp = product;
   const to = product._id;
   product = product.product
@@ -14,46 +13,29 @@ export default function Product({ load, product }) {
   if (product === null) return <></>;
   return (
     <div className="griditem">
-      {load ? (
-        <Skeleton className="skel-img" variant="rect" />
-      ) : (
-        <Link to={"/product/" + to}>
-          <img src={product.img} alt="Product_Image" />
-        </Link>
-      )}
+      <Link to={"/product/" + to}>
+        <img src={product.img} alt="Product_Image" />
+      </Link>
 
-      {load ? (
-        <Skeleton variant="text" width="80%" />
-      ) : (
-        <h5>
-          <Link to={"/product/" + to}>{product.title}</Link>
-          <span>
-            <Typep type={product.type} />
-          </span>
-        </h5>
-      )}
-      {load ? (
-        <Skeleton variant="rect" height={50} />
-      ) : (
-        <p>{product.description}</p>
-      )}
+      <h5>
+        <Link to={"/product/" + to}>{product.title}</Link>
+        <span>
+          <Typep type={product.type} />
+        </span>
+      </h5>
 
-      {load ? (
-        <Skeleton variant="text" width="20%" />
-      ) : (
-        <div className="btm">
-          <div className="int">
-            <h6>
-              {mainp.numberOfDownload && mainp.numberOfDownload.length}{" "}
-              Downloads
-            </h6>
-          </div>
-          <div>
-            <span>MT4</span>
-            <span>MT5</span>
-          </div>
+      <p>{product.description}</p>
+      <div className="btm">
+        <div className="int">
+          <h6>
+            {mainp.numberOfDownload && mainp.numberOfDownload.length} Downloads
+          </h6>
         </div>
-      )}
+        <div>
+          <span>MT4</span>
+          <span>MT5</span>
+        </div>
+      </div>
     </div>
   );
 }

@@ -131,19 +131,22 @@
     height: 30px;
   }
 
-  .contain-sign a {
+  .contain-sign a,
+  .contain-sign button {
     width: 30%;
     font-size: 0.8em;
     padding: 0.5rem 0rem;
   }
 
-  .contain-sign a:hover {
-    padding: 0.5rem 0.2em;
-  }
-
   .perror {
     font-size: 0.62em;
     margin: 0 20% 0.8em;
+  }
+
+  .btn-gg {
+    gap: 10px;
+    width: 60% !important;
+    padding: 0 !important;
   }
 }
 
@@ -161,14 +164,11 @@
     height: 28px;
   }
 
-  .contain-sign a {
+  .contain-sign a,
+  .contain-sign button {
     width: 35%;
     font-size: 0.77em;
     padding: 0.4rem 0rem;
-  }
-
-  .contain-sign a:hover {
-    padding: 0.4rem 0.2em;
   }
 
   .contain-sign .perror {

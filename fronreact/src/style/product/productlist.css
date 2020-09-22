@@ -118,16 +118,13 @@
 
 @media screen and (max-width: 1200px) {
   .product-list {
-    margin: 4em 4%;
-    padding: 0.8em;
+    margin: 4em 2%;
+    padding: 0.8rem;
+    grid-template-columns: 48% 48%;
   }
 
   .right-card a {
     font-size: 0.8em;
-  }
-
-  .right-card h4 {
-    font-size: 0.85em;
   }
 
   .right-card p {
@@ -135,14 +132,13 @@
     margin: 1.2em 0;
   }
 
-  .btn-card a {
-    font-size: 0.9em;
-    padding: 0.4em 0em;
-    width: 120px;
+  .right-card .btn-card a {
+    font-size: 1rem;
+    width: 100px;
   }
 
-  .btn-card a:hover {
-    width: 130px;
+  .right-card h4 {
+    font-size: 0.76rem;
   }
 }
 
@@ -172,10 +168,6 @@
     font-size: 1.1em;
   }
 
-  .right-card h4 {
-    font-size: 0.78em;
-  }
-
   .right-card p {
     font-size: 0.77em;
     margin: 1em 0;
@@ -183,11 +175,5 @@
 
   .btn-card a {
     font-size: 0.78em;
-    padding: 0.4em 0em;
-    width: 100px;
-  }
-
-  .btn-card a:hover {
-    width: 110px;
   }
 }

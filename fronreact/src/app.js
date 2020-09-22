@@ -163,13 +163,13 @@ export default function App() {
               {user ? <Profile /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/profile/products">
-              {user ? <Productp /> : <Redirect to="/" />}
+              {user ? <Productp link={2} /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/profile/notifications">
               {user ? <Notification /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/profile/subscription">
-              {user ? <Notification /> : <Redirect to="/" />}
+              {user ? <Productp link={5} /> : <Redirect to="/" />}
             </Route>
             <Route exact path="/profile/settings">
               {user ? <Setting /> : <Redirect to="/" />}

@@ -1,40 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Skeleton from "@material-ui/lab/Skeleton";
-import { useSelector, useDispatch } from "react-redux";
 
-import { AddtoCard } from "../../Actions";
 import Show from "../show";
 import Signin from "../signIn";
 import Trynow from "./pcomponent/Trynow";
 
-import { Snackbar, Button } from "@material-ui/core";
-import MuiAlert from "@material-ui/lab/Alert";
-
-function Alert(props) {
-  return (
-    <MuiAlert
-      elevation={6}
-      variant="filled"
-      {...props}
-      action={
-        <Button color="inherit" size="small" onClick={props.onClose}>
-          UNDO
-        </Button>
-      }
-    />
-  );
-}
-
-export default function Productlist({
-  load,
-  product,
-  sch,
-  id,
-  subscribers,
-  downloads,
-}) {
-  const [am, setam] = React.useState(false);
+export default function Productlist({ product, id, subscribers, downloads }) {
   const [trynow, setTrynow] = React.useState(false);
   const sign = Show();
 
@@ -42,82 +13,35 @@ export default function Productlist({
     <>
       <div className="product-list">
         <div className="left-card">
-          {load ? (
-            <Skeleton variant="rect" className="skelton-me" />
-          ) : (
-            <img src={product.img} alt="" />
-          )}
+          <img src={product.img} alt="" />
         </div>
         <div className="right-card">
-          {load ? (
-            <Skeleton variant="text" />
-          ) : (
-            <Link to={"/product/" + id}>
-              <h2>{product.title}</h2>
-            </Link>
-          )}
+          <Link to={"/product/" + id}>
+            <h2>{product.title}</h2>
+          </Link>
 
           <div className="media-left-card">
-            {load ? (
-              <Skeleton variant="rect" className="skelton-me" />
-            ) : (
-              <img src={product.img} alt="" />
-            )}
+            <img src={product.img} alt="" />
           </div>
-
-          {load ? (
-            <Skeleton variant="text" width="20%" />
-          ) : (
-            <>
-              <div>
-                <span>MT4</span>
-                <span>MT5</span>
-              </div>
-            </>
-          )}
-          {load ? (
-            <Skeleton variant="rect" height={230} />
-          ) : (
-            <p>{product.description}</p>
-          )}
-
-          {load ? (
-            <Skeleton variant="text" />
-          ) : (
-            <div className="btn-card">
-              <div>
-                <h4>{subscribers && subscribers.length} Subscribers</h4>
-                <h4>{downloads && downloads.length} Downloads</h4>
-              </div>
-              <div>
-                <Link to={"/product/" + id}>Read More</Link>
-                <a onClick={() => setTrynow(true)} className="buy-btn">
-                  Try Now
-                </a>
-                <Snackbar
-                  anchorOrigin={{
-                    vertical: "bottom",
-                    horizontal: "left",
-                  }}
-                  open={am}
-                  autoHideDuration={3000}
-                  onClose={() => setam(false)}
-                >
-                  <Alert
-                    onClose={() => setam(false)}
-                    severity="success"
-                    style={{
-                      backgroundColor: "var(--scolor)",
-                      color: "var(--pcolor)",
-                      borderRadius: "7px",
-                    }}
-                  >
-                    This is a success message!
-                  </Alert>
-                </Snackbar>
-              </div>
+          <>
+            <div>
+              <span>MT4</span>
+              <span>MT5</span>
             </div>
-          )}
+          </>
+          <p>{product.description}</p>
+          <div className="btn-card">
+            <div>
+              <h4>{subscribers && subscribers.length} Subscribers</h4>
+              <h4>{downloads && downloads.length} Downloads</h4>
+            </div>
+            <div>
+              <Link to={"/product/" + id}>Read More</Link>
+              <a onClick={() => setTrynow(true)} className="buy-btn">
+                Try Now
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -11,10 +11,13 @@ function Subscriber({ setReff, product, id, sign }) {
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (user)
+    if (user) {
       if (product.subscribers.find((i) => i === user._id)) {
         setSub(true);
       }
+    } else {
+      setSub(false);
+    }
   }, [user, product, sub]);
 
   return (

@@ -10,6 +10,7 @@ import Productlist from "../product/productlist";
 import Footer from "../global/footer";
 
 import Change from "../change";
+import Loadpl from "../product/Loadpl";
 
 function Products_(props) {
   const { change, vchange } = Change();
@@ -79,9 +80,7 @@ function Products_(props) {
                 sch={change}
               />
             ))
-        : nopr.map((product) => (
-            <Productlist key={product} load={load} product={product} />
-          ))}
+        : nopr.map((product) => <Loadpl key={product} />)}
 
       <br />
       <Footer />

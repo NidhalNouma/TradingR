@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 
@@ -30,6 +30,15 @@ export default function Nav(props) {
   const [showCard, setShowCard] = useState(false);
   const [showFace, setShowFace] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const seref = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("keypress", function (e) {
+      if (e.key === "s") {
+        seref.current.focus();
+      }
+    });
+  }, []);
 
   const sign = Show();
 
@@ -47,8 +56,10 @@ export default function Nav(props) {
               <div className="search">
                 <Search />
                 <input
+                  id="searchT"
                   type="text"
                   placeholder="Search"
+                  ref={seref}
                   value={search}
                   onChange={(e) => {
                     setSearch(e.target.value);

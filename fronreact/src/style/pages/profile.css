@@ -334,24 +334,28 @@
 
 @media (max-width: 1050px) {
   .containProfile {
-    margin: 3em 0;
+    margin: 4em 0;
+    display: block;
   }
 
+  .containProfile .left {
+    display: none;
+  }
+  /* 
   .containProfile .left li {
     margin: 0.9rem 0;
   }
 
   .containProfile .left li a {
     font-size: 0.9rem;
-  }
+  } */
 
   .containProfile .right .profile {
-    width: 80%;
-
+    /* width: 80%; */
     align-items: center;
     display: flex;
     justify-content: start;
-    margin: 2rem auto;
+    margin: 3rem auto;
   }
 
   .containProfile .right .qaim {

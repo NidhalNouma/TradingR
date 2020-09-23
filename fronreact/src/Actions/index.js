@@ -105,3 +105,7 @@ export const Subscribe = (payload) => {
 export const Desubscribe = (payload) => {
   return { type: "UNSUBSCRIBE", payload };
 };
+
+export const Setnotif = (payload) => {
+  return { type: "SETNOTIF", payload };
+};

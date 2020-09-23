@@ -3,6 +3,7 @@ import products from "./homeproduct";
 import user from "./user";
 import socket from "./socket";
 import ref from "./ref";
+import notif from "./notif";
 
 const Dark = (state = false, action) => {
   if (localStorage.getItem("DARKLIGHT") === "ON") {
@@ -23,6 +24,7 @@ const root = combineReducers({
   products,
   user,
   socket,
+  notif,
   ref,
 });
 

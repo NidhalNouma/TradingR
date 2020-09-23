@@ -367,7 +367,7 @@
   width: 120px;
   background-color: var(--scolor);
   color: var(--pcolor);
-  margin: 0 auto 1rem;
+  margin: 0 auto 0.6rem;
   transition: transform 0.3s ease-out;
 }
 
@@ -644,4 +644,26 @@
 
 .trynow div a:hover {
   background-color: var(--tcolor);
+}
+
+/* NoResult */
+
+.noResult {
+  margin-top: 2rem;
+  min-height: 68vh;
+  width: 100%;
+  text-align: center;
+}
+
+.noResult svg {
+  width: 400px;
+  height: 400px;
+  fill: var(--bgcolor);
+  stroke: var(--scolor);
+  stroke-width: 0.4;
+}
+
+.noResult h5 {
+  margin-bottom: 0;
+  color: var(--pcolor);
 }

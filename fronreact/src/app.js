@@ -31,14 +31,13 @@ import "./style/global/face.css";
 import "./style/global/navbar.css";
 import "./style/global/navfil.css";
 import "./style/global/footer.css";
-import "./style/global/pagenumber.css";
 import "./style/pages/createaccount.css";
 import "./style/pages/signin.css";
 import "./style/pages/home.css";
 import "./style/pages/profile.css";
 import "./style/pages/wpage.css";
 import "./style/pages/product.css";
-import "./style/product/productlist.css";
+import "./style/pages/productlist.css";
 
 import Welcome from "./component/welcomepage";
 import Home from "./component/home";

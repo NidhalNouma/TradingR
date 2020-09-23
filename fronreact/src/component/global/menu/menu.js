@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Logout } from "../../../Actions";
+import { useDispatch } from "react-redux";
 
 export default function Menu(props) {
+  const dispatch = useDispatch();
   const handleClick = (e) => {
     if (document.getElementById("menu-nav")) {
       if (!document.getElementById("menu-nav").contains(e.target)) {
@@ -42,10 +45,43 @@ export default function Menu(props) {
                 </Link>
                 <li>
                   <Link
+                    className="profile-a"
+                    onClick={() => props.close()}
+                    to="/profile/products"
+                  >
+                    Products
+                  </Link>
+                  <Link
+                    className="profile-a"
+                    onClick={() => props.close()}
+                    to="/profile/subscription"
+                  >
+                    Subscriptions
+                  </Link>
+                  <Link
+                    className="profile-a"
                     onClick={() => props.close()}
                     to="/profile/notifications"
                   >
                     Notifications
+                  </Link>
+                  <Link
+                    className="profile-a"
+                    onClick={() => props.close()}
+                    to="/profile/settings"
+                  >
+                    Settings
+                  </Link>
+                  <Link
+                    className="profile-logout"
+                    onClick={() => {
+                      dispatch(Logout());
+                      document.cookie =
+                        "_SSDI=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                      props.close();
+                    }}
+                  >
+                    LogOut
                   </Link>
                 </li>
               </>

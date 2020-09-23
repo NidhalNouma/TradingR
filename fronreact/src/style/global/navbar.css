@@ -221,7 +221,17 @@ nav .media {
   border-radius: 10px;
   background-color: var(--bgcolor);
   z-index: 122;
-  /* overflow: hidden; */
+  animation-name: trans;
+  animation-duration: 0.3s;
+}
+
+@keyframes trans {
+  0% {
+    top: 100%;
+  }
+  100% {
+    top: 51px;
+  }
 }
 
 .menu-nav ul {
@@ -245,6 +255,21 @@ nav .media {
   background-color: var(--scolor);
   color: var(--pcolor);
   transition: background-color 0.4s ease-out;
+}
+
+.menu-nav ul li .profile-a {
+  margin-left: auto;
+  margin-bottom: 0.4rem;
+  width: 70%;
+  /* background-color: var(--shcolor); */
+}
+
+.menu-nav ul li .profile-logout {
+  margin-left: auto;
+  margin-top: 1rem;
+  width: 70%;
+  color: rgb(170, 160, 32);
+  background-color: var(--bgcolor);
 }
 
 .menu-nav ul li a:hover {

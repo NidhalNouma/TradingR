@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
 import App from "../app";
+import SetListNotif from "./SetListNotif";
 import SetNotif from "./SetNotif";
 
 function Notif() {
-  const [am, setam] = React.useState(false);
+  const user = useSelector((state) => state.user);
+  const [am, setam] = useState(false);
+  const [msg, setMsg] = useState(null);
+
+  useEffect(() => {
+    if (user && !user.improvements) {
+      setMsg({
+        msg: `Welcome back ${user.username}`,
+        place: "center",
+        duration: 3000,
+      });
+      setam(true);
+    }
+  }, [user]);
+
   return (
     <>
-      <SetNotif am={am} setam={setam} />
-      {/* <button
-        onClick={() => {
-          console.log("click", am);
-          setam(!am);
-        }}
-        style={{ position: "absolute" }}
-      >
-        click me
-      </button> */}
       <App />
+      <SetNotif am={am} setam={setam} msg={msg} />
+      <SetListNotif />
     </>
   );
 }

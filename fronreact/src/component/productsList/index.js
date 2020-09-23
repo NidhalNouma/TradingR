@@ -11,6 +11,7 @@ import Footer from "../global/footer";
 
 import Change from "../change";
 import Loadpl from "../product/Loadpl";
+import Noresult from "../Noresult";
 
 function Products_(props) {
   const { change, vchange } = Change();
@@ -18,7 +19,7 @@ function Products_(props) {
 
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products);
-  const [load, setLoad] = useState(false);
+  const [data, setData] = useState(null);
   // if (query === "") {
   //   return state.products;
   // } else {
@@ -34,13 +35,10 @@ function Products_(props) {
 
   useEffect(() => {
     if (products === null || products.length === 1) {
-      setLoad(true);
       axios
         .get("/api/product/findall/productversion")
         .then(function (response) {
           dispatch(Products(response.data.results));
-
-          setLoad(false);
         })
         .catch(function (error) {
           // handle error
@@ -49,8 +47,17 @@ function Products_(props) {
         .then(function () {
           // always executed
         });
+    } else {
+      setData(
+        products.filter((product) => {
+          product = product.product[product.product.length - 1].product;
+          if (props.type === "SEARCH")
+            return product.title.toLowerCase().includes(query.toLowerCase());
+          else return product.type === props.type;
+        })
+      );
     }
-  }, [products]);
+  }, [products, props.type, query]);
 
   const nopr = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -59,28 +66,24 @@ function Products_(props) {
       <Navbar here={false} search={query} loc={props.type} ch={vchange} />
       <Navfill />
 
-      {products !== null && products.length > 1
-        ? products
-            .filter((product) => {
-              product = product.product[product.product.length - 1].product;
-              if (props.type === "SEARCH")
-                return product.title
-                  .toLowerCase()
-                  .includes(query.toLowerCase());
-              else return product.type === props.type;
-            })
-            .map((product) => (
-              <Productlist
-                key={product._id}
-                load={load}
-                id={product._id}
-                subscribers={product.subscribers}
-                downloads={product.numberOfDownload}
-                product={product.product[product.product.length - 1].product}
-                sch={change}
-              />
-            ))
-        : nopr.map((product) => <Loadpl key={product} />)}
+      {products !== null && products.length > 1 && data ? (
+        data.length > 0 ? (
+          data.map((product) => (
+            <Productlist
+              key={product._id}
+              id={product._id}
+              subscribers={product.subscribers}
+              downloads={product.numberOfDownload}
+              product={product.product[product.product.length - 1].product}
+              sch={change}
+            />
+          ))
+        ) : (
+          <Noresult />
+        )
+      ) : (
+        nopr.map((product) => <Loadpl key={product} />)
+      )}
 
       <br />
       <Footer />

@@ -2,27 +2,27 @@ import React from "react";
 import { Snackbar, Button } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 
-function SetNotif({ am, setam }) {
+function SetNotif({ am, setam, msg }) {
   return (
     <Snackbar
       anchorOrigin={{
         vertical: "bottom",
-        horizontal: "left",
+        horizontal: msg ? msg.place : "left",
       }}
       open={am}
-      autoHideDuration={3000}
+      autoHideDuration={msg ? msg.duration : 0}
       onClose={() => setam(false)}
     >
       <Alert
         onClose={() => setam(false)}
         severity="success"
         style={{
-          backgroundColor: "var(--scolor)",
-          color: "var(--pcolor)",
-          borderRadius: "7px",
+          backgroundColor: "var(--pcolor)",
+          color: "var(--scolor)",
+          borderRadius: "10px",
         }}
       >
-        This is a success message!
+        {msg && msg.msg}
       </Alert>
     </Snackbar>
   );
@@ -31,16 +31,5 @@ function SetNotif({ am, setam }) {
 export default SetNotif;
 
 function Alert(props) {
-  return (
-    <MuiAlert
-      elevation={6}
-      variant="filled"
-      {...props}
-      action={
-        <Button color="inherit" size="small" onClick={props.onClose}>
-          UNDO
-        </Button>
-      }
-    />
-  );
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
 }

@@ -13,7 +13,9 @@ export default function Productlist({ product, id, subscribers, downloads }) {
     <>
       <div className="product-list">
         <div className="left-card">
-          <img src={product.img} alt="" />
+          <Link to={"/product/" + id}>
+            <img src={product.img} alt="" />
+          </Link>
         </div>
         <div className="right-card">
           <Link to={"/product/" + id}>

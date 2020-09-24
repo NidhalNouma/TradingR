@@ -96,7 +96,6 @@
   color: var(--bgcolor);
   opacity: 0.5;
   pointer-events: none;
-
   cursor: default;
 }
 
@@ -109,6 +108,12 @@
   font-size: 0.7em;
   margin-bottom: 1em;
   margin: 0 25% 1em;
+}
+
+.MuiAlert-standardError {
+  width: 50%;
+  margin: auto;
+  border-radius: 10px !important;
 }
 
 @media screen and (max-width: 1200px) {

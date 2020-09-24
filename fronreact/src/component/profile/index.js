@@ -14,6 +14,8 @@ function Profile() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [qa, setQa] = useState(false);
+  const [impro, setImpro] = useState(null);
+  const [qas, setQas] = useState(null);
 
   useEffect(() => {
     // if (!user.improvements || !user.questions) {
@@ -21,8 +23,8 @@ function Profile() {
       .get(`/api/user/imprqa/${user._id}`)
       .then((res) => {
         if (res.data.find) {
-          dispatch(AddUserImp(res.data.result.improvements));
-          dispatch(AddUserQA(res.data.result.questions));
+          setImpro(res.data.result.improvements);
+          setQas(res.data.result.questions);
         }
       })
       .catch((err) => console.error(err));
@@ -70,9 +72,7 @@ function Profile() {
                 Questions
               </h6>
             </div>
-            {user.questions && user.improvements && (
-              <Dirtemp qa={qa} data={qa ? user.questions : user.improvements} />
-            )}
+            {qas && impro && <Dirtemp qa={qa} data={qa ? qas : impro} />}
           </div>
         </div>
       </div>

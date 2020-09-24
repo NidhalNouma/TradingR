@@ -22,6 +22,7 @@ import {
   AddImproAns,
   AddQaAns,
   Inc,
+  Setnotif,
 } from "./Actions";
 
 import "./style/index.css";
@@ -60,6 +61,8 @@ html {
     --shcolor: #a8cf3b59;
     --pricecolor: #f27a02;
     --textcolor: white;
+    --timecolor: #a0b0a0;
+    --cancelcolor: rgb(170, 160, 32); 
 }
 `;
 
@@ -72,6 +75,8 @@ html {
     --bgcolor: white;
     --shcolor: #a8cf3b59;
     --textcolor: black;
+    --timecolor: #a0b0a0;
+    --cancelcolor: rgb(170, 160, 32); 
 }
 `;
 
@@ -119,6 +124,7 @@ export default function App() {
         r: () => dispatch(Inc()),
       })
     );
+    if (user) dispatch(Setnotif(user.notifications));
   }, [user]);
 
   React.useEffect(() => {

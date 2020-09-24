@@ -4,6 +4,7 @@ import Quesimg from "../../asset/images/quest";
 import Improvimg from "../../asset/images/improv";
 
 function Dirtemp({ qa, data }) {
+  console.log(data);
   return (
     <>
       <div>

@@ -4,7 +4,6 @@ import { Link, useHistory } from "react-router-dom";
 
 import Logoi from "../../asset/images/logo";
 import Facei from "../../asset/images/face";
-import Cardi from "../../asset/images/card";
 import Menui from "../../asset/images/menu";
 import Bell from "../../asset/images/Bell";
 import Search from "../../asset/images/search";
@@ -25,6 +24,7 @@ export default function Nav(props) {
 
   const history = useHistory();
   const user = useSelector((state) => state.user);
+  const notif = useSelector((state) => state.notif);
 
   const [search, setSearch] = useState(props.search);
   const [showCard, setShowCard] = useState(false);
@@ -34,7 +34,7 @@ export default function Nav(props) {
 
   useEffect(() => {
     document.addEventListener("keypress", function (e) {
-      if (e.key === "s") {
+      if (e.key === "s" && seref.current) {
         seref.current.focus();
       }
     });
@@ -129,11 +129,7 @@ export default function Nav(props) {
             {user && (
               <li>
                 <a className="withimg" onClick={() => setShowCard(true)}>
-                  <Bell
-                    exist={
-                      user && user.card && user.card.length > 0 ? true : false
-                    }
-                  />
+                  <Bell exist={notif && notif.length > 0 ? true : false} />
                 </a>
               </li>
             )}
@@ -164,7 +160,11 @@ export default function Nav(props) {
         </div>
       </nav>
 
-      {showCard ? <Card close={() => setShowCard(false)} user={user} /> : <></>}
+      {showCard ? (
+        <Card close={() => setShowCard(false)} notif={notif} />
+      ) : (
+        <></>
+      )}
       {sign.show ? <Signin close={sign.cshow} show={sign.show} /> : <></>}
       {showFace ? <Face close={() => setShowFace(false)} /> : <></>}
       {showMenu ? (

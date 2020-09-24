@@ -42,29 +42,39 @@
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
-  padding: 0.4em 0 0.7em;
+  padding: 0.6rem 0;
   margin: 0;
 }
 
 .card-list ul li img {
-  height: 90px;
+  height: 70px;
   width: 90px;
-  margin: 0.2em 0.5em 0;
+  margin: 0.2rem 0.3rem 0;
   border-radius: 10px;
 }
 
 .card-list ul li div p {
   text-align: left;
+  font-weight: 450;
+  line-height: 120%;
   width: 200px;
-  font-size: 0.7em;
-  margin: 0.2em 0.3em 0;
+  font-size: 0.85rem;
+  margin: 0 0.3rem;
+}
+
+.card-list ul li div span {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+  color: var(--pcolor);
 }
 
 .card-list ul li div h5 {
-  font-size: 0.7em;
+  font-size: 0.84rem;
   text-align: start;
   margin: 0;
-  margin-top: 0.3em;
+  margin: 0.3em 0;
   color: var(--pcolor);
 }
 
@@ -88,7 +98,7 @@
   bottom: 0;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   background-color: var(--scolor);
   border-radius: 10px;
@@ -97,20 +107,10 @@
   height: 17%;
 }
 
-.card-list .total h5 {
-  font-size: 0.7em;
-  color: var(--textcolor);
-}
-
-.card-list .total h6 {
-  font-size: 0.73em;
-  color: var(--pricecolor);
-  margin: 0 1em;
-}
-
-.card-list .total:hover {
-  background-color: var(--tcolor);
-  border-radius: 10px;
+.card-list .total span {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: var(--pcolor);
   cursor: pointer;
 }
 
@@ -118,8 +118,8 @@
   background-color: var(--pcolor);
   color: var(--scolor);
   font-size: 0.8em;
-  padding: 0.4rem 0rem;
-  width: 120px;
+  padding: 0.2rem 0rem;
+  width: 100px;
 }
 
 @media screen and (max-width: 1200px) {

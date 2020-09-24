@@ -9,7 +9,7 @@ import Signin from "../../../signIn";
 
 import { Plus, Minus, Emit } from "../../../../Actions";
 
-function Vote({ up, dn, improId, productId, id }) {
+function Vote({ up, dn, improId, productId, id, authId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const total = useSelector((state) => {
@@ -34,7 +34,9 @@ function Vote({ up, dn, improId, productId, id }) {
       const data = qs.stringify({
         id: improId,
         userId: user._id,
+        userName: user.username,
         productId: id,
+        authId,
       });
       if (type === "1")
         dispatch(Plus({ userId: user.id, productId, improId, id }));

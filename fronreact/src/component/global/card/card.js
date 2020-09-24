@@ -5,16 +5,13 @@ import Cardlist from "./cardlist";
 import Noprod from "./Noprod";
 
 import { useDispatch, useSelector } from "react-redux";
-import { GetCard } from "../../../Actions";
 
-export default function Card(props) {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+export default function Card({ notif, close }) {
   const handleClick = (e) => {
     if (document.getElementById("card")) {
       if (!document.getElementById("card").contains(e.target)) {
         document.removeEventListener("click", handleClick);
-        props.close();
+        close();
       }
     } else {
       document.removeEventListener("click", handleClick);
@@ -22,28 +19,32 @@ export default function Card(props) {
   };
 
   useEffect(() => {
-    if (user && !user.cards) dispatch(GetCard());
     document.addEventListener("click", handleClick);
     return () => {
       document.removeEventListener("click", handleClick);
-      props.close();
+      close();
     };
   }, []);
 
   return (
     <>
       <div className="card-list" id="card">
-        {user && user.card && user.card.length > 0 ? (
+        {notif && notif.length > 0 ? (
           <>
             <ul>
-              {user.card.map((element) => {
-                return <Cardlist key={element} data={element} />;
-              })}
+              {notif
+                .sort((a, b) => {
+                  if (b.at < a.at) return -1;
+                  else if (b.at > a.at) return 1;
+                  else return 0;
+                })
+                .map((i) => {
+                  return <Cardlist key={i._id} data={i} />;
+                })}
             </ul>
             <div className="total">
-              <h5>Total :</h5>
-              <h6>${user.card && user.card.length ? user.card.length : 0}</h6>
-              <Link to="/card"> Go to Cart</Link>
+              <span>Mark all as Read</span>
+              <Link to="/profile/notifications">See All</Link>
             </div>
           </>
         ) : (

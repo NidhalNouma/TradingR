@@ -1,15 +1,19 @@
 import React, { useEffect } from "react";
 import { SnackbarProvider, useSnackbar } from "notistack";
 import { useSelector } from "react-redux";
+const time = new Date();
 
 function Notifl() {
   const notif = useSelector((state) => state.notif);
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
-    if (notif) {
-      enqueueSnackbar("This is a success message!", { variant: "success" });
-      enqueueSnackbar("I love snacks.");
+    if (notif && notif.length > 0) {
+      console.log(time);
+      // enqueueSnackbar("This is a success message!", { variant: "success" });
+      notif.map((i) => {
+        if (!i.readed) enqueueSnackbar(i.message);
+      });
     }
   }, [notif]);
 

@@ -32,6 +32,7 @@ function Question({ data, vote, pId, id }) {
               improId={data._id}
               id={id}
               productId={pId}
+              authId={data.userId._id}
             />
           )}
         </div>

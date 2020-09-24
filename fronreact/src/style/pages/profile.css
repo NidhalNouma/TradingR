@@ -281,6 +281,85 @@
   font-size: 1.15rem;
 }
 
+.containProfile .maarnotif {
+  width: 100%;
+  text-align: end;
+}
+
+.containProfile .maarnotif span {
+  font-size: 0.94rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: var(--pcolor);
+  box-sizing: border-box;
+  padding: 0.2rem 1rem;
+  /* background-color: var(--scolor); */
+  border-radius: 8px;
+}
+
+.containProfile .profileNotif {
+  display: flex;
+  align-items: stretch;
+  margin: 0.7rem 0;
+  padding: 0.3rem;
+  border: 3px solid var(--scolor);
+  border-radius: 12px;
+  /* background-color: var(--scolor); */
+}
+
+.containProfile .profileNotif img {
+  height: 100px;
+  width: 140px;
+  border-radius: 12px;
+  margin: auto 0;
+  margin-right: 1rem;
+}
+
+.containProfile .profileNotif p {
+  margin: 0.4rem 0 0.2rem;
+  font-size: 0.95rem;
+  font-weight: 450;
+}
+
+.containProfile .profileNotif div span {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: bold;
+  color: var(--pcolor);
+}
+
+.containProfile .profileNotif div .div {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.containProfile .profileNotif div .div i {
+  color: var(--timecolor);
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.containProfile .profileNotif div .div div span {
+  display: inline;
+  margin: 0 0.4rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--pcolor);
+}
+
+.containProfile .profileNotif div .div div span:hover,
+.containProfile .maarnotif span:hover {
+  color: var(--tcolor);
+}
+
+.containProfile .profileNotif > div:first-of-type {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
 @media (max-width: 1200px) {
   .containProfile {
     margin: 3em 2%;
@@ -391,5 +470,24 @@
   .containProfile .profileproduct h5 {
     font-size: 0.9rem;
     margin: 0.5rem 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .containProfile .profileNotif div .div {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .containProfile .profileNotif div .div i {
+    color: var(--timecolor);
+    font-style: italic;
+    font-size: 1rem;
+    align-self: flex-start;
+  }
+
+  .containProfile .profileNotif div .div div {
+    align-self: flex-end;
   }
 }

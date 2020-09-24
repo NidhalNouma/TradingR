@@ -217,3 +217,31 @@
     border-bottom: 1px solid var(--scolor);
   }
 }
+
+.dialogalert {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.dialogalert h5 {
+  color: var(--pcolor);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.dialogalert p {
+  margin: 0.4rem 0;
+  font-size: 1.1rem;
+}
+
+.dialogalert span {
+  cursor: pointer;
+  font-weight: 450;
+  font-size: 1rem;
+  color: rgb(170, 160, 32);
+  margin: 0 1rem;
+}
+
+.dialogalert span:first-of-type {
+  color: var(--pcolor);
+}

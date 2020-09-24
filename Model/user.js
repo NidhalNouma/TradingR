@@ -42,6 +42,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      readed: {
+        type: Boolean,
+        default: false,
+      },
+      at: { type: Date, default: Date.now },
       product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
     },
   ],
@@ -106,9 +111,12 @@ const findOne = async function (email, password) {
   console.log("\x1b[36m%s\x1b[0m", `Finding User with email ${email} ...`);
   let r = { res: null, err: null };
   try {
-    r.res = await User.findOne({ email, password }).select(
-      "-improvements -questions"
-    );
+    r.res = await User.findOne({ email, password })
+      .select("-improvements -questions")
+      .populate({
+        path: "notifications.product",
+        select: "img  title timestamp",
+      });
   } catch (e) {
     console.log("\x1b[31m%s\x1b[0m", `Error with finding User ==> ${e}`);
     r.err = e;
@@ -121,7 +129,12 @@ const findById = async function (_id) {
   console.log("\x1b[36m%s\x1b[0m", `Find user user by ID ${_id} ...`);
   const r = { res: null, err: null };
   try {
-    r.res = await User.findOne({ _id }).select("-improvements -questions");
+    r.res = await User.findOne({ _id })
+      .select("-improvements -questions")
+      .populate({
+        path: "notifications.product",
+        select: "img  title timestamp",
+      });
   } catch (e) {
     r.err = e;
     console.log(
@@ -177,6 +190,78 @@ const getUserCard = async function (userId) {
     console.log(
       "\x1b[31m%s\x1b[0m",
       `Error with Finding the Cards items for User_Id ${userId} ==> ${err}`
+    );
+    r.err = e;
+  }
+
+  return r;
+};
+
+// --------------------------------------------------------------------------------------------
+
+const addNotif = async function (userId, message, productId) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `New notification for User_ID ${userId} ...`
+  );
+  let r = { res: null, err: null };
+  const notif = {
+    message,
+    product: productId ? productId : null,
+  };
+  try {
+    r.res = User.updateOne(
+      { _id: userId },
+      { $push: { notifications: notif } }
+    );
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Adding the Notification to User_Id ${userId} ==> ${err}`
+    );
+    r.err = e;
+  }
+
+  return r;
+};
+
+const markNotifAsRead = async function (userId, at) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Mark notification as read for User_ID ${userId} ...`
+  );
+  let r = { res: null, err: null };
+  try {
+    r.res = User.updateOne(
+      { _id: userId, "notifications.at": at },
+      { $set: { "notifications.readed": true } }
+    );
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with mark Notification as read for User_Id ${userId} ==> ${err}`
+    );
+    r.err = e;
+  }
+
+  return r;
+};
+
+const markAllNotifAsRead = async function (userId) {
+  console.log(
+    "\x1b[36m%s\x1b[0m",
+    `Mark all notifications as read for User_ID ${userId} ...`
+  );
+  let r = { res: null, err: null };
+  try {
+    r.res = User.updateOne(
+      { _id: userId },
+      { $set: { "notifications.readed": true } }
+    );
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with mark all Notifications as read for User_Id ${userId} ==> ${err}`
     );
     r.err = e;
   }
@@ -282,14 +367,17 @@ const addQuestion = async function (userId, productId, quesId) {
 
 // --------------------------------------------------------------------------------------------
 
-const addScore = async function (userId, pn) {
+const addScore = async function (userId, pn, notif) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding ${pn} score to userID ${userId} ...`
   );
   let r = { res: null, err: null };
   try {
-    r.res = await User.updateOne({ _id: userId }, { $inc: { score: pn } });
+    r.res = await User.updateOne(
+      { _id: userId },
+      { $inc: { score: pn }, $push: { notifications: notif } }
+    );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",

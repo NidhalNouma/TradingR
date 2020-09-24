@@ -121,6 +121,8 @@ router.post("/add/impro/plus", async function (req, res) {
   const _id = req.body.productId;
   const id = req.body.id;
   const userId = req.body.userId;
+  const authId = req.body.authId;
+  const userName = req.body.userName;
 
   const ans = {
     added: false,
@@ -133,11 +135,15 @@ router.post("/add/impro/plus", async function (req, res) {
       "\x1b[35m%s\x1b[0m",
       `Plus Added to improvementID ${id} for product ID ${_id} userID ${userId} ...`
     );
-    const r1 = await user.addScore(userId, 1);
+    const mes = {
+      message: `${userName} vote + to your improvement`,
+      product: _id,
+    };
+    const r1 = await user.addScore(authId, 1, mes);
     if (r1.res) {
       console.log(
         "\x1b[35m%s\x1b[0m",
-        `Plus Added to score for userID ${userId} ...`
+        `Plus Added to score for userID ${authId} ...`
       );
     }
   } else if (r.err) {
@@ -151,6 +157,8 @@ router.post("/add/impro/minus", async function (req, res) {
   const _id = req.body.productId;
   const id = req.body.id;
   const userId = req.body.userId;
+  const authId = req.body.authId;
+  const userName = req.body.userName;
 
   const ans = {
     added: false,
@@ -163,11 +171,15 @@ router.post("/add/impro/minus", async function (req, res) {
       "\x1b[35m%s\x1b[0m",
       `Minus Added to improvementID ${id} for product ID ${_id} userID ${userId} ...`
     );
-    const r1 = await user.addScore(userId, -1);
+    const mes = {
+      message: `${userName} vote - to your improvement`,
+      product: _id,
+    };
+    const r1 = await user.addScore(authId, -1, mes);
     if (r1.res) {
       console.log(
         "\x1b[35m%s\x1b[0m",
-        `Minus Added to score for userID ${userId} ...`
+        `Minus Added to score for userID ${authId} ...`
       );
     }
   } else if (r.err) {

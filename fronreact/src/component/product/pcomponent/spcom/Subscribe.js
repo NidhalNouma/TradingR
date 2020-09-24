@@ -3,6 +3,7 @@ import axios from "axios";
 import qs from "querystring";
 import { useDispatch, useSelector } from "react-redux";
 import { Subscribe, Desubscribe } from "../../../../Actions";
+import Dialogalert from "../../../Dialogalert";
 
 function Subscriber({ setReff, product, id, sign }) {
   const dispatch = useDispatch();
@@ -46,27 +47,24 @@ function Subscriber({ setReff, product, id, sign }) {
       >
         {sub ? "Subscribed" : "Subscribe"}
       </a>
-      {des && (
-        <span
-          className="desub"
-          onClick={() => {
-            request(sub, user._id, product._id, (res) => {
-              dispatch(
-                Desubscribe({
-                  productId: product._id,
-                  userId: user._id,
-                  id,
-                })
-              );
-              setSub(!sub);
-              setReff();
-              setDes(false);
-            });
-          }}
-        >
-          Unsubscribe
-        </span>
-      )}
+      <Dialogalert
+        open={des}
+        setOpen={() => setDes(!des)}
+        agree={() => {
+          request(sub, user._id, product._id, (res) => {
+            dispatch(
+              Desubscribe({
+                productId: product._id,
+                userId: user._id,
+                id,
+              })
+            );
+            setSub(!sub);
+            setReff();
+            setDes(false);
+          });
+        }}
+      />
     </>
   );
 }

@@ -5,17 +5,18 @@ const time = new Date();
 
 function Notifl() {
   const notif = useSelector((state) => state.notif);
+  const ref = useSelector((state) => state.ref);
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (notif && notif.length > 0) {
       console.log(time);
-      // enqueueSnackbar("This is a success message!", { variant: "success" });
       notif.map((i) => {
-        if (!i.readed) enqueueSnackbar(i.message);
+        if (!i.readed && i.new)
+          enqueueSnackbar(i.message, { variant: "success" });
       });
     }
-  }, [notif]);
+  }, [notif, ref]);
 
   return <></>;
 }

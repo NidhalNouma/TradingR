@@ -2,7 +2,7 @@ import React from "react";
 import Question from "./question";
 import Addcom from "../addcom";
 
-function Qanda({ data, id, pId }) {
+function Qanda({ data, id, pId, pImg }) {
   var q = [];
   for (var i = 0; i < 10; i++) {
     q.push(<Question key={i} />);
@@ -26,7 +26,13 @@ function Qanda({ data, id, pId }) {
                 else return 0;
               })
               .map((item) => (
-                <Question key={item._id} data={item} pId={pId} id={id} />
+                <Question
+                  key={item._id}
+                  data={item}
+                  pId={pId}
+                  id={id}
+                  pImg={pImg}
+                />
               ))}
           </div>
         </div>

@@ -36,12 +36,44 @@ export default (state = io, action) => {
       return state.on("1", (msg) => {
         if (typeof action.payload.d === "function") action.payload.d(msg);
         if (typeof action.payload.r === "function") action.payload.r();
+        if (
+          typeof action.payload.n === "function" &&
+          msg.authId === action.payload.id
+        ) {
+          const notif = {
+            new: true,
+            at: new Date().toLocaleDateString(),
+            readed: false,
+            product: {
+              _id: msg.productId,
+              img: msg.img,
+            },
+            message: `${msg.userName} vate + to your impro`,
+          };
+          action.payload.n(notif);
+        }
       });
     }
     case "ON-": {
       return state.on("-1", (msg) => {
         if (typeof action.payload.d === "function") action.payload.d(msg);
         if (typeof action.payload.r === "function") action.payload.r();
+        if (
+          typeof action.payload.n === "function" &&
+          msg.authId === action.payload.id
+        ) {
+          const notif = {
+            new: true,
+            at: new Date().toLocaleDateString(),
+            readed: false,
+            product: {
+              _id: msg.productId,
+              img: msg.img,
+            },
+            message: `${msg.userName} vate - to your impro`,
+          };
+          action.payload.n(notif);
+        }
       });
     }
     default:

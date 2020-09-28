@@ -9,7 +9,7 @@ import Signin from "../../../signIn";
 
 import { Plus, Minus, Emit } from "../../../../Actions";
 
-function Vote({ up, dn, improId, productId, id, authId }) {
+function Vote({ up, dn, improId, productId, productImg, id, authId }) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const total = useSelector((state) => {
@@ -54,7 +54,15 @@ function Vote({ up, dn, improId, productId, id, authId }) {
             dispatch(
               Emit({
                 type: type,
-                sub: { userId: user.id, productId, improId, id },
+                sub: {
+                  userId: user.id,
+                  productImg,
+                  improId,
+                  id,
+                  authId,
+                  userName: user.username,
+                  img: productImg,
+                },
               })
             );
           }

@@ -23,6 +23,7 @@ import {
   AddQaAns,
   Inc,
   Setnotif,
+  AddNotif,
 } from "./Actions";
 
 import "./style/index.css";
@@ -82,6 +83,7 @@ html {
 
 export default function App() {
   const user = useSelector((state) => state.user);
+  const notif = useSelector((state) => state.notif);
   const dark = useSelector((state) => state.Dark);
   const [first, setFirst] = React.useState(localStorage.getItem("visit"));
   const dispatch = useDispatch();
@@ -104,12 +106,16 @@ export default function App() {
       Onp({
         d: (msg) => dispatch(Plus(msg)),
         r: () => dispatch(Inc()),
+        n: (msg) => dispatch(AddNotif(msg)),
+        id: user ? user._id : null,
       })
     );
     dispatch(
       Onm({
         d: (msg) => dispatch(Minus(msg)),
         r: () => dispatch(Inc()),
+        n: (msg) => dispatch(AddNotif(msg)),
+        id: user ? user._id : null,
       })
     );
     dispatch(
@@ -124,7 +130,7 @@ export default function App() {
         r: () => dispatch(Inc()),
       })
     );
-    if (user) dispatch(Setnotif(user.notifications));
+    if (user && notif === null) dispatch(Setnotif(user.notifications));
   }, [user]);
 
   React.useEffect(() => {

@@ -307,6 +307,10 @@
   /* background-color: var(--scolor); */
 }
 
+.containProfile .profileNotif:hover {
+  background-color: var(--scolor);
+}
+
 .containProfile .profileNotif img {
   height: 100px;
   width: 140px;

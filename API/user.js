@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 var bodyParser = require("body-parser");
 const user = require("../Model/user");
+const { sendMail } = require("../mail");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
@@ -28,6 +29,8 @@ router.post("/add", async function (req, res) {
     // res.cookie("_SSD", JSON.stringify(rep.results), {
     //   Expires: expiryDate,
     // });
+
+    sendMail(email, "/active/" + r.res._id);
     ans.results = r.res;
   } else if (r.err) {
     ans.errors = r.err;
@@ -78,7 +81,6 @@ router.post("/find", async function (req, res) {
       `Cannot found user with email ${email} ... (email/password Incorrect)`
     );
   }
-
   res.json(ans);
 });
 
@@ -177,6 +179,12 @@ router.get("/imprqa/:id", async function (req, res) {
   }
 
   res.json(ans);
+});
+
+router.get("/active/:id", function (req, res) {
+  const id = req.params.id;
+  console.log(id);
+  res.redirect("/");
 });
 
 module.exports = router;

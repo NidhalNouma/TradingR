@@ -9,8 +9,8 @@ export default function Cardlist({ data }) {
           backgroundColor: data.readed ? "var(--scolor)" : "",
         }}
       >
-        <Link to={"/product/" + data.product._id}>
-          <img src={data.product.img} alt="" />
+        <Link to={data.product._id && "/product/" + data.product._id}>
+          <img src={data.product.img && data.product.img} alt="" />
 
           <div>
             <p>{"-> " + data.message}</p>

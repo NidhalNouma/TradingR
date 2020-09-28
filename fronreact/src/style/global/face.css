@@ -25,6 +25,10 @@
   color: var(--pcolor);
 }
 
+.profile-nav ul li a:hover {
+  color: var(--tcolor);
+}
+
 .profile-nav ul li img {
   width: 30px;
   height: 30px;

@@ -48,21 +48,17 @@ app.get(
   }
 );
 
-app.get(
-  "/auth/google",
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+app.get("/auth/google", function (req, res, next) {
+  const auth = passport.authenticate("google", { scope: ["profile", "email"] });
+  auth(req, res, next);
+});
 
 app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "back" }),
   function (req, res) {
-    const redirect = req.session.oauth2return || "/";
-    console.log(req.session, "\\\\/////");
     res.cookie("_SSDI", req.session.passport.user._id.toString());
-    // delete req.session.oauth2return;
-
-    res.redirect(redirect);
+    res.redirect("/");
   }
 );
 
@@ -71,12 +67,3 @@ const server = http.createServer(app);
 const io = require("socket.io")(server);
 run(io);
 server.listen(port, () => console.log(`listening at port ${port}`));
-
-// app.get("/auth/facebook", passport.authenticate("facebook"));
-// app.get(
-//   "/auth/facebook/callback",
-//   passport.authenticate("facebook", {
-//     successRedirect: "back",
-//     failureRedirect: "back",
-//   })
-// );

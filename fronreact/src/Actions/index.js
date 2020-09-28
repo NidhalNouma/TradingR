@@ -109,3 +109,7 @@ export const Desubscribe = (payload) => {
 export const Setnotif = (payload) => {
   return { type: "SETNOTIF", payload };
 };
+
+export const AddNotif = (payload) => {
+  return { type: "ADDNOTUF", payload };
+};

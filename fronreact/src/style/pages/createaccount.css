@@ -100,6 +100,32 @@
   margin: 0 25% 1em;
 }
 
+.activeaccount h3 {
+  -webkit-text-fill-color: var(--pcolor);
+  text-align: center;
+}
+
+.activeaccount p {
+  font-size: 1.1rem;
+}
+
+.activeaccount div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.activeaccount div span {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: var(--pcolor);
+}
+
+.activeaccount div span:first-of-type {
+  font-weight: 100;
+}
+
 @media screen and (max-width: 1200px) {
   .contain-createaccount {
     width: 70%;

@@ -2,7 +2,7 @@ import React from "react";
 import Question from "../qanda/question";
 import Addcom from "../addcom";
 
-function Impro({ data, id, pId }) {
+function Impro({ data, id, pId, pImg }) {
   return (
     <div className="qanda">
       <div>
@@ -28,6 +28,7 @@ function Impro({ data, id, pId }) {
                   pId={pId}
                   key={item._id}
                   id={id}
+                  pImg={pImg}
                 />
               ))}
           </div>

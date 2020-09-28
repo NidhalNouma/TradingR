@@ -46,7 +46,6 @@ export default function Producte(props) {
       axios
         .get("/api/product/find/productversion/" + id)
         .then(function (response) {
-          console.log(response.data);
           if (response.data.find) {
             dispatch(Products([response.data.result]));
             setData(

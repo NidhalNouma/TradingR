@@ -28,12 +28,24 @@ export default function Product_({ sch, product, ver, id, data, sel, setSel }) {
             <div id="im">
               <h3>Improvement</h3>
               {ref >= 0 && (
-                <Impro data={data.improvements} id={data._id} pId={id} />
+                <Impro
+                  data={data.improvements}
+                  id={data._id}
+                  pId={id}
+                  pImg={data.img}
+                />
               )}
             </div>
             <div id="qa">
               <h3>Q&A</h3>
-              {ref >= 0 && <Qanda data={data.qandas} id={data._id} pId={id} />}
+              {ref >= 0 && (
+                <Qanda
+                  data={data.qandas}
+                  id={data._id}
+                  pId={id}
+                  pImg={data.img}
+                />
+              )}
             </div>
           </div>
 

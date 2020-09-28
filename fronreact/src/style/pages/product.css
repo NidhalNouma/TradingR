@@ -136,7 +136,7 @@
   }
 
   .wcost {
-    box-shadow: 0 0 6px var(--shcolor);
+    box-shadow: 0 0 6px var(--scolor);
     display: block;
     width: 300px;
     margin: auto;
@@ -148,7 +148,7 @@
 
   .wcost a {
     display: block;
-    margin: 0.5rem auto;
+    margin: 0.7rem auto;
     font-size: 1rem;
     width: 100px;
     border-radius: 7px;
@@ -159,12 +159,9 @@
   }
 
   .wcost span {
-    /* display: block;
-    width: 120px; */
+    display: block;
     margin: 0.4rem auto;
-
     font-size: 0.9rem;
-    border: 1px solid var(--shcolor);
     color: var(--pcolor);
     padding: 0rem 0.3rem;
     border-radius: 7px;
@@ -180,7 +177,7 @@
   }
 
   .wcost .exist span {
-    background-color: var(--shcolor);
+    background-color: var(--scolor);
     margin-left: 0.3rem;
     display: inline-flex;
     width: auto;

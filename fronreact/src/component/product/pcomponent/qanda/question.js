@@ -5,7 +5,6 @@ import Vote from "../spcom/vote";
 import UserImg from "../../../../asset/images/UserImg";
 
 function Question({ data, vote, pId, id, pImg }) {
-  console.log(pImg);
   const answ = data.answers.sort((a, b) => {
     if (b.timestamp < a.timestamp) return -1;
     else if (b.timestamp > a.timestamp) return 1;

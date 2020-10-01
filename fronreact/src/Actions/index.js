@@ -66,6 +66,10 @@ export const StartIo = (payload) => {
   return { type: "START", payload };
 };
 
+export const UnsubscribeSocket = (payload) => {
+  return { type: "REMOVELISTNER", payload };
+};
+
 export const Emit = (payload) => {
   return { type: "EMIT", payload };
 };

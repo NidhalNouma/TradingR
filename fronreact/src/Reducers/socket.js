@@ -76,6 +76,14 @@ export default (state = io, action) => {
         }
       });
     }
+    case "REMOVELISTNER": {
+      state.off("-1");
+      state.off("1");
+      state.off("qaAns");
+      state.off("qa");
+      state.off("improAns");
+      state.off("impro");
+    }
     default:
       return state;
   }

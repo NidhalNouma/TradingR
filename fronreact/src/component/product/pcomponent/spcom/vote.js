@@ -59,6 +59,7 @@ function Vote({ up, dn, improId, productId, productImg, id, authId }) {
                   productImg,
                   improId,
                   id,
+                  productId,
                   authId,
                   userName: user.username,
                   img: productImg,

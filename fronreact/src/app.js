@@ -24,6 +24,7 @@ import {
   Inc,
   Setnotif,
   AddNotif,
+  UnsubscribeSocket,
 } from "./Actions";
 
 import "./style/index.css";
@@ -90,6 +91,7 @@ export default function App() {
 
   React.useEffect(() => {
     dispatch(StartIo());
+    dispatch(UnsubscribeSocket());
     dispatch(
       On({
         d: (msg) => dispatch(AddImpro(msg)),

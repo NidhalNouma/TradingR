@@ -56,13 +56,13 @@ nav ul .search {
   font-size: 0.66em;
   height: 100%;
   border: none;
-  border-radius: 8px;
+  border-radius: 9px;
   padding: 0 0.5em;
   background-color: var(--scolor);
 }
 
 .search input::placeholder {
-  font-size: 1.1em;
+  font-size: 1rem;
   opacity: 0.5;
   color: var(--textcolor);
 }
@@ -95,7 +95,7 @@ nav div ul li {
 }
 
 nav div ul li a {
-  font-size: 1.1rem;
+  font-size: 1rem;
   text-decoration: none;
   width: 100px;
   height: 28px;

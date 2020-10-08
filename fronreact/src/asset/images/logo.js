@@ -17,9 +17,9 @@ export default function Logo() {
             >
               <text
                 id="Rev"
-                transform="translate(19.771 19.768)"
+                transform="translate(19 19)"
                 fill="var(--pcolor)"
-                fontSize="20"
+                fontSize="18"
                 fontFamily="TimesNewRomanPS-BoldMT, Times New Roman"
                 fontWeight="700"
                 letterSpacing="-0.007em"
@@ -30,9 +30,9 @@ export default function Logo() {
               </text>
               <text
                 id="Trading"
-                transform="translate(-47.229 10.768)"
+                transform="translate(-44 10)"
                 fill="var(--pcolor)"
-                fontSize="20"
+                fontSize="18"
                 fontFamily="TimesNewRomanPS-BoldMT, Times New Roman"
                 fontWeight="700"
                 letterSpacing="-0.007em"

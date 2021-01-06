@@ -1,0 +1,204 @@
+.at {
+  font-size: 1.05rem;
+  font-family: "Times New Roman 400", serif;
+  color: var(--pcolor);
+  background-color: inherit;
+  padding: 0.3rem 1rem;
+  border-radius: 9px;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.a,
+.abtn {
+  font-size: 1.05rem;
+  font-family: "Times New Roman 400", serif;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+  padding: 0.3rem 1rem;
+  border-radius: 9px;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.abtnP {
+  font-size: 1.05rem;
+  font-family: "Times New Roman 400", serif;
+  color: var(--scolor);
+  background-color: var(--pcolor);
+  padding: 0.3rem 1rem;
+  border-radius: 9px;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.aNav,
+.abtnNav {
+  font-size: 1.04rem;
+  font-family: "Times New Roman 400", serif;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+  padding: 0.3rem 1.5rem;
+  border-radius: 9px;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btnHover:hover {
+  background-color: var(--tcolor) !important;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.btnNav {
+  font-size: 1rem;
+  padding: 0.2rem 1rem;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--bgcolor);
+  color: var(--pcolor);
+  transition: background-color 0.4s ease-out;
+  text-decoration: none;
+}
+
+.ah {
+  color: var(--pcolor);
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+.aspan {
+  font-size: 0.9rem;
+  font-family: "Avenir", "Arial", sans-serif;
+  color: var(--pcolor);
+  outline: none;
+  border: none;
+  text-decoration: none;
+}
+
+.button {
+  font-size: 0.95rem;
+  font-weight: bold;
+  font-family: "Times New Roman 400", serif;
+  padding: 0.3rem 1rem;
+  border-radius: 9px;
+  margin: 0.5rem 0 1rem;
+  color: var(--pcolor);
+  background-color: var(--shcolor);
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.buttonX {
+  font-size: 0.9rem;
+  font-weight: bold;
+  font-family: "Avenir", "Arial", sans-serif;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  color: rgb(170, 160, 32);
+  background-color: inherit;
+}
+
+.buttonP {
+  font-size: 1.05rem;
+  font-family: "Times New Roman 400", serif;
+  padding: 0.3rem 0;
+  border-radius: 6px;
+  margin: 0.5rem 0 1rem;
+  color: var(--scolor);
+  background-color: var(--pcolor);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear;
+}
+
+.buttonP:hover {
+  box-shadow: 0 0 1px 1px var(--pcolor);
+  opacity: 0.95;
+}
+
+.buttonS {
+  font-size: 1.05rem;
+  font-family: "Times New Roman 400", serif;
+  padding: 0.3rem 0rem;
+  border-radius: 6px;
+  margin: 0.5rem 0 1rem;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear;
+}
+
+.buttonS:hover {
+  box-shadow: 0 0 1px 1px var(--pcolor);
+  opacity: 0.9;
+}
+
+.buttonT {
+  white-space: nowrap;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Avenir", "Arial", sans-serif;
+  color: var(--pcolor);
+  background-color: inherit;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease-out;
+}
+
+.btnSend {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s linear;
+}
+
+.tHover:hover {
+  color: var(--tcolor);
+}
+
+.o {
+  opacity: 0.5;
+  transition: opacity 0.3s linear;
+}
+
+.o:hover,
+.oActiv {
+  opacity: 1;
+}
+
+.ac {
+  outline: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}

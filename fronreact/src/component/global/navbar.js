@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import Logoi from "../../asset/images/logo";
@@ -12,7 +11,7 @@ import Face from "./face/face";
 import Menu from "./menu/menu";
 import Show from "../show";
 
-import Signin from "../signIn";
+import { UserC } from "../Hooks/User";
 
 export default function Nav(props) {
   const rel = {
@@ -22,9 +21,10 @@ export default function Nav(props) {
     position: "fixed",
   };
 
+  const user = useContext(UserC);
+
   const history = useHistory();
-  const user = useSelector((state) => state.user);
-  const notif = useSelector((state) => state.notif);
+  const notif = null; // useSelector((state) => state.notif);
 
   const [search, setSearch] = useState(props.search);
   const [showCard, setShowCard] = useState(false);
@@ -36,15 +36,29 @@ export default function Nav(props) {
   return (
     <>
       <nav style={props.here ? fix : rel}>
-        <div className="logo">
+        <div className="logo ml3 mu-5">
           <Link to="/">
             <Logoi />
           </Link>
         </div>
-        <div className="menu">
+        <div className="menu mr3 mu-5">
           <ul>
             <li>
-              <div className="search">
+              <Link
+                to="/pricing"
+                className="aNav btnHover"
+                style={
+                  props.loc === "PRICING"
+                    ? {
+                        backgroundColor: "var(--tcolor)",
+                      }
+                    : {}
+                }
+              >
+                {" "}
+                Pricing{" "}
+              </Link>
+              {/* <div className="search">
                 <Search />
                 <input
                   id="searchT"
@@ -60,11 +74,28 @@ export default function Nav(props) {
                     }
                   }}
                 />
-              </div>
+              </div> */}
+            </li>
+            <li>
+              <Link
+                to="/posts"
+                className="aNav btnHover"
+                style={
+                  props.loc === "POSTS"
+                    ? {
+                        backgroundColor: "var(--tcolor)",
+                      }
+                    : {}
+                }
+              >
+                {" "}
+                Posts{" "}
+              </Link>
             </li>
             <li>
               <Link
                 to="/strategys"
+                className="aNav btnHover"
                 style={
                   props.loc === "ROBOT"
                     ? {
@@ -79,6 +110,7 @@ export default function Nav(props) {
             <li>
               <Link
                 to="/indicators"
+                className="aNav btnHover"
                 style={
                   props.loc === "INDICATOR"
                     ? {
@@ -91,42 +123,36 @@ export default function Nav(props) {
               </Link>
             </li>
             <li>
-              <Link
-                to="/source"
-                style={
-                  props.loc === "SOURCE"
-                    ? {
-                        backgroundColor: "var(--tcolor)",
-                      }
-                    : {}
-                }
-              >
-                {" "}
-                Source{" "}
-              </Link>
-            </li>
-            <li>
-              {user ? (
-                <a className="withimg" onClick={() => setShowFace(true)}>
+              {user.user ? (
+                <button
+                  className="abtn flexA btnHover svg2"
+                  onClick={() => setShowFace(true)}
+                >
                   <Facei />
-                </a>
+                </button>
               ) : (
-                <a className="signin" onClick={sign.sshow}>
-                  Sign In
-                </a>
+                <button
+                  className="signin abtnNav btnHover"
+                  onClick={() => user.check(true)}
+                >
+                  SignIn
+                </button>
               )}
             </li>
-            {user && (
+            {user.user && (
               <li>
-                <a className="withimg" onClick={() => setShowCard(true)}>
+                <button
+                  className="abtn flexA btnHover svg2"
+                  onClick={() => setShowCard(true)}
+                >
                   <Bell exist={notif && notif.length > 0 ? true : false} />
-                </a>
+                </button>
               </li>
             )}
           </ul>
         </div>
 
-        <div className="search">
+        {/* <div className="search">
           <Search />
           <input
             type="text"
@@ -141,12 +167,15 @@ export default function Nav(props) {
               }
             }}
           />
-        </div>
+        </div> */}
 
-        <div className="media">
-          <a onClick={() => setShowMenu(true)}>
+        <div className="media mr1">
+          <button
+            className="abtn flexA btnHover svg2"
+            onClick={() => setShowMenu(true)}
+          >
             <Menui click={showMenu} />
-          </a>
+          </button>
         </div>
       </nav>
 
@@ -155,10 +184,13 @@ export default function Nav(props) {
       ) : (
         <></>
       )}
-      {sign.show ? <Signin close={sign.cshow} show={sign.show} /> : <></>}
       {showFace ? <Face close={() => setShowFace(false)} /> : <></>}
       {showMenu ? (
-        <Menu close={() => setShowMenu(false)} sign={sign.sshow} user={user} />
+        <Menu
+          close={() => setShowMenu(false)}
+          sign={sign.sshow}
+          user={user.user}
+        />
       ) : (
         <></>
       )}

@@ -14,7 +14,9 @@ function Noprod({ type }) {
       </div>
       <div>
         <h5>Check out our {type} now</h5>
-        <Link to={"/" + type}>Go to {type}</Link>
+        <Link className="abtnP pl1 pr1" to={"/" + type}>
+          Go to {type}
+        </Link>
       </div>
     </div>
   );

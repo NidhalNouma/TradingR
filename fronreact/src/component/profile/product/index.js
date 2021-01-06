@@ -45,12 +45,12 @@ function Myproducts(props) {
             >
               Indicators
             </h5>
-            <h5
+            {/* <h5
               className={sec === 2 ? "active" : undefined}
               onClick={() => setSec(2)}
             >
               Source
-            </h5>
+            </h5> */}
           </div>
           {sec === 0 && <Product type="Strategys" data={str} />}
           {sec === 1 && <Product type="Indicators" data={ind} />}

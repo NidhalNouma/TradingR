@@ -1,0 +1,45 @@
+.h31 {
+  margin: 0.5rem 0;
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--pcolor);
+  user-select: none;
+  font-family: "Avenir", "Arial", sans-serif;
+}
+
+.h3 {
+  font-size: 1.4rem;
+  color: var(--pcolor);
+  font-family: "Times New Roman 400", serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.h4 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--pcolor);
+  font-family: "Times New Roman 400", serif;
+  font-weight: lighter;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.h5 {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--pcolor);
+  font-family: "Avenir", "Arial", sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.h51 {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--pcolor);
+  font-family: "Avenir", "Arial", sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+}

@@ -1,18 +1,18 @@
-export const Dark = () => {
-  return { type: "ON" };
-};
+// export const Dark = () => {
+//   return { type: "ON" };
+// };
 
-export const Light = () => {
-  return { type: "OFF" };
-};
+// export const Light = () => {
+//   return { type: "OFF" };
+// };
 
 export const Products = (payload) => {
   return { type: "GET_PRODUCTS", payload };
 };
 
-export const User = (payload) => {
-  return { type: "GET_USER", payload };
-};
+// export const User = (payload) => {
+//   return { type: "GET_USER", payload };
+// };
 
 export const Logout = (payload) => {
   return { type: "LOGOUT", payload };
@@ -116,4 +116,10 @@ export const Setnotif = (payload) => {
 
 export const AddNotif = (payload) => {
   return { type: "ADDNOTUF", payload };
+};
+
+//
+
+export const getAllProduct = (payload) => {
+  return { type: "GET_ALL_PRODUCT", payload };
 };

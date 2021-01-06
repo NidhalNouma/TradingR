@@ -49,7 +49,7 @@ export default function Logo() {
               fill="none"
               stroke="var(--tcolor)"
               strokeLinecap="round"
-              strokeWidth="1"
+              strokeWidth="2"
             />
           </g>
         </g>

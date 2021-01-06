@@ -9,13 +9,16 @@ export default function Cardlist({ data }) {
           backgroundColor: data.readed ? "var(--scolor)" : "",
         }}
       >
-        <Link to={data.product._id && "/product/" + data.product._id}>
+        <Link
+          className="flexB at"
+          to={data.product._id && "/product/" + data.product._id}
+        >
           <img src={data.product.img && data.product.img} alt="" />
 
           <div>
-            <p>{"-> " + data.message}</p>
-            <h5>{data.product.title}</h5>
-            <span>{data.at}</span>
+            <p className="pgl2">{"-> " + data.message}</p>
+            <h5 className="h5">{data.product.title}</h5>
+            <i className="i1">{data.at}</i>
           </div>
         </Link>
       </li>

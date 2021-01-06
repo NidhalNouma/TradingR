@@ -1,7 +1,7 @@
 .containP {
   position: relative;
-  top: 90px;
-  margin: 2.5em 7%;
+  top: 80px;
+  margin: 3rem 7%;
   text-align: start;
 }
 
@@ -35,26 +35,12 @@
   border-radius: 12px;
 }
 
-.pdetails h4 {
-  margin: 2em 0 1em;
-  font-weight: normal;
-  color: var(--pcolor);
-  font-family: "Times New Roman", Times, serif;
-}
-
 .pdetails p {
   text-align: justify;
   font-weight: 50;
   font-size: 0.78em;
   line-height: 150%;
   overflow: hidden;
-}
-
-.pdetails h5 {
-  font-weight: 200;
-  font-size: 0.9em;
-  color: #388825;
-  font-family: "Times New Roman", Times, serif;
 }
 
 .pdetails iframe {
@@ -64,6 +50,36 @@
   border: none;
 }
 
+.pdetails .sdetails {
+  width: 60%;
+  margin: 1rem auto 2rem;
+  border: 2px solid var(--scolor);
+  border-radius: 12px;
+}
+
+.pdetails .sdetails span {
+  font-size: 1.05rem;
+  cursor: pointer;
+  color: var(--pcolor);
+  text-align: center;
+  padding: 0.3rem 1rem;
+  border-radius: 10px;
+  width: 30%;
+  transition: none;
+}
+
+.pdetails .sdetails span:hover {
+  background-color: var(--scolor);
+}
+
+.pdetails .chart {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 1em;
+  position: relative;
+  min-height: 300px;
+}
+/* 
 .pdetails ul {
   display: flex;
   justify-content: space-around;
@@ -82,7 +98,7 @@
 
 .pdetails ul li:hover {
   opacity: 1;
-}
+} */
 
 /* Contact us */
 
@@ -92,6 +108,68 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+/* Buy Now */
+.cost {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 1rem 3rem;
+  background-color: var(--bgcolor);
+  position: sticky;
+  top: 14vh;
+  border-radius: 12px;
+  box-shadow: 0 0 6px var(--shcolor);
+}
+
+.cost select {
+  color: var(--pcolor);
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  /* border: 1px solid var(--tcolor); */
+  margin: 0;
+  background-color: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.cost select:focus {
+  outline: none;
+}
+
+.cost select:hover {
+  transform: scale(1.04);
+}
+
+/* sticky */
+.conmis {
+  position: sticky;
+  top: 65px;
+  padding: 1rem 0 0.1rem;
+  border-radius: 0 0 12px 12px;
+  margin-bottom: 1em;
+  background-color: var(--bgcolor);
+}
+
+.mis {
+  background-color: var(--scolor);
+  border-radius: 12px;
+  margin: 0.5em 0;
+  padding: 0.6em;
+}
+
+.mis button {
+  background-color: var(--scolor);
+  padding: 0.2rem 0.4rem;
+  border-radius: 8px;
+  box-shadow: 0 0 1px var(--pcolor);
+  opacity: 0.75;
+}
+
+.mis button:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 1200px) {

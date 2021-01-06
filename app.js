@@ -39,7 +39,7 @@ app.get(
   (req, res) => {
     if (req.user) {
       fs.readFile("./html/index_.html", "utf8", function (err, content) {
-        var rendered = content.toString().replace("<!-- data -->", req.user);
+        var rendered = content.toString().replace("!!data!!", req.user);
         res.send(rendered);
       });
     } else {
@@ -67,3 +67,9 @@ const server = http.createServer(app);
 const io = require("socket.io")(server);
 run(io);
 server.listen(port, () => console.log(`listening at port ${port}`));
+
+// const model = require("./Model/model");
+// server.on("close", function () {
+//   // request closed unexpectedly
+//   model.close();
+// });

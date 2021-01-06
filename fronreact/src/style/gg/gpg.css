@@ -1,0 +1,35 @@
+.p {
+  text-align: justify;
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  color: var(--textcolor);
+  font-family: "Avenir", "Arial", sans-serif;
+  background-color: inherit;
+}
+
+.pg1 {
+  text-align: justify;
+  font-size: 1rem;
+  color: var(--textcolor);
+  font-family: "Avenir", "Arial", sans-serif;
+  background-color: inherit;
+}
+
+.pg2 {
+  text-align: justify;
+  font-size: 0.9rem;
+  color: var(--textcolor);
+  font-family: "Avenir", "Arial", sans-serif;
+  background-color: inherit;
+}
+
+.pgl2 {
+  font-size: 0.85rem;
+  margin: 0;
+  margin-bottom: 0.2rem;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

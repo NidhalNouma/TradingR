@@ -6,8 +6,11 @@ function Load() {
     <div className="griditem">
       <Skeleton className="skel-img" variant="rect" />
       <Skeleton variant="text" width="80%" />
-      <Skeleton variant="rect" height={50} />
-      <Skeleton variant="text" width="20%" />
+      <Skeleton variant="rect" height={30} />
+      <div className="flexB">
+        <Skeleton variant="text" width="30%" />
+        <Skeleton variant="text" width="30%" />
+      </div>
     </div>
   );
 }

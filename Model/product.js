@@ -1,314 +1,280 @@
 const mongoose = require("mongoose");
 const { qaSchema } = require("./QandA");
 const { improSchema } = require("./impro");
+const { impro } = require("./UsePro");
 
 const productSchema = new mongoose.Schema({
   createAt: { type: Date, default: Date.now },
-  type: { type: String, required: [true, "Type is requierd"] },
   title: { type: String, required: [true, "Title is requierd"] },
+  version: {
+    type: Number,
+    required: [true, "version is requierd"],
+  },
+  available: {
+    MT4: { type: Boolean, default: false },
+    MT5: { type: Boolean, default: false },
+    tradingView: { type: Boolean, default: false },
+  },
   description: { type: String, required: [true, "Description is requierd"] },
+  moreDes: {
+    result: { type: [String] },
+    inputs: { type: [String] },
+    screenshots: { type: [String] },
+    whatsNew: { type: String },
+  },
   media: { type: String, required: [true, "Media is requierd"] },
   img: { type: String, required: [true, "Image is requierd"] },
-  price: { type: String, required: [true, "Price is requierd"] },
-  chartDetails: [{ type: Number }],
   qandas: { type: [qaSchema], default: [] },
   improvements: { type: [improSchema], default: [] },
+  show: { type: Boolean, default: true },
 });
 
 const productVersionSchema = new mongoose.Schema({
   createAt: { type: Date, default: Date.now },
-  type: { type: String, required: [true, "Type is requierd"] },
-  price: {
-    type: [
-      {
-        title: { type: String, required: true },
-        desc: { type: String, required: true },
-        price: { type: Number, required: true },
-      },
-    ],
-    required: true,
+  type: {
+    type: String,
+    enum: ["Indicator", "EA"],
+    required: [true, "Type is requierd"],
   },
-  product: {
-    type: [
-      {
-        version: { type: Number, required: true },
-        product: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Product",
-          required: true,
-        },
-      },
-    ],
+  products: {
+    type: [{ type: productSchema }],
     required: true,
   },
   subscribers: {
-    type: [
-      {
-        type: mongoose.Types.ObjectId,
-        ref: "User",
-      },
-    ],
-    default: [],
+    type: [{ type: mongoose.Types.ObjectId, ref: "User", default: [] }],
   },
-  likes: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-    default: [],
+  downloads: {
+    type: [{ type: mongoose.Types.ObjectId, ref: "User", default: [] }],
   },
-  numberOfDownload: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-    default: [],
-  },
-  numberOfBuyers: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-    default: [],
-  },
-  numberOfVisitor: {
-    type: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-    default: [],
-  },
+  show: { type: Boolean, default: true },
 });
 
-const product = mongoose.model("Product", productSchema);
-const productVersion = mongoose.model("ProductVersion", productVersionSchema);
+productVersionSchema.pre("updateOne", async function (next) {
+  const authId = this.getUpdate().authId;
+  if (authId) delete this.getUpdate().authId;
+  const q = this.getFilter();
+  const u = this.getUpdate();
 
-const newProductVersion = async function (type) {
-  console.log(
-    "\x1b[36m%s\x1b[0m",
-    `Adding New Product Version with type ${type} ...`
-  );
-  const p = new productVersion({ type });
+  // console.log(this.getUpdate(), authId);
+  if (u["$push"]) {
+    const r = await impro(q, u, authId);
+    if (r) {
+      next(r);
+    }
+  }
+  next();
+});
+
+const productVersion =
+  mongoose.models.ProductVersion === undefined
+    ? mongoose.model("ProductVersion", productVersionSchema)
+    : mongoose.models.ProductVersion;
+
+const hide = async function (id) {
+  console.log("\x1b[36m%s\x1b[0m", `Hiding product ${id} ...`);
   let r = { res: null, err: null };
   try {
-    r.res = await p.save();
+    r.res = await productVersion.updateOne({ _id: id }, { show: true });
+    console.log("\x1b[35m%s\x1b[0m", `Product ${id} hided ...`);
   } catch (e) {
-    console.log("\x1b[31m%s\x1b[0m", `Add New product Version Error ==> ${e}`);
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Errer with hiding product ${id} ==> ${e}`
+    );
     r.err = e;
   }
   return r;
 };
 
-const addProductToProductVersion = async function (pId, pvId, version) {
+const addNewProduct = async function (type, product) {
+  console.log("\x1b[36m%s\x1b[0m", `Adding New Product with type ${type} ...`);
+  let r = { res: null, err: null };
+  let pr = null;
+  try {
+    pr = checkProduct(product);
+  } catch (e) {
+    console.log("\x1b[31m%s\x1b[0m", `Add New product Error ==> ${e.message}`);
+    r.err = e.message;
+    return r;
+  }
+
+  const p = new productVersion({ type, products: [pr] });
+  try {
+    r.res = await p.save();
+    console.log("\x1b[35m%s\x1b[0m", "New Product added ...");
+  } catch (e) {
+    r.err = e.message;
+    console.log("\x1b[31m%s\x1b[0m", `Add New productV Error ==> ${e.message}`);
+  }
+  return r;
+};
+
+const addNewVersion = async function (id, product) {
   console.log(
     "\x1b[36m%s\x1b[0m",
-    `Adding New Product ${pId} to product Version ${pvId} ...`
+    `Adding New version to Product id ${id} ...`
   );
   let r = { res: null, err: null };
+
+  let pr = null;
+  try {
+    pr = checkProduct(product);
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Add new version to product id ${id} Error ==> ${e}`
+    );
+    r.err = e;
+    return r;
+  }
   try {
     r.res = await productVersion.updateOne(
-      { _id: pvId },
-      { $push: { product: { version, product: pId } } }
+      { _id: id },
+      { $push: { products: pr } }
+    );
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `New Version added to product id ${id} ...`
     );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Add new Product ${pId} to product Version ${pvId} Error ==> ${e}`
+      `Add new version to product id ${id} Error ==> ${e}`
     );
     r.err = e;
   }
   return r;
 };
 
-const findAllProductVersion = async function () {
-  console.log("\x1b[36m%s\x1b[0m", `Find All Product Versions ...`);
+const findAllProduct = async function (type) {
+  console.log("\x1b[36m%s\x1b[0m", `Find All Products ${type} ...`);
   let r = { res: null, err: null };
+  const f = type === "undefined" ? {} : { type };
+
   try {
-    r.res = await productVersion.find().populate({
-      path: "product.product",
+    r.res = await productVersion.find(f).populate({
+      path: "products",
       populate: [
-        { path: "qandas.userId", select: "username score userPicture" },
+        { path: "qandas.userId", select: "userName score userPicture" },
         {
           path: "qandas.answers.userId",
-          select: "username score userPicture",
+          select: "userName score userPicture",
         },
-        { path: "improvements.userId", select: "username score userPicture" },
+        { path: "improvements.userId", select: "userName score userPicture" },
         {
           path: "improvements.answers.userId",
-          select: "username score userPicture",
+          select: "userName score userPicture",
         },
       ],
     });
+    console.log("\x1b[35m%s\x1b[0m", `Products Found All ${type} ...`);
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Finfing ALl Product Versions Error ==> ${e}`
+      `Finding ALl Products ${type} Error ==> ${e}`
     );
   }
   return r;
 };
 
-const findProductVersionById = async function (_id) {
-  console.log("\x1b[36m%s\x1b[0m", `Find  Product Version By Id ${_id} ...`);
+const findProductById = async function (_id) {
+  console.log("\x1b[36m%s\x1b[0m", `Find  Product By Id ${_id} ...`);
   let r = { res: null, err: null };
   try {
     r.res = await productVersion.findById({ _id }).populate({
-      path: "product.product",
+      path: "products",
       populate: [
-        { path: "qandas.userId", select: "username score userPicture" },
-        { path: "qandas.answers.userId", select: "username score userPicture" },
-        { path: "improvements.userId", select: "username score userPicture" },
+        { path: "qandas.userId", select: "userName score userPicture" },
+        { path: "qandas.answers.userId", select: "userName score userPicture" },
+        { path: "improvements.userId", select: "userName score userPicture" },
         {
           path: "improvements.answers.userId",
-          select: "username score userPicture",
+          select: "userName score userPicture",
         },
       ],
     });
+    console.log("\x1b[35m%s\x1b[0m", `Product ${_id} found ...`);
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Finfing ALl Product Version By Id ${_id} Error ==> ${e}`
+      `Finding Product By Id ${_id} Error ==> ${e}`
     );
   }
   return r;
 };
 
-const addSubscriber = async (pvId, userId) =>
-  await productVersionPlus(pvId, userId, { subscribers: userId });
+const download = async (pvId, userId) => await push(pvId, userId, 1);
+const subscribe = async (pvId, userId) => await push(pvId, userId);
+const desubscribe = async (pvId, userId) => await pull(pvId, userId);
 
-const desSubscriber = async (pvId, userId) =>
-  await productVersionMinus(pvId, userId, { subscribers: userId });
+module.exports = {
+  productVersion,
+  productSchema,
+  addNewProduct,
+  addNewVersion,
+  findAllProduct,
+  findProductById,
+  subscribe,
+  desubscribe,
+  download,
+  hide,
+};
 
-const addLike = async (pvId, userId) =>
-  await productVersionPlus(pvId, userId, { likes: userId });
+const checkProduct = function (pr) {
+  const product = mongoose.model("Product", productSchema);
+  const pri = new product(pr);
+  const err = pri.validateSync();
+  if (err) {
+    throw err;
+  }
+  return pri;
+};
 
-const desLike = async (pvId, userId) =>
-  await productVersionMinus(pvId, userId, { likes: userId });
-
-const productVersionPlus = async function (pvId, userId, data) {
+const push = async function (pvId, userId, type) {
+  const data = { subscribers: userId };
+  if (type === 1) data = { downloads: userId };
   const key = Object.keys(data)[0];
   console.log(
     "\x1b[36m%s\x1b[0m",
-    `New user ${key} userId${userId} for ProductVersion ${pvId} ...`
+    `New ${key} userId${userId} for ProductVersion ${pvId} ...`
   );
   let r = { res: null, err: null };
   try {
     r.res = await productVersion.updateOne({ _id: pvId }, { $push: data });
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `New ${key} userId${userId} for ProductVersion ${pvId} Added ...`
+    );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Errer with adding user ${key} userId${userId} for ProductVersion ${pvId} ==> ${e}`
+      `Errer with adding ${key} userId${userId} for ProductVersion ${pvId} ==> ${e}`
     );
     r.err = e;
   }
   return r;
 };
 
-const productVersionMinus = async function (pvId, userId, data) {
+const pull = async function (pvId, userId) {
+  const data = { subscribers: userId };
   const key = Object.keys(data)[0];
   console.log(
     "\x1b[36m%s\x1b[0m",
-    `Remove user ${key} userId${userId} for ProductVersion ${pvId} ...`
+    `Remove ${key} userId${userId} for ProductVersion ${pvId} ...`
   );
   let r = { res: null, err: null };
   try {
     r.res = await productVersion.updateOne({ _id: pvId }, { $pull: data });
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Removed ${key} userId${userId} for ProductVersion ${pvId} ...`
+    );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Errer with Removing user ${key} userId${userId} for ProductVersion ${pvId} ==> ${e}`
+      `Errer with Removing ${key} user ${userId} for ProductVersion ${pvId} ==> ${e}`
     );
     r.err = e;
   }
   return r;
-};
-
-//-------------------------------------------------------------------------------------------
-
-const newProduct = async function (
-  type,
-  title,
-  description,
-  media,
-  img,
-  price
-) {
-  console.log("\x1b[36m%s\x1b[0m", `Adding New Product ${title} ...`);
-  const p = new product({
-    type,
-    title,
-    description,
-    media,
-    img,
-    price,
-  });
-  let r = { res: null, err: null };
-
-  try {
-    r.res = await p.save();
-  } catch (e) {
-    console.log("\x1b[31m%s\x1b[0m", "Add New product Error ==>", e);
-    r.err = e;
-  }
-  return r;
-};
-
-const findAll = async function () {
-  console.log("\x1b[36m%s\x1b[0m", `Finding all products ...`);
-  let r = { res: null, err: null };
-  try {
-    r.res = await product
-      .find()
-      .populate({
-        path: "improvements.userId",
-        select: "username score userPicture",
-      })
-      .populate({ path: "qandas.userId", select: "username score userPicture" })
-      .populate({
-        path: "improvements.answers.userId",
-        select: "username score userPicture",
-      })
-      .populate({
-        path: "qandas.answers.userId",
-        select: "username score userPicture",
-      });
-  } catch (e) {
-    console.log("\x1b[31m%s\x1b[0m", `Find All Products Error ==> ${e}`);
-    r.err = e;
-  }
-  return r;
-};
-
-const findId = async function (_id) {
-  console.log("\x1b[36m%s\x1b[0m", `Find Product by ID ${_id} ...`);
-  let r = { res: null, err: null };
-
-  try {
-    r.res = await product
-      .findOne({ _id })
-      .populate({
-        path: "improvements.userId",
-        select: "username score userPicture",
-      })
-      .populate({ path: "qandas.userId", select: "username score userPicture" })
-      .populate({
-        path: "improvements.answers.userId",
-        select: "username score userPicture",
-      })
-      .populate({
-        path: "qandas.answers.userId",
-        select: "username score userPicture",
-      });
-  } catch (e) {
-    console.log(
-      "\x1b[31m%s\x1b[0m",
-      `Find Product with ID ${_id} Error ==> ${e}`
-    );
-    r.err = e;
-  }
-  return r;
-};
-
-module.exports = {
-  newProductVersion,
-  addProductToProductVersion,
-  findAllProductVersion,
-  findProductVersionById,
-  product,
-  productSchema,
-  newProduct,
-  findAll,
-  findId,
-  addSubscriber,
-  desSubscriber,
-  addLike,
-  desLike,
 };

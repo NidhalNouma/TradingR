@@ -1,0 +1,16 @@
+.containerCreate {
+  width: 80%;
+  margin: auto;
+}
+
+.containerCreate .fr-box.fr-basic {
+  margin-top: 2.6rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px !important;
+}
+
+.containerCreate .btns {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}

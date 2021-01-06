@@ -1,0 +1,9 @@
+.container {
+  margin: 100px auto 0;
+  width: 80%;
+}
+
+.pricing-item {
+  border: 1px solid var(--tcolor);
+  border-radius: 8px;
+}

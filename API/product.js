@@ -2,114 +2,38 @@ const express = require("express");
 const router = express.Router();
 var bodyParser = require("body-parser");
 
-const user = require("../Model/user");
-const product = require("../Model/product");
 const {
-  addImpro,
-  addImproAns,
-  improPlus,
-  improMin,
-} = require("../Model/impro");
+  addNewProduct,
+  addNewVersion,
+  findAllProduct,
+  findProductById,
+  subscribe,
+  desubscribe,
+  hide,
+} = require("../Model/Product");
+const { addImpro, addImproAns, improVote } = require("../Model/impro");
 
 const { addQuestion, addQuestionAns } = require("../Model/QandA");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
-router.get("/findbyid/:id", async function (req, res) {
-  const id = req.params.id;
-  const ans = {
-    find: false,
-    result: null,
-    error: null,
-  };
-  const r = await product.findId(id);
-  if (r.res) {
-    ans.find = true;
-    ans.result = r.res;
-    console.log("\x1b[35m%s\x1b[0m", `Product_ID ${id} Found ...`);
-  } else if (r.err) {
-    ans.error = r.err;
-  }
-
-  res.json(ans);
-});
-
-router.get("/findall", async function (req, res) {
-  const ans = {
-    find: false,
-    results: null,
-    error: null,
-  };
-  const r = await product.findAll();
-  if (r.res) {
-    ans.find = true;
-    ans.results = r.res;
-    console.log("\x1b[35m%s\x1b[0m", `All products found ...`);
-  } else if (r.err) {
-    ans.error = r.err;
-  }
-
-  res.json(ans);
-});
-
-router.post("/add", async function (req, res) {
-  const type = req.body.type;
-  const title = req.body.title;
-  const description = req.body.description;
-  const img = req.body.img;
-  const media = req.body.media;
-  const price = req.body.price;
-  const ans = {
-    added: false,
-    error: null,
-  };
-  const r = await product.newProduct(
-    type,
-    title,
-    description,
-    media,
-    img,
-    price
-  );
-  if (r.res) {
-    ans.added = true;
-    console.log("\x1b[35m%s\x1b[0m", "New Product added ...");
-  } else if (r.err) {
-    ans.error = r.err;
-  }
-
-  res.json(ans);
-});
-
-router.post("/add/impro", async function (req, res) {
+router.post("/impro", async function (req, res) {
   const id = req.body.id;
+  const pId = req.body.pId;
   const userId = req.body.userId;
   const impro = req.body.impro;
 
   const ans = {
     added: false,
-    improId: null,
+    id: null,
     error: null,
   };
 
-  const rsp = await addImpro(id, userId, impro);
+  const rsp = await addImpro(id, pId, userId, impro);
   if (rsp.res) {
-    const p = await product.findId(id);
-    const raw = p.res.improvements[p.res.improvements.length - 1];
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `New Improvement with Id ${raw._id} Added for Product with ID ${id} ... `
-    );
-    ans.improId = raw._id;
-    const urs = await user.addImpro(userId, id, raw._id);
-    if (urs) {
-      console.log(
-        "\x1b[35m%s\x1b[0m",
-        `Impro Added to User ${userId} Improvement_ID ${raw._id} ...`
-      );
-      ans.added = true;
-    }
+    ans.added = true;
+    ans.id = rsp.id;
   } else {
     ans.error = rsp.err;
   }
@@ -117,35 +41,20 @@ router.post("/add/impro", async function (req, res) {
   res.json(ans);
 });
 
-router.post("/add/impro/plus", async function (req, res) {
-  const _id = req.body.productId;
-  const id = req.body.id;
+router.post("/impro/plus", async function (req, res) {
+  const _id = req.body.id;
+  const pId = req.body.pId;
+  const id = req.body.impId;
   const userId = req.body.userId;
   const authId = req.body.authId;
-  const userName = req.body.userName;
 
   const ans = {
     added: false,
     error: null,
   };
-  const r = await improPlus(_id, id, userId);
+  const r = await improVote(_id, pId, id, userId, "Plus", authId);
   if (r.res) {
     ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Plus Added to improvementID ${id} for product ID ${_id} userID ${userId} ...`
-    );
-    const mes = {
-      message: `${userName} vote + to your improvement`,
-      product: _id,
-    };
-    const r1 = await user.addScore(authId, 1, mes);
-    if (r1.res) {
-      console.log(
-        "\x1b[35m%s\x1b[0m",
-        `Plus Added to score for userID ${authId} ...`
-      );
-    }
   } else if (r.err) {
     ans.error = r.err;
   }
@@ -153,35 +62,20 @@ router.post("/add/impro/plus", async function (req, res) {
   res.json(ans);
 });
 
-router.post("/add/impro/minus", async function (req, res) {
-  const _id = req.body.productId;
-  const id = req.body.id;
+router.post("/impro/minus", async function (req, res) {
+  const _id = req.body.id;
+  const pId = req.body.pId;
+  const id = req.body.impId;
   const userId = req.body.userId;
   const authId = req.body.authId;
-  const userName = req.body.userName;
 
   const ans = {
     added: false,
     error: null,
   };
-  const r = await improMin(_id, id, userId);
+  const r = await improVote(_id, pId, id, userId, "Minus", authId);
   if (r.res) {
     ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Minus Added to improvementID ${id} for product ID ${_id} userID ${userId} ...`
-    );
-    const mes = {
-      message: `${userName} vote - to your improvement`,
-      product: _id,
-    };
-    const r1 = await user.addScore(authId, -1, mes);
-    if (r1.res) {
-      console.log(
-        "\x1b[35m%s\x1b[0m",
-        `Minus Added to score for userID ${authId} ...`
-      );
-    }
   } else if (r.err) {
     ans.error = r.err;
   }
@@ -189,22 +83,21 @@ router.post("/add/impro/minus", async function (req, res) {
   res.json(ans);
 });
 
-router.post("/add/impro/answer", async function (req, res) {
-  const pId = req.body.productId;
+router.post("/impro/answer", async function (req, res) {
   const id = req.body.id;
+  const pId = req.body.pId;
+  const rId = req.body.rId;
+  const userId = req.body.userId;
   const answer = req.body.answer;
-  const userId = req.body.userId;
+  const authId = req.body.authId;
+
   const ans = {
     added: false,
     error: null,
   };
-  const r = await addImproAns(pId, id, userId, answer);
+  const r = await addImproAns(id, pId, rId, userId, answer, authId);
   if (r.res) {
     ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `New Answer Added for Improvement Id ${id} for product ID ${pId} userID ${userId} ...`
-    );
   } else if (r.err) {
     ans.error = r.err;
   }
@@ -212,57 +105,46 @@ router.post("/add/impro/answer", async function (req, res) {
   res.json(ans);
 });
 
-router.post("/add/question", async function (req, res) {
+router.post("/question", async function (req, res) {
   const id = req.body.id;
+  const pId = req.body.pId;
   const userId = req.body.userId;
   const question = req.body.question;
 
   const ans = {
     added: false,
     error: null,
+    id: null,
   };
-  const r = await addQuestion(id, userId, question);
+
+  const r = await addQuestion(id, pId, userId, question);
   if (r.res) {
     ans.added = true;
-    const p = await product.findId(id);
-    const raw = p.res.qandas[p.res.qandas.length - 1];
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `New Question Added for product ID ${id} userID ${userId} ...`
-    );
-    const usr = await user.addQuestion(userId, id, raw._id);
-    if (usr) {
-      console.log(
-        "\x1b[35m%s\x1b[0m",
-        `Question Added to User ${userId} Question_ID ${raw._id} ...`
-      );
-    }
+    ans.id = r.id;
   } else if (r.err) {
-    r.error = r.err;
+    ans.error = r.err.message;
   }
 
   res.json(ans);
 });
 
-router.post("/add/question/answer", async function (req, res) {
-  const pId = req.body.productId;
+router.post("/question/answer", async function (req, res) {
   const id = req.body.id;
-  const answer = req.body.answer;
+  const pId = req.body.pId;
+  const rId = req.body.rId;
   const userId = req.body.userId;
+  const answer = req.body.answer;
+  const authId = req.body.authId;
 
   const ans = {
     added: false,
     error: null,
   };
-  const r = await addQuestionAns(pId, id, userId, answer);
+  const r = await addQuestionAns(id, pId, rId, userId, answer, authId);
   if (r.res) {
     ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Answer Added for Question Id ${id} for product ID ${pId} userID ${userId} ...`
-    );
   } else if (r.err) {
-    r.error = r.err;
+    ans.error = r.err;
   }
 
   res.json(ans);
@@ -270,56 +152,79 @@ router.post("/add/question/answer", async function (req, res) {
 
 // --------------------------------------------------------------------------------------
 
-router.post("/add/productversion", async function (req, res) {
+router.post("/new", async function (req, res) {
   const type = req.body.type;
+  const pr = {
+    version: req.body.version,
+    title: req.body.title,
+    description: req.body.description,
+    img: req.body.img,
+    media: req.body.media,
+    available: {
+      MT4: req.body.MT4,
+      MT5: req.body.MT5,
+      tradingView: req.body.tradingView,
+    },
+  };
   const ans = {
     added: false,
     error: null,
   };
-  const r = await product.newProductVersion(type);
+  const r = await addNewProduct(type, pr);
   if (r.res) {
     ans.added = true;
-    console.log("\x1b[35m%s\x1b[0m", `Product Version Added ...`);
   } else if (r.err) {
-    r.error = r.err;
+    ans.error = r.err;
   }
 
   res.json(ans);
 });
 
-router.post("/add/productversion/add", async function (req, res) {
-  const pId = req.body.pId;
-  const pvId = req.body.pvId;
-  const version = req.body.version;
+router.post("/newversion", async function (req, res) {
+  const id = req.body.id;
+  const pr = {
+    version: req.body.version,
+    title: req.body.title,
+    description: req.body.description,
+    img: req.body.img,
+    media: req.body.media,
+    available: {
+      MT4: req.body.mt4,
+      MT5: req.body.mt5,
+      tradingRev: req.body.tradingRev,
+    },
+  };
   const ans = {
     added: false,
     error: null,
   };
-  const r = await product.addProductToProductVersion(pId, pvId, version);
+  if (id === undefined) {
+    ans.error = "id not define";
+    res.json(ans);
+    return;
+  }
+  const r = await addNewVersion(id, pr);
   if (r.res) {
     ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Product ${pId} Added to product Version ${pvId} ......`
-    );
   } else if (r.err) {
-    r.error = r.err;
+    ans.error = r.err;
   }
 
   res.json(ans);
 });
 
-router.get("/findall/productversion", async function (req, res) {
+router.get("/", async function (req, res) {
   const ans = {
     find: false,
     results: null,
     error: null,
   };
-  const r = await product.findAllProductVersion();
+  const ty = req.query.type;
+
+  const r = await findAllProduct(ty);
   if (r.res) {
     ans.find = true;
     ans.results = r.res;
-    console.log("\x1b[35m%s\x1b[0m", `Products Versions Found ...`);
   } else if (r.err) {
     r.error = r.err;
   }
@@ -327,98 +232,64 @@ router.get("/findall/productversion", async function (req, res) {
   res.json(ans);
 });
 
-router.get("/find/productversion/:id", async function (req, res) {
+router.get("/:id", async function (req, res) {
   const id = req.params.id;
   const ans = {
     find: false,
     result: null,
     error: null,
   };
-  const r = await product.findProductVersionById(id);
+  const r = await findProductById(id);
   if (r.res) {
     ans.find = true;
     ans.result = r.res;
-    console.log("\x1b[35m%s\x1b[0m", `Product Version ${id} found ...`);
   } else if (r.err) {
     r.error = r.err;
   }
   res.json(ans);
 });
 
-router.post("/productversion/subscriber", async function (req, res) {
+router.post("/subscribe", async function (req, res) {
   const pvId = req.body.pvId;
   const userId = req.body.userId;
   const ans = {
     added: false,
     error: null,
   };
-  const r = await product.addSubscriber(pvId, userId);
+  const r = await subscribe(pvId, userId);
   if (r.res) {
     ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `New user subscriber userId${userId} for ProductVersion ${pvId} Added ...`
-    );
   } else if (r.err) {
     r.error = r.err;
   }
   res.json(ans);
 });
 
-router.post("/productversion/dessubscriber", async function (req, res) {
+router.post("/dessubscribe", async function (req, res) {
   const pvId = req.body.pvId;
   const userId = req.body.userId;
   const ans = {
     added: false,
     error: null,
   };
-  const r = await product.desSubscriber(pvId, userId);
+  const r = await desubscribe(pvId, userId);
   if (r.res) {
     ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Removed user subscriber userId${userId} for ProductVersion ${pvId} ...`
-    );
   } else if (r.err) {
     r.error = r.err;
   }
   res.json(ans);
 });
 
-router.post("/productversion/like", async function (req, res) {
-  const pvId = req.body.pvId;
-  const userId = req.body.userId;
+router.post("/hide", async function (req, res) {
+  const id = req.body.id;
   const ans = {
-    added: false,
+    hided: false,
     error: null,
   };
-  const r = await product.addLike(pvId, userId);
+  const r = await hide(id);
   if (r.res) {
     ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `New user Like userId${userId} for ProductVersion ${pvId} ...`
-    );
-  } else if (r.err) {
-    r.error = r.err;
-  }
-  res.json(ans);
-});
-
-router.post("/productversion/deslike", async function (req, res) {
-  const pvId = req.body.pvId;
-  const userId = req.body.userId;
-  const ans = {
-    added: false,
-    error: null,
-  };
-  const r = await product.desLike(pvId, userId);
-  if (r.res) {
-    ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `New user Like userId${userId} for ProductVersion ${pvId} ...`
-    );
   } else if (r.err) {
     r.error = r.err;
   }

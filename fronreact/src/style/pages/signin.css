@@ -12,22 +12,12 @@
 }
 
 .contain-sign {
-  position: fixed;
-  top: 25%;
   width: 50%;
   padding: 1em 0;
   background-color: var(--bgcolor);
   border-radius: 12px;
   text-align: center;
   box-shadow: 0px 0px 8px #00000028;
-}
-
-.signin-h3 {
-  margin: 0.6em 0;
-  font-weight: bold;
-  text-align: center;
-  font-size: 1em;
-  -webkit-text-fill-color: var(--pcolor);
 }
 
 .contain-sign input {
@@ -57,39 +47,32 @@
 .contain-sign a {
   font-size: 0.84em;
   display: inline-flex;
-  margin: 0.6em;
-  height: 35px;
+  margin: 0.6rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   width: 25%;
-  background-color: var(--scolor);
-  color: var(--pcolor);
   border: none;
   transition: transform 0.3s ease-out;
 }
 
 .btn-gg {
   justify-content: center;
-  gap: 10px;
   display: block;
   width: 50% !important;
   background-color: var(--bgcolor) !important;
   box-shadow: 0px 0px 4px var(--pcolor);
 }
 
-.btn-login {
-  background-color: var(--pcolor);
-  color: var(--bgcolor);
-}
-
 .btn-1 .btn-g {
   width: 100%;
   height: 20%;
-  margin: 1rem;
+  margin: 1rem 0;
 }
 
-.contain-sign button:hover,
+/* .contain-sign button:hover,
 .contain-sign a:hover {
   transform: scale(1.02);
-}
+} */
 
 .contain-sign .aclick {
   background-color: var(--pcolor);

@@ -8,19 +8,22 @@ function AcctiveAccount({ activ, close, setActiv }) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <div className="activeaccount">
-        <h3>Active your account</h3>
-        <p>we have sent an email for acctivation please checkout your mail</p>
-        <div>
-          <span
+      <div className="activeaccount p2 pd1 pu1">
+        <h4 className="h4 bold">Active your account</h4>
+        <p className="p bold">
+          We have sent an email for activation please checkout your mail
+        </p>
+        <div className="flexB mu2">
+          <button
+            className="buttonT tHover"
             onClick={() => {
               close();
               setActiv(false);
             }}
           >
             Skip for now
-          </span>
-          <span>Send again</span>
+          </button>
+          <button className="buttonT tHover">Send again</button>
         </div>
       </div>
     </Dialog>

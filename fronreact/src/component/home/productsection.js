@@ -1,42 +1,33 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { Products } from "../../Actions";
+import React, { useEffect, useContext } from "react";
 import Product from "./product";
 import Load from "./Load";
+import { GetAll } from "../Hooks/AllProducts";
+import { SocketC } from "../Hooks/Socket";
 
 export default function Productsection() {
-  const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
   const la = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
 
+  const { onPP } = useContext(SocketC);
+  const { products, getProducts, setProducts } = GetAll();
+
   useEffect(() => {
-    if (products === null || products.length === 1) {
-      axios
-        .get("/api/product/findall/productversion")
-        .then(function (response) {
-          dispatch(Products(response.data.results));
-          // console.log(response.data.results[0].product);
-        })
-        .catch(function (error) {
-          console.log(error.data);
-        })
-        .then(function () {});
-    }
-  }, []);
+    if (products === null) getProducts();
+    onPP(products, setProducts);
+  }, [products]);
 
   return (
     <>
+      <div className="filter">
+        <h5>Recomended</h5>
+        <h5>Latest</h5>
+        <h5>Popular</h5>
+        <h5>Newest</h5>
+      </div>
+      <div className="hr"></div>
       <div className="gridlist">
         {products !== null && products.length > 1
-          ? products.map((item) => {
-              return (
-                <Product key={item._id ? item._id : item} product={item} />
-              );
-            })
-          : la.map((item) => {
-              return <Load key={item._id ? item._id : item} />;
-            })}
+          ? products.map((i) => <Product key={i._id} p={i} />)
+          : la.map((i) => <Load key={i} />)}
       </div>
     </>
   );

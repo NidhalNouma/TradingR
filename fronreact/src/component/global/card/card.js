@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Cardlist from "./cardlist";
 import Noprod from "./Noprod";
 
-import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
 
 export default function Card({ notif, close }) {
   const handleClick = (e) => {
@@ -43,8 +43,10 @@ export default function Card({ notif, close }) {
                 })}
             </ul>
             <div className="total">
-              <span>Mark all as Read</span>
-              <Link to="/profile/notifications">See All</Link>
+              <button className="buttonT tHover">Mark all as Read</button>
+              <Link className="abtnP flexA" to="/profile/notifications">
+                See All
+              </Link>
             </div>
           </>
         ) : (

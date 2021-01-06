@@ -2,38 +2,31 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Typep from "../Typep";
 
-export default function Product({ product }) {
-  const mainp = product;
-  const to = product._id;
-  product = product.product
-    ? product.product[product.product.length - 1]
-    : product;
-  if (product === undefined) return <></>;
-  product = product.product ? product.product : product;
-  if (product === null) return <></>;
+export default function Product({ p }) {
   return (
     <div className="griditem">
-      <Link to={"/product/" + to}>
-        <img src={product.img} alt="Product_Image" />
+      <Link to={{ pathname: "/product/" + p._id, product: p }}>
+        <img src={p.product.img} alt="Product_Image" />
       </Link>
 
-      <h5>
-        <Link to={"/product/" + to}>{product.title}</Link>
-        <span>
-          <Typep type={product.type} />
+      <h5 className="h51 flex md-25">
+        <Link className="ah" to={{ pathname: "/product/" + p._id, product: p }}>
+          {p.product.title}
+        </Link>
+        <span className="ml-5">
+          <Typep type={p.type} />
         </span>
       </h5>
 
-      <p>{product.description}</p>
-      <div className="btm">
+      <p className="pgl2">{p.product.description}</p>
+      <div className="flexB">
         <div className="int">
-          <h6>
-            {mainp.numberOfDownload && mainp.numberOfDownload.length} Downloads
-          </h6>
+          {/* <h6>{p.downloads ? p.downloads.length : 0} Downloads</h6> */}
+          <h6>{p.subscribers ? p.subscribers.length : 0} Subscribers</h6>
         </div>
         <div>
-          <span>MT4</span>
-          <span>MT5</span>
+          <span className="span1">MT4</span>
+          <span className="span1 ml-5">MT5</span>
         </div>
       </div>
     </div>

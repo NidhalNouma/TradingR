@@ -86,7 +86,7 @@ export default function Menu(props) {
                 </li>
               </>
             ) : (
-              <a
+              <button
                 className="signin"
                 onClick={() => {
                   document.removeEventListener("click", handleClick);
@@ -95,7 +95,7 @@ export default function Menu(props) {
                 }}
               >
                 Sign In
-              </a>
+              </button>
             )}
           </li>
         </ul>

@@ -1,0 +1,99 @@
+.inputT {
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: "Avenir", "Arial", sans-serif;
+  width: 100%;
+  margin: 0.5rem;
+  padding: 0.4rem 1rem;
+  display: block;
+  border: 1px solid var(--tcolor);
+  border-radius: 8px;
+  background-color: var(--bgcolor);
+}
+
+.input {
+  font-size: 0.9rem;
+  font-family: "Avenir", "Arial", sans-serif;
+  width: 100%;
+  margin: 0.5rem;
+  padding: 0.2rem 1rem;
+  display: block;
+  border: 1px solid var(--tcolor);
+  border-radius: 6px;
+  background-color: var(--bgcolor);
+}
+
+.inputN {
+  font-size: 0.9rem;
+  font-family: "Avenir", "Arial", sans-serif;
+  width: 3.5rem;
+  margin: 0.5rem;
+  padding: 0.1rem 0 0.1rem 0.3rem;
+  border: 1px solid var(--tcolor);
+  border-radius: 6px;
+  background-color: var(--bgcolor);
+}
+
+.textarea {
+  font-size: 1rem;
+  font-family: "Avenir", "Arial", sans-serif;
+  width: 100%;
+  margin: 0.5rem;
+  padding: 0.4rem 1rem;
+  display: block;
+  border: 1px solid var(--tcolor);
+  border-radius: 7px;
+  background-color: var(--bgcolor);
+}
+
+.textarea:focus {
+  outline: none;
+  border: 1px solid var(--pcolor);
+}
+
+.input::placeholder,
+.inputT::placeholder {
+  font-size: inherit;
+}
+
+.input:focus,
+.inputN:focus,
+.inputT:focus {
+  outline: none;
+  border-color: var(--pcolor);
+}
+
+.inputFilechoose:focus,
+.inputFilechoose::-webkit-file-upload-button:focus {
+  outline: none;
+}
+
+.inputFilechoose {
+  margin: 0.5rem;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  /* border: 2px solid var(--tcolor); */
+  border-radius: 12px;
+}
+
+.inputFilechoose::-webkit-file-upload-button {
+  color: var(--pcolor);
+  display: inline-block;
+  background: var(--scolor);
+  border: none;
+  padding: 7px 15px;
+  font-weight: 700;
+  border-radius: 3px;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 10pt;
+}
+
+input[type="checkbox"]:focus {
+  outline: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+input[type="checkbox"] {
+  background-color: var(--scolor);
+  cursor: pointer;
+}

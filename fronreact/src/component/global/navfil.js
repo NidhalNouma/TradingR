@@ -11,6 +11,7 @@ function Navfil() {
     <div className="nav-fil">
       <div className="menu-fil">
         <button
+          className="btnNav"
           style={trend ? style : {}}
           onClick={() => {
             window.scroll({
@@ -26,6 +27,7 @@ function Navfil() {
           Popular
         </button>
         <button
+          className="btnNav"
           style={best ? style : {}}
           onClick={() => {
             window.scroll({
@@ -41,6 +43,7 @@ function Navfil() {
           Last
         </button>
         <button
+          className="btnNav"
           style={pop ? style : {}}
           onClick={() => {
             window.scroll({
@@ -56,6 +59,7 @@ function Navfil() {
           Paid
         </button>
         <button
+          className="btnNav"
           style={free ? style : {}}
           onClick={() => {
             window.scroll({

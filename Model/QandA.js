@@ -1,39 +1,52 @@
 const mongoose = require("mongoose");
-const { productSchema } = require("./product");
 
 const answerSchema = new mongoose.Schema({
-  qandaId: { type: mongoose.Types.ObjectId, required: true },
+  // qandaId: { type: mongoose.Types.ObjectId, required: true },
   userId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   answer: { type: String, required: [true, "Question is requierd"] },
   timestamp: { type: Date, default: Date.now },
+  show: { type: Boolean, default: true },
 });
 
 const qaSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
-  productId: { type: mongoose.Types.ObjectId, required: true },
   userId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   question: { type: String, required: [true, "Question is requierd"] },
   answers: { type: [answerSchema] },
+  show: { type: Boolean, default: true },
 });
 
 const qaModel = mongoose.model("Qanda", qaSchema);
 
-const addQuestion = async function (_id, userId, question) {
+const addQuestion = async function (_id, pId, userId, question) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding new Question for product ID ${_id} userID ${userId} ...`
   );
-  const product = mongoose.model("Product", productSchema);
+  const productVersion = mongoose.models.ProductVersion;
   const quest = new qaModel({
-    productId: _id,
     userId,
     question,
   });
-  let r = { res: null, err: null };
+  let r = { res: null, err: null, id: quest._id };
+
+  const err = quest.validateSync();
+  if (err) {
+    r.err = err;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `"Adding new Question to product ${_id} Error ==> ${err}`
+    );
+    return r;
+  }
   try {
-    r.res = await product.findByIdAndUpdate(
-      { _id },
-      { $push: { qandas: quest } }
+    r.res = await productVersion.updateOne(
+      { _id, "products._id": pId },
+      { $push: { "products.$.qandas": quest } }
+    );
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `New Question Added for product ID ${_id} userID ${userId} ...`
     );
   } catch (e) {
     console.log(
@@ -45,10 +58,10 @@ const addQuestion = async function (_id, userId, question) {
   return r;
 };
 
-const addQuestionAns = async function (pId, id, userId, answer) {
-  const product = mongoose.model("Product", productSchema);
+const addQuestionAns = async function (_id, pId, id, userId, answer, authId) {
+  const productVersion = mongoose.models.ProductVersion;
   const Answer = mongoose.model("Answerqa", answerSchema);
-  const answ = new Answer({ qandas: id, userId, answer });
+  const answ = new Answer({ userId, answer });
   let r = { res: null, err: null };
   console.log(
     "\x1b[36m%s\x1b[0m",
@@ -56,14 +69,21 @@ const addQuestionAns = async function (pId, id, userId, answer) {
   );
 
   try {
-    r.res = await product.updateOne(
-      { _id: pId, "qandas._id": id },
-      { $push: { "qandas.$.answers": answ } }
+    r.res = await productVersion.updateOne(
+      { _id, "products._id": pId, "products.qandas._id": id },
+      { $push: { "products.$[i].qandas.$[j].answers": answ }, authId },
+      { arrayFilters: [{ "i._id": pId }, { "j._id": id }] }
+      // { _id: pId, "qandas._id": id },
+      // { $push: { "qandas.$.answers": answ } }
+    );
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Answer Added for Question Id ${id} for product ID ${pId} userID ${userId} ...`
     );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Error with Adding new Answer To question ID ${id} with Product with ID ${pid} ==> ${e}`
+      `Error with Adding new Answer To question ID ${id} with Product with ID ${pId} ==> ${e}`
     );
     r.err = e;
   }

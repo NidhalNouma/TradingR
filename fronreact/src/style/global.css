@@ -57,7 +57,7 @@
   margin-bottom: 0 !important;
   margin-top: 0.6rem !important;
 }
-
+/* 
 .comment {
   top: 71.5px;
   background-color: var(--bgcolor);
@@ -65,27 +65,7 @@
   margin: 0;
   margin-bottom: 1.2rem;
   border-radius: 0px;
-}
-
-.comment h6 {
-  display: inline-block;
-  margin: 0;
-  color: var(--pcolor);
-  cursor: pointer;
-  background-color: var(--shcolor);
-  padding: 0 0.5rem;
-  border-radius: 8px;
-  transition: transform 0.25s linear;
-}
-
-.comment h6:hover {
-  transform: scale(1.04);
-}
-
-.comment .hcancel {
-  color: rgb(170, 160, 32);
-  background-color: var(--bgcolor);
-}
+} */
 
 .comment svg {
   width: 34px;
@@ -93,16 +73,7 @@
   stroke-width: 0px;
 }
 
-.comment form {
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  border: 1px solid var(--tcolor);
-  border-radius: 8px;
-  width: 100%;
-}
-
-.comment div {
+/* .comment div {
   font-size: 0.7em;
   display: inline-block;
   text-align: justify;
@@ -110,7 +81,7 @@
   min-height: 3em;
   width: 90%;
   color: var(--textcolor);
-}
+} */
 
 .comment div:focus {
   outline: none;
@@ -163,9 +134,9 @@
   background-color: var(--shcolor);
 }
 
-.comment button::selection {
+/* .comment button::selection {
   border: none;
-}
+} */
 
 .comment a svg {
   width: 18px;

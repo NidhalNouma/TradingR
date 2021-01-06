@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
 import Navbar from "../global/navbar";
 import Productsection from "./productsection";
 import Footer from "../global/footer";
-import { useLocation } from "react-router-dom";
 
 function Home() {
   const { pathname } = useLocation();
@@ -16,7 +17,6 @@ function Home() {
       <div className="containh">
         <Productsection />
       </div>
-
       <Footer />
     </>
   );

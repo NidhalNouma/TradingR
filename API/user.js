@@ -7,6 +7,21 @@ const { sendMail } = require("../mail");
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
 
+router.post("/all", async function (req, res) {
+  const ans = {
+    results: null,
+    errors: null,
+  };
+
+  const r = await user.findAll();
+  if (r.res) {
+    ans.results = r.res;
+  } else if (r.err) {
+    ans.errors = r.err;
+  }
+  res.json(ans);
+});
+
 router.post("/add", async function (req, res) {
   const email = req.body.email;
   const password = req.body.password;
@@ -23,7 +38,6 @@ router.post("/add", async function (req, res) {
     ans.results = r.res;
   } else if (r.res) {
     ans.add = true;
-    console.log("\x1b[35m%s\x1b[0m", `User saved ${username} ...`);
     // var expiryDate = new Date();
     // expiryDate.setMonth(expiryDate.getMonth() + 1);
     // res.cookie("_SSD", JSON.stringify(rep.results), {
@@ -72,7 +86,6 @@ router.post("/find", async function (req, res) {
 
     ans.findUser = true;
     ans.result = r.res;
-    console.log("\x1b[35m%s\x1b[0m", "Find User ==> ", re.username);
   } else if (r.err) {
     ans.error = r.err;
   } else {
@@ -84,70 +97,70 @@ router.post("/find", async function (req, res) {
   res.json(ans);
 });
 
-router.post("/card/add", async function (req, res) {
-  const userId = req.body._id;
-  const productId = req.body.productId;
+// router.post("/card/add", async function (req, res) {
+//   const userId = req.body._id;
+//   const productId = req.body.productId;
 
-  const ans = {
-    added: false,
-    error: null,
-  };
-  const r = await user.addToCard(userId, productId);
-  if (r.res) {
-    ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Product_ID ${productId} Added To Card For User_ID ${userId} ...`
-    );
-  } else if (r.err) {
-    ans.error = r.err;
-  }
+//   const ans = {
+//     added: false,
+//     error: null,
+//   };
+//   const r = await user.addToCard(userId, productId);
+//   if (r.res) {
+//     ans.added = true;
+//     console.log(
+//       "\x1b[35m%s\x1b[0m",
+//       `Product_ID ${productId} Added To Card For User_ID ${userId} ...`
+//     );
+//   } else if (r.err) {
+//     ans.error = r.err;
+//   }
 
-  res.json(ans);
-});
+//   res.json(ans);
+// });
 
-router.post("/card/find", async function (req, res) {
-  const userId = req.body._id;
+// router.post("/card/find", async function (req, res) {
+//   const userId = req.body._id;
 
-  const ans = {
-    result: false,
-    error: null,
-  };
-  const r = await user.getUserCard(userId);
-  if (r.res) {
-    ans.result = r.res;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Fond Card Items for User_ID ${userId} ...`
-    );
-  } else if (r.err) {
-    ans.error = r.err;
-  }
+//   const ans = {
+//     result: false,
+//     error: null,
+//   };
+//   const r = await user.getUserCard(userId);
+//   if (r.res) {
+//     ans.result = r.res;
+//     console.log(
+//       "\x1b[35m%s\x1b[0m",
+//       `Fond Card Items for User_ID ${userId} ...`
+//     );
+//   } else if (r.err) {
+//     ans.error = r.err;
+//   }
 
-  res.json(ans);
-});
+//   res.json(ans);
+// });
 
-router.post("/product/add", async function (req, res) {
-  const userId = req.body._id;
-  const productId = req.body.productId;
+// router.post("/product/add", async function (req, res) {
+//   const userId = req.body._id;
+//   const productId = req.body.productId;
 
-  const ans = {
-    added: false,
-    error: null,
-  };
-  const r = await user.addToProduct(userId, productId);
-  if (r.res) {
-    ans.added = true;
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Product_ID ${productId} Added to User_ID ${userId} ...`
-    );
-  } else if (r.err) {
-    ans.error = r.err;
-  }
+//   const ans = {
+//     added: false,
+//     error: null,
+//   };
+//   const r = await user.addToProduct(userId, productId);
+//   if (r.res) {
+//     ans.added = true;
+//     console.log(
+//       "\x1b[35m%s\x1b[0m",
+//       `Product_ID ${productId} Added to User_ID ${userId} ...`
+//     );
+//   } else if (r.err) {
+//     ans.error = r.err;
+//   }
 
-  res.json(ans);
-});
+//   res.json(ans);
+// });
 
 router.get("/imprqa/:id", async function (req, res) {
   const userId = req.params.id;
@@ -164,19 +177,16 @@ router.get("/imprqa/:id", async function (req, res) {
       improvements: r.res.improvements,
       questions: r.res.questions,
     };
-    console.log(
-      "\x1b[35m%s\x1b[0m",
-      `Found Impro & Questions for user ID ${userId}  ...`
-    );
   } else if (r.err) {
     ans.error = r.err;
-  } else {
-    ans.result = "User not fund";
-    console.log(
-      "\x1b[31m%s\x1b[0m",
-      `User not found with this ID ${userId} ...`
-    );
   }
+  // else {
+  //   ans.result = "User not fund";
+  //   console.log(
+  //     "\x1b[31m%s\x1b[0m",
+  //     `User not found with this ID ${userId} ...`
+  //   );
+  // }
 
   res.json(ans);
 });

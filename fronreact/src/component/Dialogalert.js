@@ -1,7 +1,5 @@
 import React from "react";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
 
 function Dialogalert({ open, setOpen, agree }) {
   return (
@@ -11,20 +9,19 @@ function Dialogalert({ open, setOpen, agree }) {
         onClose={setOpen}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        className="dialogalert"
       >
-        <h5>Unsubscribe</h5>
-        <DialogContent>
-          <p>Are you sure you want to unsubscribe</p>
-        </DialogContent>
-        <DialogActions>
-          <span onClick={setOpen} color="primary">
-            Cancel
-          </span>
-          <span onClick={agree} color="primary" autoFocus>
-            Accept
-          </span>
-        </DialogActions>
+        <div className="pu1 pl2 pr2 pd1">
+          <h5 className="h31">Unsubscribe</h5>
+          <p className="p bold">Are you sure you want to unsubscribe</p>
+          <div className="flexB mu2">
+            <span onClick={setOpen} className="aspan bold">
+              Cancel
+            </span>
+            <span onClick={agree} className="aspanX bold" autoFocus>
+              Accept
+            </span>
+          </div>
+        </div>
       </Dialog>
     </>
   );

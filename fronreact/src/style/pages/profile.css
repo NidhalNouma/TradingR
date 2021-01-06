@@ -12,24 +12,8 @@
 }
 
 .containProfile .left li {
-  margin: 1.2rem 0;
+  margin: 0.8rem 0;
   list-style-type: none;
-}
-
-.containProfile .left li a {
-  color: var(--pcolor);
-  opacity: 0.5;
-  font-size: 1.1rem;
-  border-radius: 0em;
-  justify-content: start;
-}
-
-.containProfile .left li a:hover {
-  opacity: 1;
-}
-
-.containProfile .left li .profileActive {
-  opacity: 1;
 }
 
 .containProfile .right {
@@ -270,15 +254,6 @@
   font-size: 1rem;
   margin: 1.5rem 0;
   color: var(--pcolor);
-}
-
-.containProfile .right .noproduct a {
-  color: var(--scolor);
-  background-color: var(--pcolor);
-  margin: 0 auto;
-  width: 180px;
-  padding: 0.4rem 0;
-  font-size: 1.15rem;
 }
 
 .containProfile .maarnotif {

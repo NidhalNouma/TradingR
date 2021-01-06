@@ -73,7 +73,8 @@
   text-align: start;
   font-weight: 500;
   color: var(--pcolor);
-  border-bottom: 2px solid var(--pcolor);
+  /* margin-bottom: 0; */
+  /* border-bottom: 2px solid var(--pcolor); */
 }
 
 .contgrid img {
@@ -93,6 +94,7 @@
   border-radius: 29px;
   color: var(--pcolor);
   transition: padding 0.2s ease-out;
+  text-decoration: none;
 }
 
 .contgrid a::after,

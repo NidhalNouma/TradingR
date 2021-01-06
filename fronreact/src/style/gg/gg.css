@@ -1,0 +1,109 @@
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flexA {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.flexB {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.imgP {
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  margin-right: 0.5rem;
+}
+
+.imgP1 {
+  border-radius: 50%;
+  width: 33px;
+  height: 33px;
+}
+
+.svg1 svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.2rem;
+  margin-left: 0.3rem;
+  cursor: pointer;
+}
+
+.svg2 svg {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.svg3 svg {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.svg4 svg {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+
+.i {
+  font-size: 0.95rem;
+  color: #a0b0a0;
+}
+
+.i1 {
+  font-size: 0.87rem;
+  color: #a0b0a0;
+}
+
+.span {
+  font-size: 1rem;
+  color: var(--pcolor);
+}
+
+.spanL {
+  font-size: 1.1rem;
+  color: var(--pcolor);
+}
+
+.span1 {
+  font-size: 0.75rem;
+  font-weight: 400;
+  padding: 0.1rem 0.3rem;
+  border-radius: 6px;
+  cursor: default;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+}
+
+.spanR {
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 0.1rem 0.5rem;
+  border-radius: 6px;
+  cursor: default;
+  color: var(--pcolor);
+  background-color: var(--shcolor);
+}
+
+.crossL {
+  text-decoration: line-through;
+  text-decoration-color: var(--pricecolor);
+  text-decoration-thickness: 2px;
+  text-decoration-line: line-through;
+  background-color: var(--bghcolor);
+}
+
+.hr {
+  border: 1px solid var(--scolor);
+  width: 40%;
+  margin: 0.5rem 0 1rem auto;
+}

@@ -1,21 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect, useContext } from "react";
 import { Alert } from "@material-ui/lab";
 import axios from "axios";
 import Google from "../../asset/images/Google";
-import Facebook from "../../asset/images/Facebook";
-
-import { User } from "../../Actions";
+import { UserC } from "../Hooks/User";
+// import Facebook from "../../asset/images/Facebook";
 
 export default function CreateAccount(props) {
+  const user = useContext(UserC);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [conpassword, setConPassword] = useState("");
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [createClick, setCreateClick] = useState(false);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (password === conpassword) {
@@ -57,7 +54,7 @@ export default function CreateAccount(props) {
       data: {
         email,
         password,
-        username,
+        username: username,
       },
     })
       .then(function (response) {
@@ -66,7 +63,7 @@ export default function CreateAccount(props) {
           setError(res.results);
         } else {
           props.setActiv(true);
-          dispatch(User(res.results));
+          user.setUser(res.results);
         }
       })
       .catch(function (error) {
@@ -79,8 +76,8 @@ export default function CreateAccount(props) {
   };
 
   return (
-    <div className="contain-createaccount">
-      <h3>Create Account</h3>
+    <div className="contain-sign">
+      <h3 className="h31">Create Account</h3>
       <input
         type="email"
         name="email"
@@ -112,18 +109,20 @@ export default function CreateAccount(props) {
       {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
 
       <div className="btn-1">
-        <button onClick={diss}>I have account</button>
+        <button className="buttonS flexA" onClick={diss}>
+          I have account
+        </button>
         <button
-          className={createClick ? "aclick" : "btn-login"}
+          className={createClick ? "aclick" : "buttonP flexA"}
           onClick={addUser}
         >
           Register
         </button>
       </div>
       <div className="btn-g">
-        <a className="btn-gg" href="/auth/google">
+        <a className="btn-gg a flex" href="/auth/google">
           <Google />
-          Continue with google
+          <span className="ml-5">Continue with google</span>
         </a>
         {/* <a className="btn-gg" href="http://localhost:8080/auth/facebook">
           <Facebook />

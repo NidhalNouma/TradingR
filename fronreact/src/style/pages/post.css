@@ -1,0 +1,34 @@
+.post-container {
+  margin: 100px auto 0;
+  width: 80%;
+}
+
+.post-container .post-content {
+  font-size: 1.2rem;
+}
+
+.post-container .hr {
+  margin: 1rem auto 2.5rem;
+  width: 80%;
+  border: 1px solid var(--scolor);
+}
+
+.post-container .post-comment {
+  border-radius: 12px;
+  border: 1px solid var(--scolor);
+  width: 90%;
+  margin-bottom: 1rem;
+}
+
+.post-container .post-comment .user {
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.post-container .post-comment .comment {
+  margin: 0rem 0.5rem;
+  border-radius: 12px;
+  padding: 0.6rem 0.3rem;
+}

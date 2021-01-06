@@ -8,24 +8,23 @@ nav {
   background-color: var(--bgcolor);
   box-shadow: 0px 2px 4px var(--scolor);
   z-index: 1;
-  /* opacity: 0.99; */
 }
 
 .logo {
   width: 20%;
-  margin: 2rem 0 1.5rem 4rem;
-  display: inline-flex;
-  align-items: center;
+}
+
+.menu {
+  width: 80%;
 }
 
 .logo a {
-  display: block;
-  margin: 0;
-  transition: transform 0.2s ease-in;
+  opacity: 1;
+  transition: opacity 0.2s ease-in;
 }
 
 .logo a:hover {
-  transform: scale(1.05);
+  opacity: 0.82;
 }
 
 .logo svg {
@@ -37,13 +36,24 @@ nav {
   stroke-width: 0px;
 }
 
+nav div ul {
+  display: flex;
+  justify-content: flex-end;
+}
+
+nav div ul li {
+  list-style: none;
+  text-align: center;
+  margin-left: 0.5em;
+}
+
 nav .search {
   display: none;
 }
 
 nav ul .search {
   width: 460px;
-  height: 26px;
+  height: 28px;
   border: solid 1px var(--scolor);
   border-radius: 10px;
   background-color: var(--scolor);
@@ -78,51 +88,9 @@ nav ul .search {
   width: 21px;
 }
 
-.menu {
-  width: 80%;
-  margin: 2rem 4rem 1.5rem 0;
-}
-
-nav div ul {
-  display: flex;
-  justify-content: flex-end;
-}
-
-nav div ul li {
-  list-style: none;
-  text-align: center;
-  margin-left: 0.5em;
-}
-
-nav div ul li a {
-  font-size: 1rem;
-  text-decoration: none;
-  width: 100px;
-  height: 28px;
-  background-color: var(--scolor);
-  color: var(--pcolor);
-  transition: background-color 0.4s ease-out;
-}
-
-nav div ul li a:hover {
-  background-color: var(--tcolor);
-  color: var(--pcolor);
-}
-
-nav svg {
-  width: 20px;
-  height: 20px;
-}
-
-.withimg {
-  width: 45px;
-}
-
 .signin {
-  box-sizing: border-box;
-  color: var(--pcolor);
-  background-color: var(--shcolor);
-  border: 1px solid var(--tcolor);
+  background-color: var(--shcolor) !important;
+  /* border: 1px solid var(--tcolor); */
 }
 
 nav .media {
@@ -136,7 +104,7 @@ nav .media {
 
   .logo {
     width: 20%;
-    margin: 2rem 1.5rem 1.5rem;
+    /* margin: 2rem 1.5rem 1.5rem; */
   }
 
   .logo svg {
@@ -145,13 +113,13 @@ nav .media {
 
   .menu {
     width: 80%;
-    margin: 2rem 1.5rem 1.5rem;
+    /* margin: 2rem 1.5rem 1.5rem; */
   }
 
-  nav div ul li a {
+  /* nav div ul li a {
     font-size: 0.78em;
     width: 100px;
-  }
+  } */
 
   .num-card {
     font-size: 0.73em;
@@ -282,4 +250,126 @@ nav .media {
   width: 30px;
   height: 30px;
   border-radius: 50%;
+}
+
+/* Face Profile */
+
+.profile-nav {
+  position: fixed;
+  right: 100px;
+  top: 75px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 18px var(--shcolor);
+  background-color: var(--bgcolor);
+  z-index: 400;
+}
+
+.profile-nav ul {
+  padding: 0.6rem 1rem;
+  margin: 0.2rem 0.9rem;
+  text-align: left;
+}
+
+.profile-nav ul li {
+  list-style: none;
+  margin: 0.4rem 0 0;
+  width: 100%;
+}
+
+@media screen and (max-width: 1200px) {
+  .profile-nav {
+    right: 80px;
+    top: 70px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .profile-nav {
+    right: 10px;
+    top: 58px;
+  }
+}
+
+/* notif card */
+.card-list {
+  background-color: var(--bgcolor);
+  position: fixed;
+  right: 60px;
+  top: 75px;
+  min-width: 300px;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 18px var(--shcolor);
+  z-index: 300;
+}
+
+.card-list .cardno {
+  height: 100%;
+}
+
+.card-list .cardno svg {
+  display: block;
+  margin: 0.7rem;
+  height: 67%;
+}
+
+.card-list .cardno span {
+  display: block;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--pcolor);
+}
+
+.card-list ul {
+  text-align: start;
+  display: inline-block;
+  width: 100%;
+  height: 83%;
+  margin: 0;
+  padding: 0;
+  overflow-y: scroll;
+}
+
+.card-list ul li img {
+  height: 70px;
+  width: 90px;
+  margin: 0.2rem 0.3rem 0;
+  border-radius: 10px;
+}
+
+.card-list ul li div p {
+  width: 200px;
+}
+
+.card-list ul li:hover {
+  background-color: var(--scolor);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.card-list .total {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: var(--scolor);
+  border-radius: 10px;
+  padding: 0;
+  margin-top: 0.6em;
+  height: 17%;
+}
+
+@media screen and (max-width: 1200px) {
+  .card-list {
+    right: 30px;
+    top: 70px;
+  }
+}
+@media screen and (max-width: 850px) {
+  .card-list {
+    right: 40px;
+    top: 58px;
+  }
 }

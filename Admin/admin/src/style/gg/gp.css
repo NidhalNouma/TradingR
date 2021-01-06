@@ -1,0 +1,74 @@
+.p0 {
+  padding: 0;
+}
+.p1 {
+  padding: 1rem;
+}
+.p2 {
+  padding: 2rem;
+}
+/* p .5 */
+.pu-5 {
+  padding-top: 0.5rem;
+}
+.pd-5 {
+  padding-bottom: 0.5rem;
+}
+.pl-5 {
+  padding-left: 0.5rem;
+}
+.pr-5 {
+  padding-right: 0.5rem;
+}
+/* p 1 */
+.pu1 {
+  padding-top: 1rem;
+}
+.pd1 {
+  padding-bottom: 1rem;
+}
+.pl1 {
+  padding-left: 1rem;
+}
+.pr1 {
+  padding-right: 1rem;
+}
+/* p 2 */
+.pu2 {
+  padding-top: 2rem;
+}
+.pd2 {
+  padding-bottom: 2rem;
+}
+.pl2 {
+  padding-left: 2rem;
+}
+.pr2 {
+  padding-right: 2rem;
+}
+/* p 3 */
+.pu3 {
+  padding-top: 3rem;
+}
+.pd3 {
+  padding-bottom: 3rem;
+}
+.pl3 {
+  padding-left: 3rem;
+}
+.pr3 {
+  padding-right: 3rem;
+}
+/* p 4 */
+.pu4 {
+  padding-top: 4rem;
+}
+.pd4 {
+  padding-bottom: 4rem;
+}
+.pl4 {
+  padding-left: 4rem;
+}
+.pr4 {
+  padding-right: 4rem;
+}

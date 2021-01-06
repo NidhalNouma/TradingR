@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-export default (state = io, action) => {
+const socketIo = (state = io, action) => {
   switch (action.type) {
     case "START": {
       if (typeof state === "function") return state();
@@ -88,3 +88,5 @@ export default (state = io, action) => {
       return state;
   }
 };
+
+export default socketIo;

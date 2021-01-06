@@ -1,30 +1,39 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { Switch } from "@material-ui/core";
 
-import { Dark, Light } from "../../Actions";
+import { Dark } from "../../app";
 
 export default function Footer() {
-  const dispatch = useDispatch();
-  const dark = useSelector((state) => state.Dark);
+  const { dark, setDark } = useContext(Dark);
 
   React.useEffect(() => {
     if (localStorage.getItem("DARKLIGHT") === "ON") {
-      dispatch(Dark());
+      setDark(true);
     }
-  }, [dark, dispatch]);
+  }, [dark]);
 
   return (
     <div className="containFooter">
       <br />
       <hr />
       <div className="footer">
-        <Link to="/welcome">What's Trading Revelotion</Link>
-        <a>How it works</a>
-        <a>Q&A</a>
-        <Link to="/contactus">Contact Us</Link>
-        <a>&copy; CopyRight {new Date().getFullYear()} NN </a>
+        <Link className="aspan" to="/welcome">
+          What's Trading Revelotion
+        </Link>
+        <Link className="aspan" to="/">
+          How it works{" "}
+        </Link>
+        <Link className="aspan" to="/">
+          Q&A
+        </Link>
+        <Link className="aspan" to="/contactus">
+          Contact Us
+        </Link>
+        <span className="aspan">
+          {" "}
+          &copy; CopyRight {new Date().getFullYear()} NN{" "}
+        </span>
         <Switch
           size="small"
           checked={dark}
@@ -32,10 +41,10 @@ export default function Footer() {
             const dl = localStorage.getItem("DARKLIGHT");
             if (dl === "ON") {
               localStorage.setItem("DARKLIGHT", "OFF");
-              dispatch(Light());
+              setDark(false);
             } else {
               localStorage.setItem("DARKLIGHT", "ON");
-              dispatch(Dark());
+              setDark(true);
             }
           }}
           name="dark"

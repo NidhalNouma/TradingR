@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+
+import { UserC, User } from "../component/Hooks/User";
+import Signin from "../component/signIn";
 
 import App from "../app";
 import SetListNotif from "./SetListNotif";
 import SetNotif from "./SetNotif";
 
 function Notif() {
-  const user = useSelector((state) => state.user);
+  const userCo = User();
+  const [show, setShow] = useState(false);
+
+  const user = userCo.user;
   const [am, setam] = useState(false);
   const [msg, setMsg] = useState(null);
 
@@ -23,9 +28,18 @@ function Notif() {
 
   return (
     <>
-      <App />
-      <SetNotif am={am} setam={setam} msg={msg} />
-      <SetListNotif />
+      <UserC.Provider
+        value={{
+          user: userCo.user,
+          setUser: userCo.setUser,
+          check: user ? () => {} : setShow,
+        }}
+      >
+        <App />
+        <SetNotif am={am} setam={setam} msg={msg} />
+        <SetListNotif />
+        {show ? <Signin close={() => setShow(false)} show={show} /> : <></>}
+      </UserC.Provider>
     </>
   );
 }

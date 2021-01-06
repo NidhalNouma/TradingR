@@ -13,7 +13,7 @@ import Dirtemp from "./Dirtemp";
 function Profile() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [qa, setQa] = useState(false);
+  const [qa, setQa] = useState(0);
   const [impro, setImpro] = useState(null);
   const [qas, setQas] = useState(null);
 
@@ -41,7 +41,7 @@ function Profile() {
         <div className="right">
           <div className="profile">
             {user.userPicture !== "noimg" ? (
-              <img src={user.userPicture} />
+              <img src={user.userPicture} alt="ProfileImg" />
             ) : (
               <UserImg />
             )}
@@ -62,13 +62,13 @@ function Profile() {
           </div>
           <div className="qaim">
             <div>
-              <h6
-                className={qa === false ? "active" : ""}
-                onClick={() => setQa(false)}
-              >
+              <h6 className={qa === 0 ? "active" : ""} onClick={() => setQa(0)}>
+                Posts
+              </h6>
+              <h6 className={qa === 1 ? "active" : ""} onClick={() => setQa(1)}>
                 Improvements
               </h6>
-              <h6 className={qa ? "active" : ""} onClick={() => setQa(true)}>
+              <h6 className={qa === 2 ? "active" : ""} onClick={() => setQa(2)}>
                 Questions
               </h6>
             </div>

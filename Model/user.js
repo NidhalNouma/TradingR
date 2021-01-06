@@ -1,5 +1,35 @@
 const mongoose = require("mongoose");
 
+const qmSchema = new mongoose.Schema({
+  id: { type: mongoose.Types.ObjectId, ref: "ProductVersion" },
+  pId: { type: mongoose.Types.ObjectId, required: true },
+  qmId: { type: mongoose.Types.ObjectId, required: true },
+});
+const qmModel = mongoose.model("QMUser", qmSchema);
+
+const notifSchema = new mongoose.Schema({
+  at: { type: Date, default: Date.now },
+  read: {
+    type: Boolean,
+    default: false,
+  },
+  type: {
+    type: String,
+    enum: ["impro", "vote", "question", "postComment", "postLike", "Main"],
+    required: true,
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+  iqId: { type: mongoose.Types.ObjectId },
+  pId: { type: mongoose.Types.ObjectId },
+  productId: { type: mongoose.Types.ObjectId, ref: "ProductVersion" },
+  postId: { type: mongoose.Types.ObjectId, ref: "Post" },
+  fromId: { type: mongoose.Types.ObjectId, ref: "User" },
+});
+const notifModel = mongoose.model("Notification", notifSchema);
+
 const userSchema = new mongoose.Schema({
   joinAt: { type: Date, default: Date.now },
   active: { type: Boolean, default: false },
@@ -16,59 +46,60 @@ const userSchema = new mongoose.Schema({
       message: (props) => `${props.value} is not a valid email!`,
     },
   },
-  username: {
+  userName: {
     type: String,
-    required: [true, "username is requierd"],
-    unique: [true, "username exist"],
+    required: [true, "userName is requierd"],
+    unique: [true, "userName exist"],
   },
   password: { type: String, required: [true, "password is requierd"] },
   userPicture: { type: String, default: "noimg" },
-  improvements: [
-    {
-      pId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-      impId: { type: mongoose.Schema.Types.ObjectId },
-    },
-  ],
-  questions: [
-    {
-      pId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-      quesId: { type: mongoose.Schema.Types.ObjectId },
-    },
-  ],
-  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
-  notifications: [
-    {
-      message: {
-        type: String,
-        required: true,
-      },
-      readed: {
-        type: Boolean,
-        default: false,
-      },
-      at: { type: Date, default: Date.now },
-      product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
-    },
-  ],
-  subscribers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  improvements: [qmSchema],
+  questions: [qmSchema],
+  posts: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
+  notifications: [notifSchema],
+  subscribers: [{ type: mongoose.Types.ObjectId, ref: "ProductVersion" }],
+  show: { type: Boolean, default: true },
 });
 
 const User = mongoose.model("User", userSchema);
+
+const findAll = async function () {
+  console.log("\x1b[36m%s\x1b[0m", `find All users ...`);
+  let r = { res: null, err: null };
+  try {
+    r.res = await User.find();
+    console.log("\x1b[35m%s\x1b[0m", `All users founded ...`);
+  } catch (e) {
+    r.err = e;
+    console.log("\x1b[31m%s\x1b[0m", `Error with Finding Users ==> ${e}`);
+  }
+
+  return r;
+};
 
 const addnew = async function (email, username, password) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding New User ${username} with email ${email} ...`
   );
+  let r = { res: null, err: null, found: true };
   const user = new User({
     email,
-    username,
+    userName: username,
     password,
   });
-  let r = { res: null, err: null, found: true };
+
+  const er = user.validateSync();
+  if (er) {
+    r.err = e;
+    console.log("\x1b[31m%s\x1b[0m", `Error with Validate new User ==> ${er}`);
+    return r;
+  }
+
   try {
     r.res = await user.save();
     r.found = false;
+    console.log("\x1b[35m%s\x1b[0m", `User saved ${username} ...`);
   } catch (e) {
     r.err = e;
     console.log("\x1b[31m%s\x1b[0m", `Error with Adding new User ==> ${e}`);
@@ -117,6 +148,7 @@ const findOne = async function (email, password) {
         path: "notifications.product",
         select: "img  title timestamp",
       });
+    console.log("\x1b[35m%s\x1b[0m", `Find User ==> ${email}`);
   } catch (e) {
     console.log("\x1b[31m%s\x1b[0m", `Error with finding User ==> ${e}`);
     r.err = e;
@@ -126,7 +158,7 @@ const findOne = async function (email, password) {
 };
 
 const findById = async function (_id) {
-  console.log("\x1b[36m%s\x1b[0m", `Find user user by ID ${_id} ...`);
+  console.log("\x1b[36m%s\x1b[0m", `Find User by ID ${_id} ...`);
   const r = { res: null, err: null };
   try {
     r.res = await User.findOne({ _id })
@@ -135,6 +167,7 @@ const findById = async function (_id) {
         path: "notifications.product",
         select: "img  title timestamp",
       });
+    console.log("\x1b[35m%s\x1b[0m", `Find User by ID ==> ${_id}`);
   } catch (e) {
     r.err = e;
     console.log(
@@ -156,14 +189,18 @@ const getImprQa = async function (_id) {
   try {
     r.res = await User.findOne({ _id })
       .populate({
-        path: "improvements.pId",
-        select: "improvements img  title timestamp",
+        path: "improvements.id",
+        // select: "improvements img  title timestamp",
       })
       .populate({
-        path: "questions.pId",
-        select: "qandas img  title timestamp",
+        path: "questions.id",
+        // select: "qandas img  title timestamp",
       })
       .select("_id improvements questions");
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Found Impro & Questions for user ID ${userId}  ...`
+    );
   } catch (e) {
     r.err = e;
     console.log(
@@ -175,49 +212,54 @@ const getImprQa = async function (_id) {
   return r;
 };
 
-const getUserCard = async function (userId) {
-  console.log(
-    "\x1b[36m%s\x1b[0m",
-    `Finding Cards items for User_ID ${userId} ...`
-  );
-  let r = { res: null, err: null };
-  try {
-    r.res = await User.findById(userId).populate({
-      path: "card",
-      select: "_id title description",
-    });
-  } catch (e) {
-    console.log(
-      "\x1b[31m%s\x1b[0m",
-      `Error with Finding the Cards items for User_Id ${userId} ==> ${err}`
-    );
-    r.err = e;
-  }
-
-  return r;
-};
-
 // --------------------------------------------------------------------------------------------
 
-const addNotif = async function (userId, message, productId) {
+const addNotif = async function (
+  userId,
+  type,
+  message,
+  postId,
+  productId,
+  fromId,
+  pId,
+  iqId
+) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `New notification for User_ID ${userId} ...`
   );
   let r = { res: null, err: null };
-  const notif = {
+  const notif = new notifModel({
+    type,
     message,
-    product: productId ? productId : null,
-  };
+    fromId,
+    postId,
+    productId,
+    pId,
+    iqId,
+  });
+  const er = notif.validateSync();
+  if (er) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Validate Notification for User ${userId} ==> ${er}`
+    );
+    r.err = er;
+    return r;
+  }
   try {
     r.res = User.updateOne(
       { _id: userId },
       { $push: { notifications: notif } }
     );
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `New Notification added User ${userId} ...`
+    );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Error with Adding the Notification to User_Id ${userId} ==> ${err}`
+      `Error with Adding the Notification to User_Id ${userId} ==> ${e}`
     );
     r.err = e;
   }
@@ -225,7 +267,7 @@ const addNotif = async function (userId, message, productId) {
   return r;
 };
 
-const markNotifAsRead = async function (userId, at) {
+const markNotifAsRead = async function (userId, _id) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Mark notification as read for User_ID ${userId} ...`
@@ -233,8 +275,12 @@ const markNotifAsRead = async function (userId, at) {
   let r = { res: null, err: null };
   try {
     r.res = User.updateOne(
-      { _id: userId, "notifications.at": at },
-      { $set: { "notifications.readed": true } }
+      { _id: userId, "notifications._id": _id },
+      { $set: { "notifications.read": true } }
+    );
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Notification ${_id} mark as Read User ${userId} ...`
     );
   } catch (e) {
     console.log(
@@ -256,7 +302,11 @@ const markAllNotifAsRead = async function (userId) {
   try {
     r.res = User.updateOne(
       { _id: userId },
-      { $set: { "notifications.readed": true } }
+      { $set: { "notifications.read": true } }
+    );
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `All Notifications mark as Read User ${userId} ...`
     );
   } catch (e) {
     console.log(
@@ -271,64 +321,30 @@ const markAllNotifAsRead = async function (userId) {
 
 // --------------------------------------------------------------------------------------------
 
-const addToCard = async function (userId, productId) {
-  console.log(
-    "\x1b[36m%s\x1b[0m",
-    `Adding Product_ID ${productId} to Card for User ${userId} ...`
-  );
-
-  const r = { res: null, err: null };
-  try {
-    r.res = await User.updateOne(
-      { _id: userId },
-      { $push: { card: productId } }
-    );
-  } catch (e) {
-    console.log(
-      "\x1b[31m%s\x1b[0m",
-      `Error with adding Product_ID ${productId} the card to userId ${userId} ==> ${e}`
-    );
-    r.err = e;
-  }
-
-  return r;
-};
-
-const addToProduct = async function (userId, productId) {
-  console.log(
-    "\x1b[36m%s\x1b[0m",
-    `Adding Product_ID ${productId} to User_ID ${userId} ...`
-  );
-  let r = { res: null, err: null };
-
-  try {
-    r.res = await User.updateOne(
-      { _id: userId },
-      { $push: { products: productId } }
-    );
-  } catch (e) {
-    console.log(
-      "\x1b[31m%s\x1b[0m",
-      `Error with adding the Product_ID ${productId} to User_Id ${userId} ==> ${err}`
-    );
-    r.err = e;
-  }
-
-  return r;
-};
-
-// --------------------------------------------------------------------------------------------
-
-const addImpro = async function (userId, productId, improId) {
+const addImpro = async function (userId, id, productId, improId) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding Impro to User ${userId} Improvement_ID ${improId} ...`
   );
   let r = { res: null, err: null };
+  const n = new qmModel({ id, pId: productId, qmId: improId });
+  const err = n.validateSync();
+  if (err) {
+    r.err = err;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Adding new  Improvement ${improId} for user ${userId} Error ==> ${err}`
+    );
+    return r;
+  }
   try {
     r.res = await User.updateOne(
       { _id: userId },
-      { $push: { improvements: { pId: productId, impId: improId } } }
+      { $push: { improvements: n } }
+    );
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Impro Added to User ${userId} Improvement_ID ${improId} ...`
     );
   } catch (e) {
     console.log(
@@ -343,16 +359,27 @@ const addImpro = async function (userId, productId, improId) {
 
 // --------------------------------------------------------------------------------------------
 
-const addQuestion = async function (userId, productId, quesId) {
+const addQuestion = async function (userId, id, productId, quesId) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding Question to User ${userId} Question_ID ${quesId} ...`
   );
   let r = { res: null, err: null };
+  const n = new qmModel({ id, pId: productId, qmId: quesId });
+  const err = n.validateSync();
+  if (err) {
+    r.err = err;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Adding new  question ${quesId} for user ${userId} Error ==> ${err}`
+    );
+    return r;
+  }
   try {
-    r.res = await User.updateOne(
-      { _id: userId },
-      { $push: { questions: { pId: productId, quesId } } }
+    r.res = await User.updateOne({ _id: userId }, { $push: { questions: n } });
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Question Added to User ${userId} Question_ID ${quesId} ...`
     );
   } catch (e) {
     console.log(
@@ -368,20 +395,21 @@ const addQuestion = async function (userId, productId, quesId) {
 // --------------------------------------------------------------------------------------------
 
 const addScore = async function (userId, pn, notif) {
-  console.log(
-    "\x1b[36m%s\x1b[0m",
-    `Adding ${pn} score to userID ${userId} ...`
-  );
+  console.log("\x1b[36m%s\x1b[0m", `Adding ${pn} score to user ${userId} ...`);
   let r = { res: null, err: null };
   try {
     r.res = await User.updateOne(
       { _id: userId },
-      { $inc: { score: pn }, $push: { notifications: notif } }
+      { $inc: { score: pn } /*, $push: { notifications: notif } */ }
+    );
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Added ${pn} to score for user ${userId} ...`
     );
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `error with adding ${pn} to userID ${userId} ==> ${e}`
+      `error with adding ${pn} to user ${userId} ==> ${e}`
     );
     r.err = e;
   }
@@ -392,15 +420,12 @@ const addScore = async function (userId, pn, notif) {
 // --------------------------------------------------------------------------------------------
 
 module.exports = {
-  userSchema,
+  findAll,
   findById,
   addnew,
   addnewThird,
   getImprQa,
-  getUserCard,
   findOne,
-  addToCard,
-  addToProduct,
   addImpro,
   addQuestion,
   addScore,

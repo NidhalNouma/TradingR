@@ -6,14 +6,17 @@ function Menup({ link }) {
     <>
       <ul>
         <li>
-          <Link to="/profile" className={link === 1 ? "profileActive" : ""}>
+          <Link
+            to="/profile"
+            className={link === 1 ? "oActiv buttonT" : "buttonT o"}
+          >
             Profile
           </Link>
         </li>
         <li>
           <Link
             to="/profile/products"
-            className={link === 2 ? "profileActive" : ""}
+            className={link === 2 ? "oActiv buttonT" : "buttonT o"}
           >
             Products
           </Link>
@@ -21,7 +24,7 @@ function Menup({ link }) {
         <li>
           <Link
             to="/profile/subscription"
-            className={link === 5 ? "profileActive" : ""}
+            className={link === 5 ? "oActiv buttonT" : "buttonT o"}
           >
             Subscriptions
           </Link>
@@ -29,7 +32,7 @@ function Menup({ link }) {
         <li>
           <Link
             to="/profile/notifications"
-            className={link === 3 ? "profileActive" : ""}
+            className={link === 3 ? "oActiv buttonT" : "buttonT o"}
           >
             Notifications
           </Link>
@@ -37,7 +40,7 @@ function Menup({ link }) {
         <li>
           <Link
             to="/profile/settings"
-            className={link === 4 ? "profileActive" : ""}
+            className={link === 4 ? "oActiv buttonT" : "buttonT o"}
           >
             Settings
           </Link>

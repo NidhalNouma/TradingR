@@ -1,22 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
 import { Dialog } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import Google from "../../asset/images/Google";
-import Facebook from "../../asset/images/Facebook";
+// import Facebook from "../../asset/images/Facebook";
+import { UserC } from "../Hooks/User";
 
-import { User } from "../../Actions";
 import CreateAccount from "../createAccount";
 
 export default function Signin(props) {
+  const user = useContext(UserC);
   const [create, setcreate] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginclick, setLoginclick] = useState(false);
   const [error, setError] = useState("");
-
-  const dispatch = useDispatch();
 
   const close = (e) => {
     if (e.target.getAttribute("class") !== "bg-sign") return;
@@ -63,7 +61,7 @@ export default function Signin(props) {
           } else {
             const res = response.data.result;
             props.close();
-            dispatch(User(res));
+            user.setUser(res);
           }
         })
         .catch(function (error) {
@@ -90,7 +88,7 @@ export default function Signin(props) {
           <CreateAccount dissmis={diss} close={closea} />
         ) : (
           <div className="contain-sign">
-            <h3 className="signin-h3">Sign In</h3>
+            <h3 className="h31">Sign In</h3>
             <input
               className={error ? "inputerror" : ""}
               type="email"
@@ -110,18 +108,20 @@ export default function Signin(props) {
             />
             {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
             <div className="btn-1">
-              <button onClick={showcreate}>Create Account</button>
+              <button className="buttonS flexA" onClick={showcreate}>
+                Create Account
+              </button>
               <button
-                className={loginclick ? "aclick" : "btn-login"}
+                className={loginclick ? "aclick" : "buttonP flexA"}
                 onClick={getUser}
               >
                 Login
               </button>
             </div>
             <div className="btn-g">
-              <a className="btn-gg" href="/auth/google">
+              <a className="btn-gg a flex" href="/auth/google">
                 <Google />
-                Continue with google
+                <span className="ml-5">Continue with google</span>
               </a>
               {/* <a className="btn-gg" href="http://localhost:8080/auth/facebook">
                 <Facebook />

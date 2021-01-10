@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import Navbar from "../../global/navbar";
 import Footer from "../../global/footer";
@@ -8,7 +7,7 @@ import Nonotify from "./Nonotify";
 import NotifItem from "./NotifItem";
 
 function Notification() {
-  const notif = useSelector((state) => state.notif);
+  const notif = null;
   return (
     <>
       <Navbar here={true} />

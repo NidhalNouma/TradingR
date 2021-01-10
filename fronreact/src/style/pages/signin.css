@@ -45,14 +45,13 @@
 
 .contain-sign button,
 .contain-sign a {
-  font-size: 0.84em;
+  /* font-size: 0.84em; */
   display: inline-flex;
   margin: 0.6rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   width: 25%;
   border: none;
-  transition: transform 0.3s ease-out;
 }
 
 .btn-gg {

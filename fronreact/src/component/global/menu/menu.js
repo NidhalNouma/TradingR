@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Logout } from "../../../Actions";
-import { useDispatch } from "react-redux";
+import { UserC } from "../../Hooks/User";
 
 export default function Menu(props) {
-  const dispatch = useDispatch();
+  const { setUser } = useContext(UserC);
   const handleClick = (e) => {
     if (document.getElementById("menu-nav")) {
       if (!document.getElementById("menu-nav").contains(e.target)) {
@@ -75,7 +74,7 @@ export default function Menu(props) {
                   <Link
                     className="profile-logout"
                     onClick={() => {
-                      dispatch(Logout());
+                      setUser(null);
                       document.cookie =
                         "_SSDI=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                       props.close();

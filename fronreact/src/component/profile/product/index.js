@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 
 import Navbar from "../../global/navbar";
 import Footer from "../../global/footer";
@@ -8,21 +7,24 @@ import Product from "./Product";
 
 function Myproducts(props) {
   const [sec, setSec] = useState(0);
-  const ind = useSelector((state) => {
-    const products = state.user.products;
-    const ind = products.filter((item) => item.productType === "INDICATOR");
-    return ind;
-  });
-  const str = useSelector((state) => {
-    const products = state.user.products;
-    const ind = products.filter((item) => item.productType === "ROBOT");
-    return ind;
-  });
-  const sou = useSelector((state) => {
-    const products = state.user.products;
-    const ind = products.filter((item) => item.productType === "SOURCE");
-    return ind;
-  });
+  const ind = null;
+  //  useSelector((state) => {
+  //   const products = state.user.products;
+  //   const ind = products.filter((item) => item.productType === "INDICATOR");
+  //   return ind;
+  // });
+  const str = null;
+  // useSelector((state) => {
+  //   const products = state.user.products;
+  //   const ind = products.filter((item) => item.productType === "ROBOT");
+  //   return ind;
+  // });
+  const sou = null;
+  //  useSelector((state) => {
+  //   const products = state.user.products;
+  //   const ind = products.filter((item) => item.productType === "SOURCE");
+  //   return ind;
+  // });
 
   return (
     <>

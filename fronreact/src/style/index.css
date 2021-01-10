@@ -9,6 +9,7 @@
 html {
   /* scroll-behavior: smooth; */
   scroll-padding-top: 160px;
+  font-size: 17px;
 }
 
 body {
@@ -19,7 +20,7 @@ body {
   box-sizing: border-box;
   font-family: "Avenir", "Arial", sans-serif;
   font-weight: lighter;
-  font-size: 1.3rem;
+  font-size: 1rem;
 }
 
 a,
@@ -82,26 +83,6 @@ scroll-container {
   font-size: 3em;
   margin: 0;
   margin-top: 0.5em;
-}
-
-.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
-  .alanBtn-bg-default,
-.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
-  .alanBtn-bg-listening,
-.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
-  .alanBtn-bg-intermediate,
-.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
-  .alanBtn-bg-understood,
-.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
-  .alanBtn-oval-bg-default,
-.alan-64370f4c903e66c5b517887fefa45c1b2e956eca572e1d8b807a3e2338fdd0dc
-  .alanBtn:hover
-  .alanBtn-oval-bg-listening:not(.super-hidden) {
-  background-image: linear-gradient(122deg, #616e3c, #a8cf3b) !important;
-}
-
-.alanBtn {
-  box-shadow: 0px 4px 8px #a8cf3b59 !important;
 }
 
 .cart-not {

@@ -8,12 +8,12 @@ import { SocketC } from "../../../Hooks/Socket";
 function Subscriber() {
   const [sub, setSub] = React.useState(false);
   const [des, setDes] = React.useState(false);
-  const user = useContext(UserC);
+  const { user, check } = useContext(UserC);
   const { socket } = useContext(SocketC);
   const { p, setProduct } = useContext(ProductC);
 
   useEffect(() => {
-    if (user.user) {
+    if (user) {
       if (p.subscribers.find((i) => i === user._id)) {
         setSub(true);
       }
@@ -27,12 +27,12 @@ function Subscriber() {
       <button
         className={sub ? "buttonT m0" : "buttonS m0"}
         onClick={() => {
-          if (!user.user) {
-            user.check(true);
+          if (!user) {
+            check(true);
           } else if (sub) {
             setDes(!des);
           } else {
-            SubscribeFn(user.user._id, sub, p, setProduct, socket);
+            SubscribeFn(user._id, sub, p, setProduct, socket);
             setSub(!sub);
           }
         }}
@@ -43,7 +43,7 @@ function Subscriber() {
         open={des}
         setOpen={() => setDes(!des)}
         agree={() => {
-          SubscribeFn(user.user._id, sub, p, setProduct, socket);
+          SubscribeFn(user._id, sub, p, setProduct, socket);
           setSub(!sub);
           setDes(false);
         }}

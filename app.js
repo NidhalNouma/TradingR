@@ -3,8 +3,9 @@ const http = require("http");
 const fs = require("fs");
 const user = require("./API/user");
 const done = require("./API/done");
-const { checkUser, connect } = require("./log");
 const product = require("./API/product");
+const post = require("./API/post");
+const { checkUser, connect } = require("./log");
 const run = require("./socket/index");
 const cors = require("cors");
 require("./passport");
@@ -23,6 +24,7 @@ app.use(cors());
 app.use("/api/user", user);
 app.use("/api/done", done);
 app.use("/api/product", product);
+app.use("/api/post", post);
 
 app.get(
   [
@@ -66,10 +68,5 @@ const port = process.env.PORT || 8080;
 const server = http.createServer(app);
 const io = require("socket.io")(server);
 run(io);
-server.listen(port, () => console.log(`listening at port ${port}`));
 
-// const model = require("./Model/model");
-// server.on("close", function () {
-//   // request closed unexpectedly
-//   model.close();
-// });
+server.listen(port, () => console.log(`listening at port ${port}`));

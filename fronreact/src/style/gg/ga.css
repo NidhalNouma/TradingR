@@ -22,6 +22,7 @@
   outline: none;
   border: none;
   text-decoration: none;
+  box-sizing: border-box;
   cursor: pointer;
 }
 
@@ -40,8 +41,8 @@
 
 .aNav,
 .abtnNav {
-  font-size: 1.04rem;
-  font-family: "Times New Roman 400", serif;
+  font-size: 1rem;
+  font-family: "Times New Roman", serif;
   color: var(--pcolor);
   background-color: var(--scolor);
   padding: 0.3rem 1.5rem;
@@ -136,6 +137,17 @@
   outline: none;
   border: none;
   cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear;
+}
+
+.buttonP:hover {
+  box-shadow: 0 0 1px 1px var(--pcolor);
+  opacity: 0.95;
+}
+
+.buttonS:hover {
+  box-shadow: 0 0 1px 1px var(--pcolor);
+  opacity: 0.9;
 }
 
 .buttonS {
@@ -149,6 +161,7 @@
   outline: none;
   border: none;
   cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear;
 }
 
 .buttonT {

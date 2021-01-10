@@ -171,7 +171,7 @@ export default function Nav(props) {
 
         <div className="media mr1">
           <button
-            className="abtn flexA btnHover svg2"
+            className="abtn flexA btnHover svg2 mr1"
             onClick={() => setShowMenu(true)}
           >
             <Menui click={showMenu} />

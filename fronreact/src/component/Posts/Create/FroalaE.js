@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React from "react";
 // Require Editor JS files.
 import "froala-editor/js/froala_editor.pkgd.min.js";
 import "froala-editor/js/plugins.pkgd.min.js";
@@ -8,54 +7,56 @@ import "froala-editor/js/third_party/embedly.min.js";
 // Require Editor CSS files.
 import "froala-editor/css/froala_style.min.css";
 import "froala-editor/css/froala_editor.pkgd.min.css";
-
-// Require Font Awesome.
-import "font-awesome/css/font-awesome.css";
+import "froala-editor/css/third_party/embedly.min.css";
 
 import FroalaEditor from "react-froala-wysiwyg";
 
+import { uploadFile } from "../../Hooks/Firebase";
+
+// Require Font Awesome.
+// import "font-awesome/css/font-awesome.css";
+
 // Include special components if required.
-// import FroalaEditorView from 'react-froala-wysiwyg/FroalaEditorView';
+// import FroalaEditorView from "react-froala-wysiwyg/FroalaEditorView";
 // import FroalaEditorA from 'react-froala-wysiwyg/FroalaEditorA';
 // import FroalaEditorButton from 'react-froala-wysiwyg/FroalaEditorButton';
 // import FroalaEditorImg from 'react-froala-wysiwyg/FroalaEditorImg';
 // import FroalaEditorInput from 'react-froala-wysiwyg/FroalaEditorInput';
 
-function FroalaE() {
-  const [model, setModel] = useState("");
-
+function FroalaE({ model, setModel, title, setTitle }) {
   const handleModelChange = (model) => {
     setModel(model);
   };
-  var config = {
+
+  const [save, setSaving] = React.useState(false);
+
+  const config = {
     // define hight
-    // heightMin: 420,
-    height: 420,
-    placeholderText: "Edit Your Content Hereee!",
-    // fontFamily: {
-    //   "Roboto,sans-serif": "Roboto",
-    //   "Oswald,sans-serif": "Oswald",
-    //   "Montserrat,sans-serif": "Montserrat",
-    //   "'Open Sans Condensed',sans-serif": "Open Sans Condensed",
-    // },
+    heightMin: 420,
+    // height: 420,
+    placeholderText: "Edit here!",
+    // imageUploadURL: "http://localhost:8080/api/post/upload_image",
+    videoUpload: false,
+    imageAddNewLine: true,
+    imagePaste: false,
     toolbarButtons: {
       moreText: {
         buttons: [
-          "fontFamily",
-          "fontSize",
-          "paragraphFormat",
+          // "paragraphFormat",
           "bold",
           "italic",
           "underline",
           "strikeThrough",
-          "subscript",
-          "superscript",
-          "textColor",
+          // "subscript",
+          // "superscript",
+          // "textColor",
           "backgroundColor",
-          "inlineClass",
-          "inlineStyle",
+          // "inlineClass",
+          // "inlineStyle",
           "clearFormatting",
         ],
+        align: "left",
+        buttonsVisible: 3,
       },
 
       moreParagraph: {
@@ -74,36 +75,43 @@ function FroalaE() {
           "indent",
           "quote",
         ],
+        align: "left",
+        buttonsVisible: 2,
       },
+
       moreRich: {
         buttons: [
           "insertLink",
           "insertImage",
-
+          "insertVideo",
+          "insertFile",
           "insertTable",
           "emoticons",
           "fontAwesome",
-          "specialCharacters",
+          // "specialCharacters",
           "embedly",
-          "insertFile",
           "insertHR",
         ],
+        align: "left",
+        buttonsVisible: 4,
       },
       moreMisc: {
         buttons: [
           "undo",
           "redo",
           "fullscreen",
-          "insertHTML",
-          "print",
-          "getPDF",
-          "spellChecker",
           "selectAll",
-          "html",
+          // "insertHTML",
+          // "print",
+          "getPDF",
+          // "spellChecker",
+          // "html",
           "clear",
           "alert",
           "help",
         ],
+        align: "right",
+        buttonsVisible: 3,
       },
       pluginsEnabled: [
         "table",
@@ -133,19 +141,75 @@ function FroalaE() {
         "imageTUI",
       ],
     },
+
+    events: {
+      "image.inserted": function ($img, response) {
+        // Do something here.
+        // this is the editor instance.
+
+        toDataURL($img[0].src).then((dataUrl) => {
+          setSaving(true);
+          console.log("RESULT:", dataUrl);
+          uploadFile(dataUrl, (url) => {
+            $img[0].src = url;
+            setSaving(false);
+          });
+        });
+      },
+      "file.inserted": function ($file, response) {
+        // Do something here.
+        // this is the editor instance.
+        let f = $file[0].href;
+        f = f.replace("%3A//", "://");
+        toDataURL(f).then((dataUrl) => {
+          setSaving(true);
+          console.log("RESULT:", dataUrl);
+          uploadFile(
+            dataUrl,
+            (url) => {
+              $file[0].href = url;
+              setSaving(false);
+            },
+            $file[0].innerHTML
+          );
+        });
+      },
+    },
   };
 
   return (
-    <div>
-      {/* <FroalaEditor tag="textarea" /> */}
-
+    <div className="froala-div">
+      <input
+        className="inputT md1"
+        type="text"
+        placeholder="Title"
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
       <FroalaEditor
         model={model}
         onModelChange={handleModelChange}
         config={config}
       />
+      {/* <FroalaEditorView model={model} /> */}
+      {save && <span className="span">Saving ...</span>}
+
+      {/* <div dangerouslySetInnerHTML={{ __html: model }}></div> */}
     </div>
   );
 }
 
 export default FroalaE;
+
+const toDataURL = (url) =>
+  fetch(url)
+    .then((response) => response.blob())
+    .then(
+      (blob) =>
+        new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        })
+    );

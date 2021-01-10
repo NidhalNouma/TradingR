@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  web:
+    build: .
+    image: nidhalnouma/tradingrev
+    ports:
+      - "8080:8080"
+  admin:
+    build: ./Admin/admin
+    image: nidhalnouma/admintr
+    ports:
+      - "3909:3909"
+    links:
+      - web

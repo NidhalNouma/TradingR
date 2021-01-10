@@ -5,7 +5,6 @@ import { ProductC } from "../../../Hooks/Products";
 
 function Impro() {
   const { p } = useContext(ProductC);
-  console.log("ppp=> ", p);
   return (
     <div className="qanda">
       <div>

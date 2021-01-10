@@ -7,7 +7,7 @@ nav {
   height: 70px;
   background-color: var(--bgcolor);
   box-shadow: 0px 2px 4px var(--scolor);
-  z-index: 1;
+  z-index: 10;
 }
 
 .logo {
@@ -30,7 +30,7 @@ nav {
 .logo svg {
   margin: 0;
   width: 100px;
-  height: 30px;
+  height: 28px;
   fill: none;
   stroke: none;
   stroke-width: 0px;
@@ -43,7 +43,8 @@ nav div ul {
 
 nav div ul li {
   list-style: none;
-  text-align: center;
+  align-items: center;
+  display: flex;
   margin-left: 0.5em;
 }
 
@@ -126,9 +127,10 @@ nav .media {
   }
 }
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 800px) {
   nav {
     height: 50px;
+    justify-content: space-between;
   }
 
   nav .menu {
@@ -141,16 +143,17 @@ nav .media {
 
   nav .media {
     display: contents;
-    margin-right: 1em;
+    margin-right: 1rem;
     width: 10%;
   }
 
   nav .logo {
     margin-right: 0;
+    margin-left: 1rem;
   }
 
   nav .logo svg {
-    width: 70px;
+    width: 84px;
   }
 
   nav .search {
@@ -192,6 +195,7 @@ nav .media {
   z-index: 122;
   animation-name: trans;
   animation-duration: 0.3s;
+  transition: 1ms;
 }
 
 @keyframes trans {

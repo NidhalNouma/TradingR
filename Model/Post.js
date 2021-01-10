@@ -89,6 +89,13 @@ const addPost = async function (authId, title, content) {
     content,
   });
   let r = { res: null, err: null, added: false };
+  const err = post.validateSync();
+  if (err) {
+    r.err = err;
+    console.log("\x1b[31m%s\x1b[0m", `Error with Validate new Post ==> ${err}`);
+    return r;
+  }
+
   try {
     r.res = await post.save();
     r.added = true;
@@ -99,4 +106,66 @@ const addPost = async function (authId, title, content) {
   }
 
   return r;
+};
+
+const postComment = async function (id, userId, content) {
+  console.log("\x1b[36m%s\x1b[0m", `Adding New Comment to Post ${id} ...`);
+
+  const CommentPost = mongoose.model("Comment", commentSchema);
+  const com = new CommentPost({
+    userId,
+    content,
+  });
+  let r = { id: null, err: null, added: false };
+  try {
+    r.res = await Post.updateOne({ _id: id }, { $push: { comments: com } });
+    r.added = true;
+    r.id = com._id;
+    console.log("\x1b[35m%s\x1b[0m", `Comment added to Post ${id} ...`);
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Adding Comment to Post ${id} ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+const postReply = async function (id, cId, userId, content) {
+  console.log("\x1b[36m%s\x1b[0m", `Adding New Comment to Post ${id} ...`);
+
+  const replyPost = mongoose.model("Reply", replySchema);
+  const com = new replyPost({
+    userId,
+    content,
+  });
+  let r = { id: null, err: null, added: false };
+  try {
+    r.res = await Post.updateOne(
+      { _id: id, "comments._id": cId },
+      { $push: { "comments.$.reply": com } }
+    );
+    r.added = true;
+    r.id = com._id;
+    console.log("\x1b[35m%s\x1b[0m", `Comment added to Post ${id} ...`);
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Adding Comment to Post ${id} ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+module.exports = {
+  findAll,
+  findById,
+  findByAuth,
+  addPost,
+  postComment,
+  postReply,
 };

@@ -91,7 +91,7 @@ const addnew = async function (email, username, password) {
 
   const er = user.validateSync();
   if (er) {
-    r.err = e;
+    r.err = er;
     console.log("\x1b[31m%s\x1b[0m", `Error with Validate new User ==> ${er}`);
     return r;
   }

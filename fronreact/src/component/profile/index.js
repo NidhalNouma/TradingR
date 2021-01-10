@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { AddUserImp, AddUserQA } from "../../Actions";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 import Navbar from "../global/navbar";
@@ -10,9 +8,10 @@ import UserImg from "../../asset/images/UserImg";
 import Menup from "./menu";
 import Dirtemp from "./Dirtemp";
 
+import { UserC } from "../Hooks/User";
+
 function Profile() {
-  const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
+  const { user } = useContext(UserC);
   const [qa, setQa] = useState(0);
   const [impro, setImpro] = useState(null);
   const [qas, setQas] = useState(null);

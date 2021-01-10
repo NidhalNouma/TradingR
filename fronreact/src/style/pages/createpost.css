@@ -1,15 +1,17 @@
 .containerCreate {
-  width: 80%;
+  width: 90%;
   margin: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
 }
 
-.containerCreate .fr-box.fr-basic {
-  margin-top: 2.6rem;
-  margin-bottom: 1.5rem;
-  border-radius: 8px !important;
+.containerCreate .froala-div {
+  width: 70%;
 }
 
 .containerCreate .btns {
+  width: 20%;
   display: flex;
   align-items: center;
   justify-content: flex-end;

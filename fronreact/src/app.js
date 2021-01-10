@@ -1,4 +1,5 @@
 import "./style/index.css";
+import "./style/ex.css";
 import "./style/global/navbar.css";
 import "./style/global/navfil.css";
 import "./style/global/footer.css";
@@ -20,6 +21,7 @@ import "./style/gg/gh.css";
 import "./style/gg/ga.css";
 import "./style/gg/gm.css";
 import "./style/gg/gp.css";
+import "./style/gg/gi.css";
 import "./style/gg/gpg.css";
 
 import Welcome from "./component/welcomepage";

@@ -10,6 +10,6 @@ services:
     build: ./Admin/admin
     image: nidhalnouma/admintr
     ports:
-      - "3909:3909"
+      - "3909:3000"
     links:
       - web

@@ -35,13 +35,13 @@
   border-radius: 12px;
 }
 
-.pdetails p {
+/* .pdetails p {
   text-align: justify;
   font-weight: 50;
   font-size: 0.78em;
   line-height: 150%;
   overflow: hidden;
-}
+} */
 
 .pdetails iframe {
   width: 100%;

@@ -34,8 +34,8 @@ import Notfound from "./component/notFound";
 import Pricing from "./component/pricing";
 import Producte from "./component/productPage";
 import Posts from "./component/Posts";
-import Post from "./component/Posts/Post";
-import CreatePost from "./component/Posts/Create";
+// import Post from "./component/Posts/Post";
+// import CreatePost from "./component/Posts/Create";
 import Products from "./component/productsList";
 import ContactUs from "./component/others/ContacUs";
 // import Alan from "./component/Alan";
@@ -108,10 +108,10 @@ export default function App() {
               <Route exact path="/posts">
                 <Posts />
               </Route>
-              <Route exact path="/posts/create">
+              {/* <Route exact path="/posts/create">
                 <CreatePost />
               </Route>
-              <Route exact path="/posts/:id" component={Post} />
+              <Route exact path="/posts/:id" component={Post} /> */}
               <Route exact path="/strategys">
                 <Products type="ROBOT" />
               </Route>

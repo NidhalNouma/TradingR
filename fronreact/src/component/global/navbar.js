@@ -44,21 +44,7 @@ export default function Nav(props) {
         <div className="menu mr3 mu-5">
           <ul>
             <li>
-              <Link
-                to="/pricing"
-                className="aNav btnHover"
-                style={
-                  props.loc === "PRICING"
-                    ? {
-                        backgroundColor: "var(--tcolor)",
-                      }
-                    : {}
-                }
-              >
-                {" "}
-                Pricing{" "}
-              </Link>
-              {/* <div className="search">
+              <div className="search">
                 <Search />
                 <input
                   id="searchT"
@@ -74,9 +60,25 @@ export default function Nav(props) {
                     }
                   }}
                 />
-              </div> */}
+              </div>
             </li>
             <li>
+              <Link
+                to="/pricing"
+                className="aNav btnHover"
+                style={
+                  props.loc === "PRICING"
+                    ? {
+                        backgroundColor: "var(--tcolor)",
+                      }
+                    : {}
+                }
+              >
+                {" "}
+                Pricing{" "}
+              </Link>
+            </li>
+            {/* <li>
               <Link
                 to="/posts"
                 className="aNav btnHover"
@@ -91,7 +93,7 @@ export default function Nav(props) {
                 {" "}
                 Posts{" "}
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to="/strategys"

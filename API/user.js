@@ -173,10 +173,11 @@ router.get("/imprqa/:id", async function (req, res) {
   const r = await user.getImprQa(userId);
   if (r.res) {
     ans.find = true;
-    ans.result = {
-      improvements: r.res.improvements,
-      questions: r.res.questions,
-    };
+    ans.result = r.res;
+    //  {
+    //   improvements: r.res.improvements,
+    //   questions: r.res.questions,
+    // };
   } else if (r.err) {
     ans.error = r.err;
   }

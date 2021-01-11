@@ -10,6 +10,8 @@ const {
   subscribe,
   desubscribe,
   hide,
+  getUserIm,
+  getUserQA,
 } = require("../Model/Product");
 const { addImpro, addImproAns, improVote } = require("../Model/impro");
 
@@ -143,6 +145,40 @@ router.post("/question/answer", async function (req, res) {
   const r = await addQuestionAns(id, pId, rId, userId, answer, authId);
   if (r.res) {
     ans.added = true;
+  } else if (r.err) {
+    ans.error = r.err;
+  }
+
+  res.json(ans);
+});
+
+router.get("/user/impro/:id", async function (req, res) {
+  const _id = req.params.id;
+
+  const ans = {
+    result: null,
+    error: null,
+  };
+  const r = await getUserIm(_id);
+  if (r.res) {
+    ans.result = r.res;
+  } else if (r.err) {
+    ans.error = r.err;
+  }
+
+  res.json(ans);
+});
+
+router.get("/user/qandas/:id", async function (req, res) {
+  const _id = req.params.id;
+
+  const ans = {
+    result: null,
+    error: null,
+  };
+  const r = await getUserQA(_id);
+  if (r.res) {
+    ans.result = r.res;
   } else if (r.err) {
     ans.error = r.err;
   }

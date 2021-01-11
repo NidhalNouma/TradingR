@@ -203,6 +203,66 @@ const findProductById = async function (_id) {
   return r;
 };
 
+const getUserIm = async function (_id) {
+  console.log("\x1b[36m%s\x1b[0m", `Find Improvements for user ${_id} ...`);
+  let r = { res: null, err: null };
+  const pipeline = [
+    { $unwind: "$products" },
+    { $unwind: "$products.improvements" },
+    {
+      $match: { "products.improvements.userId": mongoose.Types.ObjectId(_id) },
+    },
+    {
+      $project: {
+        title: "$products.title",
+        improvement: "$products.improvements",
+        img: "$products.img",
+      },
+    },
+    { $sort: { "improvement.timestamp": -1 } },
+  ];
+  try {
+    r.res = await productVersion.aggregate(pipeline);
+    console.log("\x1b[35m%s\x1b[0m", `Improvements for user ${_id} found ...`);
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Finding Improvements for user ${_id} Error ==> ${e}`
+    );
+  }
+  return r;
+};
+
+const getUserQA = async function (_id) {
+  console.log("\x1b[36m%s\x1b[0m", `Find Questions for user ${_id} ...`);
+  let r = { res: null, err: null };
+  const pipeline = [
+    { $unwind: "$products" },
+    { $unwind: "$products.qandas" },
+    {
+      $match: { "products.qandas.userId": mongoose.Types.ObjectId(_id) },
+    },
+    {
+      $project: {
+        title: "$products.title",
+        improvement: "$products.qandas",
+        img: "$products.img",
+      },
+    },
+    { $sort: { "improvement.timestamp": -1 } },
+  ];
+  try {
+    r.res = await productVersion.aggregate(pipeline);
+    console.log("\x1b[35m%s\x1b[0m", `Questions for user ${_id} found ...`);
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Finding Questions for user ${_id} Error ==> ${e}`
+    );
+  }
+  return r;
+};
+
 const download = async (pvId, userId) => await push(pvId, userId, 1);
 const subscribe = async (pvId, userId) => await push(pvId, userId);
 const desubscribe = async (pvId, userId) => await pull(pvId, userId);
@@ -218,6 +278,8 @@ module.exports = {
   desubscribe,
   download,
   hide,
+  getUserIm,
+  getUserQA,
 };
 
 const checkProduct = function (pr) {

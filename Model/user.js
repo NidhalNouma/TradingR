@@ -187,25 +187,46 @@ const getImprQa = async function (_id) {
 
   const r = { res: null, err: null };
   try {
-    r.res = await User.findOne({ _id })
-      .populate({
-        path: "improvements.id",
-        // select: "improvements img  title timestamp",
-      })
-      .populate({
-        path: "questions.id",
-        // select: "qandas img  title timestamp",
-      })
-      .select("_id improvements questions");
+    // r.res = await User.findOne({ _id })
+    //   .populate({
+    //     path: "improvements.id",
+    //     match: { "products.improvements.userId": _id },
+    //     select: "products.improvements.userId products.img  products.title",
+    //   })
+    //   .populate({
+    //     path: "qandas.id",
+    //     select: "products.qandas img  title timestamp",
+    //   })
+    //   .select("_id improvements questions");
+    const pipeline = [
+      { $match: { _id: mongoose.Types.ObjectId(_id) } },
+      {
+        $lookup: {
+          from: "productVersion",
+          localField: "improvements.id",
+          foreignField: "_id",
+          as: "impro",
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          impro: { $first: "$impro" },
+          improvements: { $first: "$improvements" },
+          qandas: { $first: "$questions" },
+        },
+      },
+    ];
+    r.res = await User.aggregate(pipeline);
     console.log(
       "\x1b[35m%s\x1b[0m",
-      `Found Impro & Questions for user ID ${userId}  ...`
+      `Found Impro & Questions for user ID ${_id}  ...`
     );
   } catch (e) {
     r.err = e;
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Error with finding Impro & Questions for user ID ${_id}  ==> ${e}`
+      `Error with finding Impros & Questions for user ID ${_id}  ==> ${e}`
     );
   }
 

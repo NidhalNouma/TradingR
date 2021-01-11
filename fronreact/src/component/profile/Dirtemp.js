@@ -4,11 +4,10 @@ import Quesimg from "../../asset/images/quest";
 import Improvimg from "../../asset/images/improv";
 
 function Dirtemp({ qa, data }) {
-  console.log(data);
   return (
     <>
       <div>
-        {qa ? (
+        {qa === 2 ? (
           data && data.length > 0 ? (
             data.map((item) => <Templ key={data.indexOf(item)} data={item} />)
           ) : (
@@ -20,9 +19,7 @@ function Dirtemp({ qa, data }) {
             </>
           )
         ) : data && data.length > 0 ? (
-          data.map((item) => (
-            <Templ key={data.indexOf(item)} data={item} vote={true} />
-          ))
+          data.map((item) => <Templ key={data.indexOf(item)} data={item} />)
         ) : (
           <>
             <div className="noimqa">

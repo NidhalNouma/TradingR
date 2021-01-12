@@ -42,7 +42,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build && mv build/* ../html/",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build && mv build/* ../html/ && mv ../html/index.html ../html/index_.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

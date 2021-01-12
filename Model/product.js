@@ -263,6 +263,24 @@ const getUserQA = async function (_id) {
   return r;
 };
 
+const findUserSubs = async function (_id) {
+  console.log("\x1b[36m%s\x1b[0m", `Find Subscriptions for user ${_id} ...`);
+  let r = { res: null, err: null };
+
+  try {
+    r.res = await productVersion
+      .find({ subscribers: _id })
+      .select("_id type products.title products.img products.description");
+    console.log("\x1b[35m%s\x1b[0m", `Subscriptions for user ${_id} found ...`);
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Finding Subscriptions for user ${_id} Error ==> ${e}`
+    );
+  }
+  return r;
+};
+
 const download = async (pvId, userId) => await push(pvId, userId, 1);
 const subscribe = async (pvId, userId) => await push(pvId, userId);
 const desubscribe = async (pvId, userId) => await pull(pvId, userId);
@@ -280,6 +298,7 @@ module.exports = {
   hide,
   getUserIm,
   getUserQA,
+  findUserSubs,
 };
 
 const checkProduct = function (pr) {

@@ -89,6 +89,7 @@
   justify-content: space-around;
   align-items: center;
   margin-bottom: 1.5rem;
+  z-index: 2;
 }
 
 .containProfile .right .qaim h6 {
@@ -185,6 +186,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  z-index: 2;
 }
 
 .containProfile .profileproduct h5 {

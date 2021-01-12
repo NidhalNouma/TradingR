@@ -13,14 +13,14 @@ function Menup({ link }) {
             Profile
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link
             to="/profile/products"
             className={link === 2 ? "oActiv buttonT" : "buttonT o"}
           >
             Products
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link
             to="/profile/subscription"

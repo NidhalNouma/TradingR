@@ -5,13 +5,17 @@ function ProdItem({ data }) {
   return (
     <>
       <div className="contprod">
-        <img src={data.productImg} />
+        <img src={data.products[0].img} alt="productImg" />
         <div>
-          <h5>{data.productTitle}</h5>
-          <p>{data.productDesc}</p>
+          <h5 className="h5">{data.products[0].title}</h5>
+          <p className="pgl2">{data.products[0].description}</p>
           <div>
-            <a>Download</a>
-            <Link to={"/product/" + data.productId}>View product</Link>
+            <a className="abtn" href="/">
+              Download
+            </a>
+            <Link className="abtn" to={"/product/" + data._id}>
+              View product
+            </Link>
           </div>
         </div>
       </div>

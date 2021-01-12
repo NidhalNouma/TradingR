@@ -7,32 +7,31 @@ import { Dark } from "../../app";
 export default function Footer() {
   const { dark, setDark } = useContext(Dark);
 
-  React.useEffect(() => {
-    if (localStorage.getItem("DARKLIGHT") === "ON") {
-      setDark(true);
-    }
-  }, [dark]);
+  // React.useEffect(() => {
+  //   if (localStorage.getItem("DARKLIGHT") === "ON") {
+  //     setDark(true);
+  //   }
+  // }, [dark]);
 
   return (
     <div className="containFooter">
       <br />
       <hr />
       <div className="footer">
-        <Link className="aspan" to="/welcome">
+        <Link className="aspan-9" to="/welcome">
           What's Trading Revelotion
         </Link>
-        <Link className="aspan" to="/">
+        <Link className="aspan-9" to="/">
           How it works{" "}
         </Link>
-        <Link className="aspan" to="/">
+        <Link className="aspan-9" to="/">
           Q&A
         </Link>
-        <Link className="aspan" to="/contactus">
+        <Link className="aspan-9" to="/contactus">
           Contact Us
         </Link>
-        <span className="aspan">
-          {" "}
-          &copy; CopyRight {new Date().getFullYear()} NN{" "}
+        <span className="aspan-9">
+          &copy; CopyRight {new Date().getFullYear()} NN
         </span>
         <Switch
           size="small"

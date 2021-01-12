@@ -10,7 +10,7 @@ import Dirtemp from "./Dirtemp";
 import Loadp from "./Loadp";
 
 import { UserC } from "../Hooks/User";
-import LoadPost from "../Posts/LoadPost";
+// import LoadPost from "../Posts/LoadPost";
 
 function Profile() {
   const { user } = useContext(UserC);

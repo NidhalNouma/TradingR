@@ -12,7 +12,8 @@ const {
   hide,
   getUserIm,
   getUserQA,
-} = require("../Model/Product");
+  findUserSubs,
+} = require("../Model/product");
 const { addImpro, addImproAns, improVote } = require("../Model/impro");
 
 const { addQuestion, addQuestionAns } = require("../Model/QandA");
@@ -177,6 +178,23 @@ router.get("/user/qandas/:id", async function (req, res) {
     error: null,
   };
   const r = await getUserQA(_id);
+  if (r.res) {
+    ans.result = r.res;
+  } else if (r.err) {
+    ans.error = r.err;
+  }
+
+  res.json(ans);
+});
+
+router.get("/user/subscriptions/:id", async function (req, res) {
+  const _id = req.params.id;
+
+  const ans = {
+    result: null,
+    error: null,
+  };
+  const r = await findUserSubs(_id);
   if (r.res) {
     ans.result = r.res;
   } else if (r.err) {

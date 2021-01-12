@@ -91,6 +91,16 @@
   cursor: pointer;
 }
 
+.aspan-9 {
+  font-size: 0.86rem;
+  font-family: "Avenir", "Arial", sans-serif;
+  color: var(--pcolor);
+  outline: none;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .aspanX {
   font-size: 1rem;
   font-family: "Avenir", "Arial", sans-serif;

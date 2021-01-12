@@ -21,7 +21,7 @@ function getUserDom() {
 }
 
 export const getUser = async (email, password) => {
-  const r = axios({
+  const r = await axios({
     method: "post",
     url: "/api/user/find",
     data: {
@@ -31,5 +31,21 @@ export const getUser = async (email, password) => {
   });
   const res = r.data.result;
 
+  return res;
+};
+
+export const findSubs = async (_id, setStr, setInd) => {
+  const r = await axios({
+    method: "get",
+    url: "/api/product/user/subscriptions/" + _id,
+  });
+  const res = r.data.result;
+  if (res) {
+    setStr(res.filter((i) => i.type === "EA"));
+    setInd(res.filter((i) => i.type === "Indicator"));
+  } else {
+    setInd(null);
+    setStr(null);
+  }
   return res;
 };

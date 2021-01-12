@@ -1,30 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import Navbar from "../../global/navbar";
 import Footer from "../../global/footer";
 import Menup from "../menu";
 import Product from "./Product";
 
+import { findSubs } from "../../Hooks/User";
+import { UserC } from "../../Hooks/User";
+
 function Myproducts(props) {
   const [sec, setSec] = useState(0);
-  const ind = null;
-  //  useSelector((state) => {
-  //   const products = state.user.products;
-  //   const ind = products.filter((item) => item.productType === "INDICATOR");
-  //   return ind;
-  // });
-  const str = null;
-  // useSelector((state) => {
-  //   const products = state.user.products;
-  //   const ind = products.filter((item) => item.productType === "ROBOT");
-  //   return ind;
-  // });
-  const sou = null;
-  //  useSelector((state) => {
-  //   const products = state.user.products;
-  //   const ind = products.filter((item) => item.productType === "SOURCE");
-  //   return ind;
-  // });
+  const [ind, setInd] = useState(null);
+  const [str, setStr] = useState(null);
+  const { user } = useContext(UserC);
+
+  React.useEffect(() => {
+    if (user) findSubs(user._id, setStr, setInd);
+  }, [user]);
 
   return (
     <>
@@ -56,7 +48,7 @@ function Myproducts(props) {
           </div>
           {sec === 0 && <Product type="Strategys" data={str} />}
           {sec === 1 && <Product type="Indicators" data={ind} />}
-          {sec === 2 && <Product type="Source" data={sou} />}
+          {/* {sec === 2 && <Product type="Source" data={sou} />} */}
         </div>
       </div>
       <Footer />

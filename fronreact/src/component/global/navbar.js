@@ -43,7 +43,7 @@ export default function Nav(props) {
         </div>
         <div className="menu mr3 mu-5">
           <ul>
-            <li>
+            {/* <li>
               <div className="search">
                 <Search />
                 <input
@@ -61,7 +61,7 @@ export default function Nav(props) {
                   }}
                 />
               </div>
-            </li>
+            </li> */}
             <li>
               <Link
                 to="/pricing"

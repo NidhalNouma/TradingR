@@ -49,3 +49,13 @@ export const findSubs = async (_id, setStr, setInd) => {
   }
   return res;
 };
+
+export const setLastTime = async (_id) => {
+  if (!_id) return;
+  const r = await axios({
+    method: "post",
+    url: "/api/user/lasttime/" + _id,
+  });
+  const res = r.data.result;
+  return res;
+};

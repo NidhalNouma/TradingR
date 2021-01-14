@@ -32,6 +32,7 @@ const notifModel = mongoose.model("Notification", notifSchema);
 
 const userSchema = new mongoose.Schema({
   joinAt: { type: Date, default: Date.now },
+  lastTime: { type: Date, default: Date.now },
   active: { type: Boolean, default: false },
   from: { type: String, enum: ["_", "FACEBOOK", "GOOGLE"], default: "_" },
   score: { type: Number, default: 0 },
@@ -145,8 +146,12 @@ const findOne = async function (email, password) {
     r.res = await User.findOne({ email, password })
       .select("-improvements -questions")
       .populate({
-        path: "notifications.product",
-        select: "img  title timestamp",
+        path: "notifications.productId",
+        select: "products[0].title products[0].img",
+      })
+      .populate({
+        path: "notifications.fromId",
+        select: "userName _id userPicture",
       });
     console.log("\x1b[35m%s\x1b[0m", `Find User ==> ${email}`);
   } catch (e) {
@@ -413,6 +418,27 @@ const addScore = async function (userId, pn, notif) {
   return r;
 };
 
+const setLastTime = async function (userId) {
+  console.log("\x1b[36m%s\x1b[0m", `set last Time User ${userId} ...`);
+  let r = { res: null, err: null };
+  const time = new Date().toString();
+  try {
+    r.res = await User.updateOne({ _id: userId }, { lastTime: time });
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Last time ${time} set to User ${userId} ...`
+    );
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `error with setting last time to user ${userId} ==> ${e}`
+    );
+    r.err = e;
+  }
+
+  return r;
+};
+
 // --------------------------------------------------------------------------------------------
 
 module.exports = {
@@ -426,6 +452,7 @@ module.exports = {
   addQuestion,
   addScore,
   addNotif,
+  setLastTime,
 };
 
 function checkNotif(notif) {

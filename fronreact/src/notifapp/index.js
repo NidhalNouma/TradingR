@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
-import { UserC, User } from "../component/Hooks/User";
+import { UserC, User, setLastTime } from "../component/Hooks/User";
 import { Notification, NotifC } from "../component/Hooks/Notification";
+import { SocketC } from "../component/Hooks/Socket";
 import Signin from "../component/signIn";
 
 import App from "../app";
@@ -9,6 +10,7 @@ import SetListNotif from "./SetListNotif";
 import SetNotif from "./SetNotif";
 
 function Notif() {
+  const { onNot } = useContext(SocketC);
   const userCo = User();
   const user = userCo.user;
   const Notif = Notification();
@@ -26,8 +28,10 @@ function Notif() {
       });
 
       Notif.setNotif(user.notifications);
+      onNot(user._id, user.notifications, Notif.setNotif);
       setam(true);
       delete user.notifications;
+      setLastTime(user ? user._id : undefined);
     }
   }, [user]);
 
@@ -43,7 +47,7 @@ function Notif() {
         >
           <App />
           <SetNotif am={am} setam={setam} msg={msg} />
-          <SetListNotif />
+          <SetListNotif lastTime={user && user.lastTime} />
           {show ? <Signin close={() => setShow(false)} show={show} /> : <></>}
         </UserC.Provider>
       </NotifC.Provider>

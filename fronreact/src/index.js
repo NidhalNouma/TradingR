@@ -9,9 +9,9 @@ import { Socket, SocketC } from "./component/Hooks/Socket";
 import Index from "./notifapp";
 
 function Main() {
-  const { socket, onP, onPP } = Socket();
+  const { socket, onP, onPP, onNot } = Socket();
   return (
-    <SocketC.Provider value={{ socket, onP, onPP }}>
+    <SocketC.Provider value={{ socket, onP, onPP, onNot }}>
       <Index />
     </SocketC.Provider>
   );

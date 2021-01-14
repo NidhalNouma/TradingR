@@ -7,6 +7,10 @@ function run(io) {
       socket.broadcast.emit("PPs", msg);
     });
 
+    socket.on("Notif", function (msg) {
+      socket.broadcast.emit("Notif", msg);
+    });
+
     socket.on("disconnect", function () {
       console.log("\x1b[33m%s\x1b[0m", `user disconnected =>> ${socket.id}`);
     });

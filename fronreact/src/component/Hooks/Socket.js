@@ -11,7 +11,6 @@ export const Socket = () => {
   const onPP = (pr, fn) => {
     socket.on("PPs", (p) => {
       if (!pr) return;
-      // console.log(pr);
       const r = pr.map((i) => {
         if (i._id === p._id) return p;
         return i;
@@ -20,7 +19,13 @@ export const Socket = () => {
     });
   };
 
-  return { socket, setSocket, onP, onPP };
+  const onNot = (userId, nf, fn) => {
+    socket.on("Notif", (notif) => {
+      if (userId === notif.userId) fn([...nf, notif.content]);
+    });
+  };
+
+  return { socket, setSocket, onP, onPP, onNot };
 };
 
 export const SocketC = createContext(null);

@@ -52,27 +52,26 @@ async function improUser(q, u) {
 async function improAnswer(q, u, authId) {
   const d = u["$push"]["products.$[i].improvements.$[j].answers"];
   const notif = {
-    from: d.userId,
+    fromId: d.userId,
     type: "impro",
     id: q["products.improvements._id"],
     pId: q["products._id"],
     productId: q._id,
-    message: `${authId} reply to your improvement`,
+    message: `reply to your improvement`,
   };
   const r = await user.addNotif(authId, notif);
-  console.log(r);
   return r;
 }
 
 async function positiveVote(q, u, authId) {
   const d = u["$push"]["products.$[i].improvements.$[j].plus"];
   const notif = {
-    from: d,
+    fromId: d,
     type: "impro",
     id: q["products.improvements._id"],
     pId: q["products._id"],
     productId: q._id,
-    message: `${d} vote positive to your improvement`,
+    message: `vote positive to your improvement`,
   };
   const r = await user.addScore(authId, 1, notif);
   return r;
@@ -81,12 +80,12 @@ async function positiveVote(q, u, authId) {
 async function negativeVote(q, u, authId) {
   const d = u["$push"]["products.$[i].improvements.$[j].minus"];
   const notif = {
-    from: d,
+    fromId: d,
     type: "impro",
     id: q["products.improvements._id"],
     pId: q["products._id"],
     productId: q._id,
-    message: `${d} vote negative to your improvement`,
+    message: `vote negative to your improvement`,
   };
   const r = await user.addScore(authId, -1, notif);
   return r;
@@ -106,12 +105,12 @@ async function questionUser(q, u) {
 async function questionAnswer(q, u, authId) {
   const d = u["$push"]["products.$[i].qandas.$[j].answers"];
   const notif = {
-    from: d.userId,
+    fromId: d.userId,
     type: "question",
     id: q["products.qandas._id"],
     pId: q["products._id"],
     productId: q._id,
-    message: `${authId} answer your question`,
+    message: `answer your question`,
   };
   const r = await user.addNotif(authId, notif);
   return r;

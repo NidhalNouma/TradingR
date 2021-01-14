@@ -44,6 +44,17 @@ export const improVote = async (
     const re = addImproVote(p, user, impId, type);
     setProduct(re);
     s.emit("PP", re);
+    s.emit("Notif", {
+      userId: authId,
+      content: {
+        readed: false,
+        message: "vote to your improvement",
+        productId: p._id,
+        pId: p.product._id,
+        id: impId,
+        at: new Date().toString(),
+      },
+    });
   }
 };
 
@@ -110,6 +121,19 @@ export const AddReply = async (
       setProduct(r);
       s.emit("PP", r);
     }
+
+  if (r.data.added)
+    s.emit("Notif", {
+      userId: authId,
+      content: {
+        readed: false,
+        message: "reply to your improvement",
+        productId: p._id,
+        pId: p.product._id,
+        id: rId,
+        at: new Date().toString(),
+      },
+    });
 };
 
 export const SubscribeFn = async (userId, sub, p, setProduct, s) => {

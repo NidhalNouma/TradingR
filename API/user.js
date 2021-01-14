@@ -192,6 +192,23 @@ router.get("/imprqa/:id", async function (req, res) {
   res.json(ans);
 });
 
+router.post("/lasttime/:id", async function (req, res) {
+  const id = req.params.id;
+  const ans = {
+    addes: false,
+    errors: null,
+  };
+
+  const r = await user.setLastTime(id);
+  if (r.res) {
+    ans.assed = true;
+  } else if (r.err) {
+    ans.error = r.err;
+  }
+
+  res.json(ans);
+});
+
 router.get("/active/:id", function (req, res) {
   const id = req.params.id;
   console.log(id);

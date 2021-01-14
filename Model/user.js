@@ -22,7 +22,7 @@ const notifSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  iqId: { type: mongoose.Types.ObjectId },
+  id: { type: mongoose.Types.ObjectId },
   pId: { type: mongoose.Types.ObjectId },
   productId: { type: mongoose.Types.ObjectId, ref: "ProductVersion" },
   postId: { type: mongoose.Types.ObjectId, ref: "Post" },
@@ -235,43 +235,17 @@ const getImprQa = async function (_id) {
 
 // --------------------------------------------------------------------------------------------
 
-const addNotif = async function (
-  userId,
-  type,
-  message,
-  postId,
-  productId,
-  fromId,
-  pId,
-  iqId
-) {
+const addNotif = async function (userId, notif) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `New notification for User_ID ${userId} ...`
   );
   let r = { res: null, err: null };
-  const notif = new notifModel({
-    type,
-    message,
-    fromId,
-    postId,
-    productId,
-    pId,
-    iqId,
-  });
-  const er = notif.validateSync();
-  if (er) {
-    console.log(
-      "\x1b[31m%s\x1b[0m",
-      `Error with Validate Notification for User ${userId} ==> ${er}`
-    );
-    r.err = er;
-    return r;
-  }
   try {
-    r.res = User.updateOne(
+    const notf = checkNotif(notif);
+    r.res = await User.updateOne(
       { _id: userId },
-      { $push: { notifications: notif } }
+      { $push: { notifications: notf } }
     );
     console.log(
       "\x1b[35m%s\x1b[0m",
@@ -295,9 +269,9 @@ const markNotifAsRead = async function (userId, _id) {
   );
   let r = { res: null, err: null };
   try {
-    r.res = User.updateOne(
+    r.res = await User.updateOne(
       { _id: userId, "notifications._id": _id },
-      { $set: { "notifications.read": true } }
+      { $set: { "notifications.readed": true } }
     );
     console.log(
       "\x1b[35m%s\x1b[0m",
@@ -321,7 +295,7 @@ const markAllNotifAsRead = async function (userId) {
   );
   let r = { res: null, err: null };
   try {
-    r.res = User.updateOne(
+    r.res = await User.updateOne(
       { _id: userId },
       { $set: { "notifications.read": true } }
     );
@@ -419,9 +393,10 @@ const addScore = async function (userId, pn, notif) {
   console.log("\x1b[36m%s\x1b[0m", `Adding ${pn} score to user ${userId} ...`);
   let r = { res: null, err: null };
   try {
+    const notf = checkNotif(notif);
     r.res = await User.updateOne(
       { _id: userId },
-      { $inc: { score: pn } /*, $push: { notifications: notif } */ }
+      { $inc: { score: pn }, $push: { notifications: notf } }
     );
     console.log(
       "\x1b[35m%s\x1b[0m",
@@ -450,4 +425,12 @@ module.exports = {
   addImpro,
   addQuestion,
   addScore,
+  addNotif,
 };
+
+function checkNotif(notif) {
+  const notf = new notifModel(notif);
+  const err = notf.validateSync();
+  if (err) throw err;
+  return notf;
+}

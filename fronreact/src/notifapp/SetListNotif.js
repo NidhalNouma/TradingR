@@ -1,22 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { SnackbarProvider, useSnackbar } from "notistack";
-const time = new Date();
+import { NotifC } from "../component/Hooks/Notification";
 
 function Notifl() {
-  const notif = null;
-  // useSelector((state) => state.notif);
-  const ref = null; // useSelector((state) => state.ref);
+  const { notif } = useContext(NotifC);
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (notif && notif.length > 0) {
-      console.log(time);
       notif.map((i) => {
-        if (!i.readed && i.new)
-          enqueueSnackbar(i.message, { variant: "success" });
+        if (!i.readed)
+          return enqueueSnackbar(
+            Content(i.productId, i.message) /*, { variant: "success" }*/
+          );
+        else return undefined;
       });
     }
-  }, [notif, ref]);
+  }, [notif]);
 
   return <></>;
 }
@@ -29,16 +29,11 @@ export default function SetListNotif() {
   );
 }
 
-// content={(key, message) => (
-//     <div
-//       style={{
-//         backgroundColor: "var(--pcolor)",
-//         borderRadius: "10px",
-//         padding: ".3rem 1rem",
-//         boxShadow: "0px 4px 18px var(--shcolor)",
-//       }}
-//     >
-//       <span style={{ margin: "0", color: "var(--scolor)" }}>{message}</span>
-//       <a>see More</a>
-//     </div>
-//   )}
+const Content = (id, message) => (
+  <div>
+    <span style={{ margin: "0", color: "var(--scolor)" }}>{message}</span>
+    <a href={"/product/" + id} className="ml-5 an bold">
+      see more
+    </a>
+  </div>
+);

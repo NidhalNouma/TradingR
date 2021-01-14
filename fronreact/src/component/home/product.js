@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Typep from "../Typep";
 
 export default function Product({ p }) {
+  console.log(p);
   return (
     <div className="griditem">
       <Link to={{ pathname: "/product/" + p._id, product: p }}>

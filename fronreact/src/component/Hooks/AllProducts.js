@@ -20,6 +20,7 @@ export const GetAll = (ty) => {
 const productV = (p, id = null) => {
   const r = {
     _id: p._id,
+    type: p.type,
     subscribers: p.subscribers,
     downloads: p.downloads,
     show: p.show,

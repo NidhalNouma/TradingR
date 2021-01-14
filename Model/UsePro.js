@@ -1,9 +1,6 @@
 const user = require("../Model/user");
 
 const impro = async function (q, u, authId) {
-  // console.log("qq ... ", q);
-  // console.log("uu ... ", u);
-
   if (u["$push"]["products.$.improvements"] !== undefined) {
     console.log("impro");
     const r = await improUser(q, u);
@@ -54,20 +51,44 @@ async function improUser(q, u) {
 
 async function improAnswer(q, u, authId) {
   const d = u["$push"]["products.$[i].improvements.$[j].answers"];
-  //Add Notification
-  const r = null;
+  const notif = {
+    from: d.userId,
+    type: "impro",
+    id: q["products.improvements._id"],
+    pId: q["products._id"],
+    productId: q._id,
+    message: `${authId} reply to your improvement`,
+  };
+  const r = await user.addNotif(authId, notif);
+  console.log(r);
   return r;
 }
 
 async function positiveVote(q, u, authId) {
   const d = u["$push"]["products.$[i].improvements.$[j].plus"];
-  const r = await user.addScore(authId, 1, "jhug");
+  const notif = {
+    from: d,
+    type: "impro",
+    id: q["products.improvements._id"],
+    pId: q["products._id"],
+    productId: q._id,
+    message: `${d} vote positive to your improvement`,
+  };
+  const r = await user.addScore(authId, 1, notif);
   return r;
 }
 
 async function negativeVote(q, u, authId) {
   const d = u["$push"]["products.$[i].improvements.$[j].minus"];
-  const r = await user.addScore(authId, -1, "jhug");
+  const notif = {
+    from: d,
+    type: "impro",
+    id: q["products.improvements._id"],
+    pId: q["products._id"],
+    productId: q._id,
+    message: `${d} vote negative to your improvement`,
+  };
+  const r = await user.addScore(authId, -1, notif);
   return r;
 }
 
@@ -84,7 +105,14 @@ async function questionUser(q, u) {
 
 async function questionAnswer(q, u, authId) {
   const d = u["$push"]["products.$[i].qandas.$[j].answers"];
-  // Add notification
-  const r = null;
+  const notif = {
+    from: d.userId,
+    type: "question",
+    id: q["products.qandas._id"],
+    pId: q["products._id"],
+    productId: q._id,
+    message: `${authId} answer your question`,
+  };
+  const r = await user.addNotif(authId, notif);
   return r;
 }

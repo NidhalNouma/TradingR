@@ -12,6 +12,7 @@ import Menu from "./menu/menu";
 import Show from "../show";
 
 import { UserC } from "../Hooks/User";
+import { NotifC } from "../Hooks/Notification";
 
 export default function Nav(props) {
   const rel = {
@@ -22,11 +23,11 @@ export default function Nav(props) {
   };
 
   const user = useContext(UserC);
+  const { notif } = useContext(NotifC);
 
-  const history = useHistory();
-  const notif = null; // useSelector((state) => state.notif);
+  // const history = useHistory();
 
-  const [search, setSearch] = useState(props.search);
+  // const [search, setSearch] = useState(props.search);
   const [showCard, setShowCard] = useState(false);
   const [showFace, setShowFace] = useState(false);
   const [showMenu, setShowMenu] = useState(false);

@@ -131,8 +131,3 @@ scroll-container {
 .skel-img1 {
   height: 100% !important;
 }
-
-.MuiSkeleton-root {
-  background-color: var(--scolor) !important;
-  border-radius: 8px;
-}

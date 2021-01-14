@@ -244,3 +244,14 @@
 .oActiv {
   opacity: 1;
 }
+
+.an {
+  font-size: 0.95rem;
+  /* font-family: "Times New Roman 400", serif; */
+  color: var(--scolor);
+  outline: none;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}

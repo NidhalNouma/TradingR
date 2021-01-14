@@ -18,13 +18,16 @@ function Notif() {
   const [msg, setMsg] = useState(null);
 
   useEffect(() => {
-    if (user && !user.improvements) {
+    if (user) {
       setMsg({
         msg: `Welcome ${user.userName}`,
         place: "center",
         duration: 3000,
       });
+
+      Notif.setNotif(user.notifications);
       setam(true);
+      delete user.notifications;
     }
   }, [user]);
 

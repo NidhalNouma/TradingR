@@ -92,3 +92,17 @@
 .alanBtn {
   box-shadow: 0px 4px 8px #a8cf3b59 !important;
 }
+
+/* Material UI */
+
+.MuiSkeleton-root {
+  background-color: var(--scolor) !important;
+  border-radius: 8px;
+}
+.MuiSnackbarContent-root {
+  background-color: var(--pcolor) !important;
+  box-shadow: 0px 4px 18px var(--shcolor);
+  border-radius: 8px;
+  width: 200px;
+  /* height: 100px; */
+}

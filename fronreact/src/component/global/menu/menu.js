@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { UserC } from "../../Hooks/User";
 
 export default function Menu(props) {
-  const { setUser } = useContext(UserC);
+  const { setUser, check } = useContext(UserC);
   const handleClick = (e) => {
     if (document.getElementById("menu-nav")) {
       if (!document.getElementById("menu-nav").contains(e.target)) {
@@ -22,57 +22,79 @@ export default function Menu(props) {
       <div className="menu-nav" id="menu-nav">
         <ul>
           <li>
-            <Link onClick={() => props.close()} to="/strategys">
+            <Link
+              onClick={() => props.close()}
+              to="/pricing"
+              className="aNav btnHover w1"
+            >
+              Pricing
+            </Link>
+          </li>
+          <li>
+            <Link
+              onClick={() => props.close()}
+              to="/strategys"
+              className="aNav btnHover w1"
+            >
               Robots
             </Link>
           </li>
           <li>
-            <Link onClick={() => props.close()} to="/indicators">
+            <Link
+              onClick={() => props.close()}
+              to="/indicators"
+              className="aNav btnHover w1"
+            >
               Indicators
-            </Link>
-          </li>
-          <li>
-            <Link onClick={() => props.close()} to="/source">
-              Source
             </Link>
           </li>
           <li>
             {props.user ? (
               <>
-                <Link onClick={() => props.close()} to="/profile">
+                <Link
+                  onClick={() => props.close()}
+                  to="/profile"
+                  className="aNav btnHover w1"
+                >
                   Profile
                 </Link>
                 <li>
-                  <Link
-                    className="profile-a"
+                  {/* <Link
+                    className="aNav btnHover"
                     onClick={() => props.close()}
                     to="/profile/products"
                   >
                     Products
-                  </Link>
+                  </Link> */}
                   <Link
-                    className="profile-a"
+                    className="aNav btnHover w1"
                     onClick={() => props.close()}
                     to="/profile/subscription"
                   >
                     Subscriptions
                   </Link>
+                </li>
+                <li>
                   <Link
-                    className="profile-a"
+                    className="aNav btnHover w1"
                     onClick={() => props.close()}
                     to="/profile/notifications"
                   >
                     Notifications
                   </Link>
+                </li>
+                <li>
                   <Link
-                    className="profile-a"
+                    className="aNav btnHover w1"
                     onClick={() => props.close()}
                     to="/profile/settings"
                   >
                     Settings
                   </Link>
+                </li>
+                <li>
                   <Link
-                    className="profile-logout"
+                    className="profile-logout w2"
                     onClick={() => {
                       setUser(null);
                       document.cookie =
@@ -86,11 +108,11 @@ export default function Menu(props) {
               </>
             ) : (
               <button
-                className="signin"
+                className="buttonP w1-5"
                 onClick={() => {
                   document.removeEventListener("click", handleClick);
                   props.close();
-                  props.sign();
+                  check(true);
                 }}
               >
                 Sign In

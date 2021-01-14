@@ -211,6 +211,7 @@ nav .media {
   display: block;
   padding: 0;
   margin: 0 5rem;
+  float: right;
 }
 
 .menu-nav ul li {

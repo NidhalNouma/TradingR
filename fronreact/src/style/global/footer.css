@@ -35,23 +35,27 @@ br + hr {
   .footer {
     display: grid;
     grid-template-columns: 30% 30% 30%;
-    justify-content: space-around;
-    margin-bottom: 0.6em;
+    grid-gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
   }
 
   .footer .MuiSwitch-root {
     margin: auto;
-    margin-bottom: 1.5em;
+    /* margin-bottom: 1.5em; */
+  }
+
+  .footer .aspan-9,
+  .footer .MuiSwitch-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
 @media screen and (max-width: 850px) {
   .footer {
     grid-template-columns: 50% 50%;
-  }
-
-  .footer .MuiSwitch-root {
-    margin: auto;
-    margin-bottom: 1em;
   }
 }

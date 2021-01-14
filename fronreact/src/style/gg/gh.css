@@ -26,6 +26,15 @@
   user-select: none;
 }
 
+.h41 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--pcolor);
+  font-weight: lighter;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 .h5 {
   margin: 0;
   font-size: 0.9rem;

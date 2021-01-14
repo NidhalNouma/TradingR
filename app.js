@@ -2,7 +2,7 @@ const express = require("express");
 const http = require("http");
 const fs = require("fs");
 const user = require("./API/user");
-const done = require("./API/done");
+const stripe = require("./API/stripe");
 const product = require("./API/product");
 const post = require("./API/post");
 const { checkUser, connect } = require("./log");
@@ -22,7 +22,7 @@ app.use(express.static("./html"));
 app.use(cors());
 
 app.use("/api/user", user);
-app.use("/api/done", done);
+app.use("/api/pay", stripe);
 app.use("/api/product", product);
 app.use("/api/post", post);
 

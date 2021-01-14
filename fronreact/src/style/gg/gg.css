@@ -107,3 +107,32 @@
   width: 40%;
   margin: 0.5rem 0 1rem auto;
 }
+
+.ul {
+  padding-inline-start: 20px;
+}
+
+.w1 {
+  display: flex;
+  width: 100px;
+  justify-content: center;
+  align-items: center;
+}
+.w1-5 {
+  display: flex;
+  width: 150px;
+  justify-content: center;
+  align-items: center;
+}
+.w2 {
+  display: flex;
+  width: 200px;
+  justify-content: center;
+  align-items: center;
+}
+.w3 {
+  display: flex;
+  width: 300px;
+  justify-content: center;
+  align-items: center;
+}

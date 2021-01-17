@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { createCustomer } = require("../API/stripe");
 
 const qmSchema = new mongoose.Schema({
   id: { type: mongoose.Types.ObjectId, ref: "ProductVersion" },
@@ -59,6 +60,8 @@ const userSchema = new mongoose.Schema({
   posts: [{ type: mongoose.Types.ObjectId, ref: "Post" }],
   notifications: [notifSchema],
   subscribers: [{ type: mongoose.Types.ObjectId, ref: "ProductVersion" }],
+  subscription: { type: String },
+  customerId: { type: String },
   show: { type: Boolean, default: true },
 });
 
@@ -98,6 +101,8 @@ const addnew = async function (email, username, password) {
   }
 
   try {
+    const customer = await createCustomer(email);
+    user.customerId = customer.id;
     r.res = await user.save();
     r.found = false;
     console.log("\x1b[35m%s\x1b[0m", `User saved ${username} ...`);

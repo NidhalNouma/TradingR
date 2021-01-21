@@ -446,6 +446,48 @@ const setLastTime = async function (userId) {
 
 // --------------------------------------------------------------------------------------------
 
+const setCustomerId = async function (userId, id) {
+  console.log("\x1b[36m%s\x1b[0m", `set CustomerId to User ${userId} ...`);
+  let r = { res: null, err: null };
+  try {
+    r.res = await User.updateOne({ _id: userId }, { customerId: id });
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `CustomerId ${id} set to User ${userId} ...`
+    );
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `error with setting customerId to user ${userId} ==> ${e}`
+    );
+    r.err = e;
+  }
+
+  return r;
+};
+
+const setSubscription = async function (userId, subs) {
+  console.log("\x1b[36m%s\x1b[0m", `set Subscription to User ${userId} ...`);
+  let r = { res: null, err: null };
+  try {
+    r.res = await User.updateOne({ _id: userId }, { subscription: subs });
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `Subscription ${subs} set to User ${userId} ...`
+    );
+  } catch (e) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `error with setting Subscription to user ${userId} ==> ${e}`
+    );
+    r.err = e;
+  }
+
+  return r;
+};
+
+// --------------------------------------------------------------------------------------------
+
 module.exports = {
   findAll,
   findById,
@@ -458,6 +500,8 @@ module.exports = {
   addScore,
   addNotif,
   setLastTime,
+  setSubscription,
+  setCustomerId,
 };
 
 function checkNotif(notif) {

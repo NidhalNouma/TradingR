@@ -1,8 +1,8 @@
 const express = require("express");
 const http = require("http");
 const fs = require("fs");
-const user = require("./API/user");
 const { stripe } = require("./API/stripe");
+const user = require("./API/user");
 const product = require("./API/product");
 const post = require("./API/post");
 const { checkUser, connect } = require("./log");

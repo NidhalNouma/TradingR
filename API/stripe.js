@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 var bodyParser = require("body-parser");
 const Stripe = require("stripe");
+const { setSubscription, setCustomerId } = require("../Model/user");
 require("dotenv").config();
 const stripe = Stripe(process.env.STRIPE_SEC_KEY);
 
@@ -44,29 +45,51 @@ router.post("/create-checkout-session", async (req, res) => {
 });
 
 router.post("/create-subscription", async function (req, res) {
-  const { customerId, email, p } = req.body;
+  let { customerId, userId, email, p, paymentMethodId } = req.body;
+  let subscription = null;
 
-  if (p > 2) {
-    res.json({ error: "Invalid price" });
-    return;
-  }
+  if (p > 2) return res.json({ error: "Invalid price" });
 
   const price =
     p === 0
       ? process.env.STRIPE_PR_1
-      : pr === 1
+      : p === 1
       ? process.env.STRIPE_PR_2
       : process.env.STRIPE_PR_3;
 
-  if (!customerId) {
-    const customer = await createCustomer(email);
-    customerId = customer.id;
+  try {
+    if (!customerId) {
+      const customer = await createCustomer(email);
+      customerId = customer.id;
+      await setCustomerId(userId, customerId);
+    }
+
+    // Attach the payment method to the customer
+    await stripe.paymentMethods.attach(paymentMethodId, {
+      customer: customerId,
+    });
+
+    // Change the default invoice settings on the customer to the new payment method
+    await stripe.customers.update(customerId, {
+      invoice_settings: {
+        default_payment_method: paymentMethodId,
+      },
+    });
+
+    // Create the subscription
+    subscription = await stripe.subscriptions.create({
+      customer: customerId,
+      items: [{ price: price }],
+    });
+    await setSubscription(userId, price);
+  } catch (error) {
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `error with adding Subscription to user ${userId} ==> ${error}`
+    );
+    return res.status("402").send({ error: { message: error.message } });
   }
 
-  const subscription = await stripe.subscriptions.create({
-    customer: customerId,
-    items: [{ price: price }],
-  });
   res.json(subscription);
 });
 

@@ -1,13 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import CardSection from "./CheckoutSection";
+import { createSubscription } from "../../Hooks/Stripe";
+import { UserC } from "../../Hooks/User";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
+  const { user, check } = useContext(UserC);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!user) check(true);
 
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
@@ -15,25 +19,39 @@ export default function CheckoutForm() {
       return;
     }
 
-    const result = await stripe.confirmCardPayment(
-      // need to change to client_secret after creating customer
-      "pi_1I8YeHA7XwVfgC5lJgm9orIR_secret_yhIjhOiDpfOAiTiBnY6VBWNu4",
-      {
-        payment_method: {
-          card: elements.getElement(CardElement),
-          billing_details: {
-            name: "Jenny Rosen",
-          },
-        },
-      }
-    );
+    // const result = await stripe.confirmCardPayment(
+    //   // need to change to client_secret after creating customer
+    //   "pi_1I8YeHA7XwVfgC5lJgm9orIR_secret_yhIjhOiDpfOAiTiBnY6VBWNu4",
+    //   {
+    //     payment_method: {
+    //       card: elements.getElement(CardElement),
+    //       billing_details: {
+    //         name: "Jenny Rosen",
+    //       },
+    //     },
+    //   }
+    // );
+    const result = await stripe.createPaymentMethod({
+      type: "card",
+      card: elements.getElement(CardElement),
+      billing_details: {
+        name: "testing",
+      },
+    });
 
     if (result.error) {
       console.log(result.error.message);
     } else {
-      if (result.paymentIntent.status === "succeeded") {
-        console.log(result);
-      }
+      const r = {
+        userId: user._id,
+        email: user.email,
+        customerId: user.customerId,
+        paymentMethodId: result.paymentMethod.id,
+        p: 1,
+      };
+
+      const conf = await createSubscription(r);
+      console.log(conf);
     }
   };
 

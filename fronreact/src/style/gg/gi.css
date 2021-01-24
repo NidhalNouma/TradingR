@@ -70,6 +70,7 @@
 .textarea1:focus {
   outline: none;
   border: 0px;
+  /* box-shadow: 0 0 0 0.2rem var(--shcolor); */
 }
 
 [data-placeholder]:empty:before {
@@ -81,7 +82,8 @@
 .inputN:focus,
 .inputT:focus {
   outline: none;
-  border-color: var(--pcolor);
+  border-color: var(--shcolor);
+  box-shadow: 0 0 0 0.2rem var(--shcolor);
 }
 
 .inputFilechoose:focus,

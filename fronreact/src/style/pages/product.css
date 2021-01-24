@@ -177,12 +177,20 @@
     top: 70px;
     margin: 2.5em 5%;
   }
+
+  .pdetails .sdetails {
+    width: 80%;
+  }
 }
 
 @media screen and (max-width: 1000px) {
   .containP {
     top: 40px;
     margin: 2em 3%;
+  }
+
+  .pdetails .sdetails {
+    width: 100%;
   }
 
   .containP .first {

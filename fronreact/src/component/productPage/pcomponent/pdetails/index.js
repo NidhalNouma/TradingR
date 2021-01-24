@@ -16,13 +16,13 @@ function Index() {
       <FullScreenDialog open={show.show} setOpen={show.cshow} />
       <div className="sdetails flexA">
         <span style={sel === 0 ? style : undefined} onClick={() => setSel(0)}>
-          Results
+          Screenshots
         </span>
         <span style={sel === 1 ? style : undefined} onClick={() => setSel(1)}>
           Inputs
         </span>
         <span style={sel === 2 ? style : undefined} onClick={() => setSel(2)}>
-          Screenshots
+          How to use
         </span>
         <span style={sel === 3 ? style : undefined} onClick={() => setSel(3)}>
           What's new

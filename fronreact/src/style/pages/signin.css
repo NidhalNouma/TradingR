@@ -39,8 +39,8 @@
 
 .contain-sign input:focus {
   outline: none;
-  border: 2px solid var(--pcolor);
-  border-radius: 12px;
+  border: 2px solid var(--shcolor);
+  box-shadow: 0 0 0 0.2rem var(--shcolor);
 }
 
 .contain-sign button,

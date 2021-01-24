@@ -3,6 +3,8 @@ import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
 import { uploadImg64 } from "../../Hooks/FireBase";
 
+import parse from "html-react-parser";
+
 const tool = {
   height: "auto",
   minHeight: 300,
@@ -55,7 +57,7 @@ function SunText() {
         placeholder="Description ..."
       />
 
-      <div dangerouslySetInnerHTML={{ __html: value }}></div>
+      {/* <div className="divsun"> {parse(value)}</div> */}
     </div>
   );
 }

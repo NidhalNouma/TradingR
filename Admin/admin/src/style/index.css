@@ -252,6 +252,7 @@ scroll-container {
   /* border: 1px solid var(--tcolor) !important; */
   border: none !important;
   border-radius: 8px !important;
+  border: 1px solid var(--tcolor) !important;
   overflow: hidden;
   /* padding: 0.4rem; */
 }
@@ -261,7 +262,7 @@ scroll-container {
   outline: none;
 }
 .sun-editor .se-btn-tray {
-  border: 1px solid var(--tcolor);
+  border-bottom: 1px solid var(--tcolor);
   border-radius: 8px 8px 0 0 !important;
 }
 .sun-editor .se-btn-module-border {
@@ -271,9 +272,16 @@ scroll-container {
 
 .sun-editor .se-wrapper .se-wrapper-wysiwyg {
   background: var(--bgcolor) !important;
-  border: 1px solid var(--tcolor) !important;
-  border-top: none !important;
+  border: none !important;
+  /* border: 1px solid var(--tcolor) !important;
+  border-top: none !important; */
   border-radius: 0 0 8px 8px !important;
+}
+
+.sun-editor .se-wrapper .se-wrapper-wysiwyg:focus-within,
+.sun-editor:focus-within {
+  box-shadow: 0 0 0 0.2rem var(--shcolor) !important;
+  border: 1px solid var(--shcolor) !important;
 }
 .sun-editor .se-resizing-bar {
   display: none;
@@ -285,4 +293,23 @@ scroll-container {
 .sun-editor .se-dialog .se-dialog-inner .se-dialog-content .se-btn-primary {
   background-color: var(--pcolor) !important;
   color: var(--scolor) !important;
+}
+.sun-editor .se-toolbar-sticky-dummy {
+  display: none !important;
+}
+.sun-editor input:focus,
+.sun-editor select:focus,
+.sun-editor textarea:focus {
+  border: 1px solid var(--tcolor) !important;
+  box-shadow: 0 0 0 0.2rem var(--shcolor) !important;
+}
+
+.divsun {
+  width: 100%;
+  overflow-wrap: break-word;
+}
+
+.divsun * {
+  max-height: 100% !important;
+  max-width: 100% !important;
 }

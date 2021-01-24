@@ -7,6 +7,11 @@
   width: 100%;
 }
 
+.comment form:focus-within {
+  border-color: var(--shcolor);
+  box-shadow: 0 0 0 0.2rem var(--shcolor);
+}
+
 .comment div:focus {
   outline: none;
   border: 0px;

@@ -53,11 +53,9 @@ function CreateProduct({ ty }) {
           accept="image/*"
           onChange={(e) => uploadFile(e, setImg)}
         ></input>
-        <button className="buttonS pl1 pr1 bold" onClick={(e) => uploadFile(e)}>
-          Upload
-        </button>
 
         <input
+          style={{ display: "inline-block", width: "230px" }}
           type="text"
           className="input"
           placeholder="Image URL"
@@ -87,7 +85,54 @@ function CreateProduct({ ty }) {
       {/* <TextEditor editor={data.description} setEditor={setDescription} />
       <TEditor editor={data.description} setEditor={setDescription} />
       <MyText editor={data.description} setEditor={setDescription} /> */}
-      <SunText editor={data.description} setEditor={setDescription} />
+      <div>
+        <span className="h5 bold ml-5">Description: </span>
+        <SunText editor={data.description} setEditor={setDescription} />
+      </div>
+
+      <div className="ml-5 mu1">
+        <span className="h5 bold mr1">Screenshots: </span>
+        <input
+          className="inputFilechoose"
+          type="file"
+          name="img"
+          accept="image/*"
+          multiple="true"
+          onChange={(e) => uploadFile(e, setImg)}
+        ></input>
+      </div>
+      <div className="ml-5 mu1">
+        <span className="h5 bold mr1">Inputs: </span>
+        <input
+          className="inputFilechoose"
+          type="file"
+          name="img"
+          accept="image/*"
+          multiple="true"
+          onChange={(e) => uploadFile(e, setImg)}
+        ></input>
+      </div>
+      <div className="ml-5 mu1">
+        <span className="h5 bold mr1">How to use: </span>
+        <textarea
+          className="textarea"
+          rows="4"
+          placeholder="Add Description"
+          value={data.description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
+      </div>
+      <div className="ml-5 mu1">
+        <span className="h5 bold mr1">What's new: </span>
+        <textarea
+          className="textarea"
+          rows="4"
+          placeholder="Add Description"
+          value={data.description}
+          onChange={(e) => setDescription(e.target.value)}
+        ></textarea>
+      </div>
+
       <div className="ml-5 mu1">
         <span className="h5 bold mr1">Available on: </span>
         <div className="flex ml1 mu-25">
@@ -116,6 +161,7 @@ function CreateProduct({ ty }) {
       {post.err && <p className="bold pDang mu1 ml-5">{post.err}</p>}
       {post.done && <p className="bold pDone mu1 ml-5">Product added</p>}
       <div className="ml-5 mu1">
+        <button className="buttonS mr-5 pl2 pr2">Preview</button>
         <button className="buttonS mr-5 pl2 pr2">Save</button>
         <button className="buttonP pl2 pr2" onClick={() => postP()}>
           Post

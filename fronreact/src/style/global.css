@@ -557,14 +557,6 @@
 }
 
 /* try now */
-.MuiDialog-paperWidthSm {
-  max-width: 80vw !important;
-  border-radius: 10px !important;
-  background-color: var(--bgcolor) !important;
-  padding: 2rem;
-  cursor: auto;
-  /* height: 70vh; */
-}
 
 .trynow {
   display: flex;

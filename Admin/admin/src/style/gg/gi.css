@@ -9,6 +9,7 @@
   border: 1px solid var(--tcolor);
   border-radius: 8px;
   background-color: var(--bgcolor);
+  box-sizing: border-box;
 }
 
 .input {
@@ -21,6 +22,7 @@
   border: 1px solid var(--tcolor);
   border-radius: 6px;
   background-color: var(--bgcolor);
+  box-sizing: border-box;
 }
 
 .inputN {
@@ -44,6 +46,7 @@
   border: 1px solid var(--tcolor);
   border-radius: 7px;
   background-color: var(--bgcolor);
+  box-sizing: border-box;
 }
 
 .textarea:focus {

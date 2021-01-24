@@ -74,6 +74,16 @@
   border-radius: 12px;
 }
 
+.borderB1 {
+  border: 1px solid var(--tcolor);
+  border-radius: 8px;
+}
+
+.borderB2 {
+  border: 2px solid var(--tcolor);
+  border-radius: 8px;
+}
+
 .opacity-transition {
   transition: opacity 0.3s ease-out;
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+// import { EditorState } from "draft-js";
 
 export const PostProduct = (type) => {
   const [post, setPost] = useState({ done: false, err: null });
@@ -7,6 +8,7 @@ export const PostProduct = (type) => {
     type,
     version: "1",
     title: "",
+    // description: EditorState.createEmpty(),
     description: "",
     img: "",
     media: "",

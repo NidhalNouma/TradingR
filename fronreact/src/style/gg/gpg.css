@@ -7,6 +7,14 @@
   background-color: inherit;
 }
 
+.pgd {
+  text-align: justify;
+  font-size: 1rem;
+  color: var(--cancelcolor);
+  font-family: "Avenir", "Arial", sans-serif;
+  background-color: inherit;
+}
+
 .pg1 {
   text-align: justify;
   font-size: 1rem;

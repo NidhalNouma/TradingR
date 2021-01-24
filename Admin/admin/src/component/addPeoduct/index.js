@@ -1,5 +1,9 @@
 import { uploadFile } from "../../Hooks/FireBase";
 import { PostProduct } from "../../Hooks/Product";
+// import TextEditor from "./TextEditor";
+// import TEditor from "./TEditor";
+// import MyText from "./MyText";
+import SunText from "./SunText";
 
 function CreateProduct({ ty }) {
   const {
@@ -73,13 +77,17 @@ function CreateProduct({ ty }) {
           onChange={(e) => setVersion(e.target.value)}
         />
       </div>
-      <textarea
+      {/* <textarea
         className="textarea"
         rows="7"
         placeholder="Add Description"
         value={data.description}
         onChange={(e) => setDescription(e.target.value)}
-      ></textarea>
+      ></textarea> */}
+      {/* <TextEditor editor={data.description} setEditor={setDescription} />
+      <TEditor editor={data.description} setEditor={setDescription} />
+      <MyText editor={data.description} setEditor={setDescription} /> */}
+      <SunText editor={data.description} setEditor={setDescription} />
       <div className="ml-5 mu1">
         <span className="h5 bold mr1">Available on: </span>
         <div className="flex ml1 mu-25">

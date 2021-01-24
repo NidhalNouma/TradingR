@@ -1,20 +1,26 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-function Trycomp() {
+function Trycomp({ not }) {
   return (
-    <div>
-      <h5>Testing Version</h5>
-      <p>
+    <div className="border m1 p-5 mu-5">
+      <h5 className="h5 bold">Testing Version</h5>
+      <p className="pg1">
         elit. Officiis asperiores, enim laboriosam iure nemo similique illo.
-        Perspiciatis itaque velit, quod cumque nobis accusantium vel architecto
-        sed dicta quo nihil totam. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Quaerat aperiam nulla
+        Perspiciatis itaque velit, quod cumque nobis accusantium vel
       </p>
-      <div>
-        <strong>Price:</strong>
-        <span>$50</span>
-      </div>
-      <a>Download</a>
+      {not && (
+        <p className="pgd">
+          Subscribe{" "}
+          <Link className="ah bold" to="/pricing">
+            here
+          </Link>{" "}
+          to access this version
+        </p>
+      )}
+      <button className={!not ? "buttonR" : "buttonR buttonNAN"}>
+        Download
+      </button>
     </div>
   );
 }

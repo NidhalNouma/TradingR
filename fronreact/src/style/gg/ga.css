@@ -255,3 +255,11 @@
   box-sizing: border-box;
   cursor: pointer;
 }
+
+.buttonNAN {
+  opacity: 0.5;
+}
+
+.buttonNAN:hover {
+  cursor: not-allowed;
+}

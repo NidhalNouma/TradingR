@@ -19,18 +19,6 @@ export default function CheckoutForm() {
       return;
     }
 
-    // const result = await stripe.confirmCardPayment(
-    //   // need to change to client_secret after creating customer
-    //   "pi_1I8YeHA7XwVfgC5lJgm9orIR_secret_yhIjhOiDpfOAiTiBnY6VBWNu4",
-    //   {
-    //     payment_method: {
-    //       card: elements.getElement(CardElement),
-    //       billing_details: {
-    //         name: "Jenny Rosen",
-    //       },
-    //     },
-    //   }
-    // );
     const result = await stripe.createPaymentMethod({
       type: "card",
       card: elements.getElement(CardElement),

@@ -10,10 +10,21 @@ function Trynow({ trynow, setTrynow }) {
         open={trynow}
         onClose={() => setTrynow(false)}
       >
-        <div className="trynow">
-          <Trycomp />
-          <Trycomp />
-          <Trycomp />
+        <div>
+          <h4 className="h5 ml1">MT4 Versions</h4>
+          <div className="flexB">
+            <Trycomp />
+            <Trycomp not={true} />
+            <Trycomp not={true} />
+          </div>
+        </div>
+        <div>
+          <h4 className="h5 ml1">MT5 Versions</h4>
+          <div className="flexB">
+            <Trycomp />
+            <Trycomp not={true} />
+            <Trycomp not={true} />
+          </div>
         </div>
       </Dialog>
     </div>

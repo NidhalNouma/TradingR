@@ -37,7 +37,7 @@
 
 .h5 {
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--pcolor);
   font-family: "Avenir", "Arial", sans-serif;
   -webkit-user-select: none;
@@ -46,7 +46,7 @@
 
 .h51 {
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--pcolor);
   font-family: "Avenir", "Arial", sans-serif;
   -webkit-user-select: none;

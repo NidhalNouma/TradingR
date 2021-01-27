@@ -1,55 +1,31 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-// import { EditorState } from "draft-js";
 
-export const PostProduct = (type) => {
+export const PostProduct = () => {
   const [post, setPost] = useState({ done: false, err: null });
-  const [data, setData] = useState({
-    type,
-    version: "1",
-    title: "",
-    // description: EditorState.createEmpty(),
-    description: "",
-    img: "",
-    media: "",
-    available: {
-      MT4: false,
-      MT5: false,
-      tradingView: false,
-    },
-  });
 
-  const setVersion = (e) => setData({ ...data, version: e });
-  const setTitle = (e) => setData({ ...data, title: e });
-  const setDescription = (e) => setData({ ...data, description: e });
-  const setImg = (e) => setData({ ...data, img: e });
-  const setMedia = (e) => setData({ ...data, media: e });
-  const setMT4 = (e) =>
-    setData({ ...data, available: { ...data.available, MT4: e } });
-  const setMT5 = (e) =>
-    setData({ ...data, available: { ...data.available, MT5: e } });
-  const setTV = (e) =>
-    setData({ ...data, available: { ...data.available, tradingView: e } });
+  const [version, setVersion] = useState("1");
+  const [title, setTitle] = useState("");
+  const [img, setImg] = useState("");
+  const [media, setMedia] = useState("");
+  const [desc, setDescription] = useState("");
 
-  const postP = async () => {
+  const [results, setResults] = useState([]);
+  const [inputs, setInputs] = useState("");
+  const [howtouse, setHowtouse] = useState("");
+  const [whatsNew, setWhatsnew] = useState("");
+
+  const [MT4, setMT4] = useState(false);
+  const [MT5, setMT5] = useState(false);
+  const [TV, setTV] = useState(false);
+
+  const postP = async (data) => {
+    console.log(data);
     const r = await axios.post("/api/product/new", data);
     console.log(r);
     const res = r.data;
     setPost({ done: res.added, err: res.error });
-    if (res.added)
-      setData({
-        type,
-        version: "1",
-        title: "",
-        description: "",
-        img: "",
-        media: "",
-        available: {
-          MT4: false,
-          MT5: false,
-          tradingView: false,
-        },
-      });
+
     setTimeout(() => {
       setPost({ done: false, err: null });
     }, 10000);
@@ -58,7 +34,7 @@ export const PostProduct = (type) => {
   return {
     post,
     postP,
-    data,
+
     setTitle,
     setDescription,
     setVersion,
@@ -67,6 +43,23 @@ export const PostProduct = (type) => {
     setTV,
     setImg,
     setMedia,
+    setResults,
+    setInputs,
+    setHowtouse,
+    setWhatsnew,
+
+    version,
+    title,
+    img,
+    media,
+    desc,
+    results,
+    inputs,
+    howtouse,
+    whatsNew,
+    MT4,
+    MT5,
+    TV,
   };
 };
 

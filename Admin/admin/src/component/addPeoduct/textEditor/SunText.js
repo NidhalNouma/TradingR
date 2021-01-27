@@ -1,15 +1,15 @@
 import React from "react";
 import SunEditor from "suneditor-react";
 import "suneditor/dist/css/suneditor.min.css";
-import { uploadImg64 } from "../../Hooks/FireBase";
+import { uploadImg64 } from "../../../Hooks/FireBase";
 
-import parse from "html-react-parser";
+// import parse from "html-react-parser";
 
 const tool = {
   height: "auto",
   minHeight: 300,
   width: "100%",
-  font: ["Arial", "Avenir"],
+  font: ["Avenir", "Arial"],
   fontSize: [14, 16, 18],
   templates: [
     {
@@ -22,7 +22,11 @@ const tool = {
     },
   ],
   buttonList: [
-    ["undo", "redo"],
+    [
+      // "undo",
+      //  "redo",
+      "font",
+    ],
     ["bold", "underline", "italic", "strike"],
     [
       "fontColor",
@@ -38,16 +42,14 @@ const tool = {
   ],
 };
 
-function SunText() {
-  const [value, setValue] = React.useState("");
-
+function SunText({ editor, setEditor }) {
   return (
     <div className="mu1">
       <SunEditor
         setDefaultStyle={"font-family:Avenir;font-size:1rem;"}
         setOptions={tool}
-        value={value}
-        onChange={setValue}
+        setContents={editor}
+        onChange={setEditor}
         onImageUpload={(e, index, state, imageInfo) => {
           if (e)
             uploadImg64(e.src, index, (url) => {
@@ -56,8 +58,6 @@ function SunText() {
         }}
         placeholder="Description ..."
       />
-
-      {/* <div className="divsun"> {parse(value)}</div> */}
     </div>
   );
 }

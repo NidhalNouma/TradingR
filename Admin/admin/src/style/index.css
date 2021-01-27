@@ -276,6 +276,7 @@ scroll-container {
   /* border: 1px solid var(--tcolor) !important;
   border-top: none !important; */
   border-radius: 0 0 8px 8px !important;
+  padding-bottom: 4rem;
 }
 
 .sun-editor .se-wrapper .se-wrapper-wysiwyg:focus-within,
@@ -302,6 +303,10 @@ scroll-container {
 .sun-editor textarea:focus {
   border: 1px solid var(--tcolor) !important;
   box-shadow: 0 0 0 0.2rem var(--shcolor) !important;
+}
+.sun-editor .se-toolbar.se-toolbar-sticky {
+  position: relative;
+  /* top: 0; */
 }
 
 .divsun {

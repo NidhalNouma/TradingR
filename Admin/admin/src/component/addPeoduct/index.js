@@ -1,15 +1,15 @@
-import { uploadFile } from "../../Hooks/FireBase";
+import { useState } from "react";
+import { uploadFile, uploadFiles } from "../../Hooks/FireBase";
 import { PostProduct } from "../../Hooks/Product";
-// import TextEditor from "./TextEditor";
-// import TEditor from "./TEditor";
-// import MyText from "./MyText";
-import SunText from "./SunText";
+import Done from "./Done";
+import SunText from "./textEditor/SunText";
+import SunTextMin from "./textEditor/SunTextMin";
 
 function CreateProduct({ ty }) {
   const {
     post,
     postP,
-    data,
+
     setTitle,
     setDescription,
     setVersion,
@@ -18,7 +18,26 @@ function CreateProduct({ ty }) {
     setTV,
     setImg,
     setMedia,
+    setResults,
+    setInputs,
+    setHowtouse,
+    setWhatsnew,
+
+    version,
+    title,
+    img,
+    media,
+    desc,
+    results,
+    inputs,
+    howtouse,
+    whatsNew,
+    MT4,
+    MT5,
+    TV,
   } = PostProduct(ty);
+
+  const [imURL, setIM] = useState(false);
 
   return (
     <>
@@ -27,25 +46,18 @@ function CreateProduct({ ty }) {
         type="text"
         className="inputT"
         placeholder="Product Title"
-        value={data.title}
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
       <input
         type="text"
         className="input"
         placeholder="Youtube Viideo Embed"
-        value={data.media}
+        value={media}
         onChange={(e) => setMedia(e.target.value)}
       />
-      {data.media && (
-        <iframe
-          className="ml1 iframe"
-          title="Video Desc"
-          src={"https://www.youtube.com/embed/" + data.media}
-        ></iframe>
-      )}
       <div>
-        <span className="h5 bold ml-5">Image: </span>
+        <span className="h5 bold ml-5">Cover image: </span>
         <input
           className="inputFilechoose"
           type="file"
@@ -53,16 +65,23 @@ function CreateProduct({ ty }) {
           accept="image/*"
           onChange={(e) => uploadFile(e, setImg)}
         ></input>
-
-        <input
-          style={{ display: "inline-block", width: "230px" }}
-          type="text"
-          className="input"
-          placeholder="Image URL"
-          value={data.img}
-          onChange={(e) => setImg(e.target.value)}
-        />
-        {data.img && <img className="ml1 img" src={data.img} alt="No_Image" />}
+        <span
+          className="buttonT"
+          style={{ color: imURL ? "var(--cancelcolor)" : "" }}
+          onClick={() => setIM(!imURL)}
+        >
+          {imURL ? "Cancel" : "Add Img URL"}
+        </span>
+        {imURL && (
+          <input
+            type="text"
+            className="input"
+            placeholder="Image URL"
+            value={img}
+            onChange={(e) => setImg(e.target.value)}
+          />
+        )}
+        {img && <img className="ml1 img" src={img} alt="No_Image" />}
       </div>
 
       <div>
@@ -71,66 +90,49 @@ function CreateProduct({ ty }) {
           className="inputN"
           type="number"
           step="0.01"
-          value={data.version}
+          value={version}
           onChange={(e) => setVersion(e.target.value)}
         />
       </div>
-      {/* <textarea
-        className="textarea"
-        rows="7"
-        placeholder="Add Description"
-        value={data.description}
-        onChange={(e) => setDescription(e.target.value)}
-      ></textarea> */}
-      {/* <TextEditor editor={data.description} setEditor={setDescription} />
-      <TEditor editor={data.description} setEditor={setDescription} />
-      <MyText editor={data.description} setEditor={setDescription} /> */}
       <div>
         <span className="h5 bold ml-5">Description: </span>
-        <SunText editor={data.description} setEditor={setDescription} />
+        <SunText editor={desc} setEditor={setDescription} />
       </div>
 
       <div className="ml-5 mu1">
-        <span className="h5 bold mr1">Screenshots: </span>
+        <span className="h5 bold mr1">Results: </span>
         <input
           className="inputFilechoose"
           type="file"
           name="img"
           accept="image/*"
-          multiple="true"
-          onChange={(e) => uploadFile(e, setImg)}
+          multiple
+          onChange={(e) => uploadFiles(e, setResults)}
         ></input>
       </div>
       <div className="ml-5 mu1">
         <span className="h5 bold mr1">Inputs: </span>
-        <input
-          className="inputFilechoose"
-          type="file"
-          name="img"
-          accept="image/*"
-          multiple="true"
-          onChange={(e) => uploadFile(e, setImg)}
-        ></input>
+        <SunTextMin
+          placeholder="Inputs ..."
+          editor={inputs}
+          setEditor={setInputs}
+        />
       </div>
       <div className="ml-5 mu1">
         <span className="h5 bold mr1">How to use: </span>
-        <textarea
-          className="textarea"
-          rows="4"
-          placeholder="Add Description"
-          value={data.description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
+        <SunTextMin
+          placeholder="How to use ..."
+          editor={howtouse}
+          setEditor={setHowtouse}
+        />
       </div>
       <div className="ml-5 mu1">
         <span className="h5 bold mr1">What's new: </span>
-        <textarea
-          className="textarea"
-          rows="4"
-          placeholder="Add Description"
-          value={data.description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
+        <SunTextMin
+          placeholder="What's new ..."
+          editor={whatsNew}
+          setEditor={setWhatsnew}
+        />
       </div>
 
       <div className="ml-5 mu1">
@@ -138,35 +140,49 @@ function CreateProduct({ ty }) {
         <div className="flex ml1 mu-25">
           <input
             type="checkbox"
-            checked={data.available.MT4}
-            onChange={(e) => setMT4(e.checked)}
+            checked={MT4}
+            onChange={(e) => setMT4(e.target.checked)}
           />
           <span className="span1 mr-5">MT4</span>
 
           <input
             type="checkbox"
-            checked={data.available.MT5}
-            onChange={(e) => setMT5(e.checked)}
+            checked={MT5}
+            onChange={(e) => setMT5(e.target.checked)}
           />
           <span className="span1 mr-5">MT5</span>
 
           <input
             type="checkbox"
-            checked={data.available.TV}
-            onChange={(e) => setTV(e.checked)}
+            checked={TV}
+            onChange={(e) => setTV(e.target.checked)}
           />
           <span className="span1 mr-5">TradingView</span>
         </div>
       </div>
-      {post.err && <p className="bold pDang mu1 ml-5">{post.err}</p>}
-      {post.done && <p className="bold pDone mu1 ml-5">Product added</p>}
-      <div className="ml-5 mu1">
-        <button className="buttonS mr-5 pl2 pr2">Preview</button>
-        <button className="buttonS mr-5 pl2 pr2">Save</button>
-        <button className="buttonP pl2 pr2" onClick={() => postP()}>
-          Post
-        </button>
-      </div>
+      <Done
+        data={{
+          type: ty,
+          version: version,
+          title: title,
+          description: desc,
+          img: img,
+          media: media,
+          available: {
+            MT4: MT4,
+            MT5: MT5,
+            tradingView: TV,
+          },
+          moreDes: {
+            results: results,
+            inputs: inputs,
+            howtouse: howtouse,
+            whatsNew: whatsNew,
+          },
+        }}
+        post={post}
+        postP={postP}
+      />
     </>
   );
 }

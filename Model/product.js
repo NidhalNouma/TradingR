@@ -17,9 +17,9 @@ const productSchema = new mongoose.Schema({
   },
   description: { type: String, required: [true, "Description is requierd"] },
   moreDes: {
-    result: { type: [String] },
+    results: { type: [String] },
     inputs: { type: [String] },
-    screenshots: { type: [String] },
+    howtouse: { type: [String] },
     whatsNew: { type: String },
   },
   media: { type: String, required: [true, "Media is requierd"] },

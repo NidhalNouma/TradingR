@@ -17,38 +17,27 @@ const app = firebase.initializeApp(firebaseConfig);
 export const uploadFile = (e, setImg) => {
   const file = e.target.files[0];
   const fileName = "product/" + file.name;
-  const storageRef = app.storage().ref();
-  //   var metadata = {
-  //     contentType: "image/*",
-  //   };
-  const uploadTask = storageRef.child(fileName).put(file);
 
-  uploadTask.on(
-    "state_changed",
-    function (snapshot) {
-      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log("Upload is " + progress + "% done");
-      switch (snapshot.state) {
-        case "paused":
-          console.log("Upload is paused");
-          break;
-        case "running":
-          console.log("Upload is running");
-          break;
-        default:
-          console.log("default");
-      }
-    },
-    function (error) {
-      console.log(error);
-    },
-    function () {
-      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-        console.log("File available at", downloadURL);
-        setImg(downloadURL);
-      });
-    }
-  );
+  const callback = (img) => setImg(img);
+
+  upload(fileName, file, callback);
+};
+
+export const uploadFiles = (e, setImg) => {
+  const rimg = [];
+  const files = e.target.files;
+  const callback = (img) => {
+    rimg.push(img);
+    setImg(rimg);
+    console.log(rimg);
+  };
+
+  for (const i in files) {
+    const file = files[i];
+    console.log(file);
+    const fileName = "product/results/" + file.name;
+    if (file.size > 0) upload(fileName, file, callback);
+  }
 };
 
 export const uploadImg64 = (e, name, callback) => {
@@ -83,6 +72,38 @@ export const uploadImg64 = (e, name, callback) => {
         console.log("File available at", downloadURL);
         callback(downloadURL);
         return downloadURL;
+      });
+    }
+  );
+};
+
+const upload = function (fileName, file, callback) {
+  const storageRef = app.storage().ref();
+  const uploadTask = storageRef.child(fileName).put(file);
+
+  uploadTask.on(
+    "state_changed",
+    function (snapshot) {
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log("Upload is " + progress + "% done");
+      switch (snapshot.state) {
+        case "paused":
+          console.log("Upload is paused");
+          break;
+        case "running":
+          console.log("Upload is running");
+          break;
+        default:
+          console.log("default");
+      }
+    },
+    function (error) {
+      console.log(error);
+    },
+    function () {
+      uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        console.log("File available at", downloadURL);
+        callback(downloadURL);
       });
     }
   );

@@ -5,7 +5,7 @@ COPY package*.json ./
 
 RUN npm install
 COPY . .
-# ENV PORT=8976
+ENV PORT=3909
 
 EXPOSE 3909
 CMD [ "npm", "start" ]

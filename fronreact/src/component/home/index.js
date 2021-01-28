@@ -14,7 +14,7 @@ function Home() {
   return (
     <>
       <Navbar here={true} />
-      <div className="containh">
+      <div className="containh full-hight">
         <Productsection />
       </div>
       <Footer />

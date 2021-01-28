@@ -22,20 +22,22 @@ export default function Productlist({ p }) {
             className="ah"
             to={{ pathname: "/product/" + p._id, product: p }}
           >
-            <h3 className="h4 m0 md-5">{p.product.title}</h3>
+            <h5 className="h5 m0 md-5">{p.product.title}</h5>
           </Link>
 
-          <div className="media-left-card">
-            <img src={p.product.img} alt="" />
-          </div>
+          <p className="pgl2">{p.product.description}</p>
           <>
-            <div>
-              <span className="span1 mr-5">MT4</span>
-              <span className="span1">MT5</span>
+            <div className="flexB">
+              <span className="spanH bold">
+                {p.subscribers && p.subscribers.length} Subscribers
+              </span>
+              <div>
+                <span className="span1 mr-5">MT4</span>
+                <span className="span1">MT5</span>
+              </div>
             </div>
           </>
-          <p className="p">{p.product.description}</p>
-          <div className="flexB mu1">
+          {/* <div className="flexB mu1">
             <div>
               <h4>{p.subscribers && p.subscribers.length} Subscribers</h4>
               <h4>{p.downloads && p.downloads.length} Downloads</h4>
@@ -51,7 +53,7 @@ export default function Productlist({ p }) {
                 Try Now
               </button>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

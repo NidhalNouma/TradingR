@@ -318,3 +318,10 @@ scroll-container {
   max-height: 100% !important;
   max-width: 100% !important;
 }
+
+.parse p * {
+  background-color: var(--bgcolor) !important;
+  color: var(--textcolor) !important;
+  font-size: 1rem !important;
+  font-family: "Avenir", "Arial", sans-serif !important;
+}

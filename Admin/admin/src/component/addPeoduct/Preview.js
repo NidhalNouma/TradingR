@@ -40,7 +40,7 @@ function Preview({ data, close }) {
               src={"https://www.youtube.com/embed/" + data.media}
             ></iframe>
             <h4 className="h4 mu1 md1">{data.title}</h4>
-            <p className="p md2">{parse(data.description)}</p>
+            <p className="p md2 parse">{parse(data.description)}</p>
 
             <div className="sdetails flexA">
               <span
@@ -70,7 +70,7 @@ function Preview({ data, close }) {
             </div>
 
             <div id="de">
-              <div className="chart">
+              <div className="chart parse">
                 {sel === 0 ? (
                   data.moreDes.results.map((i) => <img src={i} alt="img" />)
                 ) : sel === 1 ? (

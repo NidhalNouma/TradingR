@@ -1,16 +1,35 @@
+.container-PL {
+  margin: 7rem 4% 0 16rem;
+  display: grid;
+  grid-template-columns: 24% 24% 24% 24%;
+  justify-content: space-between;
+}
+
+.filterP {
+  position: fixed;
+  top: 7rem;
+  left: 1rem;
+  width: 13rem;
+  height: 70vh;
+  border-radius: 6px;
+  box-shadow: 0 0 0.4rem 0.1rem var(--scolor);
+  background-color: var(--bgcolor);
+  z-index: 1;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* 
 .content-list {
   text-align: center;
   width: 100%;
-}
+} */
 
 .product-list {
-  margin: 5rem 10%;
-  display: grid;
-  grid-template-columns: 48% 46%;
-  justify-content: space-between;
-  padding: 1rem;
-  /* border: 2px solid #f4f2f0; */
-  border-radius: 20px;
+  padding: 0.5rem;
+  border: 2px solid var(--scolor);
+  border-radius: 8px;
+  margin-bottom: 1rem;
 }
 
 .product-list .media-left-card {
@@ -25,9 +44,10 @@
 }
 
 .left-card img {
-  height: 100%;
   width: 100%;
-  border-radius: 12px;
+  min-height: 130px;
+  max-height: 130px;
+  border-radius: 5px;
 }
 
 .left-card a {
@@ -43,17 +63,6 @@
   font-size: 0.86em;
 } */
 
-.right-card h4 {
-  color: var(--pcolor);
-  font-family: "Times New Roman", Times, serif;
-  font-size: 0.78rem;
-  margin: 0.1rem 0;
-  border: 1px solid var(--shcolor);
-  box-sizing: border-box;
-  padding: 0rem 1rem;
-  border-radius: 4px;
-}
-
 .right-card .btn-card {
   display: flex;
   align-items: center;
@@ -61,7 +70,17 @@
 }
 
 @media screen and (max-width: 1200px) {
-  .product-list {
+  .container-PL {
+    margin: 6rem 4% 0 13rem;
+    grid-template-columns: 33% 33% 33%;
+  }
+
+  .filterP {
+    top: 6rem;
+    left: 1rem;
+    width: 10rem;
+  }
+  /* .product-list {
     margin: 4em 2%;
     padding: 0.8rem;
     grid-template-columns: 48% 48%;
@@ -83,11 +102,21 @@
 
   .right-card h4 {
     font-size: 0.76rem;
-  }
+  } */
 }
 
 @media screen and (max-width: 850px) {
-  .product-list {
+  .container-PL {
+    margin: 5rem 3% 0 11rem;
+    grid-template-columns: 49% 49%;
+  }
+
+  .filterP {
+    top: 5rem;
+    left: 0.7rem;
+    width: 9rem;
+  }
+  /* .product-list {
     display: block;
     margin: 2em 4%;
     padding: 0.8em;
@@ -119,5 +148,16 @@
 
   .btn-card a {
     font-size: 0.78em;
+  } */
+}
+
+@media screen and (max-width: 680px) {
+  .container-PL {
+    margin: 5rem 2%;
+    grid-template-columns: 49% 49%;
+  }
+
+  .filterP {
+    display: none;
   }
 }

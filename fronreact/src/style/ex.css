@@ -132,7 +132,7 @@
   color: var(--pcolor);
   background-color: var(--bgcolor);
   border: 1px solid var(--tcolor);
-  border-radius: 10px;
+  border-radius: 5px;
 
   /* box-shadow: 0 0px 3px var(--tcolor); */
   -webkit-transition: box-shadow 150ms ease;
@@ -147,6 +147,7 @@
 
 .StripeElement--invalid {
   border-color: var(--pricecolor);
+  box-shadow: 0 0 0 0.04rem var(--pricecolor);
 }
 
 .StripeElement--webkit-autofill {

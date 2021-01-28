@@ -20,7 +20,7 @@ const tool = {
     },
   ],
   buttonList: [
-    ["font"],
+    // ["font"],
     ["bold", "underline", "italic", "strike"],
     [
       "fontColor",
@@ -38,7 +38,7 @@ const tool = {
 
 function SunText({ editor, setEditor, placeholder }) {
   return (
-    <div className="mu1">
+    <div className="mu1 parse">
       <SunEditor
         setDefaultStyle={"font-family:Avenir;font-size:1rem;"}
         setOptions={tool}

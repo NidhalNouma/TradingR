@@ -32,14 +32,14 @@
   margin-bottom: 1em;
   padding: 0.4rem;
   border: 2px solid var(--scolor);
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .containh .griditem img {
   width: 100%;
   min-height: 130px;
   max-height: 130px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .containh .int {

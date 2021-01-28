@@ -63,7 +63,7 @@
   font-weight: 400;
   color: var(--textcolor);
   background-color: var(--shcolor);
-  border-radius: 10px;
+  border-radius: 6px;
 }
 
 .contgrid h2,
@@ -91,7 +91,7 @@
   width: 180px;
   margin-top: 1rem;
   padding: 0.5rem 2.2rem;
-  border-radius: 29px;
+  border-radius: 6px;
   color: var(--pcolor);
   transition: padding 0.2s ease-out;
   text-decoration: none;
@@ -105,7 +105,7 @@
   content: "";
   bottom: 0;
   left: 0;
-  border-radius: 29px;
+  border-radius: 6px;
   background-color: var(--shcolor);
   width: 75%;
   height: 35%;
@@ -125,6 +125,17 @@
   text-align: center;
   font-weight: 500;
   color: var(--textcolor);
+}
+
+.join p {
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 0.4rem;
+  line-height: 180%;
+  font-weight: 400;
+  color: var(--textcolor);
+  background-color: var(--bgcolor);
+  border-radius: 6px;
 }
 
 .contgrid a:hover::after,

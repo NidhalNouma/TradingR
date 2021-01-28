@@ -1,3 +1,90 @@
+.buttonP {
+  font-size: 1.05rem;
+  font-family: "Times New Roman 400", serif;
+  padding: 0.4rem 1.4rem;
+  border-radius: 5px;
+  margin: 0.5rem 0 1rem;
+  color: var(--scolor);
+  background-color: var(--pcolor);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear,
+    outline-offset 0.3s ease-in-out;
+}
+
+.buttonP:hover {
+  box-shadow: 0 0 1px 1px var(--pcolor);
+  opacity: 0.95;
+  outline: 1px solid var(--scolor);
+  outline-offset: -0.2rem;
+}
+
+.buttonS {
+  font-size: 1.05rem;
+  font-family: "Times New Roman 400", serif;
+  padding: 0.4rem 1.4rem;
+  border-radius: 5px;
+  margin: 0.5rem 0 1rem;
+  color: var(--pcolor);
+  background-color: var(--scolor);
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear,
+    outline-offset 0.3s ease-in-out;
+}
+
+.buttonS:hover {
+  box-shadow: 0 0 1px 1px var(--pcolor);
+  opacity: 0.9;
+  outline: 1px solid var(--pcolor);
+  outline-offset: -0.2rem;
+}
+
+.button {
+  font-size: 0.95rem;
+  font-weight: bold;
+  font-family: "Times New Roman 400", serif;
+  padding: 0.3rem 1rem;
+  border-radius: 5px;
+  margin: 0.5rem 0 1rem;
+  color: var(--pcolor);
+  background-color: var(--shcolor);
+  outline: none;
+  outline-color: var(--scolor);
+  border: none;
+  cursor: pointer;
+  transition: outline-offset 0.3s ease-in;
+}
+
+.button:hover {
+  outline: 2px solid var(--scolor);
+  outline-offset: -0.2rem;
+}
+
+.buttonR {
+  font-size: 1rem;
+  color: var(--pcolor);
+  font-weight: bold;
+  width: 140px;
+  border-radius: 5px;
+  border: 1px solid var(--tcolor);
+  background-color: var(--bgcolor);
+  padding: 0.3rem 0.2rem;
+  outline: none;
+  outline-color: var(--tcolor);
+  cursor: pointer;
+  text-decoration: none;
+  /* transition: outline-offset 0.3s ease-in; */
+}
+
+.buttonR:hover {
+  background-color: var(--tcolor);
+  outline: 1px solid var(--scolor);
+  outline-offset: -0.25rem;
+}
+
 .at {
   font-size: 1.05rem;
   font-family: "Times New Roman 400", serif;
@@ -18,12 +105,21 @@
   color: var(--pcolor);
   background-color: var(--scolor);
   padding: 0.3rem 1rem;
-  border-radius: 9px;
+  border-radius: 5px;
   outline: none;
+  outline-color: var(--scolor);
   border: none;
   text-decoration: none;
   box-sizing: border-box;
   cursor: pointer;
+  transition: 0.3s ease-in;
+}
+
+.a:hover,
+.abtn:hover {
+  background-color: var(--bgcolor);
+  outline: 4px solid var(--scolor);
+  outline-offset: -0.3rem;
 }
 
 .abtnP {
@@ -46,15 +142,19 @@
   color: var(--pcolor);
   background-color: var(--scolor);
   padding: 0.3rem 1.5rem;
-  border-radius: 9px;
+  border-radius: 5px;
   outline: none;
+  outline-color: var(--scolor);
   border: none;
   text-decoration: none;
   cursor: pointer;
+  transition: 0.3s ease-in;
 }
 
 .btnHover:hover {
   background-color: var(--tcolor) !important;
+  outline: 1px solid var(--scolor);
+  outline-offset: -0.2rem;
 }
 
 .bold {
@@ -111,20 +211,6 @@
   cursor: pointer;
 }
 
-.button {
-  font-size: 0.95rem;
-  font-weight: bold;
-  font-family: "Times New Roman 400", serif;
-  padding: 0.3rem 1rem;
-  border-radius: 9px;
-  margin: 0.5rem 0 1rem;
-  color: var(--pcolor);
-  background-color: var(--shcolor);
-  outline: none;
-  border: none;
-  cursor: pointer;
-}
-
 .buttonX {
   font-size: 0.9rem;
   font-weight: bold;
@@ -134,44 +220,6 @@
   cursor: pointer;
   color: rgb(170, 160, 32);
   background-color: inherit;
-}
-
-.buttonP {
-  font-size: 1.05rem;
-  font-family: "Times New Roman 400", serif;
-  padding: 0.3rem 0;
-  border-radius: 9px;
-  margin: 0.5rem 0 1rem;
-  color: var(--scolor);
-  background-color: var(--pcolor);
-  outline: none;
-  border: none;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear;
-}
-
-.buttonP:hover {
-  box-shadow: 0 0 1px 1px var(--pcolor);
-  opacity: 0.95;
-}
-
-.buttonS:hover {
-  box-shadow: 0 0 1px 1px var(--pcolor);
-  opacity: 0.9;
-}
-
-.buttonS {
-  font-size: 1.05rem;
-  font-family: "Times New Roman 400", serif;
-  padding: 0.3rem 0rem;
-  border-radius: 9px;
-  margin: 0.5rem 0 1rem;
-  color: var(--pcolor);
-  background-color: var(--scolor);
-  outline: none;
-  border: none;
-  cursor: pointer;
-  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear;
 }
 
 .buttonT {
@@ -200,25 +248,8 @@
   transition: color 0.2s ease-out;
 }
 
-.buttonR {
-  font-size: 1rem;
-  color: var(--pcolor);
-  font-weight: bold;
-  width: 140px;
-  border-radius: 7px;
-  border: 1px solid var(--tcolor);
-  background-color: var(--bgcolor);
-  padding: 0.3rem 0.2rem;
-  outline: none;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.buttonR:hover {
-  background-color: var(--tcolor);
-}
-
 .btnSend {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 0.5rem;
@@ -262,4 +293,14 @@
 
 .buttonNAN:hover {
   cursor: not-allowed;
+}
+
+.btn-line {
+  text-decoration: line-through;
+  text-decoration-color: var(--pricecolor);
+  text-decoration-thickness: 3px;
+}
+
+.cursor {
+  cursor: pointer;
 }

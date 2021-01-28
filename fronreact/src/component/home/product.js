@@ -22,7 +22,9 @@ export default function Product({ p }) {
       <div className="flexB">
         <div className="int">
           {/* <h6>{p.downloads ? p.downloads.length : 0} Downloads</h6> */}
-          <h6>{p.subscribers ? p.subscribers.length : 0} Subscribers</h6>
+          <span className="spanH bold">
+            {p.subscribers ? p.subscribers.length : 0} Subscribers
+          </span>
         </div>
         <div>
           <span className="span1">MT4</span>

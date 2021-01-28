@@ -74,6 +74,17 @@
   color: var(--pcolor);
 }
 
+.spanH {
+  color: var(--pcolor);
+  font-family: "Times New Roman", Times, serif;
+  font-size: 0.78rem;
+  margin: 0.1rem 0;
+  border: 1px solid var(--shcolor);
+  box-sizing: border-box;
+  padding: 0rem 1rem;
+  border-radius: 4px;
+}
+
 .span1 {
   font-size: 0.75rem;
   font-weight: 400;
@@ -92,6 +103,14 @@
   cursor: default;
   color: var(--pcolor);
   background-color: var(--shcolor);
+}
+
+.spanN {
+  position: absolute;
+  top: 1px;
+  right: 2px;
+  color: var(--pcolor);
+  font-weight: bold;
 }
 
 .crossL {

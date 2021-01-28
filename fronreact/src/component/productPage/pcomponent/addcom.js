@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { TextareaAutosize } from "@material-ui/core";
 import RightArrow from "../../../asset/images/rightArrow";
+import Images from "../../../asset/images/Images";
 
 import { AddCom, ProductC } from "../../Hooks/Products";
 import { UserC } from "../../Hooks/User";
@@ -38,6 +39,8 @@ function Addcom({ type, placeholder }) {
     setAdd(false);
   };
 
+  const [imgs, setImgs] = useState([]);
+  const input = useRef(null);
   return (
     <>
       <div className="comment md1">
@@ -45,6 +48,7 @@ function Addcom({ type, placeholder }) {
           onClick={() => {
             setAdd(!add);
             setErr("");
+            setImgs([]);
           }}
           className={add ? "buttonX" : "button"}
         >
@@ -61,16 +65,31 @@ function Addcom({ type, placeholder }) {
               placeholder={placeholder}
               autoFocus
             />
-            <button
-              onClick={submit}
-              className={
-                com.length >= comL
-                  ? "svg3 btnSend allow mr-5 md-5"
-                  : " svg3 btnSend mr-5 md-5"
-              }
-            >
-              <RightArrow />
-            </button>
+            <div>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  input.current.click();
+                }}
+                style={{ backgroundColor: "var(--shcolor)" }}
+                className="svg3 btnSend mr-5 md-5"
+              >
+                <Images />
+                {imgs.length > 0 && (
+                  <span className="spanN">{imgs.length}</span>
+                )}
+              </button>
+              <button
+                onClick={submit}
+                className={
+                  com.length >= comL
+                    ? "svg3 btnSend allow mr-5 md-5"
+                    : " svg3 btnSend mr-5 md-5"
+                }
+              >
+                <RightArrow />
+              </button>
+            </div>
           </form>
         )}
         {err && (
@@ -85,6 +104,22 @@ function Addcom({ type, placeholder }) {
             {err}
           </span>
         )}
+        <input
+          multiple
+          ref={input}
+          style={{ display: "none" }}
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            const f = e.target.files;
+            let arr = imgs;
+            for (const i in f) {
+              const fi = f[i];
+              if (fi.size > 0) arr.push(fi);
+            }
+            setImgs([...arr]);
+          }}
+        />
       </div>
     </>
   );

@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import Chart from "./chart/chart";
 import Chartbar from "./chart/chartbar";
 import Chartd from "./chart/chartd";
-import FullS from "../../../../asset/images/FullS";
+// import FullS from "../../../../asset/images/FullS";
 import Show from "../../../show";
 import FullScreenDialog from "./fullscreen";
 
-function Index() {
+function Index({ data }) {
   const [sel, setSel] = useState(0);
   const style = { background: "var(--scolor)" };
   const show = Show();
+
+  // console.log(data);
 
   return (
     <>
@@ -29,7 +31,7 @@ function Index() {
         </span>
       </div>
       <div id="de">
-        <div className="chart">
+        <div className="chart parse">
           {/* <div className="full" onClick={() => show.sshow()}>
             <FullS />
           </div> */}

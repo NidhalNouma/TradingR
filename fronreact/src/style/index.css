@@ -131,3 +131,24 @@ scroll-container {
 .skel-img1 {
   height: 100% !important;
 }
+
+.noResult {
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  text-align: center;
+}
+
+.noResult svg {
+  width: 400px;
+  height: 400px;
+  fill: var(--bgcolor);
+  stroke: var(--scolor);
+  stroke-width: 0.4;
+}
+
+.noResult h5 {
+  font-size: 1.2rem;
+  margin-bottom: 0;
+  color: var(--pcolor);
+}

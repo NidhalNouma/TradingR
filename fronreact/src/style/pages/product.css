@@ -43,14 +43,14 @@
   overflow: hidden;
 } */
 
-.pdetails .sdetails {
+.sdetails {
   width: 60%;
   margin: 1rem auto 2rem;
   border: 2px solid var(--scolor);
   border-radius: 8px;
 }
 
-.pdetails .sdetails span {
+.sdetails span {
   font-size: 1.05rem;
   cursor: pointer;
   color: var(--pcolor);
@@ -61,7 +61,7 @@
   transition: none;
 }
 
-.pdetails .sdetails span:hover {
+.sdetails span:hover {
   background-color: var(--scolor);
 }
 
@@ -70,8 +70,16 @@
   border-radius: 6px;
   padding: 1em;
   position: relative;
-  min-height: 300px;
+  min-height: 440px;
 }
+
+.pdetails .chart .full {
+  position: absolute;
+  right: 15px;
+  top: 4px;
+  cursor: pointer;
+}
+
 /* 
 .pdetails ul {
   display: flex;
@@ -185,6 +193,10 @@
 
   .pdetails .sdetails {
     width: 100%;
+  }
+
+  .conmis {
+    top: 47px;
   }
 
   .containP .first {

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import Chart from "./chart/chart";
-import Chartbar from "./chart/chartbar";
-import Chartd from "./chart/chartd";
-// import FullS from "../../../../asset/images/FullS";
+// import Chart from "./chart/chart";
+// import Chartbar from "./chart/chartbar";
+// import Chartd from "./chart/chartd";
+
+import IconButton from "@material-ui/core/IconButton";
+import FullscreenRoundedIcon from "@material-ui/icons/FullscreenRounded";
 import Show from "../../../show";
 import FullScreenDialog from "./fullscreen";
 
@@ -32,10 +34,12 @@ function Index({ data }) {
       </div>
       <div id="de">
         <div className="chart parse">
-          {/* <div className="full" onClick={() => show.sshow()}>
-            <FullS />
-          </div> */}
-          {sel === 2 ? <Chartd /> : sel === 1 ? <Chartbar /> : <Chart />}
+          <div className="full">
+            <IconButton edge="end" color="inherit" onClick={() => show.sshow()}>
+              <FullscreenRoundedIcon />
+            </IconButton>
+          </div>
+          {sel === 2 ? "<Chartd /> " : sel === 1 ? "<Chartbar />" : "<Chart />"}
         </div>
       </div>
     </>

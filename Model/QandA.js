@@ -12,6 +12,7 @@ const qaSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   userId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   question: { type: String, required: [true, "Question is requierd"] },
+  imgs: [{ type: String, default: [] }],
   answers: { type: [answerSchema] },
   show: { type: Boolean, default: true },
 });

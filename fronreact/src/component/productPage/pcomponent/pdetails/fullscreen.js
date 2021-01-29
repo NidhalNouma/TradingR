@@ -1,15 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItem from "@material-ui/core/ListItem";
 import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
 import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Slide from "@material-ui/core/Slide";
 
@@ -29,6 +23,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 export default function FullScreenDialog({ open, setOpen }) {
   const classes = useStyles();
+  const [sel, setSel] = useState(0);
+  const style = { background: "var(--scolor)" };
 
   return (
     <div>
@@ -39,8 +35,37 @@ export default function FullScreenDialog({ open, setOpen }) {
         onClose={() => setOpen()}
         TransitionComponent={Transition}
       >
-        <AppBar className={classes.appBar}>
-          <Toolbar>
+        <AppBar className={classes.appBar} color="var(--scolor)">
+          <div className="flexB">
+            <div></div>
+
+            <div className="sdetails m0 flexA">
+              <span
+                style={sel === 0 ? style : undefined}
+                onClick={() => setSel(0)}
+              >
+                Screenshots
+              </span>
+              <span
+                style={sel === 1 ? style : undefined}
+                onClick={() => setSel(1)}
+              >
+                Inputs
+              </span>
+              <span
+                style={sel === 2 ? style : undefined}
+                onClick={() => setSel(2)}
+              >
+                How to use
+              </span>
+              <span
+                style={sel === 3 ? style : undefined}
+                onClick={() => setSel(3)}
+              >
+                What's new
+              </span>
+            </div>
+
             <IconButton
               edge="start"
               color="inherit"
@@ -49,10 +74,7 @@ export default function FullScreenDialog({ open, setOpen }) {
             >
               <CloseIcon />
             </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              title
-            </Typography>
-          </Toolbar>
+          </div>
         </AppBar>
         <List>
           {/* <ListItem button>

@@ -2,10 +2,13 @@ import React, { useState, useEffect, useContext, useRef } from "react";
 import { TextareaAutosize } from "@material-ui/core";
 import RightArrow from "../../../asset/images/rightArrow";
 import Images from "../../../asset/images/Images";
+import Imgs from "./imgs/Imgs";
 
 import { AddCom, ProductC } from "../../Hooks/Products";
 import { UserC } from "../../Hooks/User";
 import { SocketC } from "../../Hooks/Socket";
+
+import { uploadImg64 } from "../../Hooks/Firebase";
 
 function Addcom({ type, placeholder }) {
   const { p, setProduct } = useContext(ProductC);
@@ -17,6 +20,9 @@ function Addcom({ type, placeholder }) {
   const [err, setErr] = useState("");
   const addt = type === "qa" ? "Ask any Qustion" : "Add your Improvement";
   const [add, setAdd] = useState(false);
+
+  const [imgs, setImgs] = useState([]);
+  const input = useRef(null);
 
   useEffect(() => {
     if (com.length >= comL) {
@@ -34,13 +40,29 @@ function Addcom({ type, placeholder }) {
       setErr(`Minimum ${comL} caracter`);
       return;
     }
-    AddCom(type, user.user, com, p, setProduct, socket);
-    setcom("");
-    setAdd(false);
+
+    if (imgs.length > 0) {
+      let fimgs = [];
+      for (let i in imgs) {
+        uploadImg64(imgs[i], user.user.userName, function (url) {
+          fimgs.push(url);
+          console.log(fimgs);
+          // TO-DO add imgs to post request
+          if (imgs.length === fimgs.length) {
+            AddCom(type, user.user, com, p, setProduct, socket);
+            setcom("");
+            setAdd(false);
+            setImgs([]);
+          }
+        });
+      }
+    } else {
+      AddCom(type, user.user, com, p, setProduct, socket);
+      setcom("");
+      setAdd(false);
+    }
   };
 
-  const [imgs, setImgs] = useState([]);
-  const input = useRef(null);
   return (
     <>
       <div className="comment md1">
@@ -115,12 +137,19 @@ function Addcom({ type, placeholder }) {
             let arr = imgs;
             for (const i in f) {
               const fi = f[i];
-              if (fi.size > 0) arr.push(fi);
+              if (fi.size > 0) {
+                const reader = new FileReader();
+                reader.readAsDataURL(fi);
+                reader.onloadend = (e) => {
+                  arr.push(reader.result);
+                  setImgs([...arr]);
+                };
+              }
             }
-            setImgs([...arr]);
           }}
         />
       </div>
+      {imgs.length > 0 && <Imgs imgs={imgs} />}
     </>
   );
 }

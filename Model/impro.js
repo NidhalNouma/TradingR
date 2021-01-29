@@ -12,6 +12,7 @@ const improSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
   userId: { type: mongoose.Types.ObjectId, required: true, ref: "User" },
   improvement: { type: String, required: [true, "Improvement is requierd"] },
+  imgs: [{ type: String, default: [] }],
   plus: [{ type: mongoose.Types.ObjectId, ref: "User" }],
   minus: [{ type: mongoose.Types.ObjectId, ref: "User" }],
   answers: { type: [answerSchema] },

@@ -49,7 +49,7 @@ function Addcom({ type, placeholder }) {
           console.log(fimgs);
           // TO-DO add imgs to post request
           if (imgs.length === fimgs.length) {
-            AddCom(type, user.user, com, p, setProduct, socket);
+            AddCom(type, user.user, com, p, fimgs, setProduct, socket);
             setcom("");
             setAdd(false);
             setImgs([]);

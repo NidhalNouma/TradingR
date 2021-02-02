@@ -1,27 +1,32 @@
 import React, { useState } from "react";
-// import Chart from "./chart/chart";
-// import Chartbar from "./chart/chartbar";
-// import Chartd from "./chart/chartd";
+import Inp from "./Inp";
+import Imgsp from "./Imgsp";
 
 import IconButton from "@material-ui/core/IconButton";
 import FullscreenRoundedIcon from "@material-ui/icons/FullscreenRounded";
 import Show from "../../../show";
-import FullScreenDialog from "./fullscreen";
+import FullScreenDialog from "./fulld/fullscreen";
 
 function Index({ data }) {
   const [sel, setSel] = useState(0);
   const style = { background: "var(--scolor)" };
   const show = Show();
 
-  // console.log(data);
-
   return (
     <>
-      <FullScreenDialog open={show.show} setOpen={show.cshow} />
+      <FullScreenDialog
+        open={show.show}
+        setOpen={show.cshow}
+        data={data}
+        sel={sel}
+        setSel={setSel}
+      />
       <div className="sdetails flexA">
-        <span style={sel === 0 ? style : undefined} onClick={() => setSel(0)}>
-          Screenshots
-        </span>
+        {data.results && (
+          <span style={sel === 0 ? style : undefined} onClick={() => setSel(0)}>
+            Screenshots
+          </span>
+        )}
         <span style={sel === 1 ? style : undefined} onClick={() => setSel(1)}>
           Inputs
         </span>
@@ -39,7 +44,15 @@ function Index({ data }) {
               <FullscreenRoundedIcon />
             </IconButton>
           </div>
-          {sel === 2 ? "<Chartd /> " : sel === 1 ? "<Chartbar />" : "<Chart />"}
+          {sel === 3 ? (
+            <Inp data={data.whatsNew} />
+          ) : sel === 2 ? (
+            <Inp data={data.inputs} />
+          ) : sel === 1 ? (
+            <Inp data={data.howtouse} />
+          ) : (
+            <Imgsp data={data.results} show={() => show.sshow()} />
+          )}
         </div>
       </div>
     </>

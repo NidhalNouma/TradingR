@@ -1,6 +1,8 @@
 import React, { useEffect, useContext } from "react";
 import Product from "./product";
 import Load from "./Load";
+import Noresult from "../Noresult";
+
 import { GetAll } from "../Hooks/AllProducts";
 import { SocketC } from "../Hooks/Socket";
 
@@ -25,9 +27,13 @@ export default function Productsection() {
       </div>
       <div className="hr"></div>
       <div className="gridlist">
-        {products !== null && products.length > 1
-          ? products.map((i) => <Product key={i._id} p={i} />)
-          : la.map((i) => <Load key={i} />)}
+        {products !== null && products.length >= 1 ? (
+          products.map((i) => <Product key={i._id} p={i} />)
+        ) : products !== null && products.length === 0 ? (
+          <Noresult />
+        ) : (
+          la.map((i) => <Load key={i} />)
+        )}
       </div>
     </>
   );

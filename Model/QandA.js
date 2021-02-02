@@ -19,7 +19,7 @@ const qaSchema = new mongoose.Schema({
 
 const qaModel = mongoose.model("Qanda", qaSchema);
 
-const addQuestion = async function (_id, pId, userId, question) {
+const addQuestion = async function (_id, pId, userId, question, imgs) {
   console.log(
     "\x1b[36m%s\x1b[0m",
     `Adding new Question for product ID ${_id} userID ${userId} ...`
@@ -28,6 +28,7 @@ const addQuestion = async function (_id, pId, userId, question) {
   const quest = new qaModel({
     userId,
     question,
+    imgs,
   });
   let r = { res: null, err: null, id: quest._id };
 

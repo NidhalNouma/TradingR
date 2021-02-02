@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+
+import Inpi from "./Inpi";
+import Fimg from "./Fimg";
+
 import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
-import List from "@material-ui/core/List";
 import AppBar from "@material-ui/core/AppBar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
@@ -21,9 +24,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function FullScreenDialog({ open, setOpen }) {
+export default function FullScreenDialog({ open, setOpen, data, sel, setSel }) {
   const classes = useStyles();
-  const [sel, setSel] = useState(0);
   const style = { background: "var(--scolor)" };
 
   return (
@@ -76,18 +78,17 @@ export default function FullScreenDialog({ open, setOpen }) {
             </IconButton>
           </div>
         </AppBar>
-        <List>
-          {/* <ListItem button>
-            <ListItemText primary="Phone ringtone" secondary="Titania" />
-          </ListItem>
-          <Divider />
-          <ListItem button>
-            <ListItemText
-              primary="Default notification ringtone"
-              secondary="Tethys"
-            />
-          </ListItem> */}
-        </List>
+        <div>
+          {sel === 3 ? (
+            <Inpi data={data.whatsNew} />
+          ) : sel === 2 ? (
+            <Inpi data={data.inputs} />
+          ) : sel === 1 ? (
+            <Inpi data={data.howtouse} />
+          ) : (
+            <Fimg src={data.results} />
+          )}
+        </div>
       </Dialog>
     </div>
   );

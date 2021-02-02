@@ -12,7 +12,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function Full({ src, open, setOpen }) {
-  const [i, setI] = useState(2);
+  // console.log(src);
+  const [i, setI] = useState(0);
   return (
     <div>
       <Dialog
@@ -24,7 +25,7 @@ function Full({ src, open, setOpen }) {
       >
         <AppBar color="var(--scolor)">
           <div className="flexB">
-            <h4 className="h4">.</h4>
+            <div></div>
             <IconButton
               edge="start"
               color="inherit"
@@ -36,24 +37,32 @@ function Full({ src, open, setOpen }) {
           </div>
         </AppBar>
         <div className="cimgF">
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={() => setI(i === 0 ? src.length - 1 : i - 1)}
-            aria-label="close"
-          >
-            <ChevronLeftRoundedIcon />
-          </IconButton>
+          {i > 0 ? (
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={() => setI(i === 0 ? src.length - 1 : i - 1)}
+              aria-label="close"
+            >
+              <ChevronLeftRoundedIcon />
+            </IconButton>
+          ) : (
+            <div></div>
+          )}
           <img className="imgF" src={src[i]} alt="img" />
 
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={() => setI(i === src.length - 1 ? 0 : i + 1)}
-            aria-label="close"
-          >
-            <ChevronRightRoundedIcon />
-          </IconButton>
+          {i < src.length - 1 ? (
+            <IconButton
+              edge="start"
+              color="inherit"
+              onClick={() => setI(i === src.length - 1 ? 0 : i + 1)}
+              aria-label="close"
+            >
+              <ChevronRightRoundedIcon />
+            </IconButton>
+          ) : (
+            <div></div>
+          )}
         </div>
       </Dialog>
     </div>

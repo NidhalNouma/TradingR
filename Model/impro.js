@@ -22,7 +22,7 @@ const improSchema = new mongoose.Schema({
 const Impro = mongoose.model("Impro", improSchema);
 const Answer = mongoose.model("Answer", answerSchema);
 
-const addImpro = async function (_id, pId, userId, impro) {
+const addImpro = async function (_id, pId, userId, impro, imgs) {
   const productVersion = mongoose.models.ProductVersion;
   console.log(
     "\x1b[36m%s\x1b[0m",
@@ -31,6 +31,7 @@ const addImpro = async function (_id, pId, userId, impro) {
   const imp = new Impro({
     userId,
     improvement: impro,
+    imgs,
   });
   let qu = { res: null, err: null, id: imp._id };
 

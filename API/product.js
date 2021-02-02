@@ -26,6 +26,7 @@ router.post("/impro", async function (req, res) {
   const pId = req.body.pId;
   const userId = req.body.userId;
   const impro = req.body.impro;
+  const imgs = req.body.imgs;
 
   const ans = {
     added: false,
@@ -33,7 +34,7 @@ router.post("/impro", async function (req, res) {
     error: null,
   };
 
-  const rsp = await addImpro(id, pId, userId, impro);
+  const rsp = await addImpro(id, pId, userId, impro, imgs);
   if (rsp.res) {
     ans.added = true;
     ans.id = rsp.id;
@@ -113,6 +114,7 @@ router.post("/question", async function (req, res) {
   const pId = req.body.pId;
   const userId = req.body.userId;
   const question = req.body.question;
+  const imgs = req.body.imgs;
 
   const ans = {
     added: false,
@@ -120,7 +122,7 @@ router.post("/question", async function (req, res) {
     id: null,
   };
 
-  const r = await addQuestion(id, pId, userId, question);
+  const r = await addQuestion(id, pId, userId, question, imgs);
   if (r.res) {
     ans.added = true;
     ans.id = r.id;
@@ -219,6 +221,7 @@ router.post("/new", async function (req, res) {
       MT5: req.body.MT5,
       tradingView: req.body.tradingView,
     },
+    moreDes: req.body.moreDes,
   };
   const ans = {
     added: false,

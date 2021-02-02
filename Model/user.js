@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
-const { createCustomer } = require("../API/stripe");
+// const { createCustomer } = require("../API/stripe");
+const Stripe = require("stripe");
+require("dotenv").config();
+const stripe = Stripe(process.env.STRIPE_SEC_KEY);
 
 const qmSchema = new mongoose.Schema({
   id: { type: mongoose.Types.ObjectId, ref: "ProductVersion" },
@@ -101,7 +104,7 @@ const addnew = async function (email, username, password) {
   }
 
   try {
-    const customer = await createCustomer(email);
+    const customer = await stripe.customers.create({ email });
     user.customerId = customer.id;
     r.res = await user.save();
     r.found = false;

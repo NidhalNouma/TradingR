@@ -58,7 +58,7 @@ export const improVote = async (
   }
 };
 
-export const AddCom = async (type, user, com, p, setProduct, s) => {
+export const AddCom = async (type, user, com, p, imgs, setProduct, s) => {
   const endpoint =
     type === "qa"
       ? "/api/product/question"
@@ -71,6 +71,7 @@ export const AddCom = async (type, user, com, p, setProduct, s) => {
     userId: user._id,
     question: com,
     impro: com,
+    imgs: imgs,
   };
   const r = await axios.post(endpoint, data);
   if (r.data.added) {

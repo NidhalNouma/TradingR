@@ -31,6 +31,7 @@ img {
 ::placeholder {
   font-size: 17px;
   font-family: "Avenir", "Arial", sans-serif;
+  color: rgb(180, 180, 180);
 }
 
 p,

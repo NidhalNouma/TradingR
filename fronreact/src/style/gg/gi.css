@@ -11,6 +11,18 @@
   box-sizing: border-box;
 }
 
+.inputTT {
+  font-size: 0.8rem;
+  font-weight: bold;
+  font-family: "Avenir", "Arial", sans-serif;
+  width: 160px;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--tcolor);
+  border-radius: 5px;
+  background-color: inherit;
+  box-sizing: border-box;
+}
+
 .input {
   font-size: 0.9rem;
   font-family: "Avenir", "Arial", sans-serif;
@@ -70,7 +82,6 @@
 .textarea1:focus {
   outline: none;
   border: 0px;
-  /* box-shadow: 0 0 0 0.2rem var(--shcolor); */
 }
 
 [data-placeholder]:empty:before {
@@ -80,7 +91,8 @@
 
 .input:focus,
 .inputN:focus,
-.inputT:focus {
+.inputT:focus,
+.inputTT:focus {
   outline: none;
   border-color: var(--shcolor);
   box-shadow: 0 0 0 0.2rem var(--shcolor);

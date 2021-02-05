@@ -25,8 +25,6 @@ function CardSection() {
 
   return (
     <div className="mu1">
-      <h4 className="h41 bold">Card details</h4>
-
       <CardElement className="mu1" options={CARD_ELEMENT_OPTIONS} />
     </div>
   );

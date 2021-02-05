@@ -46,7 +46,7 @@ export default function CheckoutForm() {
   return (
     <form onSubmit={handleSubmit}>
       <CardSection />
-      <button disabled={!stripe} className="buttonP pu-5 pd-5 pl2 pr2 mu1">
+      <button disabled={!stripe} className="buttonP">
         Confirm order
       </button>
     </form>

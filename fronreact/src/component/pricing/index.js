@@ -7,19 +7,24 @@ import Stripe from "./stripe";
 
 function Pricing() {
   const [select, setSelect] = useState(null);
+
   return (
     <>
       <Navbar here={true} loc="PRICING" />
       <div className="container">
         <div>
+          <div className="tim">
+            <span className="t">Monthly</span>
+            <span>Annully</span>
+          </div>
           <div className="flexA">
             <PriceItem set={setSelect} bg={select === 1} val={1} />
             <PriceItem set={setSelect} bg={select === 2} val={2} />
             <PriceItem set={setSelect} bg={select === 3} val={3} />
           </div>
-          {select && <Stripe />}
         </div>
       </div>
+      {select && <Stripe />}
       <Footer />
     </>
   );

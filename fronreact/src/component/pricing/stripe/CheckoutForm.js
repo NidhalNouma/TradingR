@@ -1,21 +1,30 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import CardSection from "./CheckoutSection";
 import { createSubscription } from "../../Hooks/Stripe";
 import { UserC } from "../../Hooks/User";
 
-export default function CheckoutForm() {
+import CircularProgress from "@material-ui/core/CircularProgress";
+
+export default function CheckoutForm({ setDone }) {
   const stripe = useStripe();
   const elements = useElements();
   const { user, check } = useContext(UserC);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
+    setLoading(true);
     event.preventDefault();
-    if (!user) check(true);
+    if (!user) {
+      check(true);
+      setLoading(false);
+      return;
+    }
 
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
       // Make sure to disable form submission until Stripe.js has loaded.
+      setLoading(false);
       return;
     }
 
@@ -40,14 +49,21 @@ export default function CheckoutForm() {
 
       const conf = await createSubscription(r);
       console.log(conf);
+      setDone(true);
     }
+
+    setLoading(false);
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <CardSection />
       <button disabled={!stripe} className="buttonP">
-        Confirm order
+        {!loading ? (
+          "Confirm"
+        ) : (
+          <CircularProgress size={25} style={{ color: "var(--scolor)" }} />
+        )}
       </button>
     </form>
   );

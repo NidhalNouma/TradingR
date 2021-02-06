@@ -9,7 +9,7 @@ const stripePromise = loadStripe(
   "pk_test_51H6FnIA7XwVfgC5lYfwDCh8U1sXdGpSaKd2tSAyD5kdxz96ZqHkkIw6YgEizjyaQ6iOcqs6gMNm8fYjpNApkOT9000dqUmCtOV"
 );
 
-function Index() {
+function Index({ data, ty, setDone }) {
   const [coupon, setCoupon] = useState("");
   const [cou, setCou] = useState(false);
 
@@ -17,11 +17,25 @@ function Index() {
     <div className="striped">
       <p className="pgb bold">Enter your card details.</p>
       <p className="pgb bold">Your subscription will start now.</p>
+      <p className="pgb bold">Cancel any time.</p>
       <p className="pgb bold">
-        → Total due now<span className="ml-5 colorP">$99.00</span>
+        → Total due now
+        <span className="ml-5 colorP">
+          ${ty === 0 ? data.pMonth.lPrice : data.pYear.lPrice} /
+          {ty === 0 ? " Month" : " Year"}
+        </span>
       </p>
       <p className="pgb bold">
-        → Subscribing to<span className="ml-5 colorP">Test</span>
+        → Subscribing to<span className="ml-5 colorP">{data.title}</span>
+      </p>
+      <br />
+      <p className="pgb bold">
+        Get Access to:
+        <ul className="mu-5">
+          {data.desc.map((i, ii) => (
+            <li key={ii}>{i}</li>
+          ))}
+        </ul>
       </p>
       {!cou && (
         <button
@@ -46,7 +60,7 @@ function Index() {
         </div>
       )}
       <Elements stripe={stripePromise}>
-        <CheckoutForm />
+        <CheckoutForm setDone={setDone} />
       </Elements>
     </div>
   );

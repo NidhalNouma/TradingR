@@ -48,6 +48,7 @@
   min-height: 130px;
   max-height: 130px;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 .left-card a {

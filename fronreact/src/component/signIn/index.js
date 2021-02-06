@@ -112,10 +112,12 @@ export default function Signin(props) {
                 Create Account
               </button>
               <button
-                className={loginclick ? "aclick" : "buttonP flexA"}
+                className={
+                  loginclick ? "aclick buttonP flexA" : "buttonP flexA"
+                }
                 onClick={getUser}
               >
-                Login
+                {!loginclick ? "Login" : "Login ..."}
               </button>
             </div>
             <div className="btn-g">

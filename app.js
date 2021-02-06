@@ -32,7 +32,7 @@ app.get(
     "/",
     "/strategys",
     "/indicators",
-    "/source",
+    "/pricing",
     "/product/:i",
     "/profile",
     "/profile/*",

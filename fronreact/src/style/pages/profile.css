@@ -149,7 +149,7 @@
   margin: 0;
   margin-bottom: 0.5rem;
   font-size: 0.85rem;
-  overflow: scroll;
+  /* overflow: scroll; */
 }
 
 .containProfile .right .templ div .inter {

@@ -64,8 +64,38 @@ const userSchema = new mongoose.Schema({
   notifications: [notifSchema],
   subscribers: [{ type: mongoose.Types.ObjectId, ref: "ProductVersion" }],
   subscription: { type: String },
+  sub: [],
   customerId: { type: String },
   show: { type: Boolean, default: true },
+});
+
+userSchema.post("findOne", async function (doc) {
+  if (doc.customerId) {
+    const sub = await stripe.customers.retrieve(doc.customerId);
+    if (sub.subscriptions) {
+      const { data } = sub.subscriptions;
+      if (data.length > 0) {
+        let r = [];
+        data.forEach(function (i) {
+          const pr = process.env;
+          let price = null;
+          for (v in pr) {
+            if (pr[v] === i.plan.id) price = v;
+          }
+          r.push({
+            price,
+            id: i.plan.id,
+            interval: i.plan.interval,
+            // sub,
+            cycle: i.billing_cycle_anchor,
+            start: i.current_period_start,
+            end: i.current_period_end,
+          });
+        });
+        doc["sub"] = r;
+      }
+    }
+  }
 });
 
 const User = mongoose.model("User", userSchema);
@@ -161,6 +191,7 @@ const findOne = async function (email, password) {
         path: "notifications.fromId",
         select: "userName _id userPicture",
       });
+
     console.log("\x1b[35m%s\x1b[0m", `Find User ==> ${email}`);
   } catch (e) {
     console.log("\x1b[31m%s\x1b[0m", `Error with finding User ==> ${e}`);

@@ -28,6 +28,13 @@
   height: 33px;
 }
 
+.svgb svg {
+  width: 16px !important;
+  height: 15px !important;
+  margin-left: 0.3rem;
+  /* cursor: pointer; */
+}
+
 .svg1 svg {
   width: 20px;
   height: 20px;

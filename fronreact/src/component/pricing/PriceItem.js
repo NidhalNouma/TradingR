@@ -1,12 +1,36 @@
 import React from "react";
+import moment from "moment";
+import Badge from "../Badge";
 
-function PriceItem({ set, bg, val, data, ty }) {
+function PriceItem({ set, bg, val, data, ty, sub }) {
   const style = {
     backgroundColor: bg && "var(--tcolor)",
   };
+  // console.log(sub);
+  // const t = new Date(1613089891);
+  // console.log(t);
+
+  let tr = true;
+  let end = null;
+  if (sub && sub.length > 0) {
+    sub.forEach((i) => {
+      if (i.price === data.id.m && ty === 0) {
+        tr = false;
+        end = moment(i.end * 1000).format("MMMM Do YYYY"); //, h:mm:ss a
+        if (bg) set(0);
+      } else if (i.price === data.id.y && ty === 1) {
+        tr = false;
+        end = moment(i.end * 1000).format("MMMM Do YYYY");
+        if (bg) set(0);
+      }
+    });
+  }
+
   return (
     <div className="p1 pricing-item m1">
-      <h4 className="h41 bold">{data.title}</h4>
+      <h4 className="h41 bold flex">
+        {data.title} <Badge val={val} />
+      </h4>
       <div className="mu1">
         <span className="spanR crossL mr-5">
           ${ty === 0 ? data.pMonth.fPrice : data.pYear.fPrice}
@@ -23,9 +47,17 @@ function PriceItem({ set, bg, val, data, ty }) {
           ))}
         </ul>
       </p>
-      <button className="buttonR" style={style} onClick={() => set(val)}>
-        Select
-      </button>
+      {tr ? (
+        <button className="buttonR" style={style} onClick={() => set(val)}>
+          Select
+        </button>
+      ) : (
+        <>
+          <span className="span bold">Current Plan</span>
+          <br />
+          {end && <span className="span1">Renew {end}</span>}
+        </>
+      )}
     </div>
   );
 }

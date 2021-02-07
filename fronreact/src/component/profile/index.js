@@ -4,6 +4,7 @@ import axios from "axios";
 import Navbar from "../global/navbar";
 import Footer from "../global/footer";
 import UserImg from "../../asset/images/UserImg";
+import Badge from "../Badge";
 
 import Menup from "./menu";
 import Dirtemp from "./Dirtemp";
@@ -23,7 +24,6 @@ function Profile() {
       axios
         .get(`/api/product/user/impro/${user._id}`)
         .then((res) => {
-          console.log(res.data.result);
           if (res.data.result) {
             setImpro(res.data.result);
           }
@@ -56,7 +56,10 @@ function Profile() {
               <UserImg />
             )}
             <div>
-              <h4>{user.userName ? user.userName : "N/A"}</h4>
+              <h4 className="flex">
+                {user.userName ? user.userName : "N/A"}{" "}
+                <Badge pr={user.subscription} />
+              </h4>
               <h5>Score: {user.score ? user.score : "0"}</h5>
               <h6>
                 Join at:{"  "}

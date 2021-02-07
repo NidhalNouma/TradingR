@@ -151,20 +151,15 @@ const findAllProduct = async function (type) {
   let r = { res: null, err: null };
   const f = type === "undefined" ? {} : { type };
 
+  const uselect = "userName score userPicture subscription";
   try {
     r.res = await productVersion.find(f).populate({
       path: "products",
       populate: [
-        { path: "qandas.userId", select: "userName score userPicture" },
-        {
-          path: "qandas.answers.userId",
-          select: "userName score userPicture",
-        },
-        { path: "improvements.userId", select: "userName score userPicture" },
-        {
-          path: "improvements.answers.userId",
-          select: "userName score userPicture",
-        },
+        { path: "qandas.userId", select: uselect },
+        { path: "qandas.answers.userId", select: uselect },
+        { path: "improvements.userId", select: uselect },
+        { path: "improvements.answers.userId", select: uselect },
       ],
     });
     console.log("\x1b[35m%s\x1b[0m", `Products Found All ${type} ...`);
@@ -180,17 +175,16 @@ const findAllProduct = async function (type) {
 const findProductById = async function (_id) {
   console.log("\x1b[36m%s\x1b[0m", `Find  Product By Id ${_id} ...`);
   let r = { res: null, err: null };
+
+  const uselect = "userName score userPicture subscription";
   try {
     r.res = await productVersion.findById({ _id }).populate({
       path: "products",
       populate: [
-        { path: "qandas.userId", select: "userName score userPicture" },
-        { path: "qandas.answers.userId", select: "userName score userPicture" },
-        { path: "improvements.userId", select: "userName score userPicture" },
-        {
-          path: "improvements.answers.userId",
-          select: "userName score userPicture",
-        },
+        { path: "qandas.userId", select: uselect },
+        { path: "qandas.answers.userId", select: uselect },
+        { path: "improvements.userId", select: uselect },
+        { path: "improvements.answers.userId", select: uselect },
       ],
     });
     console.log("\x1b[35m%s\x1b[0m", `Product ${_id} found ...`);

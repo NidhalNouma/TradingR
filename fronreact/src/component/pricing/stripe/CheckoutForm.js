@@ -9,10 +9,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 export default function CheckoutForm({ setDone, data }) {
   const stripe = useStripe();
   const elements = useElements();
-  const { user, check } = useContext(UserC);
+  const { user, check, setUser } = useContext(UserC);
   const [loading, setLoading] = useState(false);
-
-  console.log(data);
+  console.log(user);
 
   const handleSubmit = async (event) => {
     setLoading(true);
@@ -48,10 +47,31 @@ export default function CheckoutForm({ setDone, data }) {
         paymentMethodId: result.paymentMethod.id,
         price: data.ty === 0 ? data.data.id.m : data.data.id.y,
       };
+      try {
+        const conf = await createSubscription(r);
+        if (conf.data) {
+          const i = conf.data;
+          const pr = process.env;
+          let price = null;
+          for (let v in pr) {
+            if (pr[v] === i.plan.id) price = v.replace("REACT_APP_", "");
+          }
 
-      const conf = await createSubscription(r);
-      console.log(conf);
-      setDone(true);
+          const sub = {
+            price: price,
+            interval: i.plan.interval,
+            cycle: i.billing_cycle_anchor,
+            start: i.current_period_start,
+            end: i.current_period_end,
+          };
+
+          console.log(sub);
+          setUser({ ...user, sub: [...user.sub, sub], subscription: price });
+        }
+        setDone(true);
+      } catch (e) {
+        console.log(e);
+      }
     }
 
     setLoading(false);

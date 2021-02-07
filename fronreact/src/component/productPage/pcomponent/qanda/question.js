@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Badge from "../../../Badge";
 import moment from "moment";
 
 import Ans from "./ans";
@@ -32,6 +33,7 @@ function Question({ data, vote, pId }) {
               <UserImg />
             )}
             <h5 className="h51 ml-5">{data.userId.userName}</h5>
+            <Badge pr={data.userId.subscription} />
           </Link>
           {vote && (
             <Vote

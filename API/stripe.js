@@ -47,7 +47,8 @@ router.post("/create-checkout-session", async (req, res) => {
 router.post("/create-subscription", async function (req, res) {
   let { customerId, userId, email, price, paymentMethodId } = req.body;
   let subscription = null;
-  price = process.env[price];
+  const pr = process.env[price];
+  if (!pr) return res.status(404).send({ error: "Invalid Price !!" });
 
   try {
     if (!customerId) {
@@ -71,7 +72,7 @@ router.post("/create-subscription", async function (req, res) {
     // Create the subscription
     subscription = await stripe.subscriptions.create({
       customer: customerId,
-      items: [{ price: price }],
+      items: [{ price: pr }],
     });
     await setSubscription(userId, price);
   } catch (error) {

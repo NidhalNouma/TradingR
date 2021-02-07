@@ -4,7 +4,6 @@ import Noprod from "./Noprod";
 import Loadp from "../Loadp";
 
 function Product({ data, type }) {
-  console.log(data);
   return (
     <>
       {data && data.length > 0 ? (

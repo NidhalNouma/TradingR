@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import Navbar from "../global/navbar";
 import Footer from "../global/footer";
 import PriceItem from "./PriceItem";
@@ -7,12 +7,14 @@ import Done from "./Done";
 
 import Stripe from "./stripe";
 import { prices } from "./price";
+import { UserC } from "../Hooks/User";
 
 function Pricing() {
   const [select, setSelect] = useState(null);
   const [ty, setTy] = useState(0);
   const [done, setDone] = useState(false);
   const ref = useRef(null);
+  const { user } = useContext(UserC);
 
   useEffect(() => {
     if (ref.current)
@@ -48,6 +50,7 @@ function Pricing() {
               bg={select === 1}
               val={1}
               ty={ty}
+              sub={user ? user.sub : null}
             />
             <PriceItem
               data={prices.p2}
@@ -55,6 +58,7 @@ function Pricing() {
               bg={select === 2}
               val={2}
               ty={ty}
+              sub={user ? user.sub : null}
             />
             <PriceItem
               data={prices.p3}
@@ -62,11 +66,12 @@ function Pricing() {
               bg={select === 3}
               val={3}
               ty={ty}
+              sub={user ? user.sub : null}
             />
           </div>
         </div>
       </div>
-      {select && !done && (
+      {select > 0 && !done && (
         <Stripe
           ty={ty}
           data={select === 1 ? prices.p1 : select === 2 ? prices.p2 : prices.p3}

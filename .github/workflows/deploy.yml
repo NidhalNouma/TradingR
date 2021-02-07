@@ -13,5 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - run: rm .env
       - run: cp ~/.env ./
       - run: docker-compose up -d --force-recreate --build

@@ -4,7 +4,7 @@ export const prices = {
       m: "STRIPE_PR_1M",
       y: "STRIPE_PR_1Y",
     },
-    title: "First Member",
+    title: "Basic",
     pMonth: {
       fPrice: 199,
       lPrice: 99,
@@ -27,7 +27,7 @@ export const prices = {
       m: "STRIPE_PR_2M",
       y: "STRIPE_PR_2Y",
     },
-    title: "Second Member",
+    title: "Plus",
     pMonth: {
       fPrice: 299,
       lPrice: 199,
@@ -51,7 +51,7 @@ export const prices = {
       m: "STRIPE_PR_3M",
       y: "STRIPE_PR_3Y",
     },
-    title: "Third Member",
+    title: "Primium",
     pMonth: {
       fPrice: 499,
       lPrice: 399,
@@ -71,4 +71,38 @@ export const prices = {
       "test 11 kl,rnzgjkehn lknjefibzhgjr",
     ],
   },
+};
+
+export const checkMember = function (sub) {
+  let r = 0;
+  if (sub && sub.length > 0) {
+    sub.forEach(function (i) {
+      switch (i.price) {
+        case prices.p1.id.m:
+          if (r < 1) r = 1;
+          break;
+        case prices.p1.id.y:
+          if (r < 1) r = 1;
+          break;
+
+        case prices.p2.id.m:
+          if (r < 2) r = 2;
+          break;
+        case prices.p2.id.y:
+          if (r < 2) r = 2;
+          break;
+
+        case prices.p3.id.m:
+          if (r < 3) r = 3;
+          break;
+        case prices.p3.id.y:
+          if (r < 3) r = 3;
+          break;
+
+        default:
+          break;
+      }
+    });
+  }
+  return r;
 };

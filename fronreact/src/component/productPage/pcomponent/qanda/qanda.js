@@ -1,16 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Question from "./question";
 import Addcom from "../addcom";
 import { ProductC } from "../../../Hooks/Products";
 
 function Qanda() {
   const { p } = useContext(ProductC);
+  const [load, setLoad] = useState({});
 
   return (
     <div className="qanda">
       <div>
-        <Addcom placeholder="Ask any Question ..." type="qa" />
+        <Addcom
+          placeholder="Ask any Question ..."
+          type="qa"
+          setLoad={setLoad}
+        />
         <div className="commentsection">
+          {load && load.id && <Upload data={load} p={p} />}
           <div className="comments">
             {p.product.qandas
               .sort((a, b) => {
@@ -35,3 +41,11 @@ function Qanda() {
 }
 
 export default Qanda;
+
+function Upload({ data, p }) {
+  return (
+    <div className="comments op">
+      <Question data={data} pId={p.product._id} id={p._id} />
+    </div>
+  );
+}

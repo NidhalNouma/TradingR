@@ -6,11 +6,13 @@ import { UserC } from "../../Hooks/User";
 
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-export default function CheckoutForm({ setDone }) {
+export default function CheckoutForm({ setDone, data }) {
   const stripe = useStripe();
   const elements = useElements();
   const { user, check } = useContext(UserC);
   const [loading, setLoading] = useState(false);
+
+  console.log(data);
 
   const handleSubmit = async (event) => {
     setLoading(true);
@@ -44,7 +46,7 @@ export default function CheckoutForm({ setDone }) {
         email: user.email,
         customerId: user.customerId,
         paymentMethodId: result.paymentMethod.id,
-        p: 1,
+        price: data.ty === 0 ? data.data.id.m : data.data.id.y,
       };
 
       const conf = await createSubscription(r);
@@ -58,7 +60,10 @@ export default function CheckoutForm({ setDone }) {
   return (
     <form onSubmit={handleSubmit}>
       <CardSection />
-      <button disabled={!stripe} className="buttonP">
+      <button
+        disabled={!stripe}
+        className={loading ? "buttonP aclick" : "buttonP"}
+      >
         {!loading ? (
           "Confirm"
         ) : (

@@ -5,7 +5,7 @@ import UserImg from "../../../../asset/images/UserImg";
 
 function Ans({ data }) {
   return (
-    <div className="pl1 ml1 mu-5 border-left">
+    <div className="pl1 ml1 mu-5 md1 border-left">
       <Link className="flex ah" to="">
         {data.userId.userPicture && data.userId.userPicture !== "noimg" ? (
           <img className="imgP1" src={data.userId.userPicture} alt="" />
@@ -14,8 +14,8 @@ function Ans({ data }) {
         )}
         <h5 className="h51 ml-5">{data.userId.userName}</h5>
       </Link>
-      <p className="pg2 ml1 mu-5 md-0">{data.answer}</p>
-      <i className="i1">{moment(new Date(data.timestamp)).fromNow()}</i>
+      <p className="pg2 ml1 mu-5 md-5">{data.answer}</p>
+      <i className="i1 ml-5">{moment(new Date(data.timestamp)).fromNow()}</i>
     </div>
   );
 }

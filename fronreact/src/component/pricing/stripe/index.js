@@ -60,7 +60,7 @@ function Index({ data, ty, setDone }) {
         </div>
       )}
       <Elements stripe={stripePromise}>
-        <CheckoutForm setDone={setDone} />
+        <CheckoutForm setDone={setDone} data={{ data, ty }} />
       </Elements>
     </div>
   );

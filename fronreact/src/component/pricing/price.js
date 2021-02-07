@@ -1,5 +1,9 @@
 export const prices = {
   p1: {
+    id: {
+      m: "STRIPE_PR_1M",
+      y: "STRIPE_PR_1Y",
+    },
     title: "First Member",
     pMonth: {
       fPrice: 199,
@@ -19,6 +23,10 @@ export const prices = {
     ],
   },
   p2: {
+    id: {
+      m: "STRIPE_PR_2M",
+      y: "STRIPE_PR_2Y",
+    },
     title: "Second Member",
     pMonth: {
       fPrice: 299,
@@ -39,6 +47,10 @@ export const prices = {
     ],
   },
   p3: {
+    id: {
+      m: "STRIPE_PR_3M",
+      y: "STRIPE_PR_3Y",
+    },
     title: "Third Member",
     pMonth: {
       fPrice: 499,

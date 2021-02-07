@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
 import Typep from "../Typep";
 
 export default function Product({ p }) {
@@ -18,7 +19,7 @@ export default function Product({ p }) {
         </span>
       </h5>
 
-      <p className="pgl2">{p.product.description}</p>
+      <p className="parse1 pgl2">{parse(p.product.description)}</p>
       <div className="flexB">
         <div className="int">
           {/* <h6>{p.downloads ? p.downloads.length : 0} Downloads</h6> */}

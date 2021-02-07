@@ -304,3 +304,11 @@
 .cursor {
   cursor: pointer;
 }
+
+.aclick {
+  background-color: var(--pcolor);
+  color: var(--bgcolor);
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}

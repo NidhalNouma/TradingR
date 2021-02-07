@@ -45,17 +45,9 @@ router.post("/create-checkout-session", async (req, res) => {
 });
 
 router.post("/create-subscription", async function (req, res) {
-  let { customerId, userId, email, p, paymentMethodId } = req.body;
+  let { customerId, userId, email, price, paymentMethodId } = req.body;
   let subscription = null;
-
-  if (p > 2) return res.json({ error: "Invalid price" });
-
-  const price =
-    p === 0
-      ? process.env.STRIPE_PR_1
-      : p === 1
-      ? process.env.STRIPE_PR_2
-      : process.env.STRIPE_PR_3;
+  price = process.env[price];
 
   try {
     if (!customerId) {

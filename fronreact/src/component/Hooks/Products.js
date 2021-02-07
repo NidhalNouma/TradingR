@@ -76,11 +76,11 @@ export const AddCom = async (type, user, com, p, imgs, setProduct, s) => {
   const r = await axios.post(endpoint, data);
   if (r.data.added) {
     if (type === "impro") {
-      const re = addImpro(p, user, com, r.data.id);
+      const re = addImpro(p, user, com, imgs, r.data.id);
       setProduct(re);
       s.emit("PP", re);
     } else if (type === "qa") {
-      const re = addQA(p, user, com, r.data.id);
+      const re = addQA(p, user, com, imgs, r.data.id);
       setProduct(re);
       s.emit("PP", re);
     }
@@ -190,7 +190,7 @@ export const changeV = (p, id) => {
   return r;
 };
 
-const addImpro = (p, user, imp, _id) => {
+const addImpro = (p, user, imp, imgs, _id) => {
   const time = new Date().toString();
   const r = {
     ...p,
@@ -205,6 +205,7 @@ const addImpro = (p, user, imp, _id) => {
           minus: [],
           plus: [],
           userId: user,
+          imgs,
           improvement: imp,
         },
       ],
@@ -252,7 +253,7 @@ const addImproVote = (p, user, id, type) => {
   return r;
 };
 
-const addQA = (p, user, qa, _id) => {
+const addQA = (p, user, qa, imgs, _id) => {
   const time = new Date().toString();
   const r = {
     ...p,
@@ -266,6 +267,7 @@ const addQA = (p, user, qa, _id) => {
           answers: [],
           userId: user,
           question: qa,
+          imgs,
         },
       ],
     },

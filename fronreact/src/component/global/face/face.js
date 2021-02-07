@@ -38,11 +38,6 @@ export default function Face(props) {
             </Link>
           </li>
           <li>
-            <Link to="/profile/products" className="buttonT tHover">
-              My Products
-            </Link>
-          </li>
-          <li>
             <Link to="/profile/subscription" className="buttonT tHover">
               Subscriptions
             </Link>

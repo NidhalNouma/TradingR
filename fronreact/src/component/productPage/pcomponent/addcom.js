@@ -10,7 +10,7 @@ import { SocketC } from "../../Hooks/Socket";
 
 import { uploadImg64 } from "../../Hooks/Firebase";
 
-function Addcom({ type, placeholder }) {
+function Addcom({ type, placeholder, setLoad }) {
   const { p, setProduct } = useContext(ProductC);
   const user = useContext(UserC);
   const { socket } = useContext(SocketC);
@@ -41,25 +41,43 @@ function Addcom({ type, placeholder }) {
       return;
     }
 
-    if (imgs.length > 0) {
+    const lImgs = imgs;
+
+    setLoad({
+      id: p._id,
+      pId: p.product._id,
+      userId: user.user,
+      question: com,
+      impro: com,
+      imgs: lImgs,
+      answers: [],
+      timestamps: new Date().toString(),
+    });
+    setcom("");
+    setAdd(false);
+    setImgs([]);
+
+    if (lImgs.length > 0) {
       let fimgs = [];
-      for (let i in imgs) {
-        uploadImg64(imgs[i], user.user.userName, function (url) {
+      for (let i in lImgs) {
+        uploadImg64(lImgs[i], user.user.userName, function (url) {
           fimgs.push(url);
           console.log(fimgs);
           // TO-DO add imgs to post request
-          if (imgs.length === fimgs.length) {
+          if (lImgs.length === fimgs.length) {
             AddCom(type, user.user, com, p, fimgs, setProduct, socket);
-            setcom("");
-            setAdd(false);
-            setImgs([]);
+            // setcom("");
+            // setAdd(false);
+            // setImgs([]);
+            setLoad({});
           }
         });
       }
     } else {
-      AddCom(type, user.user, com, p, setProduct, socket);
-      setcom("");
-      setAdd(false);
+      AddCom(type, user.user, com, p, [], setProduct, socket);
+      // setcom("");
+      // setAdd(false);
+      setLoad({});
     }
   };
 

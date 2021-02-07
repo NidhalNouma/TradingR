@@ -76,10 +76,10 @@ function Profile() {
                 Posts
               </h6> */}
               <h6 className={qa === 1 ? "active" : ""} onClick={() => setQa(1)}>
-                {impro && impro.length} Improvements
+                Improvements
               </h6>
               <h6 className={qa === 2 ? "active" : ""} onClick={() => setQa(2)}>
-                {qas && qas.length} Questions
+                Questions
               </h6>
             </div>
             {qa === 1 ? (

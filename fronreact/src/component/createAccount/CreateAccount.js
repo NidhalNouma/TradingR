@@ -113,10 +113,10 @@ export default function CreateAccount(props) {
           I have account
         </button>
         <button
-          className={createClick ? "aclick" : "buttonP flexA"}
+          className={createClick ? "aclick buttonP" : "buttonP flexA"}
           onClick={addUser}
         >
-          Register
+          {createClick ? "Register ..." : "Register"}
         </button>
       </div>
       <div className="btn-g">

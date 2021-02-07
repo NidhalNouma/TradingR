@@ -10,6 +10,16 @@ function Done({ data }) {
       <p className="pgb bold">
         You Subscribe to<span className="ml-5 colorP">{data.title}</span>
       </p>
+
+      <p className="pgb bold">
+        You have access to:
+        <ul className="mu-5">
+          {data.desc.map((i, ii) => (
+            <li key={ii}>{i}</li>
+          ))}
+        </ul>
+      </p>
+
       <p className="pgb bold">
         Start explore our
         <Link to="/indicators" className="ml-5 mr-5 colorP tHover">
@@ -42,7 +52,7 @@ function Play({ l }) {
   const style = {
     height: "300px",
     position: "absolute",
-    top: "-100px",
+    top: "150px",
     left: "0",
   };
   const style1 = {

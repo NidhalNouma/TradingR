@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: flex-end;
   border: 1px solid var(--tcolor);
-  border-radius: 8px;
+  border-radius: 6px;
   width: 100%;
 }
 
@@ -46,6 +46,13 @@
   background-color: inherit !important;
   color: var(--textcolor) !important;
   font-size: 1rem !important;
+  font-family: "Avenir", "Arial", sans-serif !important;
+}
+
+.parse1 * {
+  background-color: inherit !important;
+  color: var(--textcolor) !important;
+  margin: 0;
   font-family: "Avenir", "Arial", sans-serif !important;
 }
 
@@ -121,4 +128,43 @@
   /* width: 80vw; */
   width: auto;
   height: 75vh;
+}
+
+.op {
+  /* opacity: 0.5; */
+  /* transition: opacity 0.3s ease-in-out; */
+  animation-name: fadein;
+  animation-duration: 2s;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+.op * {
+  cursor: unset !important;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 0.75;
+  }
+}
+
+@keyframes fadeinD {
+  from {
+    opacity: 0.3;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.comments {
+  animation-name: fadeinD;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
 }

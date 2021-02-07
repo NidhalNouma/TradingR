@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CardElement } from "@stripe/react-stripe-js";
 import { Dark } from "../../../app";
 
-function CardSection() {
+function CardSection({ data }) {
   const { dark } = useContext(Dark);
   const CARD_ELEMENT_OPTIONS = {
     style: {
@@ -25,7 +25,7 @@ function CardSection() {
 
   return (
     <div className="mu1">
-      <CardElement className="mu1" options={CARD_ELEMENT_OPTIONS} />
+      <CardElement className="mu1" options={CARD_ELEMENT_OPTIONS} data={data} />
     </div>
   );
 }

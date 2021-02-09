@@ -78,13 +78,14 @@ function Pricing() {
           setDone={setDone}
         />
       )}
-      <div ref={ref} className="mb2"></div>
 
       {done && (
         <Done
           data={select === 1 ? prices.p1 : select === 2 ? prices.p2 : prices.p3}
         />
       )}
+
+      <div ref={ref} className="mb2"></div>
       <Footer />
     </>
   );

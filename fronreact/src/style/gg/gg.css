@@ -3,6 +3,12 @@
   align-items: center;
 }
 
+.flexC {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .flexA {
   display: flex;
   align-items: center;
@@ -90,6 +96,21 @@
   box-sizing: border-box;
   padding: 0rem 1rem;
   border-radius: 4px;
+}
+
+.span2 {
+  font-size: 0.75rem;
+  font-weight: 400;
+  /* padding: 0.1rem 0.3rem; */
+  /* border-radius: 6px; */
+  cursor: default;
+  color: var(--pcolor);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  /* background-color: var(--scolor); */
 }
 
 .span1 {

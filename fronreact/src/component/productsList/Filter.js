@@ -16,7 +16,7 @@ function Filter() {
 
   return (
     <div className="filterP">
-      <span className="span">By Subscription:</span>
+      {/* <span className="span">By Subscription:</span>
       <ul className="md2">
         <li className="flex md-5">
           <span
@@ -50,7 +50,7 @@ function Filter() {
             Primium
           </span>
         </li>
-      </ul>
+      </ul> */}
 
       <span className="span">Available On:</span>
       <ul>

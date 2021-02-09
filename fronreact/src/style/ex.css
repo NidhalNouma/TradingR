@@ -119,6 +119,36 @@
   max-width: 100%;
 }
 
+.MuiOutlinedInput-root {
+  margin: 0.2rem 0 1.3rem !important;
+}
+
+.MuiOutlinedInput-input {
+  padding: 0.8rem 0.5rem !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border: 2px solid var(--scolor) !important;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: var(--pcolor) !important;
+}
+
+.MuiFormLabel-root.Mui-focused {
+  color: var(--pcolor) !important;
+}
+
+.MuiInputLabel-outlined {
+  color: var(--pcolor) !important;
+}
+.MuiInputBase-input {
+  color: var(--textcolor) !important;
+}
+.MuiInputBase-root.Mui-disabled .MuiInputBase-input {
+  opacity: 0.4;
+}
+
 /* stripe */
 /**
 * Shows how you can use CSS to style your Element's container.

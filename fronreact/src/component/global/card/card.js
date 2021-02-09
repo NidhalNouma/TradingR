@@ -42,9 +42,9 @@ export default function Card({ notif, close }) {
                   return <Cardlist key={i._id} data={i} />;
                 })}
             </ul>
-            <div className="total">
-              <button className="buttonT tHover">Mark all as Read</button>
-              <Link className="abtnP flexA" to="/profile/notifications">
+            <div className="total flexB">
+              <button className="buttonT tHover pl1">Mark all as Read</button>
+              <Link className="buttonT tHover pr1" to="/profile/notifications">
                 See All
               </Link>
             </div>

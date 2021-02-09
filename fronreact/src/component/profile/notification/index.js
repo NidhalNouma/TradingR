@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import Navbar from "../../global/navbar";
 import Footer from "../../global/footer";
@@ -6,8 +6,11 @@ import Menup from "../menu";
 import Nonotify from "./Nonotify";
 import NotifItem from "./NotifItem";
 
+import { NotifC } from "../../Hooks/Notification";
+
 function Notification() {
-  const notif = null;
+  const { notif } = useContext(NotifC);
+  console.log(notif);
   return (
     <>
       <Navbar here={true} />
@@ -18,8 +21,8 @@ function Notification() {
         <div className="right">
           {notif && notif.length > 0 ? (
             <>
-              <div className="maarnotif">
-                <span>Mark All As Read</span>
+              <div className="maarnotif mu2 md1">
+                <button className="buttonT tHover">Mark All As Read</button>
               </div>
               {notif.map((i) => (
                 <NotifItem key={i._id} data={i} />

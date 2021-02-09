@@ -17,7 +17,7 @@ function AcctiveAccount({ activ, close, setActiv }) {
           <button
             className="buttonT tHover"
             onClick={() => {
-              close();
+              if (close) close();
               setActiv(false);
             }}
           >

@@ -335,6 +335,11 @@ nav .media {
   overflow-y: scroll;
 }
 
+.card-list ul li {
+  padding: 0.2rem 0;
+  border-bottom: 1px solid var(--scolor);
+}
+
 .card-list ul li img {
   height: 70px;
   width: 90px;
@@ -343,7 +348,7 @@ nav .media {
 }
 
 .card-list ul li div p {
-  width: 200px;
+  width: 100%;
 }
 
 .card-list ul li:hover {
@@ -356,11 +361,8 @@ nav .media {
   position: absolute;
   bottom: 0;
   width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   background-color: var(--scolor);
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 0;
   margin-top: 0.6em;
   height: 17%;

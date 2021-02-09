@@ -1,18 +1,20 @@
 .container-PL {
-  margin: 7rem 4% 0 16rem;
+  margin: 7rem 4% 0 12rem;
   display: grid;
-  grid-template-columns: 24% 24% 24% 24%;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 1rem;
   justify-content: space-between;
 }
 
 .filterP {
   position: fixed;
   top: 7rem;
-  left: 1rem;
-  width: 13rem;
+  left: 0.5rem;
+  width: 9rem;
   height: 70vh;
-  border-radius: 6px;
-  box-shadow: 0 0 0.4rem 0.1rem var(--scolor);
+  /* border-radius: 6px; */
+  /* box-shadow: 0 0 0rem 0.1rem var(--scolor); */
+  border-right: 2px solid var(--scolor);
   background-color: var(--bgcolor);
   z-index: 1;
   padding: 1rem;
@@ -30,6 +32,7 @@
   border: 2px solid var(--scolor);
   border-radius: 8px;
   margin-bottom: 1rem;
+  overflow: scroll;
 }
 
 .product-list .media-left-card {
@@ -72,14 +75,14 @@
 
 @media screen and (max-width: 1200px) {
   .container-PL {
-    margin: 6rem 4% 0 13rem;
-    grid-template-columns: 33% 33% 33%;
+    margin: 6rem 4% 0 10rem;
+    grid-template-columns: 1fr 1fr 1fr;
   }
 
   .filterP {
     top: 6rem;
-    left: 1rem;
-    width: 10rem;
+    left: 0.4rem;
+    width: 8rem;
   }
   /* .product-list {
     margin: 4em 2%;
@@ -108,14 +111,14 @@
 
 @media screen and (max-width: 850px) {
   .container-PL {
-    margin: 5rem 3% 0 11rem;
-    grid-template-columns: 49% 49%;
+    margin: 5rem 3% 0 9rem;
+    grid-template-columns: 1fr 1fr;
   }
 
   .filterP {
     top: 5rem;
-    left: 0.7rem;
-    width: 9rem;
+    left: 0.3rem;
+    width: 7rem;
   }
   /* .product-list {
     display: block;
@@ -154,8 +157,9 @@
 
 @media screen and (max-width: 680px) {
   .container-PL {
-    margin: 5rem 2%;
-    grid-template-columns: 49% 49%;
+    margin: 5rem 1%;
+    grid-column-gap: 1rem;
+    grid-template-columns: 1fr 1fr;
   }
 
   .filterP {

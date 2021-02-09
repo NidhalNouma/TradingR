@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Parse from "html-react-parser";
 
 import Show from "../show";
 import Signin from "../signIn";
@@ -25,10 +26,10 @@ export default function Productlist({ p }) {
             <h5 className="h5 m0 md-5">{p.product.title}</h5>
           </Link>
 
-          <p className="pgl2">{p.product.description}</p>
+          <p className="pgl2 parse1">{Parse(p.product.description)}</p>
           <>
             <div className="flexB">
-              <span className="spanH bold">
+              <span className="span2 bold">
                 {p.subscribers && p.subscribers.length} Subscribers
               </span>
               <div>

@@ -50,9 +50,9 @@ export const uploadFile = (e, callback, name) => {
   );
 };
 
-export const uploadImg64 = (file, name, callback) => {
+export const uploadImg64 = (file, name, callback, dir = "product/") => {
   if (!file) return;
-  const fileName = "product/" + name + "/" + Date.now().toString();
+  const fileName = dir + name + "/" + Date.now().toString();
 
   const storageRef = app.storage().ref();
   const uploadTask = storageRef.child(fileName).putString(file, "data_url");

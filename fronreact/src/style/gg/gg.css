@@ -34,6 +34,23 @@
   height: 33px;
 }
 
+.svgh svg {
+  width: 33px;
+  height: 33px;
+}
+
+.svgh svg circle {
+  transition: fill 0.3s linear;
+}
+
+.svgh svg:hover circle {
+  fill: var(--tcolor);
+}
+
+.tHover:hover .svgh svg circle {
+  fill: var(--tcolor);
+}
+
 .svgb svg {
   width: 16px !important;
   height: 15px !important;

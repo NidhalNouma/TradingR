@@ -102,25 +102,20 @@
 
   .contain-sign input {
     width: 60%;
-    height: 30px;
   }
 
   .contain-sign a,
   .contain-sign button {
     width: 30%;
-    font-size: 0.8em;
     padding: 0.5rem 0rem;
   }
 
   .perror {
-    font-size: 0.62em;
     margin: 0 20% 0.8em;
   }
 
   .btn-gg {
-    gap: 10px;
     width: 60% !important;
-    padding: 0 !important;
   }
 }
 
@@ -135,18 +130,15 @@
 
   .contain-sign input {
     width: 70%;
-    height: 28px;
   }
 
   .contain-sign a,
   .contain-sign button {
     width: 35%;
-    font-size: 0.77em;
     padding: 0.4rem 0rem;
   }
 
   .contain-sign .perror {
-    font-size: 0.6em;
     margin: 0 15% 0.8em;
   }
 }

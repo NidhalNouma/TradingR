@@ -1,79 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Alert } from "@material-ui/lab";
-import axios from "axios";
-import Google from "../../asset/images/Google";
+import React, { useContext } from "react";
+import { AddNewUser } from "../Hooks/User";
 import { UserC } from "../Hooks/User";
+import { Alert } from "@material-ui/lab";
+
+import Google from "../../asset/images/Google";
 // import Facebook from "../../asset/images/Facebook";
 
-export default function CreateAccount(props) {
-  const user = useContext(UserC);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [conpassword, setConPassword] = useState("");
-  const [username, setUsername] = useState("");
-  const [error, setError] = useState("");
-  const [createClick, setCreateClick] = useState(false);
-
-  useEffect(() => {
-    if (password === conpassword) {
-      setError("");
-    }
-  }, [conpassword, password]);
-
-  const diss = (e) => {
-    props.dissmis();
-  };
-
-  const setemail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const setusername = (e) => {
-    setUsername(e.target.value);
-  };
-
-  const setpassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const setconpassword = (e) => {
-    setConPassword(e.target.value);
-  };
-
-  const addUser = (e) => {
-    e.preventDefault();
-    if (password !== conpassword) {
-      setError("password not equal");
-      return;
-    }
-    setCreateClick(true);
-    setError("");
-    axios({
-      method: "post",
-      url: "/api/user/add",
-      data: {
-        email,
-        password,
-        username: username,
-      },
-    })
-      .then(function (response) {
-        const res = response.data;
-        if (!res.add) {
-          setError(res.results);
-        } else {
-          props.setActiv(true);
-          user.setUser(res.results);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-        setError("Network Error! Please try again later");
-      })
-      .finally(function () {
-        setCreateClick(false);
-      });
-  };
+export default function CreateAccount({ setActiv, dissmis }) {
+  const { setUser: setFUser } = useContext(UserC);
+  const { user, setUser, error, add, createClick } = AddNewUser();
 
   return (
     <div className="contain-sign">
@@ -82,39 +17,49 @@ export default function CreateAccount(props) {
         type="email"
         name="email"
         placeholder="Email"
-        value={email}
-        onChange={setemail}
+        value={user.email}
+        onChange={(e) => setUser({ ...user, email: e.target.value })}
+      />
+      <input
+        type="text"
+        name="firstName"
+        placeholder="First Name"
+        value={user.firstName}
+        onChange={(e) => setUser({ ...user, firstName: e.target.value })}
+      />
+      <input
+        type="text"
+        name="lastName"
+        placeholder="Last Name"
+        value={user.lastName}
+        onChange={(e) => setUser({ ...user, lastName: e.target.value })}
       />
       <input
         type="password"
         name="password"
         placeholder="Password"
-        value={password}
-        onChange={setpassword}
+        value={user.password}
+        onChange={(e) => setUser({ ...user, password: e.target.value })}
       />
       <input
         type="password"
         name="confirmPassword"
         placeholder="Confirm password"
-        value={conpassword}
-        onChange={setconpassword}
-      />
-      <input
-        type="text"
-        name="username"
-        placeholder="User Name"
-        value={username}
-        onChange={setusername}
+        value={user.confirmPassword}
+        onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })}
       />
       {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
 
       <div className="btn-1">
-        <button className="buttonS flexA" onClick={diss}>
+        <button className="buttonS flexA" onClick={(e) => dissmis()}>
           I have account
         </button>
         <button
           className={createClick ? "aclick buttonP" : "buttonP flexA"}
-          onClick={addUser}
+          onClick={(e) => {
+            e.preventDefault();
+            add(setFUser, setActiv);
+          }}
         >
           {createClick ? "Register ..." : "Register"}
         </button>

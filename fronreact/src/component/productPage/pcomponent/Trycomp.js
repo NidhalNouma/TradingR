@@ -12,7 +12,7 @@ function Trycomp({ not }) {
       {not && (
         <p className="pgd">
           Subscribe{" "}
-          <Link className="ah bold" to="/pricing">
+          <Link className="ah1 bold" to="/pricing">
             here
           </Link>{" "}
           to access this version

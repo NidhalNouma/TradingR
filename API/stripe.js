@@ -94,7 +94,7 @@ router.post("/update-subscription", async function (req, res) {
 });
 
 router.post("/cancel-subscription", async function (req, res) {
-  const deleted = await stripe.subscriptions.del("sub_Ik4xf5hJtMryfb");
+  const deleted = await stripe.subscriptions.del(req.body.subId);
   res.json(deleted);
 });
 

@@ -13,6 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run: docker rmi -f $(docker images -a -q)
+      # - run: docker rmi -f $(docker images -a -q)
       - run: cp ~/.env ./
       - run: docker-compose up -d --force-recreate --build

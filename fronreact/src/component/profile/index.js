@@ -56,12 +56,13 @@ function Profile() {
               <UserImg />
             )}
             <div>
-              <h4 className="flex">
-                {user.userName ? user.userName : "N/A"}{" "}
+              <h4 className="flex md-5">
+                {user.userName ? user.firstName + " " + user.lastName : "N/A"}
                 <Badge pr={user.subscription} />
               </h4>
+              <h5>@{user ? user.userName : "N/A"}</h5>
               <h5>Score: {user.score ? user.score : "0"}</h5>
-              <h6>
+              {/* <h6>
                 Join at:{"  "}
                 <i>
                   {user.joinAt
@@ -70,7 +71,7 @@ function Profile() {
                       new Date(user.joinAt).getFullYear()
                     : "N/A"}
                 </i>
-              </h6>
+              </h6> */}
             </div>
           </div>
           <div className="qaim">

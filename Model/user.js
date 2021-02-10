@@ -56,6 +56,8 @@ const userSchema = new mongoose.Schema({
     required: [true, "userName is requierd"],
     unique: [true, "userName exist"],
   },
+  firstName: { type: String, required: [true, "First name is requierd"] },
+  lastName: { type: String, required: [true, "Last name is requierd"] },
   password: { type: String, required: [true, "password is requierd"] },
   userPicture: { type: String, default: "noimg" },
   improvements: [qmSchema],
@@ -83,6 +85,7 @@ userSchema.post("findOne", async function (doc) {
             if (pr[v] === i.plan.id) price = v;
           }
           r.push({
+            subId: i.id,
             price,
             id: i.plan.id,
             interval: i.plan.interval,
@@ -114,21 +117,23 @@ const findAll = async function () {
   return r;
 };
 
-const addnew = async function (email, username, password) {
+const addnew = async function (email, firstName, lastName, password) {
   console.log(
     "\x1b[36m%s\x1b[0m",
-    `Adding New User ${username} with email ${email} ...`
+    `Adding New User ${firstName} ${lastName} with email ${email} ...`
   );
   let r = { res: null, err: null, found: true };
   const user = new User({
     email,
-    userName: username,
+    firstName,
+    lastName,
+    userName: firstName + lastName,
     password,
   });
 
   const er = user.validateSync();
   if (er) {
-    r.err = er;
+    r.err = er.message;
     console.log("\x1b[31m%s\x1b[0m", `Error with Validate new User ==> ${er}`);
     return r;
   }
@@ -138,9 +143,9 @@ const addnew = async function (email, username, password) {
     user.customerId = customer.id;
     r.res = await user.save();
     r.found = false;
-    console.log("\x1b[35m%s\x1b[0m", `User saved ${username} ...`);
+    console.log("\x1b[35m%s\x1b[0m", `User saved ${firstName} ${lastName} ...`);
   } catch (e) {
-    r.err = e;
+    r.err = e.message;
     console.log("\x1b[31m%s\x1b[0m", `Error with Adding new User ==> ${e}`);
   }
 
@@ -217,6 +222,32 @@ const findById = async function (_id) {
     console.log(
       "\x1b[31m%s\x1b[0m",
       `Error with finding user by ID ${_id}  ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+const updateUser = async function (
+  _id,
+  userName,
+  firstName,
+  lastName,
+  userPicture
+) {
+  console.log("\x1b[36m%s\x1b[0m", `Update User ${_id} ...`);
+  const r = { res: null, err: null };
+  try {
+    r.res = await User.updateOne(
+      { _id },
+      { userName, firstName, lastName, userPicture }
+    );
+    console.log("\x1b[35m%s\x1b[0m", `User Updated ==> ${_id}`);
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Updating User ${_id}  ==> ${e}`
     );
   }
 
@@ -527,6 +558,7 @@ module.exports = {
   findById,
   addnew,
   addnewThird,
+  updateUser,
   getImprQa,
   findOne,
   addImpro,

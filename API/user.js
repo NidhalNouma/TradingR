@@ -25,7 +25,8 @@ router.post("/all", async function (req, res) {
 router.post("/add", async function (req, res) {
   const email = req.body.email;
   const password = req.body.password;
-  const username = req.body.username;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
 
   const ans = {
     add: false,
@@ -33,9 +34,9 @@ router.post("/add", async function (req, res) {
     errors: null,
   };
 
-  const r = await user.addnew(email, username, password);
-  if (r.found) {
-    ans.results = r.res;
+  const r = await user.addnew(email, firstName, lastName, password);
+  if (r.err) {
+    ans.errors = r.err;
   } else if (r.res) {
     ans.add = true;
     // var expiryDate = new Date();
@@ -46,8 +47,6 @@ router.post("/add", async function (req, res) {
 
     sendMail(email, "/active/" + r.res._id);
     ans.results = r.res;
-  } else if (r.err) {
-    ans.errors = r.err;
   }
 
   res.json(ans);
@@ -97,70 +96,31 @@ router.post("/find", async function (req, res) {
   res.json(ans);
 });
 
-// router.post("/card/add", async function (req, res) {
-//   const userId = req.body._id;
-//   const productId = req.body.productId;
+router.post("/update", async function (req, res) {
+  const { id, firstName, lastName, userName, userPicture } = req.body;
 
-//   const ans = {
-//     added: false,
-//     error: null,
-//   };
-//   const r = await user.addToCard(userId, productId);
-//   if (r.res) {
-//     ans.added = true;
-//     console.log(
-//       "\x1b[35m%s\x1b[0m",
-//       `Product_ID ${productId} Added To Card For User_ID ${userId} ...`
-//     );
-//   } else if (r.err) {
-//     ans.error = r.err;
-//   }
+  const ans = {
+    add: false,
+    results: null,
+    errors: null,
+  };
 
-//   res.json(ans);
-// });
+  const r = await user.updateUser(
+    id,
+    userName,
+    firstName,
+    lastName,
+    userPicture
+  );
+  if (r.err) {
+    ans.errors = r.err;
+  } else if (r.res) {
+    ans.add = true;
+    ans.results = r.res;
+  }
 
-// router.post("/card/find", async function (req, res) {
-//   const userId = req.body._id;
-
-//   const ans = {
-//     result: false,
-//     error: null,
-//   };
-//   const r = await user.getUserCard(userId);
-//   if (r.res) {
-//     ans.result = r.res;
-//     console.log(
-//       "\x1b[35m%s\x1b[0m",
-//       `Fond Card Items for User_ID ${userId} ...`
-//     );
-//   } else if (r.err) {
-//     ans.error = r.err;
-//   }
-
-//   res.json(ans);
-// });
-
-// router.post("/product/add", async function (req, res) {
-//   const userId = req.body._id;
-//   const productId = req.body.productId;
-
-//   const ans = {
-//     added: false,
-//     error: null,
-//   };
-//   const r = await user.addToProduct(userId, productId);
-//   if (r.res) {
-//     ans.added = true;
-//     console.log(
-//       "\x1b[35m%s\x1b[0m",
-//       `Product_ID ${productId} Added to User_ID ${userId} ...`
-//     );
-//   } else if (r.err) {
-//     ans.error = r.err;
-//   }
-
-//   res.json(ans);
-// });
+  res.json(ans);
+});
 
 router.get("/imprqa/:id", async function (req, res) {
   const userId = req.params.id;

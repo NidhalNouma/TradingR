@@ -1,19 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import UserImg from "../../../asset/images/UserImg";
 import ActiveAccount from "../../createAccount/AcctiveAccount";
 import Sub from "./Sub";
+import Acc from "./Acc";
+import { UpdateUser } from "../../Hooks/User";
 
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCameraSharpIcon from "@material-ui/icons/PhotoCameraSharp";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { Alert } from "@material-ui/lab";
 
-function Profile({ user, setUser }) {
+function Profile({ user: fuser, setUser: setFUser }) {
   const profImg = useRef(null);
   const [activ, setActiv] = useState(false);
-
-  useEffect(() => {
-    console.log("user => ", user);
-  }, [user]);
+  const { user, setUser, update, error, load } = UpdateUser(fuser, setFUser);
 
   return (
     <>
@@ -36,24 +37,33 @@ function Profile({ user, setUser }) {
             type="file"
             style={{ display: "none" }}
             accept="image/*"
-            onChange={(e) => setUser({ ...user, userPicture: e.target.value })}
+            onChange={(e) => {
+              const f = e.target.files[0];
+              if (f.size > 0) {
+                const reader = new FileReader();
+                reader.readAsDataURL(f);
+                reader.onloadend = (e) => {
+                  setUser({ ...user, userPicture: reader.result });
+                };
+              }
+            }}
           />
         </div>
       </div>
       <div className="setting">
         <TextField
           label="First Name"
-          defaultValue={user.userName}
-          value={user.userName}
-          onChange={(e) => setUser({ ...user, userName: e.target.value })}
+          defaultValue={user.firstName}
+          value={user.firstName}
+          onChange={(e) => setUser({ ...user, firstName: e.target.value })}
           variant="outlined"
           fullWidth={true}
         />
         <TextField
           label="Last Name"
-          defaultValue={user.userName}
-          value={user.userName}
-          onChange={(e) => setUser({ ...user, userName: e.target.value })}
+          defaultValue={user.lastName}
+          value={user.lastName}
+          onChange={(e) => setUser({ ...user, lastName: e.target.value })}
           variant="outlined"
           fullWidth={true}
         />
@@ -83,11 +93,31 @@ function Profile({ user, setUser }) {
             to verify your email.
           </p>
         )}
-        <button className="buttonP md3" style={{ width: "100%" }}>
-          Save
+        {error && (
+          <Alert
+            style={{
+              width: "100%",
+              boxSizing: "border-box",
+              marginBottom: ".5rem",
+            }}
+            severity="error"
+          >
+            {error}
+          </Alert>
+        )}
+        <button
+          className={!load ? "buttonP md3" : "buttonP md3 aclick"}
+          style={{ width: "100%" }}
+          onClick={update}
+        >
+          {!load ? (
+            "Save"
+          ) : (
+            <CircularProgress size={25} style={{ color: "var(--scolor)" }} />
+          )}
         </button>
-
-        <Sub sub={user.sub} />
+        <Acc />
+        <Sub sub={fuser.sub} />
       </div>
 
       <ActiveAccount activ={activ} setActiv={setActiv} />

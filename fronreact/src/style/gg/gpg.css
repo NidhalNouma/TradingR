@@ -42,6 +42,14 @@
   overflow: hidden;
 }
 
+.pgl2 p:nth-child(1) {
+  display: block !important;
+}
+
+.pgl2 p {
+  display: none;
+}
+
 .pgl3 {
   font-size: 0.9rem;
   margin: 0;

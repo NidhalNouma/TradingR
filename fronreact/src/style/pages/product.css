@@ -231,6 +231,10 @@
     top: 47px;
   }
 
+  .mis button:nth-child(2) {
+    display: none;
+  }
+
   .containP .first {
     display: block;
   }

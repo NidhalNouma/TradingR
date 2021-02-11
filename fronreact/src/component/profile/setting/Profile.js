@@ -117,7 +117,7 @@ function Profile({ user: fuser, setUser: setFUser }) {
           )}
         </button>
         <Acc />
-        <Sub sub={fuser.sub} />
+        <Sub user={fuser} setUser={setFUser} />
       </div>
 
       <ActiveAccount activ={activ} setActiv={setActiv} />

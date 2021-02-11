@@ -82,9 +82,9 @@ export default function FullScreenDialog({ open, setOpen, data, sel, setSel }) {
           {sel === 3 ? (
             <Inpi data={data.whatsNew} />
           ) : sel === 2 ? (
-            <Inpi data={data.inputs} />
-          ) : sel === 1 ? (
             <Inpi data={data.howtouse} />
+          ) : sel === 1 ? (
+            <Inpi data={data.inputs} />
           ) : (
             <Fimg src={data.results} />
           )}

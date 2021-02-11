@@ -26,7 +26,7 @@ function Question({ data, vote, pId }) {
     <>
       <div className="border-left md2 pl-5">
         <div className="flexB">
-          <Link to="" className="flex ah1">
+          <Link to={"/user/" + data.userId.userName} className="flex ah1">
             {data.userId.userPicture && data.userId.userPicture !== "noimg" ? (
               <img className="imgP1" src={data.userId.userPicture} alt="" />
             ) : (

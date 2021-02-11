@@ -36,8 +36,8 @@ function Full({ src, open, setOpen }) {
             </IconButton>
           </div>
         </AppBar>
-        <div className="cimgF">
-          {i > 0 ? (
+        <div className="imgFC">
+          <div className="cimgF">
             <IconButton
               edge="start"
               color="inherit"
@@ -46,12 +46,8 @@ function Full({ src, open, setOpen }) {
             >
               <ChevronLeftRoundedIcon />
             </IconButton>
-          ) : (
-            <div></div>
-          )}
-          <img className="imgF" src={src[i]} alt="img" />
+            <img className="imgF" src={src[i]} alt="img" />
 
-          {i < src.length - 1 ? (
             <IconButton
               edge="start"
               color="inherit"
@@ -60,9 +56,18 @@ function Full({ src, open, setOpen }) {
             >
               <ChevronRightRoundedIcon />
             </IconButton>
-          ) : (
-            <div></div>
-          )}
+          </div>
+          <div className="flexC mu1 cimgDC">
+            {src.map((ij, ii) => {
+              return (
+                <img
+                  className={ii === i ? "" : "imgFilter"}
+                  src={ij}
+                  alt="pImg"
+                />
+              );
+            })}
+          </div>
         </div>
       </Dialog>
     </div>

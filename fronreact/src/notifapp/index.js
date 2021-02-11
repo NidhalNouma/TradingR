@@ -11,8 +11,7 @@ import SetNotif from "./SetNotif";
 
 function Notif() {
   const { onNot } = useContext(SocketC);
-  const userCo = User();
-  const user = userCo.user;
+  const { user, setUser } = User();
   const Notif = Notification();
 
   const [show, setShow] = useState(false);
@@ -21,17 +20,19 @@ function Notif() {
 
   useEffect(() => {
     if (user) {
-      setMsg({
-        msg: `Welcome ${user.userName}`,
-        place: "center",
-        duration: 3000,
-      });
-
-      Notif.setNotif(user.notifications);
-      onNot(user._id, user.notifications, Notif.setNotif);
-      setam(true);
-      delete user.notifications;
-      setLastTime(user ? user._id : undefined);
+      if (monthDiff(new Date(), new Date(user.lastTime)) > 0)
+        setMsg({
+          msg: `Welcome back ${user.userName}`,
+          place: "center",
+          duration: 3000,
+        });
+      if (!Notif.notif) {
+        Notif.setNotif(user.notifications);
+        onNot(user._id, user.notifications, Notif.setNotif);
+        setam(true);
+        delete user.notifications;
+        setLastTime(user ? user._id : undefined);
+      }
     }
   }, [user]);
 
@@ -40,8 +41,8 @@ function Notif() {
       <NotifC.Provider value={Notif}>
         <UserC.Provider
           value={{
-            user: userCo.user,
-            setUser: userCo.setUser,
+            user: user,
+            setUser: setUser,
             check: user ? () => {} : setShow,
           }}
         >
@@ -56,3 +57,12 @@ function Notif() {
 }
 
 export default Notif;
+
+function monthDiff(d1, d2) {
+  if (!d1 || !d2) return 0;
+  var months;
+  months = (d2.getFullYear() - d1.getFullYear()) * 12;
+  months -= d1.getMonth();
+  months += d2.getMonth();
+  return months <= 0 ? 0 : months;
+}

@@ -36,6 +36,7 @@ app.get(
     "/product/:i",
     "/profile",
     "/profile/*",
+    "/user/:userName",
     "/welcome",
   ],
   checkUser,

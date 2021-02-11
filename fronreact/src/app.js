@@ -34,6 +34,7 @@ import Notfound from "./component/notFound";
 import Pricing from "./component/pricing";
 import Producte from "./component/productPage";
 import Posts from "./component/Posts";
+import ProfileShow from "./component/ProfileShow";
 // import Post from "./component/Posts/Post";
 // import CreatePost from "./component/Posts/Create";
 import Products from "./component/productsList";
@@ -125,6 +126,9 @@ export default function App() {
               </Route>
               <Route exact path="/contactus">
                 <ContactUs />
+              </Route>
+              <Route exact path="/user/:userName">
+                <ProfileShow />
               </Route>
               <Route exact path="/profile">
                 {user ? <Profile /> : <Redirect to="/" />}

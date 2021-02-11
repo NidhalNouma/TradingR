@@ -224,19 +224,6 @@
   font-size: 1rem;
 }
 
-.containProfile .right .contprod div div {
-  margin-top: 2rem;
-}
-
-.containProfile .right .contprod div div a {
-  display: inline;
-  font-size: 1rem;
-  margin-right: 1rem;
-  padding: 0.2rem 0.5rem;
-  color: var(--scolor);
-  background-color: var(--pcolor);
-}
-
 .containProfile .right .noproduct {
   display: flex;
   justify-content: center;

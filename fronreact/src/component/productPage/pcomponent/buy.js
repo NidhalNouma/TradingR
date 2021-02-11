@@ -23,12 +23,12 @@ function MyApp({ classn = "cost" }) {
         <Subscriber />
         <span className="span mu1">{p.subscribers.length} Subscribers</span>
         <span className="span md1">{p.downloads.length} Downloads</span>
-        <div>
+        <div className="mu-5">
           <span className="span1">MT4</span>
           <span className="span1 ml-5">MT5</span>
         </div>
-        <div className="mu-5">
-          <span className="span">Version</span>
+        <div className="mu1">
+          <span className="span mr-5">Version</span>
           <select onChange={(e) => setProduct(changeV(p, e.target.value))}>
             {p.ps
               .sort((a, b) => b - a)

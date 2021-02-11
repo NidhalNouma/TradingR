@@ -236,6 +236,25 @@ const findById = async function (_id) {
   return r;
 };
 
+const findByUserName = async function (userName) {
+  console.log("\x1b[36m%s\x1b[0m", `Find User by userName ${userName} ...`);
+  const r = { res: null, err: null };
+  try {
+    r.res = await User.findOne({ userName }).select(
+      "-notifications -customerId -email -lastTime -password -show -improvements -questions"
+    );
+    console.log("\x1b[35m%s\x1b[0m", `Find User by userName ==> ${userName}`);
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with finding user by userName ${userName}  ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
 const updateUser = async function (
   _id,
   userName,
@@ -564,6 +583,7 @@ const setSubscription = async function (userId, subs) {
 module.exports = {
   findAll,
   findById,
+  findByUserName,
   addnew,
   addnewThird,
   updateUser,

@@ -4,33 +4,51 @@ import { prices } from "../../pricing/price";
 import Badge from "../../Badge";
 import RemoveCircleIcon from "@material-ui/icons/RemoveCircle";
 import { cancelSubscriptions } from "../../Hooks/Stripe";
+import Dialogalert from "../../Dialogalert";
 
-function Sub({ sub }) {
-  const d = getSub(sub);
-
+function Sub({ setUser, user }) {
+  const d = getSub(user.sub);
+  const set = () => {
+    setUser({ ...user, sub: [], subscription: "" });
+  };
   return (
     <div>
       <h5 className="h5">Subscription:</h5>
-      {d.length > 0 && d.map((i, ii) => <Item i={i} key={ii} />)}
+      {d.length > 0 && d.map((i, ii) => <Item i={i} set={set} key={ii} />)}
     </div>
   );
 }
 
 export default Sub;
 
-function Item({ i }) {
+function Item({ i, set }) {
+  const [des, setDes] = React.useState(false);
   return (
-    <div className="flexB mu-5 md1 borderB pl1 pr1 pu-5 pd-5">
-      <div className="flex">
-        <span className="span2 bold">{i.title}</span>
-        <Badge pr={i.price} />
-        <span className="span1 ml1 mr1"> expire in {i.end} </span>
+    <>
+      <div className="flexB mu-5 md1 borderB pl1 pr1 pu-5 pd-5">
+        <div className="flex">
+          <span className="span2 bold">{i.title}</span>
+          <Badge pr={i.price} />
+          <span className="span1 ml1 mr1"> expire in {i.end} </span>
+        </div>
+        <RemoveCircleIcon
+          onClick={(e) => setDes(true)}
+          style={{ fill: "var(--shcolor)", width: "16px", cursor: "pointer" }}
+        />
       </div>
-      <RemoveCircleIcon
-        onClick={(e) => cancelSubscriptions(i.subId)}
-        style={{ fill: "var(--shcolor)", width: "16px", cursor: "pointer" }}
+
+      <Dialogalert
+        open={des}
+        setOpen={() => setDes(!des)}
+        agree={() => {
+          cancelSubscriptions(i.subId);
+          set();
+          setDes(false);
+        }}
+        title="Cancel subscription"
+        body="Are you sure you want to cancel the subscription. Notice All live product will disabel in the next day"
       />
-    </div>
+    </>
   );
 }
 

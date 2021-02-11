@@ -175,4 +175,23 @@ router.get("/active/:id", function (req, res) {
   res.redirect("/");
 });
 
+router.get("/usr/:userName", async function (req, res) {
+  const userName = req.params.userName;
+  const ans = {
+    find: false,
+    result: null,
+    errors: null,
+  };
+
+  const r = await user.findByUserName(userName);
+  if (r.res) {
+    ans.find = true;
+    ans.result = r.res;
+  } else if (r.err) {
+    ans.error = r.err;
+  }
+
+  res.json(ans);
+});
+
 module.exports = router;

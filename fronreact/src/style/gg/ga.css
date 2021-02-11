@@ -8,6 +8,7 @@
   background-color: var(--pcolor);
   outline: none;
   border: none;
+  text-decoration: none;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear,
     outline-offset 0.3s ease-in-out;
@@ -30,6 +31,7 @@
   background-color: var(--scolor);
   outline: none;
   border: none;
+  text-decoration: none;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear,
     outline-offset 0.3s ease-in-out;
@@ -54,6 +56,7 @@
   outline: none;
   outline-color: var(--scolor);
   border: none;
+  text-decoration: none;
   cursor: pointer;
   transition: outline-offset 0.3s ease-in;
 }

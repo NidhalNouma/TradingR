@@ -8,7 +8,7 @@ function Ans({ data }) {
   return (
     <div className="pl1 ml1 mu-5 md1 border-left">
       <div className="flex">
-        <Link className="flex ah1" to="">
+        <Link className="flex ah1" to={"/user/" + data.userId.userName}>
           {data.userId.userPicture && data.userId.userPicture !== "noimg" ? (
             <img className="imgP1" src={data.userId.userPicture} alt="" />
           ) : (

@@ -47,9 +47,9 @@ function Index({ data }) {
           {sel === 3 ? (
             <Inp data={data.whatsNew} />
           ) : sel === 2 ? (
-            <Inp data={data.inputs} />
-          ) : sel === 1 ? (
             <Inp data={data.howtouse} />
+          ) : sel === 1 ? (
+            <Inp data={data.inputs} />
           ) : (
             <Imgsp data={data.results} show={() => show.sshow()} />
           )}

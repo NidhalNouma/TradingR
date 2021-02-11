@@ -1,53 +1,24 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import React from "react";
+import { useParams } from "react-router-dom";
 
 import Navbar from "../global/navbar";
 import Footer from "../global/footer";
 import UserImg from "../../asset/images/UserImg";
 import Badge from "../Badge";
 
-import Menup from "./menu";
-import Dirtemp from "./Dirtemp";
-import Loadp from "./Loadp";
+import Dirtemp from "../profile/Dirtemp";
+import Loadp from "../profile/Loadp";
+import { GetUserByUserName } from "../Hooks/User";
 
-import { UserC } from "../Hooks/User";
-// import LoadPost from "../Posts/LoadPost";
-
-function Profile() {
-  const { user } = useContext(UserC);
-  const [qa, setQa] = useState(1);
-  const [impro, setImpro] = useState(null);
-  const [qas, setQas] = useState(null);
-
-  useEffect(() => {
-    if (qa === 1 && impro === null)
-      axios
-        .get(`/api/product/user/impro/${user._id}`)
-        .then((res) => {
-          if (res.data.result) {
-            setImpro(res.data.result);
-          }
-        })
-        .catch((err) => console.error(err));
-    else if (qa === 2 && qas === null)
-      axios
-        .get(`/api/product/user/qandas/${user._id}`)
-        .then((res) => {
-          console.log(res.data.result);
-          if (res.data.result) {
-            setQas(res.data.result);
-          }
-        })
-        .catch((err) => console.error(err));
-  }, [qa, impro, qas, user]);
+function Index() {
+  const { userName } = useParams();
+  const { user, qas, impro, qa, setQa } = GetUserByUserName(userName);
 
   return (
     <>
       <Navbar here={true} />
       <div className="containProfile">
-        <div className="left">
-          <Menup link={1} />
-        </div>
+        <div className="left"></div>
         <div className="right">
           <div className="profile">
             {user.userPicture !== "noimg" ? (
@@ -105,4 +76,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default Index;

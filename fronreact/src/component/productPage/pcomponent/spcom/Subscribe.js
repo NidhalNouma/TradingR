@@ -47,6 +47,8 @@ function Subscriber() {
           setSub(!sub);
           setDes(false);
         }}
+        title="Unsubscribe"
+        body="Are you sure you want to unsubscribe"
       />
     </>
   );

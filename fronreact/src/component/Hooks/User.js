@@ -167,3 +167,45 @@ export const UpdateUser = function (cuser, setCUser) {
 
   return { user, setUser, update, error, load };
 };
+
+export const GetUserByUserName = function (userName) {
+  const [impro, setImpro] = useState(null);
+  const [qas, setQas] = useState(null);
+  const [user, setUser] = useState(userName);
+  const [qa, setQa] = useState(1);
+
+  useEffect(() => {
+    if (user === userName)
+      axios
+        .get(`/api/user/usr/${userName}`)
+        .then((res) => {
+          if (res.data.result) {
+            setUser(res.data.result);
+          }
+        })
+        .catch((err) => console.error(err));
+  }, [userName, user]);
+
+  useEffect(() => {
+    if (user._id && qa === 1 && impro === null)
+      axios
+        .get(`/api/product/user/impro/${user._id}`)
+        .then((res) => {
+          if (res.data.result) {
+            setImpro(res.data.result);
+          }
+        })
+        .catch((err) => console.error(err));
+    else if (user._id && qa === 2 && qas === null)
+      axios
+        .get(`/api/product/user/qandas/${user._id}`)
+        .then((res) => {
+          console.log(res.data.result);
+          if (res.data.result) {
+            setQas(res.data.result);
+          }
+        })
+        .catch((err) => console.error(err));
+  }, [qa, user, impro, qas]);
+  return { user, impro, qas, qa, setQa };
+};

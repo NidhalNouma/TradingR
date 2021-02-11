@@ -9,7 +9,7 @@ import { SocketC } from "../../../Hooks/Socket";
 
 function Vote({ up, dn, improId, authId }) {
   const { p, setProduct } = useContext(ProductC);
-  const user = useContext(UserC);
+  const { user, check } = useContext(UserC);
   const { socket } = useContext(SocketC);
 
   const total = (() => {
@@ -19,25 +19,31 @@ function Vote({ up, dn, improId, authId }) {
   })();
 
   const click = (type) => {
-    if (!user.user) {
-      user.check(true);
+    if (!user) {
+      check(true);
     } else {
-      improVote(type, user.user, improId, authId, p, setProduct, socket);
+      improVote(type, user, improId, authId, p, setProduct, socket);
     }
   };
 
   return (
     <>
       <div className="svg3">
-        <button onClick={() => click("1")} className="buttonT p0 mr-25">
+        <button
+          onClick={() => click("1")}
+          className="buttonT p0 mr-25 svgHoverUp"
+        >
           <UpArrow
-            yes={up && user && up.find((i) => i === user.id) ? true : false}
+            yes={up && user && up.find((i) => i === user._id) ? true : false}
           />
         </button>
         <span className="spanL ">{total ? total : 0}</span>
-        <button onClick={() => click("-1")} className="buttonT p0 ml-25">
+        <button
+          onClick={() => click("-1")}
+          className="buttonT p0 ml-25 svgHoverDn"
+        >
           <DnArrow
-            yes={dn && user && dn.find((i) => i === user.id) ? true : false}
+            yes={dn && user && dn.find((i) => i === user._id) ? true : false}
           />
         </button>
       </div>

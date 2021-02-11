@@ -10,7 +10,7 @@ const run = require("./socket/index");
 const cors = require("cors");
 require("dotenv").config();
 require("./passport");
-require("events").EventEmitter.defaultMaxListeners = 100;
+require("events").EventEmitter.defaultMaxListeners = 10000;
 
 const app = express();
 

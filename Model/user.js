@@ -72,7 +72,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.post("findOne", async function (doc) {
-  if (doc.customerId) {
+  if (doc && doc.customerId) {
     const sub = await stripe.customers.retrieve(doc.customerId);
     if (sub.subscriptions) {
       const { data } = sub.subscriptions;
@@ -154,24 +154,31 @@ const addnew = async function (email, firstName, lastName, password) {
 
 const addnewThird = async function (
   email,
-  username,
+  firstName,
+  lastName,
   password,
   from,
   userPicture
 ) {
   console.log(
     "\x1b[36m%s\x1b[0m",
-    `Adding New User ${username} with email ${email} ...`
+    `Adding New User ${firstName} ${lastName} with email ${email} ...`
   );
   const user = new User({
     email,
-    username,
+    firstName,
+    lastName,
+    userName: firstName + lastName,
     password,
     from,
     userPicture,
+    active: true,
   });
+
   let r = { res: null, err: null, found: true };
   try {
+    const customer = await stripe.customers.create({ email });
+    user.customerId = customer.id;
     r.res = await user.save();
     r.found = false;
   } catch (e) {
@@ -182,11 +189,12 @@ const addnewThird = async function (
   return r;
 };
 
-const findOne = async function (email, password) {
+const findOne = async function (email, password, third = false) {
   console.log("\x1b[36m%s\x1b[0m", `Finding User with email ${email} ...`);
+  const flt = third ? { email } : { email, password };
   let r = { res: null, err: null };
   try {
-    r.res = await User.findOne({ email, password })
+    r.res = await User.findOne(flt)
       .select("-improvements -questions")
       .populate({
         path: "notifications.productId",

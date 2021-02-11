@@ -12,13 +12,14 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, done) {
       const prof = profile._json;
-      const find = await findOne(prof.email, prof.sub);
+      const find = await findOne(prof.email, prof.sub, true);
       if (find.res) {
         return done(null, find.res);
       }
       const an = await addnewThird(
         prof.email,
-        prof.name,
+        prof.given_name,
+        prof.family_name,
         prof.sub,
         "GOOGLE",
         prof.picture

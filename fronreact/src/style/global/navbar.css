@@ -301,7 +301,7 @@ nav .media {
   position: fixed;
   right: 60px;
   top: 75px;
-  min-width: 300px;
+  width: 350px;
   height: 300px;
   border-radius: 10px;
   box-shadow: 0px 4px 18px var(--shcolor);

@@ -46,7 +46,8 @@
   display: block !important;
 }
 
-.pgl2 p {
+.pgl2 p,
+.pgl2 div {
   display: none;
 }
 

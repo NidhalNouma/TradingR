@@ -34,6 +34,25 @@
   height: 33px;
 }
 
+.svgHover svg,
+.svgHoverUp svg,
+.svgHoverDn svg {
+  transition: all 0.25s linear;
+}
+
+.svgHover:hover svg {
+  transform: rotateZ(30deg) scale3d(1.1, 1.1, 0.3);
+  /* transform: translateY(3in); */
+}
+
+.svgHoverUp:hover svg {
+  transform: translateY(-2px) scale3d(1.1, 1.1, 0.3);
+}
+
+.svgHoverDn:hover svg {
+  transform: translateY(2px) scale3d(1.1, 1.1, 0.3);
+}
+
 .svgh svg {
   width: 33px;
   height: 33px;

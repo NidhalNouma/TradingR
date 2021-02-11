@@ -24,7 +24,7 @@ function Question({ data, vote, pId }) {
     <></>
   ) : (
     <>
-      <div className="border1">
+      <div className="border-left md2 pl-5">
         <div className="flexB">
           <Link to="" className="flex ah1">
             {data.userId.userPicture && data.userId.userPicture !== "noimg" ? (
@@ -77,7 +77,6 @@ function Question({ data, vote, pId }) {
               {s ? "Hide" : "View"} all Answers
             </button>
           )}
-          <br />
         </div>
       </div>
     </>

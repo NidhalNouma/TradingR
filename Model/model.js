@@ -2,14 +2,19 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const conn = async function () {
+  // console.log(mongoose.connection.readyState);
   if (mongoose.connection.readyState === 0) {
     try {
-      await mongoose.connect(process.env.DB_HOST, {
+      const con = await mongoose.connect(process.env.DB_HOST, {
         useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true,
         useFindAndModify: false,
+        keepalive: true,
+        poolSize: 1,
       });
+      // console.log(con);
+      console.log("\x1b[32m%s\x1b[0m", "mongodb connect ...");
     } catch (e) {
       console.log("\x1b[31m%s\x1b[0m", `Error mongodb connect ==> ${e}`);
     }
@@ -18,13 +23,6 @@ const conn = async function () {
     "error",
     console.error.bind(console, "connection error:")
   );
-
-  mongoose.connection.once("open", function () {
-    console.log("\x1b[32m%s\x1b[0m", "mongodb connect ...");
-  });
-  mongoose.connection.once("close", function () {
-    console.log("\x1b[32m%s\x1b[0m", "mongodb connecttion closed ||<==");
-  });
 };
 
 const close = function () {

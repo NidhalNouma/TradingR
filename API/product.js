@@ -7,6 +7,7 @@ const {
   addNewVersion,
   findAllProduct,
   findProductById,
+  editProduct,
   subscribe,
   desubscribe,
   hide,
@@ -216,11 +217,7 @@ router.post("/new", async function (req, res) {
     description: req.body.description,
     img: req.body.img,
     media: req.body.media,
-    available: {
-      MT4: req.body.MT4,
-      MT5: req.body.MT5,
-      tradingView: req.body.tradingView,
-    },
+    available: req.body.available,
     moreDes: req.body.moreDes,
   };
   const ans = {
@@ -228,6 +225,32 @@ router.post("/new", async function (req, res) {
     error: null,
   };
   const r = await addNewProduct(type, pr);
+  if (r.res) {
+    ans.added = true;
+  } else if (r.err) {
+    ans.error = r.err;
+  }
+
+  res.json(ans);
+});
+
+router.post("/edit", async function (req, res) {
+  const pId = req.body.pId;
+  const id = req.body.id;
+  const pr = {
+    version: req.body.version,
+    title: req.body.title,
+    description: req.body.description,
+    img: req.body.img,
+    media: req.body.media,
+    available: req.body.available,
+    moreDes: req.body.moreDes,
+  };
+  const ans = {
+    added: false,
+    error: null,
+  };
+  const r = await editProduct(id, pId, pr);
   if (r.res) {
     ans.added = true;
   } else if (r.err) {
@@ -245,11 +268,8 @@ router.post("/newversion", async function (req, res) {
     description: req.body.description,
     img: req.body.img,
     media: req.body.media,
-    available: {
-      MT4: req.body.mt4,
-      MT5: req.body.mt5,
-      tradingRev: req.body.tradingRev,
-    },
+    available: req.body.available,
+    moreDes: req.body.moreDes,
   };
   const ans = {
     added: false,

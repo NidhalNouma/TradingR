@@ -73,8 +73,16 @@ const userSchema = new mongoose.Schema({
 
 userSchema.post("findOne", async function (doc) {
   if (doc && doc.customerId) {
-    const sub = await stripe.customers.retrieve(doc.customerId);
-    if (sub.subscriptions) {
+    let sub = null;
+    try {
+      sub = await stripe.customers.retrieve(doc.customerId);
+    } catch (err) {
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        `Error with Finding subscription ==> ${err}`
+      );
+    }
+    if (sub && sub.subscriptions) {
       const { data } = sub.subscriptions;
       if (data.length > 0) {
         let r = [];

@@ -9,7 +9,7 @@ function Menu({ ty }) {
             Dashboard
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link
             style={ty === 1 ? sty : {}}
             className="buttonT tHover"
@@ -17,7 +17,7 @@ function Menu({ ty }) {
           >
             Posts
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link
             style={ty === 2 ? sty : {}}

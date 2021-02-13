@@ -1,27 +1,32 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const PostProduct = () => {
+export const PostProduct = (ty, init) => {
   const [post, setPost] = useState({ done: false, err: null });
 
-  const [version, setVersion] = useState("1");
-  const [title, setTitle] = useState("");
-  const [img, setImg] = useState("");
-  const [media, setMedia] = useState("");
-  const [desc, setDescription] = useState("");
+  const [version, setVersion] = useState(init.version);
+  const [title, setTitle] = useState(init.title);
+  const [img, setImg] = useState(init.img);
+  const [media, setMedia] = useState(init.media);
+  const [desc, setDescription] = useState(init.desc);
 
-  const [results, setResults] = useState([]);
-  const [inputs, setInputs] = useState("");
-  const [howtouse, setHowtouse] = useState("");
-  const [whatsNew, setWhatsnew] = useState("");
+  const [results, setResults] = useState(init.results);
+  const [inputs, setInputs] = useState(init.inputs);
+  const [howtouse, setHowtouse] = useState(init.howtouse);
+  const [whatsNew, setWhatsnew] = useState(init.whatsNew);
 
-  const [MT4, setMT4] = useState(false);
-  const [MT5, setMT5] = useState(false);
-  const [TV, setTV] = useState(false);
+  const [MT4, setMT4] = useState(init.MT4);
+  const [MT5, setMT5] = useState(init.MT5);
+  const [TV, setTV] = useState(init.TV);
 
   const postP = async (data) => {
     console.log(data);
-    const r = await axios.post("/api/product/new", data);
+    const endpoint = data.edit
+      ? "edit"
+      : data.newVersion
+      ? "newversion"
+      : "new";
+    const r = await axios.post("/api/product/" + endpoint, data);
     console.log(r);
     const res = r.data;
     setPost({ done: res.added, err: res.error });
@@ -34,7 +39,6 @@ export const PostProduct = () => {
   return {
     post,
     postP,
-
     setTitle,
     setDescription,
     setVersion,

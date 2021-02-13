@@ -29,6 +29,8 @@ function App() {
         <Route exact path="/robots/add">
           <AddProduct ty={2} type="EA" />
         </Route>
+        <Route exact path="/product/newversion/:id" component={AddProduct} />
+        <Route exact path="/product/edit/:id" component={AddProduct} />
         <Route exact path="/robots/:id" component={Product} />
         <Route exact path="/indicators/add">
           <AddProduct ty={3} type="Indicator" />

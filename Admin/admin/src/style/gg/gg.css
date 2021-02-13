@@ -88,3 +88,11 @@
   width: 40%;
   margin: 0.5rem 0 1rem auto;
 }
+
+.imgD {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 7px;
+  margin: 0.5rem 0.5rem 0 0;
+}

@@ -4,8 +4,37 @@ import { PostProduct } from "../../Hooks/Product";
 import Done from "./Done";
 import SunText from "./textEditor/SunText";
 import SunTextMin from "./textEditor/SunTextMin";
+import Img from "../Img";
 
-function CreateProduct({ ty }) {
+function CreateProduct({ location, ty }) {
+  console.log(location);
+  const init =
+    location && location.product
+      ? {
+          ...location.product,
+          desc: location.product.description,
+          results: location.product.moreDes.results,
+          inputs: location.product.moreDes.inputs,
+          howtouse: location.product.moreDes.howtouse,
+          whatsNew: location.product.moreDes.whatsNew,
+          MT4: location.product.available.MT4,
+          MT5: location.product.available.MT5,
+          TV: location.product.available.tradingView,
+        }
+      : {
+          version: "1",
+          title: "",
+          img: "",
+          media: "",
+          desc: "",
+          results: [],
+          inputs: "",
+          howtouse: "",
+          whatsNew: "",
+          MT4: false,
+          MT5: false,
+          TV: false,
+        };
   const {
     post,
     postP,
@@ -35,13 +64,15 @@ function CreateProduct({ ty }) {
     MT4,
     MT5,
     TV,
-  } = PostProduct(ty);
+  } = PostProduct(ty, init);
 
   const [imURL, setIM] = useState(false);
 
   return (
     <>
-      <h4 className="h4 md2">Create new product </h4>
+      <h4 className="h4 md2">
+        {location && location.title ? location.title : "Create new product"}{" "}
+      </h4>
       <input
         type="text"
         className="inputT"
@@ -107,8 +138,17 @@ function CreateProduct({ ty }) {
           name="img"
           accept="image/*"
           multiple
-          onChange={(e) => uploadFiles(e, setResults)}
+          onChange={(e) => uploadFiles(e, results, setResults)}
         ></input>
+        {results.length > 0 && (
+          <span className="span bold">{results.length} Images</span>
+        )}
+        <p>
+          {results.length > 0 &&
+            results.map((i) => (
+              <Img src={i} imgs={results} setImgs={setResults} />
+            ))}
+        </p>
       </div>
       <div className="ml-5 mu1">
         <span className="h5 bold mr1">Inputs: </span>
@@ -162,7 +202,7 @@ function CreateProduct({ ty }) {
       </div>
       <Done
         data={{
-          type: ty,
+          type: ty === 2 ? "EA" : "Indicator",
           version: version,
           title: title,
           description: desc,
@@ -179,6 +219,14 @@ function CreateProduct({ ty }) {
             howtouse: howtouse,
             whatsNew: whatsNew,
           },
+          id: location && location.id ? location.id : undefined,
+          pId:
+            location && location.product && location.product._id
+              ? location.product._id
+              : undefined,
+          edit: location && location.edit ? location.edit : undefined,
+          newVersion:
+            location && location.newVersion ? location.newVersion : undefined,
         }}
         post={post}
         postP={postP}

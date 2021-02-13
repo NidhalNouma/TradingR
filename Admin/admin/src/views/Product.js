@@ -1,17 +1,19 @@
+import ProductView from "../component/ProductView";
 import Menu from "../component/menu";
 
 function Product({ location }) {
-  console.log(location);
   return (
     <>
       <Menu ty={location.ty} />
-      <div className="pContain">
-        {location.product ? (
-          JSON.stringify(location.product)
-        ) : (
-          <h5>No Data!!!</h5>
-        )}
-      </div>
+      {location.product ? (
+        <ProductView
+          product={location.product.product}
+          id={location.product._id}
+          ty={location.ty}
+        />
+      ) : (
+        <h5 style={{ textAlign: "center" }}>No Data!!!</h5>
+      )}
     </>
   );
 }

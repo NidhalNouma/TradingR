@@ -34,7 +34,7 @@ function MyApp({ classn = "cost" }) {
               .sort((a, b) => b - a)
               .map((i) => (
                 <option key={i} value={i._id}>
-                  {i.version.toFixed(1)}
+                  {i.version.toFixed(2)}
                 </option>
               ))}
           </select>

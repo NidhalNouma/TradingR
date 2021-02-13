@@ -11,9 +11,13 @@ function Done({ post, postP, data }) {
         <button className="buttonS mr-5 pl2 pr2" onClick={() => setPrev(true)}>
           Preview
         </button>
-        <button className="buttonS mr-5 pl2 pr2">Save</button>
+        {/* <button className="buttonS mr-5 pl2 pr2">Save</button> */}
         <button className="buttonP pl2 pr2" onClick={() => postP(data)}>
-          Post
+          {data.edit
+            ? "Save Changes"
+            : data.newVersion
+            ? "Upload The new version"
+            : "Create New product"}
         </button>
       </div>
       {prev && (

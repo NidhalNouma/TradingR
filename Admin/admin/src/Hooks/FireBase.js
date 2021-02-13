@@ -23,13 +23,12 @@ export const uploadFile = (e, setImg) => {
   upload(fileName, file, callback);
 };
 
-export const uploadFiles = (e, setImg) => {
+export const uploadFiles = (e, imgs, setImg) => {
   const rimg = [];
   const files = e.target.files;
-  const callback = (img) => {
+  const callback = function (img) {
     rimg.push(img);
-    setImg(rimg);
-    console.log(rimg);
+    setImg([...imgs, ...rimg]);
   };
 
   for (const i in files) {

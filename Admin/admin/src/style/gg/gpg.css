@@ -36,6 +36,14 @@
   overflow: hidden;
 }
 
+.pgl2 p:nth-child(1) {
+  display: block !important;
+}
+
+.pgl2 p,
+.pgl2 div {
+  display: none;
+}
 .pDang {
   color: var(--pricecolor);
   background-color: var(--shcolor);

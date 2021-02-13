@@ -71,9 +71,9 @@
   aspect-ratio: 8/4;
 }
 
-.full-hight {
+/* .full-hight {
   min-height: 80vh;
-}
+} */
 
 .imgs {
   position: relative;

@@ -6,7 +6,11 @@ function ProfileList({ p }) {
       {p.userPicture === "noimg" ? (
         <NoImgUser />
       ) : (
-        <img src={p.userPicture} alt="Profile" />
+        <img
+          style={{ width: "45px", height: "45px", borderRadius: "50%" }}
+          src={p.userPicture}
+          alt="Profile"
+        />
       )}
       <h5 className="h5">{p.userName}</h5>
       <span className="h5">Score: {p.score}</span>

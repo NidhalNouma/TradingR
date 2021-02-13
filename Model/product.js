@@ -109,6 +109,41 @@ const addNewProduct = async function (type, product) {
   return r;
 };
 
+const editProduct = async function (id, pId, product) {
+  console.log("\x1b[36m%s\x1b[0m", `Edit Product ${id} with p ${pId} ...`);
+  let r = { res: null, err: null };
+  let pr = null;
+  try {
+    pr = checkProduct(product);
+  } catch (e) {
+    console.log("\x1b[31m%s\x1b[0m", `Edit product Error ==> ${e.message}`);
+    r.err = e.message;
+    return r;
+  }
+
+  try {
+    r.res = await productVersion.updateOne(
+      { _id: id, "products._id": pId },
+      {
+        $set: {
+          "products.$.title": product.title,
+          "products.$.description": product.description,
+          "products.$.version": product.version,
+          "products.$.media": product.media,
+          "products.$.img": product.img,
+          "products.$.available": product.available,
+          "products.$.moreDes": product.moreDes,
+        },
+      }
+    );
+    console.log("\x1b[35m%s\x1b[0m", "Product edited ...");
+  } catch (e) {
+    r.err = e.message;
+    console.log("\x1b[31m%s\x1b[0m", `Edit productV Error ==> ${e.message}`);
+  }
+  return r;
+};
+
 const addNewVersion = async function (id, product) {
   console.log(
     "\x1b[36m%s\x1b[0m",
@@ -284,6 +319,7 @@ module.exports = {
   productSchema,
   addNewProduct,
   addNewVersion,
+  editProduct,
   findAllProduct,
   findProductById,
   subscribe,

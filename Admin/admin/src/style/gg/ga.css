@@ -117,16 +117,17 @@
 .buttonP {
   font-size: 1.05rem;
   font-family: "Times New Roman 400", serif;
-  padding: 0.3rem 0;
-  border-radius: 6px;
+  padding: 0.4rem 1.4rem;
+  border-radius: 5px;
   margin: 0.5rem 0 1rem;
   color: var(--scolor);
   background-color: var(--pcolor);
   outline: none;
   border: none;
+  text-decoration: none;
   cursor: pointer;
-  box-sizing: border-box;
-  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear;
+  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear,
+    outline-offset 0.3s ease-in-out;
 }
 
 .buttonP:hover {
@@ -137,16 +138,17 @@
 .buttonS {
   font-size: 1.05rem;
   font-family: "Times New Roman 400", serif;
-  padding: 0.3rem 0rem;
-  border-radius: 6px;
+  padding: 0.4rem 1.4rem;
+  border-radius: 5px;
   margin: 0.5rem 0 1rem;
   color: var(--pcolor);
   background-color: var(--scolor);
   outline: none;
   border: none;
+  text-decoration: none;
   cursor: pointer;
-  box-sizing: border-box;
-  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear;
+  transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear,
+    outline-offset 0.3s ease-in-out;
 }
 
 .buttonS:hover {

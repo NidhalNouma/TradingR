@@ -87,3 +87,17 @@
 .opacity-transition {
   transition: opacity 0.3s ease-out;
 }
+
+.parse p * {
+  background-color: inherit !important;
+  color: var(--textcolor) !important;
+  /* font-size: 1rem !important; */
+  font-family: "Avenir", "Arial", sans-serif !important;
+}
+
+.parse1 * {
+  background-color: inherit !important;
+  color: var(--textcolor) !important;
+  margin: 0;
+  font-family: "Avenir", "Arial", sans-serif !important;
+}

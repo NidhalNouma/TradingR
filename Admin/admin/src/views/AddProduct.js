@@ -1,12 +1,15 @@
 import Menu from "../component/menu";
 import CreateProduct from "../component/addPeoduct";
 
-function AddProduct({ ty, type }) {
+function AddProduct({ ty, location }) {
   return (
     <>
-      <Menu ty={ty} />
+      <Menu ty={location && location.type ? location.type : ty} />
       <div className="pContain">
-        <CreateProduct ty={type} />
+        <CreateProduct
+          ty={location && location.type ? location.type : ty}
+          location={location}
+        />
       </div>
       {/* <div className="sContain ml3">
         <CreateProduct />

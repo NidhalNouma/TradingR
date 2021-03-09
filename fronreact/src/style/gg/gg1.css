@@ -65,7 +65,7 @@
 
 .iframe {
   width: 100%;
-  /* height: 450px; */
+  min-height: 450px;
   border-radius: 5px;
   border: none;
   aspect-ratio: 8/4;
@@ -91,12 +91,23 @@
   display: inline-flex;
   cursor: pointer;
   border-radius: 6px;
-  width: 140px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
   box-sizing: border-box;
 }
 
-.imgsb img {
+.img-load-cont {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.imgsb img,
+.img-load-cont img {
   position: absolute;
   left: 0;
   top: 0;
@@ -106,7 +117,34 @@
   box-sizing: border-box;
 }
 
-.imgsb div {
+.img-load {
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loadAnimation;
+  animation-timing-function: linear;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  box-sizing: border-box;
+  background-color: var(--scolor);
+  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  z-index: 1;
+}
+
+@keyframes loadAnimation {
+  0% {
+    background-position: 0px 0;
+  }
+  100% {
+    background-position: 100em 0;
+  }
+}
+
+.imgsb .num {
   position: absolute;
   left: 0;
   top: 0;

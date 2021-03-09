@@ -71,6 +71,7 @@
   padding: 1em;
   position: relative;
   aspect-ratio: 5/3;
+  min-height: 480px;
 }
 
 .pdetails .chart .full {
@@ -163,7 +164,7 @@
   font-size: 1rem;
   /* border: 1px solid var(--tcolor); */
   margin: 0;
-  background-color: transparent;
+  background-color: var(--bgcolor);
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
@@ -322,12 +323,12 @@
     width: auto;
     gap: 5px;
   }
-
+  /* 
   .wcost .div span select {
     color: var(--pcolor);
     background-color: transparent;
     border: none;
-  }
+  } */
 
   .wcost .unsb,
   .wcost .unsb:hover {

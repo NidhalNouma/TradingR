@@ -66,12 +66,16 @@
 }
 
 .pdetails .chart {
-  background-color: #f7f7f7;
+  /* background-color: #f7f7f7; */
+  background-color: var(--scolor);
   border-radius: 6px;
   padding: 1em;
+  margin: 0 auto;
   position: relative;
-  aspect-ratio: 5/3;
-  min-height: 480px;
+  /* aspect-ratio: 5/3; */
+  height: 480px;
+  width: 95%;
+  /* overflow: hidden; */
 }
 
 .pdetails .chart .full {
@@ -88,7 +92,7 @@
 
 .pd-imgs {
   display: grid;
-  grid-template-columns: 27% 27% 27%;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-column-gap: 0.6rem;
   grid-row-gap: 0.8rem;
   justify-content: center;

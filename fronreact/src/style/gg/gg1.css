@@ -100,7 +100,7 @@
   position: relative;
   display: inline-flex;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 4px;
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -113,25 +113,25 @@
   top: 0;
   width: 100%;
   height: 100%;
-  border-radius: 6px;
+  border-radius: 4px;
   box-sizing: border-box;
 }
 
 .img-load {
-  animation-duration: 2s;
+  animation-duration: 3s;
   animation-fill-mode: forwards;
   animation-iteration-count: infinite;
   animation-name: loadAnimation;
   animation-timing-function: linear;
+  background-color: var(--scolor);
+  background: linear-gradient(to right, #eeeeee 10%, #dddddd 48%, #eeeeee 73%);
   position: absolute;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  border-radius: 6px;
+  border-radius: 0px;
   box-sizing: border-box;
-  background-color: var(--scolor);
-  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
   z-index: 1;
 }
 
@@ -158,7 +158,8 @@
   justify-content: center;
   font-size: 1rem;
   font-weight: bold;
-  color: var(--scolor);
+  /* color: var(--scolor); */
+  color: white;
 }
 
 .cimgDC {

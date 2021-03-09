@@ -33,9 +33,12 @@
   padding: 0.4rem;
   border: 2px solid var(--scolor);
   border-radius: 5px;
+  /* overflow: hidden; */
 }
 
-.containh .griditem img {
+.containh .griditem img,
+.containh .griditem .imgd {
+  position: relative;
   width: 100%;
   min-height: 130px;
   max-height: 130px;

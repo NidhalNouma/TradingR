@@ -105,6 +105,7 @@ scroll-container {
   justify-content: space-around;
   align-items: center;
   cursor: default;
+  z-index: 1;
 }
 
 .type-product svg {
@@ -117,7 +118,7 @@ scroll-container {
   position: absolute;
   display: none;
   top: -20px;
-  left: 0;
+  right: 0;
   padding: 0.1rem 0.3rem;
   background-color: var(--scolor);
   color: var(--pcolor);

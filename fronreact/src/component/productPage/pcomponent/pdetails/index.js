@@ -37,24 +37,24 @@ function Index({ data }) {
           What's new
         </span>
       </div>
-      <div id="de">
-        <div className="chart parse">
-          <div className="full">
-            <IconButton edge="end" color="inherit" onClick={() => show.sshow()}>
-              <FullscreenRoundedIcon />
-            </IconButton>
-          </div>
-          {sel === 3 ? (
-            <Inp data={data.whatsNew} />
-          ) : sel === 2 ? (
-            <Inp data={data.howtouse} />
-          ) : sel === 1 ? (
-            <Inp data={data.inputs} />
-          ) : (
-            <Imgsp data={data.results} show={() => show.sshow()} />
-          )}
+      {/* <div id="de"> */}
+      <div className="chart parse">
+        <div className="full">
+          <IconButton edge="end" color="inherit" onClick={() => show.sshow()}>
+            <FullscreenRoundedIcon />
+          </IconButton>
         </div>
+        {sel === 3 ? (
+          <Inp data={data.whatsNew} />
+        ) : sel === 2 ? (
+          <Inp data={data.howtouse} />
+        ) : sel === 1 ? (
+          <Inp data={data.inputs} />
+        ) : (
+          <Imgsp data={data.results} show={() => show.sshow()} />
+        )}
       </div>
+      {/* </div> */}
     </>
   );
 }

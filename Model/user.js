@@ -67,6 +67,7 @@ const userSchema = new mongoose.Schema({
   subscribers: [{ type: mongoose.Types.ObjectId, ref: "ProductVersion" }],
   subscription: { type: String },
   sub: [],
+  paymentMethod: [],
   customerId: { type: String },
   show: { type: Boolean, default: true },
 });
@@ -105,6 +106,18 @@ userSchema.post("findOne", async function (doc) {
         });
         doc["sub"] = r;
       }
+    }
+    try {
+      const paym = await stripe.paymentMethods.list({
+        customer: doc.customerId,
+        type: "card",
+      });
+      doc["paymentMethod"] = paym.data;
+    } catch (err) {
+      console.log(
+        "\x1b[31m%s\x1b[0m",
+        `Error with Finding Payment methods ==> ${err}`
+      );
     }
   }
 });
@@ -231,6 +244,10 @@ const findById = async function (_id) {
       .populate({
         path: "notifications.product",
         select: "img  title timestamp",
+      })
+      .populate({
+        path: "notifications.fromId",
+        select: "userName _id userPicture",
       });
     console.log("\x1b[35m%s\x1b[0m", `Find User by ID ==> ${_id}`);
   } catch (e) {

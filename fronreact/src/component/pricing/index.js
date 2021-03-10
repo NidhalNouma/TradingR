@@ -17,13 +17,15 @@ function Pricing() {
   const { user } = useContext(UserC);
 
   useEffect(() => {
-    if (ref.current)
+    if (ref.current) {
+      console.log(done);
       ref.current.scrollIntoView({
         behavior: "smooth",
         block: "end",
         inline: "nearest",
       });
-  }, [select]);
+    }
+  }, [select, done]);
 
   const fn = (i) => {
     setSelect(i);
@@ -73,6 +75,7 @@ function Pricing() {
       </div>
       {select > 0 && !done && (
         <Stripe
+          user={user}
           ty={ty}
           data={select === 1 ? prices.p1 : select === 2 ? prices.p2 : prices.p3}
           setDone={setDone}

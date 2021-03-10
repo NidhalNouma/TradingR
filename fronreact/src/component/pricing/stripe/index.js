@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import PaymentItem from "./PaymentItem";
 
 import CheckoutForm from "./CheckoutForm";
 // Make sure to call `loadStripe` outside of a component’s render to avoid
@@ -9,9 +10,10 @@ const stripePromise = loadStripe(
   "pk_test_51H6FnIA7XwVfgC5lYfwDCh8U1sXdGpSaKd2tSAyD5kdxz96ZqHkkIw6YgEizjyaQ6iOcqs6gMNm8fYjpNApkOT9000dqUmCtOV"
 );
 
-function Index({ data, ty, setDone }) {
-  const [coupon, setCoupon] = useState("");
-  const [cou, setCou] = useState(false);
+function Index({ user, data, ty, setDone }) {
+  // const [coupon, setCoupon] = useState("");
+  // const [cou, setCou] = useState(false);
+  const [pm, setPm] = useState(null);
 
   return (
     <div className="striped">
@@ -37,7 +39,7 @@ function Index({ data, ty, setDone }) {
           ))}
         </ul>
       </p>
-      {!cou && (
+      {/* {!cou && (
         <button
           className="tHover font1 buttonT mu1"
           onClick={() => setCou(true)}
@@ -58,9 +60,18 @@ function Index({ data, ty, setDone }) {
             <button className="tHover font1 buttonT ml-5">Check coupon</button>
           )}
         </div>
-      )}
+      )} */}
+      <br />
+
+      {user &&
+        user.paymentMethod &&
+        user.paymentMethod.length > 0 &&
+        user.paymentMethod.map((i, ii) => (
+          <PaymentItem key={ii} i={i} pm={pm} set={setPm} />
+        ))}
+
       <Elements stripe={stripePromise}>
-        <CheckoutForm setDone={setDone} data={{ data, ty }} />
+        <CheckoutForm setDone={setDone} data={{ data, ty }} pm={pm} />
       </Elements>
     </div>
   );

@@ -14,11 +14,11 @@ function PriceItem({ set, bg, val, data, ty, sub }) {
   let end = null;
   if (sub && sub.length > 0) {
     sub.forEach((i) => {
-      if (i.price === data.id.m && ty === 0) {
+      if ((i.price === data.id.m || i.price === data.id.y) && ty === 0) {
         tr = false;
         end = moment(i.end * 1000).format("MMMM Do YYYY"); //, h:mm:ss a
         if (bg) set(0);
-      } else if (i.price === data.id.y && ty === 1) {
+      } else if ((i.price === data.id.m || i.price === data.id.y) && ty === 1) {
         tr = false;
         end = moment(i.end * 1000).format("MMMM Do YYYY");
         if (bg) set(0);

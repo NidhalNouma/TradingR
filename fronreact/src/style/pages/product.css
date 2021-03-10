@@ -75,7 +75,8 @@
   /* aspect-ratio: 5/3; */
   height: 480px;
   width: 95%;
-  /* overflow: hidden; */
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 .pdetails .chart .full {

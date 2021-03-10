@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import moment from "moment";
 
 export default function Cardlist({ data }) {
+  // console.log(data);
   return (
     <>
       <li

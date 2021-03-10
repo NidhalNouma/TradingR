@@ -95,7 +95,7 @@ router.post("/update-subscription", async function (req, res) {
 
 router.post("/cancel-subscription", async function (req, res) {
   const deleted = await stripe.subscriptions.del(req.body.subId);
-  const cancel = await setSubscription(userId, "");
+  const cancel = await setSubscription(req.body.userId, "");
   res.json({ deleted, cancel });
 });
 

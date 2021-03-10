@@ -26,6 +26,13 @@
   border-left: 2px solid var(--scolor);
 }
 
+.borderT {
+  border: 1px solid var(--tcolor);
+  border-radius: 7px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
 .border {
   border: 1px solid var(--scolor);
   border-radius: 7px;

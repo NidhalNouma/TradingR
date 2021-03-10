@@ -5,6 +5,8 @@ import { Dark } from "../../../app";
 function CardSection({ data }) {
   const { dark } = useContext(Dark);
   const CARD_ELEMENT_OPTIONS = {
+    hidePostalCode: true,
+    iconStyle: "solid",
     style: {
       base: {
         color: dark ? "#f4f2f0" : "#616e3c",

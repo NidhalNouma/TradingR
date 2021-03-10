@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import { prices } from "../../pricing/price";
 import Badge from "../../Badge";
@@ -14,7 +15,19 @@ function Sub({ setUser, user }) {
   return (
     <div>
       <h5 className="h5">Subscription:</h5>
-      {d.length > 0 && d.map((i, ii) => <Item i={i} set={set} key={ii} />)}
+      {d.length > 0 ? (
+        d.map((i, ii) => <Item i={i} set={set} key={ii} />)
+      ) : (
+        <div className="ml1 pu1">
+          <p className="h5">
+            No subscription found. You can create a subscription{" "}
+            <Link className="span bold" to="/pricing">
+              here
+            </Link>
+            .
+          </p>
+        </div>
+      )}
     </div>
   );
 }

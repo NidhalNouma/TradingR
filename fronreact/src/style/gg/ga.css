@@ -286,6 +286,10 @@
   color: var(--tcolor);
 }
 
+.bgtHover:hover {
+  background-color: var(--tcolor);
+}
+
 .o {
   opacity: 0.5;
   transition: opacity 0.3s linear;

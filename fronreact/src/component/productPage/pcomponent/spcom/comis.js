@@ -20,7 +20,7 @@ function Comis({ qa, im }) {
           className="buttonT opacity-transition "
           onClick={() => {
             const elem = document.getElementById("de");
-            elem.scrollIntoView({
+            elem?.scrollIntoView({
               behavior: "smooth",
             });
           }}

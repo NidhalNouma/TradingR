@@ -9,6 +9,7 @@ import { Socket, SocketC } from "./component/Hooks/Socket";
 import Index from "./notifapp";
 
 function Main() {
+  console.log("%cWelcome", "color: green; font-weight:bold; font-size:10rem");
   const { socket, onP, onPP, onNot } = Socket();
   return (
     <SocketC.Provider value={{ socket, onP, onPP, onNot }}>

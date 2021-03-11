@@ -268,6 +268,47 @@
   transition: color 0.2s ease-out;
 }
 
+.buttonC {
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-family: "Avenir", "Arial", sans-serif;
+  color: var(--pcolor);
+  background-color: inherit;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.25s ease-out, background-color 0.2s ease-out;
+}
+
+.divbtnC {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  z-index: 1;
+  padding: 0 1.3rem;
+  box-sizing: border-box;
+  background-color: var(--bgcolor);
+  cursor: pointer;
+}
+
+.buttonC:hover,
+.divbtnC:hover .buttonC {
+  background-color: var(--scolor);
+}
+
+.divbtnC.r:hover .buttonC {
+  transform: translateX(2px) scale(1.1);
+}
+
+.divbtnC.l:hover .buttonC {
+  transform: translateX(-2px) scale(1.1);
+}
+
 .btnSend {
   position: relative;
   display: flex;

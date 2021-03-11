@@ -162,7 +162,7 @@
   box-shadow: 0 0 6px var(--shcolor);
 }
 
-.cost select {
+select {
   color: var(--pcolor);
   border: none;
   border-radius: 6px;
@@ -174,11 +174,11 @@
   transition: transform 0.2s ease-in-out;
 }
 
-.cost select:focus {
+select:focus {
   outline: none;
 }
 
-.cost select:hover {
+select:hover {
   transform: scale(1.04);
 }
 

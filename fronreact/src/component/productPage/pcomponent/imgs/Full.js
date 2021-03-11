@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
-import AppBar from "@material-ui/core/AppBar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+// import AppBar from "@material-ui/core/AppBar";
+// import IconButton from "@material-ui/core/IconButton";
+// import CloseIcon from "@material-ui/icons/Close";
 import ChevronLeftRoundedIcon from "@material-ui/icons/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@material-ui/icons/ChevronRightRounded";
 import Slide from "@material-ui/core/Slide";
@@ -23,7 +23,13 @@ function Full({ src, open, setOpen }) {
         onClose={() => setOpen(false)}
         TransitionComponent={Transition}
       >
-        <AppBar color="var(--scolor)">
+        <div className="fullhead flexB">
+          <div></div>
+          <button className="buttonC" onClick={() => setOpen(false)}>
+            <span>X</span>
+          </button>
+        </div>
+        {/* <AppBar color="var(--scolor)">
           <div className="flexB">
             <div></div>
             <IconButton
@@ -35,29 +41,37 @@ function Full({ src, open, setOpen }) {
               <CloseIcon />
             </IconButton>
           </div>
-        </AppBar>
+        </AppBar> */}
         <div className="imgFC">
-          <div className="cimgF">
-            <IconButton
-              edge="start"
-              color="inherit"
+          <div className="cimgF pu2">
+            <div
+              className="divbtnC l"
               onClick={() => setI(i === 0 ? src.length - 1 : i - 1)}
-              aria-label="close"
             >
-              <ChevronLeftRoundedIcon />
-            </IconButton>
-            <img className="imgF" src={src[i]} alt="img" />
+              <button
+                className="buttonC flexC"
+                onClick={() => setI(i === 0 ? src.length - 1 : i - 1)}
+              >
+                <ChevronLeftRoundedIcon />
+              </button>
+            </div>
+            <div className="imgW">
+              <img className="imgF" src={src[i]} alt="img" />
+            </div>
 
-            <IconButton
-              edge="start"
-              color="inherit"
+            <div
+              className="divbtnC r"
               onClick={() => setI(i === src.length - 1 ? 0 : i + 1)}
-              aria-label="close"
             >
-              <ChevronRightRoundedIcon />
-            </IconButton>
+              <button
+                className="buttonC flexC"
+                onClick={() => setI(i === src.length - 1 ? 0 : i + 1)}
+              >
+                <ChevronRightRoundedIcon />
+              </button>
+            </div>
           </div>
-          <div className="flexC mu1 cimgDC">
+          <div className="flexC cimgDC">
             {src.map((ij, ii) => {
               return (
                 <img

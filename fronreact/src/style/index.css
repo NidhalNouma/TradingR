@@ -53,6 +53,10 @@ svg {
   stroke-width: 1px;
 }
 
+button {
+  user-select: none;
+}
+
 scroll-container {
   scroll-behavior: smooth;
   scroll-padding-top: 180px;

@@ -2,18 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
-export default function Cardlist({ data }) {
+export default function Cardlist({ data, read }) {
   // console.log(data);
   return (
     <>
       <li
         style={{
-          backgroundColor: data.readed ? "var(--scolor)" : "",
+          backgroundColor: data.read ? "var(--scolor)" : "",
         }}
       >
         <Link
           className="flexB at"
-          to={data.productId && "/product/" + data.productId}
+          onClick={read}
+          to={"/product/" + data.productId}
         >
           {/* <img src={data.product.img && data.product.img} alt="" /> */}
 

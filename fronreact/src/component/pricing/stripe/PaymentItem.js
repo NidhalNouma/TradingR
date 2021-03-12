@@ -20,7 +20,7 @@ function PaymentItem({ i, pm, set }) {
 
       <div className="">
         <span className="span2 bold block"> ****{i.card.last4} </span>
-        <span className="spanH bold">
+        <span className="span2 bold">
           Expire on {i.card.exp_month}/{i.card.exp_year}
         </span>
       </div>

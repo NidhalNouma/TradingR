@@ -194,4 +194,15 @@ router.get("/usr/:userName", async function (req, res) {
   res.json(ans);
 });
 
+router.post("/notification/markasread", function (req, res) {
+  const { id, userId } = req.body;
+  const r = user.markNotifAsRead(userId, id);
+  return null;
+});
+
+router.post("/notifications/markallasread", function (req, res) {
+  const r = user.markAllNotifAsRead(req.body.userId);
+  return null;
+});
+
 module.exports = router;

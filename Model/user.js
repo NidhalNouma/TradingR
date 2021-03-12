@@ -398,7 +398,7 @@ const markNotifAsRead = async function (userId, _id) {
   try {
     r.res = await User.updateOne(
       { _id: userId, "notifications._id": _id },
-      { $set: { "notifications.readed": true } }
+      { $set: { "notifications.$.read": true } }
     );
     console.log(
       "\x1b[35m%s\x1b[0m",
@@ -407,7 +407,7 @@ const markNotifAsRead = async function (userId, _id) {
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Error with mark Notification as read for User_Id ${userId} ==> ${err}`
+      `Error with mark Notification as read for User_Id ${userId} ==> ${e}`
     );
     r.err = e;
   }
@@ -424,7 +424,7 @@ const markAllNotifAsRead = async function (userId) {
   try {
     r.res = await User.updateOne(
       { _id: userId },
-      { $set: { "notifications.read": true } }
+      { "notifications.$[].read": true }
     );
     console.log(
       "\x1b[35m%s\x1b[0m",
@@ -433,7 +433,7 @@ const markAllNotifAsRead = async function (userId) {
   } catch (e) {
     console.log(
       "\x1b[31m%s\x1b[0m",
-      `Error with mark all Notifications as read for User_Id ${userId} ==> ${err}`
+      `Error with mark all Notifications as read for User_Id ${userId} ==> ${e}`
     );
     r.err = e;
   }
@@ -618,6 +618,8 @@ module.exports = {
   addQuestion,
   addScore,
   addNotif,
+  markNotifAsRead,
+  markAllNotifAsRead,
   setLastTime,
   setSubscription,
   setCustomerId,

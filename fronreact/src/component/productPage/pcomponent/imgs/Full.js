@@ -23,9 +23,9 @@ function Full({ src, open, setOpen }) {
         onClose={() => setOpen(false)}
         TransitionComponent={Transition}
       >
-        <div className="fullhead flexB">
+        <div className="fullhead flexB" onClick={() => setOpen(false)}>
           <div></div>
-          <button className="buttonC" onClick={() => setOpen(false)}>
+          <button className="buttonC mr1" onClick={() => setOpen(false)}>
             <span>X</span>
           </button>
         </div>

@@ -53,15 +53,15 @@ import {
 
 const DarkStyles = createGlobalStyle`
 html {
-    --scolor: #616e3c;
-    --pcolor: #f4f2f0;
-    --tcolor: #acc270;
-    --bgcolor: #131806;
-    --shcolor: #a8cf3b59;
-    --pricecolor: #f27a02;
-    --textcolor: #c3c6bc;
-    --timecolor: #a0b0a0;
-    --cancelcolor: rgb(170, 160, 32); 
+  --scolor: #616e3c;
+  --pcolor: #f4f2f0;
+  --tcolor: #4c5533;
+  --bgcolor: #16180e;
+  --shcolor: #a8cf3b59;
+  --pricecolor: #f27a02;
+  --textcolor: #c3c6bc;
+  --timecolor: #a0b0a0;
+  --cancelcolor: rgb(170, 160, 32);
 }
 `;
 

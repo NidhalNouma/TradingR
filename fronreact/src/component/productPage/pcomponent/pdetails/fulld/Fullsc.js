@@ -11,9 +11,9 @@ function Fullsc({ data, close }) {
 
   return (
     <div className="fullsc">
-      <div className="fullhead flexB">
+      <div className="fullhead flexB" onClick={close}>
         <div></div>
-        <button className="buttonC" onClick={close}>
+        <button className="buttonC mr1" onClick={close}>
           <span>X</span>
         </button>
       </div>

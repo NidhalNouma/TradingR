@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link /*, useHistory*/ } from "react-router-dom";
 
 import Logoi from "../../asset/images/logo";
 import Facei from "../../asset/images/face";
 import Menui from "../../asset/images/menu";
 import Bell from "../../asset/images/Bell";
-import Search from "../../asset/images/search";
+// import Search from "../../asset/images/search";
 import Card from "./card/card";
 import Face from "./face/face";
 import Menu from "./menu/menu";
@@ -23,7 +23,7 @@ export default function Nav(props) {
   };
 
   const user = useContext(UserC);
-  const { notif } = useContext(NotifC);
+  const { notif, markAllAsRead, markAsRead, unreadExist } = useContext(NotifC);
 
   // const history = useHistory();
 
@@ -148,7 +148,7 @@ export default function Nav(props) {
                   className="abtn flexA btnHover svg2"
                   onClick={() => setShowCard(true)}
                 >
-                  <Bell exist={notif && notif.length > 0 ? true : false} />
+                  <Bell exist={unreadExist() ? true : false} />
                 </button>
               </li>
             )}
@@ -183,7 +183,13 @@ export default function Nav(props) {
       </nav>
 
       {showCard ? (
-        <Card close={() => setShowCard(false)} notif={notif} />
+        <Card
+          close={() => setShowCard(false)}
+          notif={notif}
+          user={user.user}
+          markAsRead={markAsRead}
+          markAllAsRead={markAllAsRead}
+        />
       ) : (
         <></>
       )}

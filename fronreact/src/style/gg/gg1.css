@@ -72,10 +72,10 @@
 
 .iframe {
   width: 100%;
-  min-height: 450px;
+  height: 500px;
   border-radius: 5px;
   border: none;
-  aspect-ratio: 8/4;
+  /* aspect-ratio: 8/4; */
 }
 
 /* .full-hight {
@@ -276,7 +276,13 @@
   top: 0;
   width: 100vw;
   height: 3.7rem;
-  padding: 0 3rem;
+  /* padding: 0 3rem; */
   z-index: 2;
   box-sizing: border-box;
+  cursor: pointer;
+}
+
+.fullhead:hover .buttonC {
+  background-color: var(--scolor);
+  transform: scale(1.1);
 }

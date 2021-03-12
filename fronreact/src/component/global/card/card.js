@@ -6,7 +6,13 @@ import Noprod from "./Noprod";
 
 // import { useDispatch, useSelector } from "react-redux";
 
-export default function Card({ notif, close }) {
+export default function Card({
+  notif,
+  close,
+  user,
+  markAsRead,
+  markAllAsRead,
+}) {
   const handleClick = (e) => {
     if (document.getElementById("card")) {
       if (!document.getElementById("card").contains(e.target)) {
@@ -39,11 +45,22 @@ export default function Card({ notif, close }) {
                   else return 0;
                 })
                 .map((i) => {
-                  return <Cardlist key={i._id} data={i} />;
+                  return (
+                    <Cardlist
+                      key={i._id}
+                      data={i}
+                      read={() => markAsRead(i._id, user._id)}
+                    />
+                  );
                 })}
             </ul>
             <div className="total flexB">
-              <button className="buttonT tHover pl1">Mark all as Read</button>
+              <button
+                className="buttonT tHover pl1"
+                onClick={() => markAllAsRead(user?._id)}
+              >
+                Mark all as Read
+              </button>
               <Link className="buttonT tHover pr1" to="/profile/notifications">
                 See All
               </Link>

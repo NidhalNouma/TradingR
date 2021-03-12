@@ -7,7 +7,7 @@ import { GetAll } from "../Hooks/AllProducts";
 import { SocketC } from "../Hooks/Socket";
 
 export default function Productsection() {
-  const la = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const la = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 22, 12, 14, 15];
 
   const { onPP } = useContext(SocketC);
   const { products, getProducts, setProducts } = GetAll();

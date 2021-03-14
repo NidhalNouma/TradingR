@@ -169,6 +169,13 @@ router.post("/lasttime/:id", async function (req, res) {
   res.json(ans);
 });
 
+router.post("/reset-password", async function (req, res) {
+  const { email, type } = req.body;
+  const r = await sendMail(email, "", type);
+  return res.json(r);
+  // res.redirect("/");
+});
+
 router.get("/active/:id", function (req, res) {
   const id = req.params.id;
   console.log(id);

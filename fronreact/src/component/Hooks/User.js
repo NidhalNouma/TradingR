@@ -209,3 +209,33 @@ export const GetUserByUserName = function (userName) {
   }, [qa, user, impro, qas]);
   return { user, impro, qas, qa, setQa };
 };
+
+export const ResetPassword = () => {
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [click, setClick] = useState(false);
+  const [done, setDone] = useState(false);
+
+  const sendMailToReset = async () => {
+    if (!email) {
+      setError("Email required");
+      return;
+    }
+    setError("");
+    setClick(true);
+    setDone(false);
+    const { data: r } = await axios.post("/api/user/reset-password", {
+      email,
+      type: "reset-password",
+    });
+    // console.log(r);
+    if (r.err) {
+      setError("Something wrong !! Please try again");
+    } else {
+      setDone(true);
+    }
+    setClick(false);
+  };
+
+  return { email, setEmail, error, click, done, sendMailToReset };
+};

@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-// const { createCustomer } = require("../API/stripe");
 const Stripe = require("stripe");
 require("dotenv").config();
 const stripe = Stripe(process.env.STRIPE_SEC_KEY);

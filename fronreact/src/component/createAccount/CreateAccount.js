@@ -50,7 +50,7 @@ export default function CreateAccount({ setActiv, dissmis }) {
       />
       {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
 
-      <div className="btn-1">
+      <div className="btn-1 flexB">
         <button className="buttonS flexA" onClick={(e) => dissmis()}>
           I have account
         </button>
@@ -65,7 +65,7 @@ export default function CreateAccount({ setActiv, dissmis }) {
         </button>
       </div>
       <div className="btn-g">
-        <a className="btn-gg a flex" href="/auth/google">
+        <a className="btn-gg a" href="/auth/google">
           <Google />
           <span className="ml-5">Continue with google</span>
         </a>

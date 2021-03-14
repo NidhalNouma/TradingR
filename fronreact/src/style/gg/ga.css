@@ -10,6 +10,7 @@
   border: none;
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
   transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear,
     outline-offset 0.3s ease-in-out;
 }
@@ -33,6 +34,7 @@
   border: none;
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
   transition: box-shadow 0.2s ease-in-out, opacity 0.3s linear,
     outline-offset 0.3s ease-in-out;
 }
@@ -58,6 +60,7 @@
   border: none;
   text-decoration: none;
   cursor: pointer;
+  white-space: nowrap;
   transition: outline-offset 0.3s ease-in;
 }
 
@@ -79,6 +82,7 @@
   outline-color: var(--tcolor);
   cursor: pointer;
   text-decoration: none;
+  white-space: nowrap;
   /* transition: outline-offset 0.3s ease-in; */
 }
 
@@ -94,6 +98,7 @@
   color: var(--pcolor);
   background-color: inherit;
   padding: 0.3rem 0.8rem;
+  white-space: nowrap;
   border-radius: 6px;
   outline: none;
   border: none;
@@ -113,6 +118,7 @@
   outline-color: var(--scolor);
   border: none;
   text-decoration: none;
+  white-space: nowrap;
   box-sizing: border-box;
   cursor: pointer;
   transition: 0.3s ease-in;
@@ -179,6 +185,7 @@
   color: var(--pcolor);
   transition: background-color 0.4s ease-out;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .ah {
@@ -240,6 +247,7 @@
   cursor: pointer;
   color: rgb(170, 160, 32);
   background-color: inherit;
+  white-space: nowrap;
 }
 
 .buttonT {
@@ -252,7 +260,8 @@
   border: none;
   cursor: pointer;
   text-decoration: none;
-  transition: color 0.2s ease-out;
+  transition: color 0.2s ease-out, transform 0.2s ease-out;
+  white-space: nowrap;
 }
 
 .buttonT1 {
@@ -266,6 +275,7 @@
   cursor: pointer;
   text-decoration: none;
   transition: color 0.2s ease-out;
+  white-space: nowrap;
 }
 
 .buttonC {
@@ -280,6 +290,7 @@
   outline: none;
   border: none;
   cursor: pointer;
+  white-space: nowrap;
   text-decoration: none;
   transition: transform 0.25s ease-out, background-color 0.2s ease-out;
 }
@@ -321,6 +332,7 @@
   border: none;
   cursor: pointer;
   transition: transform 0.3s linear;
+  white-space: nowrap;
 }
 
 .tHover:hover {
@@ -377,3 +389,4 @@
   pointer-events: none;
   cursor: default;
 }
+

@@ -13,7 +13,8 @@
 
 .contain-sign {
   width: 50%;
-  padding: 1em 0;
+  padding: 1rem 9%;
+  box-sizing: border-box;
   background-color: var(--bgcolor);
   border-radius: 6px;
   text-align: center;
@@ -22,13 +23,14 @@
 
 .contain-sign input {
   font-family: "Avenir", "Arial", sans-serif;
-  width: 50%;
-  height: 35px;
-  margin: 0.5rem;
+  width: 100%;
+  height: 44px;
+  margin: 0.5rem 0;
   padding-left: 1rem;
   border: 2px solid var(--tcolor);
   border-radius: 6px;
   background-color: var(--bgcolor);
+  box-sizing: border-box;
 }
 
 .contain-sign input::placeholder {
@@ -43,30 +45,36 @@
   box-shadow: 0 0 0 0.2rem var(--shcolor);
 }
 
-.contain-sign button,
-.contain-sign a {
+.contain-sign .buttonP,
+.contain-sign .buttonS{
   /* font-size: 0.84em; */
-  display: inline-flex;
-  margin: 0.6rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  width: 25%;
+  /* display: inline-flex; */
+  margin: 0.6rem 0.3rem;
+  padding: 0.6rem;
   border: none;
+  width: 50%;
+  white-space: nowrap;
+  /* text-align: center; */
 }
 
-.btn-gg {
+.contain-sign .btn-gg {
+  display:flex;
+  align-items: center;
+  text-align: center;
+  margin-top: 0.6rem;
+  padding: 0.6rem;
   justify-content: center;
-  display: block;
-  width: 50% !important;
+  width: 100%;
   background-color: var(--bgcolor) !important;
   box-shadow: 0px 0px 4px var(--pcolor);
+  box-sizing: border-box;
 }
 
-.btn-1 .btn-g {
+.btn-1 , .btn-g {
   width: 100%;
-  height: 20%;
-  margin: 1rem 0;
-  border-radius: 5px;
+  /* height: 20%; */
+  margin: 0.2rem 0;
+  /* border-radius: 5px; */
 }
 
 /* .contain-sign button:hover,
@@ -86,17 +94,18 @@
 }
 
 .MuiAlert-standardError {
-  width: 50%;
+  width: 100%;
+  box-sizing: border-box;
   margin: auto;
   border-radius: 10px !important;
 }
 
-@media screen and (max-width: 1200px) {
-  .contain-sign {
+@media screen and (max-width: 1100px) {
+   .contain-sign {
     width: 70%;
   }
 
-  .signin-h3 {
+  /*.signin-h3 {
     font-size: 0.9em;
   }
 
@@ -116,7 +125,7 @@
 
   .btn-gg {
     width: 60% !important;
-  }
+  } */
 }
 
 @media screen and (max-width: 850px) {
@@ -128,17 +137,17 @@
     font-size: 0.85em;
   }
 
-  .contain-sign input {
+  /* .contain-sign input {
     width: 70%;
-  }
+  } */
 
-  .contain-sign a,
+  /* .contain-sign a,
   .contain-sign button {
     width: 35%;
     padding: 0.4rem 0rem;
-  }
+  } */
 
-  .contain-sign .perror {
+  /* .contain-sign .perror {
     margin: 0 15% 0.8em;
-  }
+  } */
 }

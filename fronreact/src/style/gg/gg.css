@@ -108,6 +108,13 @@
   cursor: pointer;
 }
 
+.scaleH span{
+  transition: transform 0.2s ease-in-out;
+}
+.scaleH:hover span{
+  transform: scale(1.06);
+}
+
 .i {
   font-size: 0.95rem;
   color: #a0b0a0;

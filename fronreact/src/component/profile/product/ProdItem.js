@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Parse from "html-react-parser";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import Trynow from "../../productPage/pcomponent/Trynow";
 
 function ProdItem({ data }) {
@@ -12,12 +13,16 @@ function ProdItem({ data }) {
         <div>
           <h5 className="h5">{data.products[0].title}</h5>
           <p className="parse1 pgl2">{Parse(data.products[0].description)}</p>
-          <div className="mu1">
+          <div className="mu1 flexB">
             <button onClick={(e) => setTrynow(true)} className="buttonP m0 mr1">
               Download
             </button>
-            <Link className="buttonS m0" to={"/product/" + data._id}>
-              View product
+            <Link
+              className="buttonT m0 flexC scaleH"
+              to={"/product/" + data._id}
+            >
+              <span>View product</span>
+              <ArrowRightIcon />
             </Link>
           </div>
         </div>

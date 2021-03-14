@@ -7,10 +7,12 @@ import Google from "../../asset/images/Google";
 import { UserC } from "../Hooks/User";
 
 import CreateAccount from "../createAccount";
+import ForgetPassword from "./ForgetPassword";
 
 export default function Signin(props) {
   const user = useContext(UserC);
   const [create, setcreate] = useState(false);
+  const [forget, setForget] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginclick, setLoginclick] = useState(false);
@@ -84,7 +86,9 @@ export default function Signin(props) {
       aria-describedby="alert-dialog-description"
     >
       <div className="bg-sign" onClick={close}>
-        {create ? (
+        {forget ? (
+          <ForgetPassword back={() => setForget(false)} />
+        ) : create ? (
           <CreateAccount dissmis={diss} close={closea} />
         ) : (
           <div className="contain-sign">
@@ -107,7 +111,18 @@ export default function Signin(props) {
               value={password}
             />
             {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
-            <div className="btn-1">
+            {error && (
+              <div className="btn-1">
+                <span
+                  style={{ textAlign: "end" }}
+                  onClick={() => setForget(true)}
+                  className="buttonT span2 mu1"
+                >
+                  Forget Password?
+                </span>
+              </div>
+            )}
+            <div className="btn-1 flexB">
               <button className="buttonS flexA" onClick={showcreate}>
                 Create Account
               </button>
@@ -121,7 +136,7 @@ export default function Signin(props) {
               </button>
             </div>
             <div className="btn-g">
-              <a className="btn-gg a flex" href="/auth/google">
+              <a className="btn-gg a" href="/auth/google">
                 <Google />
                 <span className="ml-5">Continue with google</span>
               </a>

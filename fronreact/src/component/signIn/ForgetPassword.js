@@ -14,7 +14,7 @@ function ForgetPassword({ back }) {
   } = ResetPassword();
 
   return (
-    <div className="contain-sign">
+    <div>
       <h3 className="h31">Forget Password</h3>
       <input
         className={error ? "inputerror" : ""}

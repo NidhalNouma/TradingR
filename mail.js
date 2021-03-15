@@ -1,5 +1,6 @@
 const nodemailer = require("nodemailer");
 const fs = require("fs");
+let ejs = require("ejs");
 require("dotenv").config();
 
 // const transporter = nodemailer.createTransport({
@@ -37,23 +38,22 @@ module.exports.sendMail = async function (email, url, type) {
 };
 
 const mailOptions = function (email, url, type) {
+  const path = type ? "resetPassword.ejs" : "verifyEmail.ejs";
+  const data = { url: "https://tradingrev.com" };
+
   return new Promise((resolve, reject) => {
-    fs.readFile(
-      "./MailHTML/resetPassword.html",
-      "utf-8",
-      function (err, content) {
-        if (content)
-          resolve({
-            from: process.env.EMAIL_ADDRESS,
-            to: email,
-            subject: "Sending Email",
-            html: content.toString(),
-          });
-        else {
-          console.log(err);
-          reject(err);
-        }
+    ejs.renderFile("./MailHTML/" + path, data, function (err, str) {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        resolve({
+          from: process.env.EMAIL_ADDRESS,
+          to: email,
+          subject: "Sending Email",
+          html: str,
+        });
       }
-    );
+    });
   });
 };

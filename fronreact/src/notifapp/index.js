@@ -4,6 +4,7 @@ import { UserC, User, setLastTime } from "../component/Hooks/User";
 import { Notification, NotifC } from "../component/Hooks/Notification";
 import { SocketC } from "../component/Hooks/Socket";
 import Signin from "../component/signIn";
+import Resetpassword from "../component/signIn/Resetpassword";
 
 import App from "../app";
 import SetListNotif from "./SetListNotif";
@@ -11,10 +12,11 @@ import SetNotif from "./SetNotif";
 
 function Notif() {
   const { onNot } = useContext(SocketC);
-  const { user, setUser } = User();
+  const [show, setShow] = useState(false);
+  const [resetShow, setRShow] = useState(false);
+  const { user, setUser } = User(setRShow);
   const Notif = Notification();
 
-  const [show, setShow] = useState(false);
   const [am, setam] = useState(false);
   const [msg, setMsg] = useState(null);
 
@@ -50,6 +52,7 @@ function Notif() {
           <SetNotif am={am} setam={setam} msg={msg} />
           <SetListNotif lastTime={user && user.lastTime} />
           {show ? <Signin close={() => setShow(false)} show={show} /> : <></>}
+          <Resetpassword show={resetShow} close={() => setRShow(false)} />
         </UserC.Provider>
       </NotifC.Provider>
     </>

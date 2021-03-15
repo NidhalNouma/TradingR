@@ -11,7 +11,7 @@ export default function CreateAccount({ setActiv, dissmis }) {
   const { user, setUser, error, add, createClick } = AddNewUser();
 
   return (
-    <div className="contain-sign">
+    <div>
       <h3 className="h31">Create Account</h3>
       <input
         type="email"

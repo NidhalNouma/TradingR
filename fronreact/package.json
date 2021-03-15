@@ -46,7 +46,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build && mv build/* ../html/ && mv ../html/index.html ../html/index_.html",
+    "build": "GENERATE_SOURCEMAP=false react-scripts build && node build.js && cp -r ./build/* ../html/ && mv ../html/index.html ../html/index.ejs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

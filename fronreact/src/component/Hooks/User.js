@@ -4,18 +4,28 @@ import { uploadImg64 } from "./Firebase";
 
 export const UserC = createContext(null);
 
-export const User = () => {
-  const [user, setUser] = useState(getUserDom());
+export const User = (show) => {
+  const [user, setUser] = useState(getUserDom(show));
 
   return { user, setUser };
 };
 
-function getUserDom() {
+function getUserDom(show) {
   let r = null;
   const data = document.getElementById("data");
   if (data) {
     const st = data.innerHTML;
-    if (st !== "!!data!!") r = JSON.parse(st);
+    console.log(st);
+    if (st && st !== "!!data!!") {
+      const parse = JSON.parse(st);
+      if ("user" in parse) r = JSON.parse(parse.user);
+      if ("reset" in parse) {
+        const reset = JSON.parse(parse.reset);
+        if (reset && reset.show) show(true);
+      }
+      console.log(parse);
+      console.log(r);
+    }
     data.remove();
   }
   return r;

@@ -1,6 +1,8 @@
 const express = require("express");
 const http = require("http");
 const fs = require("fs");
+const ejs = require("ejs");
+const path = require("path");
 const { stripe } = require("./API/stripe");
 const user = require("./API/user");
 const product = require("./API/product");
@@ -15,6 +17,7 @@ require("events").EventEmitter.defaultMaxListeners = 10000;
 const app = express();
 
 const passport = require("passport");
+const { json } = require("body-parser");
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -26,6 +29,9 @@ app.use("/api/user", user);
 app.use("/api/pay", stripe);
 app.use("/api/product", product);
 app.use("/api/post", post);
+
+app.set("views", path.join(__dirname, "html"));
+app.set("view engine", "ejs");
 
 app.get(
   [
@@ -42,12 +48,19 @@ app.get(
   checkUser,
   (req, res) => {
     if (req.user) {
-      fs.readFile("./html/index_.html", "utf8", function (err, content) {
-        var rendered = content.toString().replace("!!data!!", req.user);
-        res.send(rendered);
+      // fs.readFile("./html/index_.html", "utf8", function (err, content) {
+      //   var rendered = content.toString().replace("!!data!!", req.user);
+      //   res.send(rendered);
+      // });
+      res.render("index", {
+        data: JSON.stringify({
+          user: req.user,
+          // reset: JSON.stringify({ show: true }),
+        }),
       });
     } else {
-      res.sendFile("index_.html", { root: __dirname + "/html" });
+      // res.sendFile("index_.html", { root: __dirname + "/html" });
+      res.render("index", { data: null });
     }
   }
 );

@@ -58,6 +58,10 @@ const userSchema = new mongoose.Schema({
   firstName: { type: String, required: [true, "First name is requierd"] },
   lastName: { type: String, required: [true, "Last name is requierd"] },
   password: { type: String, required: [true, "password is requierd"] },
+  forgetPassword: {
+    token: { type: String, default: null },
+    updateAt: { type: Date, default: Date.now },
+  },
   userPicture: { type: String, default: "noimg" },
   improvements: [qmSchema],
   questions: [qmSchema],

@@ -19,7 +19,7 @@ export default function Signin(props) {
   const [error, setError] = useState("");
 
   const close = (e) => {
-    if (e.target.getAttribute("class") !== "bg-sign") return;
+    // if (e.target.getAttribute("class") !== "bg-sign") return;
     props.close();
   };
 
@@ -85,68 +85,73 @@ export default function Signin(props) {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <div className="bg-sign" onClick={close}>
-        {forget ? (
-          <ForgetPassword back={() => setForget(false)} />
-        ) : create ? (
-          <CreateAccount dissmis={diss} close={closea} />
-        ) : (
-          <div className="contain-sign">
-            <h3 className="h31">Sign In</h3>
-            <input
-              className={error ? "inputerror" : ""}
-              type="email"
-              name="email"
-              placeholder="Email"
-              onChange={setemail}
-              value={email}
-            />
+      <div className="bg-sign">
+        <div className="contain-sign">
+          <button className="buttonC" onClick={close}>
+            X
+          </button>
+          {forget ? (
+            <ForgetPassword back={() => setForget(false)} />
+          ) : create ? (
+            <CreateAccount dissmis={diss} close={closea} />
+          ) : (
+            <div>
+              <h3 className="h31">Sign In</h3>
+              <input
+                className={error ? "inputerror" : ""}
+                type="email"
+                name="email"
+                placeholder="Email"
+                onChange={setemail}
+                value={email}
+              />
 
-            <input
-              className={error ? "inputerror" : ""}
-              type="password"
-              name="password"
-              placeholder="Password"
-              onChange={setpassword}
-              value={password}
-            />
-            {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
-            {error && (
-              <div className="btn-1">
-                <span
-                  style={{ textAlign: "end" }}
-                  onClick={() => setForget(true)}
-                  className="buttonT span2 mu1"
+              <input
+                className={error ? "inputerror" : ""}
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={setpassword}
+                value={password}
+              />
+              {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
+              {error && (
+                <div className="btn-1">
+                  <span
+                    style={{ textAlign: "end" }}
+                    onClick={() => setForget(true)}
+                    className="buttonT span2 mu1"
+                  >
+                    Forget Password?
+                  </span>
+                </div>
+              )}
+              <div className="btn-1 flexB">
+                <button className="buttonS flexA" onClick={showcreate}>
+                  Create Account
+                </button>
+                <button
+                  className={
+                    loginclick ? "aclick buttonP flexA" : "buttonP flexA"
+                  }
+                  onClick={getUser}
                 >
-                  Forget Password?
-                </span>
+                  {!loginclick ? "Login" : "Login ..."}
+                </button>
               </div>
-            )}
-            <div className="btn-1 flexB">
-              <button className="buttonS flexA" onClick={showcreate}>
-                Create Account
-              </button>
-              <button
-                className={
-                  loginclick ? "aclick buttonP flexA" : "buttonP flexA"
-                }
-                onClick={getUser}
-              >
-                {!loginclick ? "Login" : "Login ..."}
-              </button>
-            </div>
-            <div className="btn-g">
-              <a className="btn-gg a" href="/auth/google">
-                <Google />
-                <span className="ml-5">Continue with google</span>
-              </a>
-              {/* <a className="btn-gg" href="http://localhost:8080/auth/facebook">
+              <div className="btn-g">
+                <a className="btn-gg a" href="/auth/google">
+                  <Google />
+                  <span className="ml-5">Continue with google</span>
+                </a>
+                {/* <a className="btn-gg" href="http://localhost:8080/auth/facebook">
                 <Facebook />
                 Continue with facebook
               </a> */}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </Dialog>
   );

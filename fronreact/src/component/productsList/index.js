@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { useLocation, useParams } from "react-router-dom";
 
 import Navbar from "../global/navbar";
-import Navfill from "../global/navfil";
+// import Navfill from "../global/navfil";
 import Filter from "./Filter";
 import Productlist from "./productlist";
 import Footer from "../global/footer";

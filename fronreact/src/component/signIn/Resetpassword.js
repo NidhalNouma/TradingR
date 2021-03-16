@@ -1,18 +1,18 @@
 import React from "react";
-import { ResetPassword } from "../Hooks/User";
+import { ChangePassword } from "../Hooks/User";
 import { Alert } from "@material-ui/lab";
 import { Dialog } from "@material-ui/core";
-import ArrowLeftIcon from "@material-ui/icons/ArrowLeft";
 
-function Resetpassword({ show, close }) {
+function Resetpassword({ show, close, email, setShow }) {
   const {
-    email,
-    setEmail,
+    password,
+    setPassword,
+    confirmPassword,
+    setCPassword,
     error,
     click,
-    done,
-    sendMailToReset,
-  } = ResetPassword();
+    submit,
+  } = ChangePassword(email);
   return (
     <Dialog
       open={show}
@@ -27,36 +27,28 @@ function Resetpassword({ show, close }) {
           </button>
           <div>
             <h3 className="h31">Reset Password</h3>
+            <p className="span border p-5 mu1 md-5">{email}</p>
             <input
               className={error ? "inputerror" : ""}
               type="password"
               name="password"
               placeholder="New Password"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
             />
             <inpuT
               className={error ? "inputerror" : ""}
               type="password"
               name="confirmPassword"
               placeholder="Confirm Password"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
+              onChange={(e) => setCPassword(e.target.value)}
+              value={confirmPassword}
             />
-            {done && (
-              <Alert severity="success">
-                Please check your email to Reset your password.
-              </Alert>
-            )}
             {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
-            <div className="btn-1 flexB">
-              <button className="buttonT flexC scaleH">
-                <ArrowLeftIcon />
-                <span>Back</span>
-              </button>
+            <div className="btn-1 flexC">
               <button
                 className={click ? "aclick buttonP flexA" : "buttonP flexA"}
-                onClick={sendMailToReset}
+                onClick={() => submit(setShow, close)}
               >
                 {click ? "Reset Password ..." : "Reset Password"}
               </button>

@@ -1,9 +1,8 @@
 import React, { useRef, useState } from "react";
 import UserImg from "../../../asset/images/UserImg";
-import ActiveAccount from "../../createAccount/AcctiveAccount";
 import Sub from "./Sub";
 import Acc from "./Acc";
-import { UpdateUser } from "../../Hooks/User";
+import { UpdateUser, sendActivEmail } from "../../Hooks/User";
 
 import TextField from "@material-ui/core/TextField";
 import IconButton from "@material-ui/core/IconButton";
@@ -84,14 +83,45 @@ function Profile({ user: fuser, setUser: setFUser }) {
           fullWidth={true}
           disabled={true}
         />
-        {!user.active && (
+        {!fuser.active && (
           <p className="pv bold">
             Your Email is not verified. Click
-            <button className="buttonT tHover" onClick={(e) => setActiv(true)}>
+            <button
+              className="buttonT tHover"
+              onClick={(e) => {
+                if (!activ) {
+                  sendActivEmail(fuser.email, fuser._id);
+                  setActiv(true);
+                }
+              }}
+            >
               here
             </button>
             to verify your email.
           </p>
+        )}
+        {activ && (
+          <Alert
+            style={{
+              width: "100%",
+              boxSizing: "border-box",
+              marginBottom: ".5rem",
+            }}
+            severity="info"
+          >
+            <p className="m0">
+              We sent to you a verification email, Please check your mail.
+            </p>
+            <p className="m0">
+              Don't receive any email?
+              <button
+                className="buttonT tHover"
+                onClick={(e) => sendActivEmail(fuser.email, fuser._id)}
+              >
+                Send again
+              </button>
+            </p>
+          </Alert>
         )}
         {error && (
           <Alert
@@ -119,8 +149,6 @@ function Profile({ user: fuser, setUser: setFUser }) {
         <Acc />
         <Sub user={fuser} setUser={setFUser} />
       </div>
-
-      <ActiveAccount activ={activ} setActiv={setActiv} />
     </>
   );
 }

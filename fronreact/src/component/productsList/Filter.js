@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 function Filter() {
-  const sty = "aspan bold";
-  const styl = "aspan bold btn-line";
-  const [subf, setSubf] = useState({
-    free: true,
-    basic: true,
-    pro: true,
-    primium: true,
-  });
+  // const sty = "aspan bold";
+  // const styl = "aspan bold btn-line";
+  // const [subf, setSubf] = useState({
+  //   free: true,
+  //   basic: true,
+  //   pro: true,
+  //   primium: true,
+  // });
 
   const styv = "span1 cursor";
   const stylv = "span1 cursor btn-line";

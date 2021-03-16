@@ -1,13 +1,16 @@
 const express = require("express");
 const http = require("http");
-const fs = require("fs");
-const ejs = require("ejs");
 const path = require("path");
 const { stripe } = require("./API/stripe");
 const user = require("./API/user");
 const product = require("./API/product");
 const post = require("./API/post");
-const { checkUser, connect } = require("./log");
+const {
+  checkUser,
+  checkResetPassword,
+  confirmEmail,
+  connect,
+} = require("./log");
 const run = require("./socket/index");
 const cors = require("cors");
 require("dotenv").config();
@@ -17,7 +20,7 @@ require("events").EventEmitter.defaultMaxListeners = 10000;
 const app = express();
 
 const passport = require("passport");
-const { json } = require("body-parser");
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -47,23 +50,32 @@ app.get(
   ],
   checkUser,
   (req, res) => {
-    if (req.user) {
-      // fs.readFile("./html/index_.html", "utf8", function (err, content) {
-      //   var rendered = content.toString().replace("!!data!!", req.user);
-      //   res.send(rendered);
-      // });
-      res.render("index", {
+    if (req.user)
+      return res.render("index", {
         data: JSON.stringify({
           user: req.user,
-          // reset: JSON.stringify({ show: true }),
         }),
       });
-    } else {
-      // res.sendFile("index_.html", { root: __dirname + "/html" });
-      res.render("index", { data: null });
-    }
+    else res.render("index", { data: null });
   }
 );
+
+app.get("/reset-password/:email/:token", async function (req, res) {
+  const { email, token } = req.params;
+  if (!email || !token) return res.redirect("/");
+  const ok = await checkResetPassword(email, token);
+  if (ok)
+    return res.render("index", {
+      data: JSON.stringify({ reset: JSON.stringify({ show: true, email }) }),
+    });
+  return res.redirect("/");
+});
+
+app.get("/confirm-email/:id", async function (req, res) {
+  const { id } = req.params;
+  if (id) await confirmEmail(id);
+  return res.redirect("/");
+});
 
 app.get("/auth/google", function (req, res, next) {
   const auth = passport.authenticate("google", { scope: ["profile", "email"] });

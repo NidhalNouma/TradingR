@@ -156,9 +156,8 @@ scroll-container {
 }
 
 .noResult {
-  position: absolute;
-  top: 10%;
-  left: 40%;
+  width: 100%;
+  margin-top: 7rem;
   text-align: center;
 }
 

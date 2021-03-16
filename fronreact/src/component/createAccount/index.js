@@ -4,6 +4,7 @@ import CreateAccount from "./CreateAccount";
 
 function Index(props) {
   const [activ, setActiv] = useState(false);
+
   return (
     <>
       {activ ? (

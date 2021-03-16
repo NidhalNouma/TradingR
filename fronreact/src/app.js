@@ -148,6 +148,9 @@ export default function App() {
               <Route exact path="/">
                 {first === "true" ? <Home /> : <Redirect to="/welcome" />}
               </Route>
+              <Route exact path="/reset-password/:email/:token">
+                <Redirect to="/" />
+              </Route>
               <Route exact path="/search/:query">
                 <Products type="SEARCH" />
               </Route>

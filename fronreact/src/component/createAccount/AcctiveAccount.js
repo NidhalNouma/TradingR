@@ -1,32 +1,27 @@
-import React from "react";
-import { Dialog } from "@material-ui/core";
+import React, { useContext } from "react";
+import { UserC, sendActivEmail } from "../Hooks/User";
 
-function AcctiveAccount({ activ, close, setActiv }) {
+function AcctiveAccount() {
+  const { user } = useContext(UserC);
+
   return (
-    <Dialog
-      open={activ}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <div className="activeaccount p2 pd1 pu1">
-        <h4 className="h4 bold">Active your account</h4>
-        <p className="p bold">
-          We have sent an email for activation please checkout your mail
-        </p>
-        <div className="flexB mu2">
+    <div className="activeaccount p2 pd1 pu1">
+      <h3 className="h31">Active your account</h3>
+      <p className="p bold pu1">
+        We have sent an email for activation please checkout your mail
+      </p>
+      <div className="flexB mu2">
+        <div></div>
+        {user && (
           <button
             className="buttonT tHover"
-            onClick={() => {
-              if (close) close();
-              setActiv(false);
-            }}
+            onClick={(e) => sendActivEmail(user.email, user._id)}
           >
-            Skip for now
+            Send again
           </button>
-          <button className="buttonT tHover">Send again</button>
-        </div>
+        )}
       </div>
-    </Dialog>
+    </div>
   );
 }
 

@@ -15,16 +15,14 @@ function getUserDom(show) {
   const data = document.getElementById("data");
   if (data) {
     const st = data.innerHTML;
-    console.log(st);
     if (st && st !== "!!data!!") {
       const parse = JSON.parse(st);
       if ("user" in parse) r = JSON.parse(parse.user);
       if ("reset" in parse) {
         const reset = JSON.parse(parse.reset);
-        if (reset && reset.show) show(true);
+        console.log(reset);
+        if (reset && reset.show) show(reset);
       }
-      console.log(parse);
-      console.log(r);
     }
     data.remove();
   }
@@ -238,9 +236,8 @@ export const ResetPassword = () => {
       email,
       type: "reset-password",
     });
-    // console.log(r);
     if (r.err) {
-      setError("Something wrong !! Please try again");
+      setError(r.err);
     } else {
       setDone(true);
     }
@@ -248,4 +245,49 @@ export const ResetPassword = () => {
   };
 
   return { email, setEmail, error, click, done, sendMailToReset };
+};
+
+export const ChangePassword = (email) => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setCPassword] = useState("");
+  const [error, setError] = useState("");
+  const [click, setClick] = useState(false);
+
+  const submit = async (set, close) => {
+    if (password !== confirmPassword) {
+      setError("Password not match");
+      return;
+    }
+    setError("");
+    setClick(true);
+    const { data: r } = await axios.post("/api/user/update-password", {
+      email,
+      password,
+    });
+    if (r.err) {
+      setError(r.err);
+    } else {
+      if (r.res.ok === 1) {
+        close();
+        set(true);
+      }
+    }
+
+    setClick(false);
+  };
+
+  return {
+    password,
+    setPassword,
+    confirmPassword,
+    setCPassword,
+    error,
+    click,
+    submit,
+  };
+};
+
+export const sendActivEmail = async (email, id) => {
+  const r = await axios.post("/api/user/activate-email", { email, id });
+  return r;
 };

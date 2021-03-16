@@ -7,6 +7,7 @@ import { UserC } from "../../Hooks/User";
 
 function Setting() {
   const { user, setUser } = useContext(UserC);
+
   return (
     <>
       <Navbar here={true} />

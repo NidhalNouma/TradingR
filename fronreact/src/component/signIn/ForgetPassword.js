@@ -25,23 +25,27 @@ function ForgetPassword({ back }) {
         value={email}
       />
       {done && (
-        <Alert severity="success">
-          Please check your email to Reset your password.
-        </Alert>
+        <div className="md1">
+          <Alert severity="success">
+            Please check your email to Reset your password.
+          </Alert>
+        </div>
       )}
       {error === "" ? <></> : <Alert severity="error">{error}</Alert>}
-      <div className="btn-1 flexB">
-        <button className="buttonT flexC scaleH" onClick={back}>
-          <ArrowLeftIcon />
-          <span>Back</span>
-        </button>
-        <button
-          className={click ? "aclick buttonP flexA" : "buttonP flexA"}
-          onClick={sendMailToReset}
-        >
-          {click ? "Reset Password ..." : "Reset Password"}
-        </button>
-      </div>
+      {!done && (
+        <div className="btn-1 flexB">
+          <button className="buttonT flexC scaleH" onClick={back}>
+            <ArrowLeftIcon />
+            <span>Back</span>
+          </button>
+          <button
+            className={click ? "aclick buttonP flexA" : "buttonP flexA"}
+            onClick={sendMailToReset}
+          >
+            {click ? "Reset Password ..." : "Reset Password"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

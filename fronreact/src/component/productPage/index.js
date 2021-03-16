@@ -15,7 +15,11 @@ export default function Producte(props) {
   const { id } = useParams();
   const [nodata, setNoData] = useState(false);
   const { onP } = useContext(SocketC);
-  const { product, setProduct } = GetById(id, props.location.product);
+  const { product, setProduct } = GetById(
+    id,
+    props.location.product,
+    setNoData
+  );
 
   const { pathname } = useLocation();
   useEffect(() => {

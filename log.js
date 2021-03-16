@@ -1,4 +1,8 @@
-const { findById } = require("./Model/user");
+const {
+  findById,
+  confirmResetPassword,
+  activeAccount,
+} = require("./Model/user");
 const model = require("./Model/model");
 
 async function checkUser(req, res, next) {
@@ -35,4 +39,23 @@ function connect(req, res, next) {
   next();
 }
 
-module.exports = { checkUser, connect };
+async function checkResetPassword(email, token) {
+  const usr = await confirmResetPassword(email, token);
+  if (usr.res) {
+    const { forgetPassword } = usr.res;
+    const now = new Date();
+    const expireTime = new Date(forgetPassword.updateAt);
+    // console.log(now, expireTime, now - expireTime, 60 * 60 * 1000);
+    if (now - expireTime < 60 * 60 * 1000) return true;
+  }
+
+  return false;
+}
+
+async function confirmEmail(_id) {
+  const r = await activeAccount(_id);
+
+  return r;
+}
+
+module.exports = { checkResetPassword, checkUser, connect, confirmEmail };

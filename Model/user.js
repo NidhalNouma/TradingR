@@ -283,6 +283,88 @@ const findByUserName = async function (userName) {
   return r;
 };
 
+const reqResetPassword = async function (email) {
+  console.log("\x1b[36m%s\x1b[0m", `Req Reset Password User ${email} ...`);
+  const r = { res: null, err: null };
+  try {
+    const token = mongoose.Types.ObjectId();
+    const upd = await User.findOneAndUpdate(
+      { email },
+      {
+        "forgetPassword.token": token,
+        "forgetPassword.updateAt": Date.now(),
+      }
+    );
+    r.res = { token, email, user: upd };
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `User Updated to Reset Password ==> ${email}`
+    );
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Req Reset Password User ${email}  ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+const confirmResetPassword = async function (email, token) {
+  console.log("\x1b[36m%s\x1b[0m", `confirm Reset Password User ${email} ...`);
+  const r = { res: null, err: null };
+  try {
+    r.res = await User.findOne({ email, "forgetPassword.token": token });
+    console.log(
+      "\x1b[35m%s\x1b[0m",
+      `User Confirm to Reset Password ==> ${email}`
+    );
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Confirm Reset Password User ${email}  ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+const resetPassword = async function (email, password) {
+  console.log("\x1b[36m%s\x1b[0m", `Reset Password User ${email} ...`);
+  const r = { res: null, err: null };
+  try {
+    r.res = await User.updateOne({ email }, { password });
+    console.log("\x1b[35m%s\x1b[0m", `User Reset Password ==> ${email}`);
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Reset Password User ${email}  ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+const activeAccount = async function (_id) {
+  console.log("\x1b[36m%s\x1b[0m", `Active the account User ${_id} ...`);
+  const r = { res: null, err: null };
+  try {
+    r.res = await User.updateOne({ _id }, { active: true });
+    console.log("\x1b[35m%s\x1b[0m", `User account activated ==> ${_id}`);
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with Active User account ${_id}  ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
 const updateUser = async function (
   _id,
   userName,
@@ -614,6 +696,10 @@ module.exports = {
   findByUserName,
   addnew,
   addnewThird,
+  reqResetPassword,
+  resetPassword,
+  confirmResetPassword,
+  activeAccount,
   updateUser,
   getImprQa,
   findOne,

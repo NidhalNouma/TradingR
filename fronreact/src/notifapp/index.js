@@ -13,7 +13,7 @@ import SetNotif from "./SetNotif";
 function Notif() {
   const { onNot } = useContext(SocketC);
   const [show, setShow] = useState(false);
-  const [resetShow, setRShow] = useState(false);
+  const [resetShow, setRShow] = useState({ show: false, email: null });
   const { user, setUser } = User(setRShow);
   const Notif = Notification();
 
@@ -52,7 +52,12 @@ function Notif() {
           <SetNotif am={am} setam={setam} msg={msg} />
           <SetListNotif lastTime={user && user.lastTime} />
           {show ? <Signin close={() => setShow(false)} show={show} /> : <></>}
-          <Resetpassword show={resetShow} close={() => setRShow(false)} />
+          <Resetpassword
+            show={resetShow.show}
+            close={() => setRShow({ ...resetShow, show: false })}
+            email={resetShow.email}
+            setShow={setShow}
+          />
         </UserC.Provider>
       </NotifC.Provider>
     </>

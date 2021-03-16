@@ -44,8 +44,9 @@ router.post("/add", async function (req, res) {
     // res.cookie("_SSD", JSON.stringify(rep.results), {
     //   Expires: expiryDate,
     // });
+    const data = { id: r.res._id };
 
-    sendMail(email, "/active/" + r.res._id);
+    sendMail(email, "confirm-email", data);
     ans.results = r.res;
   }
 
@@ -171,16 +172,27 @@ router.post("/lasttime/:id", async function (req, res) {
 
 router.post("/reset-password", async function (req, res) {
   const { email, type } = req.body;
-  const r = await sendMail(email, "", type);
+  if (!email) return res.json({ res: null, err: "Invalid Email" });
+  const upd = await user.reqResetPassword(email);
+  if (upd.err || !upd.res) return res.json({ res: null, err: "Invalid Email" });
+  const r = await sendMail(email, type, { token: upd.res.token, email });
   return res.json(r);
-  // res.redirect("/");
 });
 
-router.get("/active/:id", function (req, res) {
-  const id = req.params.id;
-  console.log(id);
-  res.redirect("/");
+router.post("/update-password", async function (req, res) {
+  const { email, password } = req.body;
+  if (!email || !password)
+    return res.json({ res: null, err: "Invalid Email or Password!" });
+  const r = await user.resetPassword(email, password);
+
+  return res.json(r);
 });
+
+// router.get("/active/:id", function (req, res) {
+//   const id = req.params.id;
+//   console.log(id);
+//   res.redirect("/");
+// });
 
 router.get("/usr/:userName", async function (req, res) {
   const userName = req.params.userName;
@@ -210,6 +222,18 @@ router.post("/notification/markasread", function (req, res) {
 router.post("/notifications/markallasread", function (req, res) {
   const r = user.markAllNotifAsRead(req.body.userId);
   return null;
+});
+
+router.post("/activate-email", async function (req, res) {
+  const r = { res: null, err: null };
+  const { email, id } = req.body;
+  if (!email || !id) {
+    r.err = "Email not defined!";
+    return res.json(r);
+  }
+  const data = { id };
+  r.res = await sendMail(email, "confirm-email", data);
+  return res.json(r);
 });
 
 module.exports = router;

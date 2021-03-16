@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 import axios from "axios";
 
-export const GetById = (id, p) => {
+export const GetById = (id, p, setNoData) => {
   const [product, setProduct] = useState(p);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export const GetById = (id, p) => {
         const r = data.data.result;
         if (r) {
           setProduct(productV(r));
-        }
+        } else setNoData(true);
       })();
     }
   }, [product, id]);

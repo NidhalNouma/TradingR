@@ -79,15 +79,18 @@ userSchema.post("findOne", async function (doc) {
   if (doc && doc.customerId) {
     let sub = null;
     try {
-      sub = await stripe.customers.retrieve(doc.customerId);
+      sub = await stripe.subscriptions.list({
+        customer: doc.customerId,
+        status: "active",
+      });
     } catch (err) {
       console.log(
         "\x1b[31m%s\x1b[0m",
         `Error with Finding subscription ==> ${err}`
       );
     }
-    if (sub && sub.subscriptions) {
-      const { data } = sub.subscriptions;
+    if (sub && sub.data) {
+      const { data } = sub;
       if (data.length > 0) {
         let r = [];
         data.forEach(function (i) {

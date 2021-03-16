@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -11,7 +11,7 @@ import Join from "../welcomepage/joinus";
 import Budget from "../../asset/images/wp/budget";
 import Kpi from "../../asset/images/wp/kpi";
 import Ai from "../../asset/images/wp/ai";
-import Opencode from "../../asset/images/wp/opencode";
+// import Opencode from "../../asset/images/wp/opencode";
 
 function Welcome() {
   const { pathname } = useLocation();
@@ -21,7 +21,7 @@ function Welcome() {
   }, [pathname]);
 
   let title1 = "How you win?";
-  let title2 = "Open source";
+  // let title2 = "Open source";
   let title3 = "Indicators";
   let title4 = "Strategys";
   let content =
@@ -61,7 +61,7 @@ function Welcome() {
             <Kpi />
           </div>
         </div>
-        <div className="div" data-aos="fade-up">
+        {/* <div className="div" data-aos="fade-up">
           <div className="img-r" data-aos="fade-up-right">
             <Opencode />
           </div>
@@ -72,9 +72,18 @@ function Welcome() {
             to={"/source"}
             link={"Go To source"}
           />
-        </div>
+        </div> */}
       </div>
       <Join title={"Join Us"} content={content} to={"/"} link={"Sign In"} />
+
+      <div className="gets">
+        <p>
+          To get started, check out
+          <Link className="buttonT tHover ml-5" to="/how-it-works">
+            How it Works
+          </Link>
+        </p>
+      </div>
 
       <Footer />
     </>

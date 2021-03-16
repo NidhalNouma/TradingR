@@ -47,7 +47,7 @@ const mailOptions = function (email, type, data) {
           console.log(err);
           reject(err);
         } else {
-          resolve(params(email, src, "Confirm Email"));
+          resolve(params(email, str, "Confirm Email"));
         }
       });
     });

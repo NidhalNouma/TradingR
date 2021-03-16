@@ -145,6 +145,40 @@
   height: 100%;
 }
 
+.gets {
+  text-align: center;
+  background-color: var(--shcolor);
+  margin: 3rem 0 5rem;
+  padding : 1rem 0;
+}
+
+.gets p {
+  color: var(--pcolor);
+  font-size:1.1rem;
+  background-color: initial;
+}
+
+.gets p a {
+  /* text-decoration: underline; */
+  font-size:1.1rem;
+  padding: 0.0rem 1rem;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.gets p a::after {
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 0;
+  background-color: var(--shcolor);
+  height: 30px;
+  width: 100%;
+  border-radius: 7px;
+  opacity: 0.4;
+}
+ 
+
 @media screen and (max-width: 1200px) {
   .contentHome {
     padding: 4rem;

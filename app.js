@@ -47,6 +47,7 @@ app.get(
     "/profile/*",
     "/user/:userName",
     "/welcome",
+    "/how-it-works",
   ],
   checkUser,
   (req, res) => {

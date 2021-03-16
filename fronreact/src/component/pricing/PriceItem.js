@@ -6,9 +6,6 @@ function PriceItem({ set, bg, val, data, ty, sub }) {
   const style = {
     backgroundColor: bg && "var(--tcolor)",
   };
-  // console.log(sub);
-  // const t = new Date(1613089891);
-  // console.log(t);
 
   let tr = true;
   let end = null;
@@ -49,7 +46,7 @@ function PriceItem({ set, bg, val, data, ty, sub }) {
       </p>
       {tr ? (
         <button className="buttonR" style={style} onClick={() => set(val)}>
-          Select
+          {bg ? "Selected" : "Select"}
         </button>
       ) : (
         <>

@@ -99,16 +99,6 @@ router.post("/cancel-subscription", async function (req, res) {
   res.json({ deleted, cancel });
 });
 
-const createCustomer = async function (email) {
-  const customer = await stripe.customers.create({ email });
-  return customer;
-};
-
-const updateCustomer = async function (id, email) {
-  const customer = await stripe.customers.update(id, { email });
-  return customer;
-};
-
 router.post("/webhook", (request, response) => {
   const event = request.body;
   console.log(event);
@@ -124,5 +114,15 @@ router.post("/webhook", (request, response) => {
 
   response.send();
 });
+
+const createCustomer = async function (email) {
+  const customer = await stripe.customers.create({ email });
+  return customer;
+};
+
+const updateCustomer = async function (id, email) {
+  const customer = await stripe.customers.update(id, { email });
+  return customer;
+};
 
 module.exports = { stripe: router, createCustomer, updateCustomer };

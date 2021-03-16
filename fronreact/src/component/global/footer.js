@@ -28,12 +28,12 @@ export default function Footer() {
         <Link className="aspan-9" to="/welcome">
           What's Trading Revelotion
         </Link>
-        <Link className="aspan-9" to="/">
+        <Link className="aspan-9" to="/how-it-works">
           How it works{" "}
         </Link>
-        <Link className="aspan-9" to="/">
+        {/* <Link className="aspan-9" to="/">
           Q&A
-        </Link>
+        </Link> */}
         <Link className="aspan-9" to="/contactus">
           Contact Us
         </Link>

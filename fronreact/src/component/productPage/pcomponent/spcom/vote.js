@@ -26,25 +26,28 @@ function Vote({ up, dn, improId, authId }) {
     }
   };
 
+  const uPu = user && up.find((i) => i === user._id);
+  const dNu = user && dn.find((i) => i === user._id);
+
   return (
     <>
       <div className="svg3">
         <button
-          onClick={() => click("1")}
+          onClick={() => {
+            if (!uPu) click("1");
+          }}
           className="buttonT p0 mr-25 svgHoverUp"
         >
-          <UpArrow
-            yes={up && user && up.find((i) => i === user._id) ? true : false}
-          />
+          <UpArrow yes={up && uPu ? true : false} />
         </button>
         <span className="spanL ">{total ? total : 0}</span>
         <button
-          onClick={() => click("-1")}
+          onClick={() => {
+            if (!dNu) click("-1");
+          }}
           className="buttonT p0 ml-25 svgHoverDn"
         >
-          <DnArrow
-            yes={dn && user && dn.find((i) => i === user._id) ? true : false}
-          />
+          <DnArrow yes={dn && dNu ? true : false} />
         </button>
       </div>
     </>

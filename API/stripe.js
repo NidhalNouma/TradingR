@@ -109,4 +109,20 @@ const updateCustomer = async function (id, email) {
   return customer;
 };
 
+router.post("/webhook", (request, response) => {
+  const event = request.body;
+  console.log(event);
+
+  switch (event.type) {
+    case "customer.subscription.deleted":
+      const obj = event.data.object;
+      console.log(obj);
+      break;
+    default:
+      console.log(`Unhandled event type ${event.type}.`);
+  }
+
+  response.send();
+});
+
 module.exports = { stripe: router, createCustomer, updateCustomer };

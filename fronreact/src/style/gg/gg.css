@@ -138,6 +138,19 @@
   user-select: none;
 }
 
+.spanHC {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: var(--pcolor);
+  background-color: var(--shcolor);
+  width: 45px;
+  height: 45px;
+  /* padding: 1rem; */
+  border-radius: 50%;
+}
+
 .spanL {
   font-size: 1.1rem;
   color: var(--pcolor);

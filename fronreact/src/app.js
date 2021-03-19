@@ -15,6 +15,7 @@ import "./style/pages/product.css";
 import "./style/pages/productlist.css";
 import "./style/pages/pricing.css";
 import "./style/pages/howworks.css";
+import "./style/pages/contactus.css";
 
 import "./style/gg/gg.css";
 import "./style/gg/gg1.css";
@@ -39,8 +40,8 @@ import ProfileShow from "./component/ProfileShow";
 // import Post from "./component/Posts/Post";
 // import CreatePost from "./component/Posts/Create";
 import Products from "./component/productsList";
-import ContactUs from "./component/others/ContacUs";
-import HowWorks from "./Views/HowWorks";
+import ContactUs from "./component/others/ContactUs";
+import HowWorks from "./component/others/HowWorks";
 // import Alan from "./component/Alan";
 
 import React, { useState, useContext, createContext } from "react";

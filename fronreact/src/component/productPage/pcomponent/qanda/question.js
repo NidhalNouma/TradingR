@@ -45,8 +45,8 @@ function Question({ data, vote, pId }) {
           )}
         </div>
         <div className="mu-5 ml1">
-          {data && <p className="pg1 ml1 mu-5 md-5">{data.improvement}</p>}
-          {data && <p className="pg1 ml1 mu-5 md-5">{data.question}</p>}
+          {data && <p className="pgc ml1 mu-5 md-5">{data.improvement}</p>}
+          {data && <p className="pgc ml1 mu-5 md-5">{data.question}</p>}
           {data && data.imgs && data.imgs.length > 0 && (
             <div>
               <Imgs imgs={data.imgs} />

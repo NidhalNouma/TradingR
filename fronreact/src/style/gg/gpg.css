@@ -15,12 +15,24 @@
   background-color: inherit;
 }
 
-.pg1 {
+.pgc {
   /* text-align: justify; */
-  font-size: 1rem;
+  font-size: 1.0rem;
   color: var(--textcolor);
   font-family: "Avenir", "Arial", sans-serif;
-  background-color: inherit;
+  background-color: initial;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+.pg1 {
+  /* text-align: justify; */
+  font-size: 1.1rem;
+  color: var(--textcolor);
+  font-family: "Avenir", "Arial", sans-serif;
+  background-color: initial;
+  line-height: 1.7;
+  white-space: pre-line;
 }
 
 .pg2 {
@@ -29,6 +41,7 @@
   color: var(--textcolor);
   font-family: "Avenir", "Arial", sans-serif;
   background-color: inherit;
+  white-space: pre-line;
 }
 
 .pgl2 {

@@ -18,7 +18,7 @@
 .buttonP:hover {
   box-shadow: 0 0 1px 1px var(--pcolor);
   opacity: 0.95;
-  outline: 1px solid var(--scolor);
+  /* outline: 1px solid var(--scolor); */
   outline-offset: -0.2rem;
 }
 
@@ -42,7 +42,7 @@
 .buttonS:hover {
   box-shadow: 0 0 1px 1px var(--pcolor);
   opacity: 0.9;
-  outline: 1px solid var(--pcolor);
+  /* outline: 1px solid var(--pcolor); */
   outline-offset: -0.2rem;
 }
 
@@ -127,7 +127,7 @@
 .a:hover,
 .abtn:hover {
   background-color: var(--bgcolor);
-  outline: 4px solid var(--scolor);
+  /* outline: 4px solid var(--scolor); */
   outline-offset: -0.3rem;
 }
 

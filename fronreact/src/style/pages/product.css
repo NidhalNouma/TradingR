@@ -140,15 +140,6 @@
   opacity: 1;
 } */
 
-/* Contact us */
-
-.contactus {
-  margin: 5rem 6%;
-  min-height: 53vh;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
 
 /* Buy Now */
 .cost {

@@ -1,0 +1,44 @@
+.contactus {
+    margin: 6rem 10% 1rem;
+}
+
+.contactus .form {
+    width: 70%;
+    margin: 2rem auto;
+}
+
+.subject-cont {
+    padding: 2rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 1.4rem;
+    overflow-x: scroll;
+}
+
+.subject {
+    flex-direction: column;
+    text-align: center;
+    border: 1px solid var(--tcolor);
+    border-radius: 6px;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.subject:hover {
+    background-color: var(--tcolor);
+}
+
+@media (max-width: 1000px) {
+    .contactus .form {
+        width: 100%;
+        margin: 2rem auto;
+    }
+
+    .subject-cont {
+        padding: 2rem 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1.4rem;
+        overflow-x: scroll;
+    }
+}

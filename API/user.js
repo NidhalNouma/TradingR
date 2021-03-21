@@ -3,6 +3,7 @@ const router = express.Router();
 var bodyParser = require("body-parser");
 const user = require("../Model/user");
 const { sendMail } = require("../mail");
+const path = require("path").resolve("");
 
 router.use(bodyParser.urlencoded({ extended: false }));
 router.use(bodyParser.json());
@@ -246,6 +247,17 @@ router.post("/contact-us", async function (req, res) {
   const data = { email, sub, msg, files };
   r.res = await sendMail(email, "contact-us", data);
   return res.json(r);
+});
+
+router.post("/admin/dash", async function (req, res) {
+  const { email, password } = req.body;
+  if (!email || !password || email !== "nidhal.nouma.0@gmail.com")
+    return res.redirect("/");
+
+  const r = await user.findOne(email, password);
+  if (r.res) {
+    return res.sendFile(path + "/Admin/build/main.html");
+  } else return res.redirect("/");
 });
 
 module.exports = router;

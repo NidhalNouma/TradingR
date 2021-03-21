@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 function ProductView({ product, ty, id }) {
   const [sel, setSel] = React.useState(0);
   const style = { background: "var(--scolor)" };
+  const url = process.env.REACT_APP_URL;
+
   return (
     <div className="pContain">
       <iframe
@@ -48,7 +50,7 @@ function ProductView({ product, ty, id }) {
       <div className="mu1 md1">
         <Link
           to={{
-            pathname: "/product/edit/" + id,
+            pathname: url + "/product/edit/" + id,
             product: product,
             type: ty,
             title: "Edit product",
@@ -61,7 +63,7 @@ function ProductView({ product, ty, id }) {
         </Link>
         <Link
           to={{
-            pathname: "/product/newversion/" + id,
+            pathname: url + "/product/newversion/" + id,
             product: product,
             type: ty,
             title: "Add new version",

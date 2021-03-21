@@ -1,11 +1,16 @@
 import { Link } from "react-router-dom";
 function Menu({ ty }) {
   const sty = { color: "var(--tcolor)" };
+  const url = process.env.REACT_APP_URL;
   return (
     <nav>
       <ul>
         <li>
-          <Link style={ty === 0 ? sty : {}} className="buttonT tHover" to="/">
+          <Link
+            style={ty === 0 ? sty : {}}
+            className="buttonT tHover"
+            to={url + "/"}
+          >
             Dashboard
           </Link>
         </li>
@@ -22,7 +27,7 @@ function Menu({ ty }) {
           <Link
             style={ty === 2 ? sty : {}}
             className="buttonT tHover"
-            to="/robots"
+            to={url + "/robots"}
           >
             Robots
           </Link>
@@ -31,7 +36,7 @@ function Menu({ ty }) {
           <Link
             style={ty === 3 ? sty : {}}
             className="buttonT tHover"
-            to="/indicators"
+            to={url + "/indicators"}
           >
             Indicators
           </Link>
@@ -40,7 +45,7 @@ function Menu({ ty }) {
           <Link
             style={ty === 4 ? sty : {}}
             className="buttonT tHover"
-            to="/users"
+            to={url + "/users"}
           >
             Users
           </Link>

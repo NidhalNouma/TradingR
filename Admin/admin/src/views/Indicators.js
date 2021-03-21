@@ -5,11 +5,13 @@ import { Link } from "react-router-dom";
 
 function Indicators() {
   const { product } = FindProducts("Indicator");
+  const url = process.env.REACT_APP_URL;
+
   return (
     <>
       <Menu ty={3} />
       <div className="pContain">
-        <Link to="/indicators/add" className="a buttonP pl1 pr1">
+        <Link to={url + "/indicators/add"} className="a buttonP pl1 pr1">
           Create New Indicator
         </Link>
         {product ? (
@@ -18,7 +20,7 @@ function Indicators() {
               className="ac"
               key={i._id}
               to={{
-                pathname: "/indicators/" + i._id,
+                pathname: url + "/indicators/" + i._id,
                 product: i,
                 ty: 3,
               }}

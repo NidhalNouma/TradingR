@@ -8,6 +8,7 @@
     "server": "nodemon app.js",
     "client": "cd ./fronreact && npm start",
     "dash": "cd ./Admin/admin && npm start",
+    "dash-build": "cd ./Admin/admin && npm run build",
     "client-i": "cd ./fronreact && npm i",
     "build": "rm -rf html && mkdir html && cd ./fronreact && npm run build",
     "dev": "concurrently \"npm run server\" \"npm run client\""

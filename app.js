@@ -18,14 +18,15 @@ require("./passport");
 require("events").EventEmitter.defaultMaxListeners = 10000;
 
 const app = express();
-
 const passport = require("passport");
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(connect);
-app.use(express.static("./html"));
+app.use(express.static(path.join(__dirname, "./Admin/build")));
+app.use(express.static(path.join(__dirname, "./html")));
+// app.use(express.static("./Admin/build"));
 app.use(cors());
 
 app.use("/api/user", user);
@@ -36,30 +37,28 @@ app.use("/api/post", post);
 app.set("views", path.join(__dirname, "html"));
 app.set("view engine", "ejs");
 
-app.get(
-  [
-    "/",
-    "/strategys",
-    "/indicators",
-    "/pricing",
-    "/product/:i",
-    "/profile",
-    "/profile/*",
-    "/user/:userName",
-    "/welcome",
-    "/how-it-works",
-  ],
-  checkUser,
-  (req, res) => {
-    if (req.user)
-      return res.render("index", {
-        data: JSON.stringify({
-          user: req.user,
-        }),
-      });
-    else res.render("index", { data: null });
-  }
-);
+const routes = [
+  "/",
+  "/strategys",
+  "/indicators",
+  "/pricing",
+  "/product/:i",
+  "/profile",
+  "/profile/*",
+  "/user/:userName",
+  "/welcome",
+  "/how-it-works",
+];
+
+app.get("*", checkUser, (req, res) => {
+  if (req.user)
+    return res.render("index", {
+      data: JSON.stringify({
+        user: req.user,
+      }),
+    });
+  else res.render("index", { data: null });
+});
 
 app.get("/reset-password/:email/:token", async function (req, res) {
   const { email, token } = req.params;

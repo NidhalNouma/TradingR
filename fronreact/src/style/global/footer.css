@@ -7,7 +7,7 @@
   width: 100%;
 }
 
-br + hr {
+br+hr {
   width: 90%;
   color: var(--scolor);
   border: 1px solid var(--scolor);
@@ -20,6 +20,11 @@ br + hr {
   margin: 0 0 0.5em;
   justify-content: space-around;
 }
+
+.footer .aspan-9 {
+  user-select: none;
+}
+
 /* 
 .footer div {
   display: flex;
@@ -32,6 +37,22 @@ br + hr {
 
 .footer .MuiSwitch-track {
   background-color: var(--pcolor) !important;
+}
+
+.hdiv form {
+  text-align: center;
+  margin: 1rem auto;
+}
+
+.hdiv .input {
+  width: 220px;
+  /* margin: 0.3rem auto; */
+  /* border: none; */
+}
+
+.hdiv button {
+  margin: 0;
+  /* opacity: 0; */
 }
 
 @media screen and (max-width: 1200px) {
@@ -61,5 +82,14 @@ br + hr {
 @media screen and (max-width: 850px) {
   .footer {
     grid-template-columns: 50% 50%;
+  }
+
+  .hdiv form {
+    display: block;
+  }
+
+  .hdiv .input {
+    width: 220px;
+    margin: 0.3rem auto;
   }
 }

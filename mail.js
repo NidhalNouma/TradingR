@@ -19,7 +19,7 @@ module.exports.sendMail = async function (email, type, data) {
 };
 
 const mailOptions = function (email, type, data) {
-  console.log(type, data);
+  console.log(type);
   if (type === "reset-password") {
     const path = "resetPassword.ejs";
     const url =
@@ -51,6 +51,19 @@ const mailOptions = function (email, type, data) {
         }
       });
     });
+  } else if (type === "contact-us") {
+    const path = "contactUs.ejs";
+
+    return new Promise((resolve, reject) => {
+      ejs.renderFile("./MailHTML/" + path, data, function (err, str) {
+        if (err) {
+          console.log(err);
+          reject(err);
+        } else {
+          resolve(paramsT(data, str, data.sub));
+        }
+      });
+    });
   }
 };
 
@@ -72,5 +85,27 @@ function params(email, html, subject) {
       },
     },
     Source: process.env.EMAIL_ADDRESS,
+  };
+}
+
+function paramsT(data, html) {
+  return {
+    Destination: {
+      ToAddresses: ["nidhal.nouma.0@gmail.com"],
+    },
+    Message: {
+      Body: {
+        Html: {
+          Charset: "UTF-8",
+          Data: html,
+        },
+      },
+      Subject: {
+        Charset: "UTF-8",
+        Data: data.sub,
+      },
+    },
+    Source: process.env.EMAIL_ADDRESS,
+    ReplyToAddresses: [data.email],
   };
 }

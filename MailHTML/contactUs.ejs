@@ -1,0 +1,12 @@
+<p style="font-size: 0.95rem; white-space: pre-line">
+    <%- msg -%>
+</p>
+
+<!-- <ul style="list-style-type: none;"> -->
+<ul>
+  <% files.map(function(f){ %>
+    <li style="margin: 0.4rem 0;">
+        <a href="<%- f.data %>" target="_blank"><%-f.name-%></a>
+    </li> 
+  <% }); %>
+</ul>

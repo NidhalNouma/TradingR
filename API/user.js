@@ -236,4 +236,16 @@ router.post("/activate-email", async function (req, res) {
   return res.json(r);
 });
 
+router.post("/contact-us", async function (req, res) {
+  const { email, sub, msg, files } = req.body;
+  const r = { res: null, err: null };
+  if (!email || !msg) {
+    r.err = "Email not defined!";
+    return res.json(r);
+  }
+  const data = { email, sub, msg, files };
+  r.res = await sendMail(email, "contact-us", data);
+  return res.json(r);
+});
+
 module.exports = router;

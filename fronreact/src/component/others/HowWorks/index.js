@@ -4,7 +4,9 @@ import Footer from "../../global/footer";
 import Div from "./Div";
 
 function HowWorks() {
-  window.scrollTo(0, 0);
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

@@ -108,10 +108,11 @@
   cursor: pointer;
 }
 
-.scaleH span{
+.scaleH span {
   transition: transform 0.2s ease-in-out;
 }
-.scaleH:hover span{
+
+.scaleH:hover span {
   transform: scale(1.06);
 }
 
@@ -234,18 +235,21 @@
   justify-content: center;
   align-items: center;
 }
+
 .w1-5 {
   display: flex;
   width: 150px;
   justify-content: center;
   align-items: center;
 }
+
 .w2 {
   display: flex;
   width: 200px;
   justify-content: center;
   align-items: center;
 }
+
 .w3 {
   display: flex;
   width: 300px;
@@ -259,4 +263,21 @@
 
 .colorP {
   color: var(--pcolor);
+}
+
+.colorS {
+  color: var(--scolor);
+}
+
+.hidden {
+  display: none;
+}
+
+.op-6 {
+  opacity: 0.6;
+  transition: opacity 0.3s ease-in !important;
+}
+
+.opHover:hover {
+  opacity: 1;
 }

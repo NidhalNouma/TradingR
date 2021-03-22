@@ -7,8 +7,8 @@ import { ProductC, changeV } from "../../Hooks/Products";
 
 function MyApp({ classn = "cost" }) {
   const [trynow, setTrynow] = React.useState(false);
-
   const { p, setProduct } = useContext(ProductC);
+
   return (
     <>
       <div className={classn}>
@@ -32,8 +32,12 @@ function MyApp({ classn = "cost" }) {
           <select onChange={(e) => setProduct(changeV(p, e.target.value))}>
             {p.ps
               .sort((a, b) => b - a)
-              .map((i) => (
-                <option key={i} value={i._id}>
+              .map((i, ii) => (
+                <option
+                  key={ii}
+                  value={i._id}
+                  selected={i.version === p.product.version ? "selected" : ""}
+                >
                   {i.version.toFixed(2)}
                 </option>
               ))}

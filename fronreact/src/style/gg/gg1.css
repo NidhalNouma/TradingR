@@ -93,6 +93,24 @@
   box-sizing: border-box;
 }
 
+.imgsb1 {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  color: white;
+}
+
+.imgsb1 div {
+  position: absolute;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7));
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 6px;
+}
+
 .imgsb {
   position: relative;
   display: inline-flex;
@@ -114,6 +132,7 @@
 }
 
 .imgsb img,
+.imgsb1 img,
 .img-load-cont img {
   position: absolute;
   left: 0;
@@ -131,7 +150,6 @@
   animation-name: loadAnimation;
   animation-timing-function: linear;
   background-color: var(--scolor);
-  background: linear-gradient(to right, #eeeeee 10%, #dddddd 48%, #eeeeee 73%);
   position: absolute;
   left: 0;
   top: 0;
@@ -144,10 +162,11 @@
 
 @keyframes loadAnimation {
   0% {
-    background-position: 0px 0;
+    opacity: 0.7;
   }
+
   100% {
-    background-position: 100em 0;
+    opacity: 0.9;
   }
 }
 
@@ -239,6 +258,7 @@
   from {
     opacity: 0.3;
   }
+
   to {
     opacity: 0.65;
   }
@@ -248,6 +268,7 @@
   from {
     opacity: 0.3;
   }
+
   to {
     opacity: 1;
   }

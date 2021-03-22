@@ -167,7 +167,7 @@ function Addcom({ type, placeholder, setLoad }) {
           }}
         />
       </div>
-      {imgs.length > 0 && <Imgs imgs={imgs} />}
+      {imgs.length > 0 && <Imgs imgs={imgs} set={setImgs} upl={true} />}
     </>
   );
 }

@@ -21,8 +21,9 @@ br+hr {
   justify-content: space-around;
 }
 
-.footer .aspan-9 {
+.footer .span-footer {
   user-select: none;
+  cursor: auto;
 }
 
 /* 

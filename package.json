@@ -10,7 +10,8 @@
     "dash": "cd ./Admin/admin && npm start",
     "dash-build": "cd ./Admin/admin && npm run build",
     "client-i": "cd ./fronreact && npm i",
-    "build": "rm -rf html && mkdir html && cd ./fronreact && npm run build",
+    "client-build": "rm -rf html && mkdir html && cd ./fronreact && npm run build",
+    "build": "rm -rf html && mkdir html && cd ./fronreact && npm run build && cd .. && npm run dash-build",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],

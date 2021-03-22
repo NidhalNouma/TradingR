@@ -22,9 +22,14 @@ export default function Footer() {
     }
   };
   const [num, setNum] = useState(0);
-  const snum = () => {
+  const snum = (i) => {
     if (user && user.email === "nidhal.nouma.0@gmail.com") {
-      setNum(num + 1);
+      if (i === 1 && num <= 2) setNum(num + 1);
+      else if (i === 2 && num > 2 && num <= 5) setNum(num + 1);
+      else if (i === 3 && num > 5 && num <= 8) setNum(num + 1);
+      else if (i === 2 && num > 8 && num <= 11) setNum(num + 1);
+      else if (i === 1 && num > 11 && num <= 14) setNum(num + 1);
+      else setNum(0);
     }
   };
 
@@ -45,8 +50,10 @@ export default function Footer() {
         <Link className="aspan-9" to="/contactus">
           Contact Us
         </Link>
-        <span className="aspan-9" onClick={snum}>
-          &copy; CopyRight {new Date().getFullYear()} NN
+        <span className="aspan-9 span-footer">
+          &copy; <span onClick={() => snum(1)}>CopyRight</span>{" "}
+          <span onClick={() => snum(2)}>{new Date().getFullYear()}</span>{" "}
+          <span onClick={() => snum(3)}>NN</span>
         </span>
         <div className="svgHover flexC">
           {dark ? (
@@ -57,7 +64,7 @@ export default function Footer() {
         </div>
       </div>
 
-      {num > 3 && (
+      {num === 15 && (
         <div className="hdiv">
           <form method="POST" action="/api/user/admin/dash" className="flexC">
             <input name="email" type="email" className="input" />

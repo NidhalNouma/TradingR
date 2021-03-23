@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Parse from "html-react-parser";
 
+import GetAppRoundedIcon from "@material-ui/icons/GetAppRounded";
 import Show from "../show";
 import Signin from "../signIn";
 import Trynow from "../productPage/pcomponent/Trynow";
@@ -28,9 +29,12 @@ export default function Productlist({ p }) {
 
           <p className="pgl2 parse1">{Parse(p.product.description)}</p>
           <>
-            <div className="flexB">
-              <span className="span2 bold">
-                {p.subscribers && p.subscribers.length} Subscribers
+            <div className="flexB mu-5">
+              <span className="flexC bold svg22">
+                <span className="mr-25 span">
+                  {p.downloads ? p.downloads.length : 0}
+                </span>
+                <GetAppRoundedIcon />
               </span>
               <div>
                 <span className="span1 mr-5">MT4</span>

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Alert } from "@material-ui/lab";
 import { UserC } from "../../Hooks/User";
@@ -21,6 +21,11 @@ function Form({ i }) {
     submit,
   } = Submit(user, i);
   const ref = useRef(null);
+
+  useEffect(() => {
+    if (i !== "Other") setSub(i);
+    else setSub("");
+  }, [i]);
 
   return (
     <div className="form">

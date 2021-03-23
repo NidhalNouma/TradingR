@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const accounts = require("./accounts");
 const Stripe = require("stripe");
 require("dotenv").config();
 const stripe = Stripe(process.env.STRIPE_SEC_KEY);
@@ -72,6 +73,14 @@ const userSchema = new mongoose.Schema({
   sub: [],
   paymentMethod: [],
   customerId: { type: String },
+  accounts: { type: mongoose.Types.ObjectId, ref: "Account", default: null },
+  // accounts: [
+  //   {
+  //     number: { type: String },
+  //     server: { type: String },
+  //     results: [],
+  //   },
+  // ],
   show: { type: Boolean, default: true },
 });
 
@@ -261,6 +270,25 @@ const findById = async function (_id) {
     console.log(
       "\x1b[31m%s\x1b[0m",
       `Error with finding user by ID ${_id}  ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+const findByEmail = async function (email) {
+  console.log("\x1b[36m%s\x1b[0m", `Find User by email ${email} ...`);
+  const r = { res: null, err: null };
+  try {
+    r.res = await User.findOne({ email })
+      .populate("accounts")
+      .select("email customerId subscription accounts");
+    console.log("\x1b[35m%s\x1b[0m", `Find User by email ==> ${email}`);
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with finding user by email ${email}  ==> ${e}`
     );
   }
 
@@ -693,10 +721,31 @@ const setSubscription = async function (userId, subs) {
 
 // --------------------------------------------------------------------------------------------
 
+const addAccount = async function (id, number, server, product) {
+  console.log("\x1b[36m%s\x1b[0m", `Adding new Account for user ${id} ...`);
+  const r = { res: null, err: null };
+  try {
+    r.res = await accounts.addNew(id, number, server, product);
+    await User.updateOne({ _id: id }, { accounts: r.res.res._id });
+    console.log("\x1b[35m%s\x1b[0m", `Account Added for user ==> ${id}`);
+  } catch (e) {
+    r.err = e;
+    console.log(
+      "\x1b[31m%s\x1b[0m",
+      `Error with adding account to user ${id}  ==> ${e}`
+    );
+  }
+
+  return r;
+};
+
+// --------------------------------------------------------------------------------------------
+
 module.exports = {
   findAll,
   findById,
   findByUserName,
+  findByEmail,
   addnew,
   addnewThird,
   reqResetPassword,
@@ -715,6 +764,7 @@ module.exports = {
   setLastTime,
   setSubscription,
   setCustomerId,
+  addAccount,
 };
 
 function checkNotif(notif) {

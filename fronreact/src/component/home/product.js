@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import parse from "html-react-parser";
+import GetAppRoundedIcon from "@material-ui/icons/GetAppRounded";
 import Typep from "../Typep";
 import Imgload from "../Imgload";
 
@@ -26,11 +27,13 @@ export default function Product({ p }) {
         </h5>
 
         <p className="parse1 pgl2">{parse(p.product.description)}</p>
-        <div className="flexB">
+        <div className="flexB mu-5">
           <div className="int">
-            {/* <h6>{p.downloads ? p.downloads.length : 0} Downloads</h6> */}
-            <span className="span2 bold">
-              {p.subscribers ? p.subscribers.length : 0} Subscribers
+            <span className="flexC bold svg22">
+              <span className="mr-25 span">
+                {p.downloads ? p.downloads.length : 0}
+              </span>
+              <GetAppRoundedIcon />
             </span>
           </div>
           <div>

@@ -96,6 +96,13 @@
   cursor: pointer;
 }
 
+.svg22 svg {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  fill: var(--pcolor);
+}
+
 .svg3 svg {
   width: 15px;
   height: 15px;

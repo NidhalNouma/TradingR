@@ -5,6 +5,7 @@ const { stripe } = require("./API/stripe");
 const user = require("./API/user");
 const product = require("./API/product");
 const post = require("./API/post");
+const con = require("./API/con");
 const {
   checkUser,
   checkResetPassword,
@@ -31,6 +32,7 @@ app.use(cors());
 
 app.use("/api/user", user);
 app.use("/api/pay", stripe);
+app.use("/api/con", con);
 app.use("/api/product", product);
 app.use("/api/post", post);
 

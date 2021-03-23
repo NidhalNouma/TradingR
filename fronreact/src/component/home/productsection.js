@@ -19,12 +19,11 @@ export default function Productsection() {
 
   return (
     <>
-      <div className="filter">
+      {/* <div className="filter">
         <h5>Recomended</h5>
         <h5>Latest</h5>
         <h5>Popular</h5>
-        <h5>Newest</h5>
-      </div>
+      </div> */}
       <div className="hr"></div>
       <div className="gridlist">
         {products !== null && products.length >= 1 ? (

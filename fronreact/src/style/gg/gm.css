@@ -20,6 +20,19 @@
 .mr-0 {
   margin-right: 0;
 }
+/* m .125 */
+.mu-125 {
+  margin-top: 0.125rem;
+}
+.md-125 {
+  margin-bottom: 0.125rem;
+}
+.ml-125 {
+  margin-left: 0.125rem;
+}
+.mr-125 {
+  margin-right: 0.125rem;
+}
 /* m .25 */
 .mu-25 {
   margin-top: 0.25rem;

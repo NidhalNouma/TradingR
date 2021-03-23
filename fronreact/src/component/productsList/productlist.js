@@ -30,8 +30,8 @@ export default function Productlist({ p }) {
           <p className="pgl2 parse1">{Parse(p.product.description)}</p>
           <>
             <div className="flexB mu-5">
-              <span className="flexC bold svg22">
-                <span className="mr-25 span">
+              <span className="flexC svg22">
+                <span className="span mr-125">
                   {p.downloads ? p.downloads.length : 0}
                 </span>
                 <GetAppRoundedIcon />

@@ -29,8 +29,8 @@ export default function Product({ p }) {
         <p className="parse1 pgl2">{parse(p.product.description)}</p>
         <div className="flexB mu-5">
           <div className="int">
-            <span className="flexC bold svg22">
-              <span className="mr-25 span">
+            <span className="flexC svg22">
+              <span className="span mr-125">
                 {p.downloads ? p.downloads.length : 0}
               </span>
               <GetAppRoundedIcon />

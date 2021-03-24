@@ -10,35 +10,35 @@ import Index from "./notifapp";
 
 function Main() {
   console.log("%cWelcome", "color: green; font-weight:bold; font-size:10rem");
-  const [ok, setOk] = React.useState(
-    process.env.NODE_ENV === "development" ? true : false
-  );
+  // const [ok, setOk] = React.useState(
+  //   process.env.NODE_ENV === "development" ? true : false
+  // );
   const { socket, onP, onPP, onNot } = Socket();
   return (
     <>
-      {ok ? (
-        <SocketC.Provider value={{ socket, onP, onPP, onNot }}>
-          <Index />
-        </SocketC.Provider>
-      ) : (
+      {/* {ok ? ( */}
+      <SocketC.Provider value={{ socket, onP, onPP, onNot }}>
+        <Index />
+      </SocketC.Provider>
+      {/* ) : (
         <Pass set={() => setOk(true)} />
-      )}
+      )} */}
     </>
   );
 }
 
-const Pass = ({ set }) => {
-  return (
-    <div className="container">
-      <input
-        type="password"
-        onChange={(e) => {
-          if (e.target.value === "$$tr$$") set();
-        }}
-      />
-    </div>
-  );
-};
+// const Pass = ({ set }) => {
+//   return (
+//     <div className="container">
+//       <input
+//         type="password"
+//         onChange={(e) => {
+//           if (e.target.value === "$$tr$$") set();
+//         }}
+//       />
+//     </div>
+//   );
+// };
 
 ReactDOM.render(<Main />, document.getElementById("main"));
 

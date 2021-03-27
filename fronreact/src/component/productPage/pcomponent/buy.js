@@ -45,7 +45,7 @@ function MyApp({ classn = "cost" }) {
         </div>
       </div>
       {trynow ? (
-        <Trynow trynow={trynow} price={p.price} setTrynow={setTrynow} />
+        <Trynow trynow={trynow} file={p.product.files} setTrynow={setTrynow} />
       ) : (
         <></>
       )}

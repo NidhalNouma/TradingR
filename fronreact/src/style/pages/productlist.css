@@ -47,8 +47,8 @@
 
 .left-card img {
   width: 100%;
-  min-height: 130px;
-  max-height: 130px;
+  min-height: 150px;
+  max-height: 150px;
   border-radius: 5px;
   object-fit: cover;
 }

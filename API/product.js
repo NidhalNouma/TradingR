@@ -219,6 +219,7 @@ router.post("/new", async function (req, res) {
     media: req.body.media,
     available: req.body.available,
     moreDes: req.body.moreDes,
+    files: req.body.files,
   };
   const ans = {
     added: false,
@@ -245,6 +246,7 @@ router.post("/edit", async function (req, res) {
     media: req.body.media,
     available: req.body.available,
     moreDes: req.body.moreDes,
+    files: req.body.files,
   };
   const ans = {
     added: false,
@@ -270,6 +272,7 @@ router.post("/newversion", async function (req, res) {
     media: req.body.media,
     available: req.body.available,
     moreDes: req.body.moreDes,
+    files: req.body.files,
   };
   const ans = {
     added: false,

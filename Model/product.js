@@ -5,6 +5,16 @@ const { impro } = require("./UsePro");
 
 const productSchema = new mongoose.Schema({
   createAt: { type: Date, default: Date.now },
+  files: {
+    MT4: {
+      test: { type: String, required: true },
+      product: { type: String, required: true },
+    },
+    MT5: {
+      test: { type: String, required: true },
+      product: { type: String, required: true },
+    },
+  },
   title: { type: String, required: [true, "Title is requierd"] },
   version: {
     type: Number,

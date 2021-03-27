@@ -307,3 +307,51 @@
   background-color: var(--scolor);
   transform: scale(1.1);
 }
+
+.pr-img-info {
+  position: relative;
+  overflow: hidden;
+}
+
+.pr-img-info .info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.3rem 0.3rem;
+  background-color: var(--scolor);
+  /* border-radius: 0 0 5px 5px; */
+}
+
+.img-scale img {
+  transition: all 0.2s ease-in-out;
+}
+
+.img-scale:hover img {
+  transform: scale(1.1);
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position:absolute;
+}
+
+.buttonC.absolute{
+  right: 5px;
+  top: 5px;
+  background-color: initial;
+  opacity: 0.6;
+  transition: all 0.23s ease-in;
+}
+
+.buttonC.absolute:hover {
+  opacity: 1;
+  background-color: initial;
+}
+
+

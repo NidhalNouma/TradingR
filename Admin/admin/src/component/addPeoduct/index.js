@@ -20,6 +20,10 @@ function CreateProduct({ location, ty }) {
           MT4: location.product.available.MT4,
           MT5: location.product.available.MT5,
           TV: location.product.available.tradingView,
+          test: location.product.test,
+          product: location.product.product,
+          test5: location.product.test5,
+          product5: location.product.product5,
         }
       : {
           version: "1",
@@ -34,6 +38,10 @@ function CreateProduct({ location, ty }) {
           MT4: false,
           MT5: false,
           TV: false,
+          test: "",
+          product: "",
+          test5: "",
+          product5: "",
         };
   const {
     post,
@@ -42,15 +50,19 @@ function CreateProduct({ location, ty }) {
     setTitle,
     setDescription,
     setVersion,
-    setMT4,
-    setMT5,
-    setTV,
+    // setMT4,
+    // setMT5,
+    // setTV,
     setImg,
     setMedia,
     setResults,
     setInputs,
     setHowtouse,
     setWhatsnew,
+    setTest,
+    setProduct,
+    setTest5,
+    setProduct5,
 
     version,
     title,
@@ -64,6 +76,10 @@ function CreateProduct({ location, ty }) {
     MT4,
     MT5,
     TV,
+    test,
+    product,
+    test5,
+    product5,
   } = PostProduct(ty, init);
 
   const [imURL, setIM] = useState(false);
@@ -175,7 +191,7 @@ function CreateProduct({ location, ty }) {
         />
       </div>
 
-      <div className="ml-5 mu1">
+      {/* <div className="ml-5 mu1">
         <span className="h5 bold mr1">Available on: </span>
         <div className="flex ml1 mu-25">
           <input
@@ -199,6 +215,80 @@ function CreateProduct({ location, ty }) {
           />
           <span className="span1 mr-5">TradingView</span>
         </div>
+      </div> */}
+
+      <div className="ml2 mu2">
+        <span className="h5 bold mr1">MT4: </span>
+        <div className="ml-5 mu-5">
+          <span className="h5 bold mr1">Testing file: </span>
+          <input
+            className="inputFilechoose"
+            type="file"
+            onChange={(e) => uploadFile(e, setTest)}
+          />
+          {test && (
+            <button
+              className="buttonP"
+              onClick={() => window.open(test, "_self")}
+            >
+              Download
+            </button>
+          )}
+        </div>
+
+        <div className="ml-5 mu-5">
+          <span className="h5 bold mr1">Product file: </span>
+          <input
+            className="inputFilechoose"
+            type="file"
+            onChange={(e) => uploadFile(e, setProduct)}
+          />
+          {product && (
+            <button
+              className="buttonP"
+              onClick={() => window.open(product, "_self")}
+            >
+              Download
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="ml2 mu2">
+        <span className="h5 bold mr1">MT5: </span>
+        <div className="ml-5 mu-5">
+          <span className="h5 bold mr1">Testing file: </span>
+          <input
+            className="inputFilechoose"
+            type="file"
+            onChange={(e) => uploadFile(e, setTest5)}
+          />
+          {test5 && (
+            <button
+              className="buttonP"
+              onClick={() => window.open(test5, "_self")}
+            >
+              Download
+            </button>
+          )}
+        </div>
+
+        <div className="ml-5 mu-5">
+          <span className="h5 bold mr1">Product file: </span>
+          <input
+            className="inputFilechoose"
+            type="file"
+            onChange={(e) => uploadFile(e, setProduct5)}
+          />
+          {product5 && (
+            <button
+              className="buttonP"
+              onClick={() => window.open(product5, "_self")}
+            >
+              Download
+            </button>
+          )}
+        </div>
       </div>
       <Done
         data={{
@@ -218,6 +308,10 @@ function CreateProduct({ location, ty }) {
             inputs: inputs,
             howtouse: howtouse,
             whatsNew: whatsNew,
+          },
+          files: {
+            MT4: { test, product },
+            MT5: { test: test5, product: product5 },
           },
           id: location && location.id ? location.id : undefined,
           pId:

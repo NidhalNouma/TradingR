@@ -19,6 +19,11 @@ export const PostProduct = (ty, init) => {
   const [MT5, setMT5] = useState(init.MT5);
   const [TV, setTV] = useState(init.TV);
 
+  const [test, setTest] = useState(init.test);
+  const [product, setProduct] = useState(init.product);
+  const [test5, setTest5] = useState(init.test5);
+  const [product5, setProduct5] = useState(init.product5);
+
   const postP = async (data) => {
     console.log(data);
     const endpoint = data.edit
@@ -36,6 +41,11 @@ export const PostProduct = (ty, init) => {
     }, 10000);
   };
 
+  useEffect(() => {
+    if (product) setMT4(true);
+    if (product5) setMT5(true);
+  }, [product, product5]);
+
   return {
     post,
     postP,
@@ -51,6 +61,10 @@ export const PostProduct = (ty, init) => {
     setInputs,
     setHowtouse,
     setWhatsnew,
+    setProduct,
+    setTest,
+    setProduct5,
+    setTest5,
 
     version,
     title,
@@ -64,6 +78,10 @@ export const PostProduct = (ty, init) => {
     MT4,
     MT5,
     TV,
+    test,
+    product,
+    test5,
+    product5,
   };
 };
 

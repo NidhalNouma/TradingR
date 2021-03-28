@@ -22,7 +22,7 @@ function MyApp({ classn = "cost" }) {
         </button>
         <Subscriber />
         <span className="span mu1">{p.subscribers.length} Subscribers</span>
-        <span className="span md1">{p.downloads.length} Downloads</span>
+        <span className="span md1">{p.downloadsNumber} Downloads</span>
         <div className="mu-5">
           <span className="span1">MT4</span>
           <span className="span1 ml-5">MT5</span>

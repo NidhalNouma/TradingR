@@ -23,6 +23,7 @@ const productV = (p, id = null) => {
     type: p.type,
     subscribers: p.subscribers,
     downloads: p.downloads,
+    downloadsNumber: p.downloadsNumber,
     show: p.show,
     product:
       id === null

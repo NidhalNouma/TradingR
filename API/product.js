@@ -10,6 +10,7 @@ const {
   editProduct,
   subscribe,
   desubscribe,
+  download,
   hide,
   getUserIm,
   getUserQA,
@@ -353,6 +354,22 @@ router.post("/dessubscribe", async function (req, res) {
     error: null,
   };
   const r = await desubscribe(pvId, userId);
+  if (r.res) {
+    ans.added = true;
+  } else if (r.err) {
+    r.error = r.err;
+  }
+  res.json(ans);
+});
+
+router.post("/download", async function (req, res) {
+  const pvId = req.body.pvId;
+  const userId = req.body.userId;
+  const ans = {
+    added: false,
+    error: null,
+  };
+  const r = await download(pvId, userId);
   if (r.res) {
     ans.added = true;
   } else if (r.err) {

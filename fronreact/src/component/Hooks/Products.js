@@ -137,6 +137,26 @@ export const AddReply = async (
     });
 };
 
+export const DownloadFn = async (userId, p, setProduct, s) => {
+  const endpoint = "/api/product/download";
+
+  const data = {
+    userId: userId,
+    pvId: p._id,
+  };
+
+  const r = await axios.post(endpoint, data);
+  if (r.data.added) {
+    const r = {
+      ...p,
+      downloads: userId ? [...p.downloads, userId] : p.downloads,
+      downloadsNumber: p.downloadsNumber + 1,
+    };
+    setProduct(r);
+    s.emit("PP", r);
+  }
+};
+
 export const SubscribeFn = async (userId, sub, p, setProduct, s) => {
   const endpoint = !sub
     ? "/api/product/subscribe"
@@ -167,6 +187,7 @@ const productV = (p, id = null) => {
     _id: p._id,
     subscribers: p.subscribers,
     downloads: p.downloads,
+    downloadsNumber: p.downloadsNumber,
     show: p.show,
     product:
       id === null

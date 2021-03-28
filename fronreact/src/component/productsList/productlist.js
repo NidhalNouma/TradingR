@@ -22,7 +22,7 @@ export default function Productlist({ p }) {
                 <div className="int">
                   <span className="flexC svg22">
                     <span className="span mr-125">
-                      {p.downloads ? p.downloads.length : 0}
+                      {p.downloadsNumber ? p.downloadsNumber : 0}
                     </span>
                     <GetAppRoundedIcon />
                   </span>

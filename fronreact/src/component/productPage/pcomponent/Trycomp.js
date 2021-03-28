@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { ProductC, DownloadFn } from "../../Hooks/Products";
+import { UserC } from "../../Hooks/User";
+import { SocketC } from "../../Hooks/Socket";
 
 function Trycomp({ not, d, t }) {
+  const { user, check } = useContext(UserC);
+  const { socket } = useContext(SocketC);
+  const { p, setProduct } = useContext(ProductC);
+
+  const download = (e) => {
+    DownloadFn(user ? user._id : undefined, p, setProduct, socket);
+    window.open(d, "_self");
+  };
+
   return (
     <div className="border m1 p-5 mu-5">
       <h5 className="h5 bold">
@@ -23,7 +35,7 @@ function Trycomp({ not, d, t }) {
         <>
           <button
             className={!not ? "buttonR" : "buttonR buttonNAN"}
-            onClick={(e) => window.open(d, "_self")}
+            onClick={download}
           >
             Download
           </button>

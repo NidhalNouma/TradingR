@@ -56,6 +56,7 @@ const productVersionSchema = new mongoose.Schema({
   downloads: {
     type: [{ type: mongoose.Types.ObjectId, ref: "User", default: [] }],
   },
+  downloadsNumber: { type: Number, default: 0 },
   show: { type: Boolean, default: true },
 });
 
@@ -352,8 +353,11 @@ const checkProduct = function (pr) {
 };
 
 const push = async function (pvId, userId, type) {
-  const data = { subscribers: userId };
-  if (type === 1) data = { downloads: userId };
+  let data = { $push: { subscribers: userId } };
+  if (type === 1)
+    data = userId
+      ? { $push: { downloads: userId }, $inc: { downloadsNumber: 1 } }
+      : { $inc: { downloadsNumber: 1 } };
   const key = Object.keys(data)[0];
   console.log(
     "\x1b[36m%s\x1b[0m",
@@ -361,7 +365,7 @@ const push = async function (pvId, userId, type) {
   );
   let r = { res: null, err: null };
   try {
-    r.res = await productVersion.updateOne({ _id: pvId }, { $push: data });
+    r.res = await productVersion.updateOne({ _id: pvId }, data);
     console.log(
       "\x1b[35m%s\x1b[0m",
       `New ${key} userId${userId} for ProductVersion ${pvId} Added ...`

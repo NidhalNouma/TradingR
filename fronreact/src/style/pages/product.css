@@ -45,7 +45,7 @@
 
 .sdetails {
   width: 60%;
-  margin: 1rem auto 2rem;
+  margin: 2.4rem auto 2rem;
   border: 2px solid var(--scolor);
   border-radius: 8px;
 }
@@ -58,6 +58,7 @@
   padding: 0.3rem 1rem;
   border-radius: 6px;
   width: 30%;
+  white-space: nowrap;
   transition: none;
 }
 
@@ -204,7 +205,7 @@ select:hover {
   opacity: 1;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1250px) {
   .containP {
     top: 70px;
     margin: 2.5em 5%;

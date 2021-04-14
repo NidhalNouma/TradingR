@@ -17,7 +17,7 @@
 
 .pgc {
   /* text-align: justify; */
-  font-size: 1.0rem;
+  font-size: 0.9rem;
   color: var(--textcolor);
   font-family: "Avenir", "Arial", sans-serif;
   background-color: initial;
@@ -37,7 +37,7 @@
 
 .pg2 {
   text-align: justify;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
   color: var(--textcolor);
   font-family: "Avenir", "Arial", sans-serif;
   background-color: inherit;
@@ -45,7 +45,7 @@
 }
 
 .pgl2 {
-  font-size: 0.85rem;
+  font-size: 0.81rem;
   margin: 0;
   margin-bottom: 0.2rem;
   text-overflow: ellipsis;

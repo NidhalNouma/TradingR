@@ -1,7 +1,7 @@
 .container {
-  margin: 100px auto 0;
+  margin: 140px auto 70px;
   width: 85%;
-  min-height: 78vh;
+  /* min-height: 78vh; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,9 +74,8 @@
 
 @media (max-width: 1100px) {
   .container {
-    margin: 90px auto 0;
+    margin: 130px auto 60px;
     width: 90%;
-    min-height: 76vh;
   }
 
   .striped,
@@ -87,9 +86,8 @@
 
 @media (max-width: 750px) {
   .container {
-    margin: 80px auto 0;
+    margin: 130px auto 60px;
     width: 94%;
-    min-height: 76vh;
     display: inline-block;
   }
   .container .flexA {

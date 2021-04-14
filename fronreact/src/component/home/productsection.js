@@ -24,7 +24,7 @@ export default function Productsection() {
         <h5>Latest</h5>
         <h5>Popular</h5>
       </div> */}
-      <div className="hr"></div>
+      {/* <div className="hr"></div> */}
       <div className="gridlist">
         {products !== null && products.length >= 1 ? (
           products.map((i) => <Product key={i._id} p={i} />)

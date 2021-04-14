@@ -1,5 +1,5 @@
 .containh {
-  margin: 5.3rem 4% 0;
+  margin: 6rem 4% 0;
 }
 
 .containh .filter {
@@ -82,7 +82,7 @@
 
 @media screen and (max-width: 1250px) {
   .containh {
-    margin: 5rem 3% 0;
+    margin: 5.5rem 3% 0;
   }
 
   .containh .gridlist {
@@ -92,7 +92,7 @@
 
 @media screen and (max-width: 880px) {
   .containh {
-    margin: 4rem 2% 0;
+    margin: 4.5rem 2% 0;
   }
 
   .containh .gridlist {

@@ -1,7 +1,7 @@
 .containP {
   position: relative;
-  top: 80px;
-  margin: 3rem 7%;
+  top: 70px;
+  margin: 2rem 5%;
   text-align: start;
 }
 
@@ -16,6 +16,12 @@
 .containP #qa,
 .containP #im {
   width: 85%;
+}
+
+.containP #qa,
+.containP #de,
+.containP #im {
+  scroll-margin-top: 170px;
 }
 
 .wcost {
@@ -208,7 +214,7 @@ select:hover {
 @media screen and (max-width: 1250px) {
   .containP {
     top: 70px;
-    margin: 2.5em 5%;
+    margin: 2rem 5%;
   }
 
   .pdetails .sdetails {
@@ -222,8 +228,8 @@ select:hover {
 
 @media screen and (max-width: 1000px) {
   .containP {
-    top: 40px;
-    margin: 2em 3%;
+    top: 55px;
+    margin: 2rem 5%;
   }
 
   .pdetails .sdetails {
@@ -236,6 +242,12 @@ select:hover {
 
   .conmis {
     top: 44px;
+  }
+
+  .containP #qa,
+  .containP #de,
+  .containP #im {
+    scroll-margin-top: 140px;
   }
 
   .mis {
@@ -329,6 +341,7 @@ select:hover {
     width: auto;
     gap: 5px;
   }
+
   /* 
   .wcost .div span select {
     color: var(--pcolor);
@@ -386,4 +399,11 @@ select:hover {
 
 .dialogalert span:first-of-type {
   color: var(--pcolor);
+}
+
+@media screen and (max-width: 800px) {
+  .containP {
+    top: 40px;
+    margin: 2rem 3%;
+  }
 }

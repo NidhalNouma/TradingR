@@ -1,5 +1,5 @@
 .container-PL {
-  margin: 7rem 4% 0 12rem;
+  margin: 6rem 4% 0 12rem;
   display: grid;
   grid-template-columns: 24% 24% 24% 24%;
   justify-content: space-between;
@@ -7,7 +7,7 @@
 
 .filterP {
   position: fixed;
-  top: 7rem;
+  top: 6rem;
   left: 0.5rem;
   width: 9rem;
   height: 70vh;
@@ -74,12 +74,12 @@
 
 @media screen and (max-width: 1200px) {
   .container-PL {
-    margin: 6rem 4% 0 10rem;
+    margin: 5.5rem 4% 0 10rem;
     grid-template-columns: 33% 33% 33%;
   }
 
   .filterP {
-    top: 6rem;
+    top: 5.5rem;
     left: 0.4rem;
     width: 8rem;
   }
@@ -156,7 +156,7 @@
 
 @media screen and (max-width: 680px) {
   .container-PL {
-    margin: 5rem 1rem;
+    margin: 4rem 1rem;
     /* grid-template-columns: 1fr 1fr; */
   }
 

@@ -1,6 +1,6 @@
 .containP {
   position: relative;
-  top: 70px;
+  /* top: 70px; */
   margin: 2rem 5%;
   text-align: start;
 }
@@ -184,9 +184,9 @@ select:hover {
 /* sticky */
 .conmis {
   position: sticky;
-  top: 65px;
-  padding: 1rem 0 0.1rem;
-  border-radius: 0 0 8px 8px;
+  top: 3.5vh;
+  padding: 4rem 0 0.2rem;
+  border-radius: 0 0 5px 5px;
   margin-bottom: 1em;
   background-color: var(--bgcolor);
   z-index: 3;
@@ -213,7 +213,7 @@ select:hover {
 
 @media screen and (max-width: 1250px) {
   .containP {
-    top: 70px;
+    /* top: 70px; */
     margin: 2rem 5%;
   }
 
@@ -228,9 +228,14 @@ select:hover {
 
 @media screen and (max-width: 1000px) {
   .containP {
-    top: 55px;
+    /* top: 55px; */
     margin: 2rem 5%;
   }
+
+.conmis {
+  top: 3.5vh;
+  padding: 2rem 0 0.2rem;
+}
 
   .pdetails .sdetails {
     width: 100%;
@@ -368,6 +373,12 @@ select:hover {
 }
 
 @media screen and (max-width: 600px) {
+
+.conmis {
+  top: 2.5vh;
+  padding: 2rem 0 0.2rem;
+}
+
   .pdetails iframe {
     height: 280px;
   }
@@ -403,7 +414,7 @@ select:hover {
 
 @media screen and (max-width: 800px) {
   .containP {
-    top: 40px;
+    /* top: 40px; */
     margin: 2rem 3%;
   }
 }
